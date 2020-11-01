@@ -1,4 +1,4 @@
-# This file contains settings of minetest_game that can be changed in
+# This file contains settings of minebase that can be changed in
 # minetest.conf
 
 #    In creative mode players are able to dig all kind of blocks nearly
