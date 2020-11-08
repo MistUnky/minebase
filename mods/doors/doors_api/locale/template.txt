@@ -1,0 +1,7 @@
+# textdomain: doors_api
+Hidden Door Segment=
+Owned by @1=
+You do not own this locked door.=
+a locked door=
+You do not own this trapdoor.=
+a locked trapdoor=
