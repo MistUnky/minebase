@@ -8,6 +8,7 @@ http://creativecommons.org/licenses/by-sa/3.0/
 
 License of menu/header.png
 Copyright (C) 2015 paramat CC BY-SA 3.0
+Copyright (C) 2020 LibraSubtilis CC BY-SA 3.0 (based on paramats Minetest Game header)
 
 
 License of source code
