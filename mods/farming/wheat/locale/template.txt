@@ -1,0 +1,10 @@
+# textdomain: wheat
+Straw=
+Straw Stair=
+Inner Straw Stair=
+Outer Straw Stair=
+Straw Slab=
+Wheat Seed=
+Wheat=
+Flour=
+Bread=

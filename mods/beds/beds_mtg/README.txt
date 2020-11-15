@@ -4,7 +4,7 @@ See license.txt for license information.
 
 Authors of source code
 ----------------------
-Originally by BlockMen (MIT)
-Various Minetest developers and contributors (MIT)
+BlockMen (MIT)
+LibraSubtilis (MIT)
 
 This mod adds aliases for backwards compatibility.

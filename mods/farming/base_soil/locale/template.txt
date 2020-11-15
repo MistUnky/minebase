@@ -1,0 +1,7 @@
+# textdomain: base_soil
+Soil=
+Wet Soil=
+Savanna Soil=
+Wet Savanna Soil=
+Desert Sand Soil=
+Wet Desert Sand Soil=

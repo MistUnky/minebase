@@ -1,3 +1,4 @@
+-- bucket_mtg/init.lua
 
 -- Aliases for Mintest Game bucket mod
 minetest.register_alias("bucket:bucket_empty","bucket_api:bucket_empty")
