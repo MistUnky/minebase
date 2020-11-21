@@ -11,7 +11,7 @@ Various Minetest developers and contributors (MIT)
 Authors of media (textures)
 ---------------------------
 Created by PilzAdam (CC BY 3.0):
-  farming_soil.png
-  farming_soil_wet.png
-  farming_soil_wet_side.png
+  base_soil_dirt.png
+  base_soil_dirt_wet.png
+  base_soil_dirt_wet_side.png
 
