@@ -1,4 +1,4 @@
-Minetest Game mod: wool
+Minebase mod: Wool
 =======================
 See license.txt for license information.
 

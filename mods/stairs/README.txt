@@ -1,4 +1,4 @@
-Minetest Game mod: stairs
+Minebase mod: Stairs
 =========================
 See license.txt for license information.
 

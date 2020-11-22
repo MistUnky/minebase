@@ -7,8 +7,8 @@ Authors of source code
 Originally by BlockMen (MIT)
 Various Minetest developers and contributors (MIT)
 
-This mod adds a bed to Minetest which allows players to skip the night.
-To sleep, right click on the bed. If playing in singleplayer mode the night gets skipped
+This mod adds an api for bed to Minebase.
+To sleep, right click on a bed. If playing in singleplayer mode the night gets skipped
 immediately. If playing multiplayer you get shown how many other players are in bed too,
 if all players are sleeping the night gets skipped. The night skip can be forced if more
 than half of the players are lying in bed and use this option.

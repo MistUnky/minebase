@@ -1,4 +1,4 @@
-Minetest Game mod: binoculars
+Minebase mod: Binoculars
 =============================
 See license.txt for license information.
 

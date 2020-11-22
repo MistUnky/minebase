@@ -1,4 +1,4 @@
-Minetest Game mod: give_initial_stuff
+Minebase mod: Give Initial Stuff
 =====================================
 See license.txt for license information.
 

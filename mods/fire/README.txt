@@ -1,4 +1,4 @@
-Minetest Game mod: fire
+Minebase mod: Fire
 =======================
 See license.txt for license information.
 

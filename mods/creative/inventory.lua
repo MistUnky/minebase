@@ -1,6 +1,6 @@
 -- creative/inventory.lua
 
--- support for MT game translation.
+-- support for Minebase translation.
 local S = creative.get_translator
 
 local player_inventory = {}

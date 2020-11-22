@@ -1,4 +1,4 @@
-Minetest Game mod: creative
+Minebase mod: Creative
 ===========================
 See license.txt for license information.
 

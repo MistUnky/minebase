@@ -1,5 +1,4 @@
--- Minetest 0.4 mod: bucket
--- See README.txt for licensing and other information.
+-- bucket_api/init.lua 
 
 -- Load support for Minebase translation.
 local S = minetest.get_translator("bucket_api")

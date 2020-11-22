@@ -1,4 +1,4 @@
-Minetest Game mod: vessels
+Minebase mod: Vessels
 ==========================
 See license.txt for license information.
 

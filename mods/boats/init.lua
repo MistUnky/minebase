@@ -1,6 +1,6 @@
 -- boats/init.lua
 
--- Load support for MT game translation.
+-- Load support for Minebase translation.
 local S = minetest.get_translator("boats")
 
 --

@@ -1,14 +1,10 @@
 -- stairs/init.lua
 
--- Minetest 0.4 mod: stairs
--- See README.txt for licensing and other information.
-
-
 -- Global namespace for functions
 
 stairs = {}
 
--- Load support for MT game translation.
+-- Load support for Minebase translation.
 local S = minetest.get_translator("stairs")
 
 

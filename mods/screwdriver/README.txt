@@ -1,4 +1,4 @@
-Minetest Game mod: screwdriver
+Minebase mod: Screwdriver
 ==============================
 See license.txt for license information.
 

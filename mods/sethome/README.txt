@@ -1,4 +1,4 @@
-Minetest Game mod: sethome
+Minebase mod: Sethome
 ==========================
 See license.txt for license information.
 

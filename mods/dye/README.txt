@@ -1,4 +1,4 @@
-Minetest Game mod: dye
+Minebase mod: Dye
 ======================
 See license.txt for license information.
 See init.lua for documentation.

@@ -1,4 +1,4 @@
-Minetest Game mod: boats
+Minebase mod: Boats
 ========================
 See license.txt for license information.
 

@@ -1,5 +1,4 @@
--- Minetest 0.4 mod: player
--- See README.txt for licensing and other information.
+-- Minebase mod: player_api
 
 player_api = {}
 

@@ -1,4 +1,4 @@
-Minetest Game mod: game_commands
+Minebase mod: Game Commands
 ================================
 See license.txt for license information.
 

@@ -1,4 +1,4 @@
-Minetest Game mod: walls
+Minebase mod: Walls
 ========================
 See license.txt for license information.
 

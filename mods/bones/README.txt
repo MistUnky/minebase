@@ -1,4 +1,4 @@
-Minetest Game mod: bones
+Minebase mod: Bones
 ========================
 See license.txt for license information.
 

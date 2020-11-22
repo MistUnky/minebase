@@ -2,7 +2,8 @@ sfinv = {
 	pages = {},
 	pages_unordered = {},
 	contexts = {},
-	enabled = true
+	enabled = true,
+	homepage = ""
 }
 
 function sfinv.register_page(name, def)
@@ -14,6 +15,10 @@ function sfinv.register_page(name, def)
 	sfinv.pages[name] = def
 	def.name = name
 	table.insert(sfinv.pages_unordered, def)
+
+	if def.homepage then
+		sfinv.homepage = name
+	end
 end
 
 function sfinv.override_page(name, def)
@@ -59,10 +64,6 @@ function sfinv.make_formspec(player, context, content, show_inv, size)
 	return table.concat(tmp, "")
 end
 
-function sfinv.get_homepage_name(player)
-	return "sfinv:crafting"
-end
-
 function sfinv.get_formspec(player, context)
 	-- Generate navigation tabs
 	local nav = {}
@@ -87,7 +88,7 @@ function sfinv.get_formspec(player, context)
 		return page:get(player, context)
 	else
 		local old_page = context.page
-		local home_page = sfinv.get_homepage_name(player)
+		local home_page = sfinv.homepage
 
 		if old_page == home_page then
 			minetest.log("error", "[sfinv] Couldn't find " .. dump(old_page) ..
@@ -110,7 +111,7 @@ function sfinv.get_or_create_context(player)
 	local context = sfinv.contexts[name]
 	if not context then
 		context = {
-			page = sfinv.get_homepage_name(player)
+			page = sfinv.homepage
 		}
 		sfinv.contexts[name] = context
 	end
@@ -143,7 +144,7 @@ end
 
 function sfinv.get_page(player)
 	local context = sfinv.contexts[player:get_player_name()]
-	return context and context.page or sfinv.get_homepage_name(player)
+	return context and context.page or sfinv.homepage
 end
 
 minetest.register_on_joinplayer(function(player)

@@ -3,7 +3,7 @@
 -- Global namespace for functions
 fire = {}
 
--- Load support for MT game translation.
+-- Load support for Minebase translation.
 local S = minetest.get_translator("fire")
 
 -- 'Enable fire' setting

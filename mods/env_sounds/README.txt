@@ -1,4 +1,4 @@
-Minetest Game mod: env_sounds
+Minebase mod: Env Sounds
 =============================
 See license.txt for license information.
 

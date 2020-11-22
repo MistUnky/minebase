@@ -2,9 +2,8 @@
 
 tnt = {}
 
--- Load support for MT game translation.
+-- Load support for Minebase translation.
 local S = minetest.get_translator("tnt")
-
 
 -- Default to enabled when in singleplayer
 local enable_tnt = minetest.settings:get_bool("enable_tnt")

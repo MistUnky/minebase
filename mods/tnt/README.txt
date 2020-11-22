@@ -1,4 +1,4 @@
-Minetest Game mod: tnt
+Minebase mod: TNT
 ======================
 See license.txt for license information.
 
@@ -45,7 +45,7 @@ by frankelmedico (CC0 1.0)
 
 Introduction
 ------------
-This mod adds TNT to Minetest. TNT is a tool to help the player
+This mod adds TNT to Minebase. TNT is a tool to help the player
 in mining.
 
 How to use the mod:

@@ -1,4 +1,4 @@
-Minetest Game mod: map
+Minebase mod: Map
 ======================
 See license.txt for license information.
 
