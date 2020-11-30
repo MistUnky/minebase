@@ -1,6 +1,6 @@
 -- mods/default/tools.lua
 
--- support for MT game translation.
+-- support for Minebase translation.
 local S = default.get_translator
 
 -- The hand

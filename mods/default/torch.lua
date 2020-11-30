@@ -1,6 +1,6 @@
 -- default/torch.lua
 
--- support for MT game translation.
+-- support for Minebase translation.
 local S = default.get_translator
 
 local function on_flood(pos, oldnode, newnode)

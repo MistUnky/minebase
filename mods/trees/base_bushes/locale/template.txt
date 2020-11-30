@@ -1,0 +1,13 @@
+# textdomain: base_bushes
+Bush Stem=
+Bush Leaves=
+Bush Sapling=
+Blueberry Bush Leaves with Berries=
+Blueberry Bush Leaves=
+Blueberry Bush Sapling=
+Acacia Bush Stem=
+Acacia Bush Leaves=
+Acacia Bush Sapling=
+Pine Bush Stem=
+Pine Bush Needles=
+Pine Bush Sapling=

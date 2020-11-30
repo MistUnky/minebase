@@ -1,6 +1,6 @@
 -- mods/default/craftitems.lua
 
--- support for MT game translation.
+-- support for Minebase translation.
 local S = default.get_translator
 
 local lpp = 14 -- Lines per book's page
@@ -204,13 +204,6 @@ minetest.register_craftitem("default:skeleton_key", {
 -- Craftitem registry
 --
 
-minetest.register_craftitem("default:blueberries", {
-	description = S("Blueberries"),
-	inventory_image = "default_blueberries.png",
-	groups = {food_blueberries = 1, food_berry = 1},
-	on_use = minetest.item_eat(2),
-})
-
 minetest.register_craftitem("default:book", {
 	description = S("Book"),
 	inventory_image = "default_book.png",
@@ -306,12 +299,6 @@ minetest.register_craftitem("default:paper", {
 minetest.register_craftitem("default:steel_ingot", {
 	description = S("Steel Ingot"),
 	inventory_image = "default_steel_ingot.png"
-})
-
-minetest.register_craftitem("default:stick", {
-	description = S("Stick"),
-	inventory_image = "default_stick.png",
-	groups = {stick = 1, flammable = 2},
 })
 
 minetest.register_craftitem("default:tin_ingot", {
@@ -442,13 +429,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "default:stick 4",
-	recipe = {
-		{"group:wood"},
-	}
-})
-
-minetest.register_craft({
 	output = "default:tin_ingot 9",
 	recipe = {
 		{"default:tinblock"},
@@ -530,6 +510,31 @@ minetest.register_craft({
 	recipe = "default:paper",
 	burntime = 1,
 })
+
+-- Stick
+-- Craftitem registry
+--
+
+minetest.register_craftitem("default:stick", {
+	description = S("Stick"),
+	inventory_image = "default_stick.png",
+	groups = {stick = 1, flammable = 2},
+})
+
+--
+-- Crafting recipes
+--
+
+minetest.register_craft({
+	output = "default:stick 4",
+	recipe = {
+		{"group:wood"},
+	}
+})
+
+--
+-- Fuels
+--
 
 minetest.register_craft({
 	type = "fuel",

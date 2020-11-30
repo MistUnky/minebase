@@ -3,141 +3,72 @@
 -- Namespace for functions
 
 flowers = {}
+local mapgen = {}
 
-local mapgen = {name = minetest.get_mapgen_setting("mg_name")}
-if mapgen.name == "v6" then
-	function mapgen.register_flower(flower_name)
-		minetest.register_decoration({
-			name = flower_name,
-			deco_type = "simple",
-			place_on = {"default:dirt_with_grass"},
-			sidelen = 16,
-			noise_params = {
-				offset = 0,
-				scale = 0.006,
-				spread = {x = 100, y = 100, z = 100},
-				seed = 436,
-				octaves = 3,
-				persist = 0.6
-			},
-			y_max = 30,
-			y_min = 1,
-			decoration = flower_name,
-		})
-	end
+function mapgen.register_flower(flower_name, seed)
+	minetest.register_decoration({
+		name = flower_name,
+		deco_type = "simple",
+		place_on = {"default:dirt_with_grass"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.02,
+			scale = 0.04,
+			spread = {x = 200, y = 200, z = 200},
+			seed = seed,
+			octaves = 3,
+			persist = 0.6
+		},
+		biomes = {"grassland", "deciduous_forest"},
+		y_max = 31000,
+		y_min = 1,
+		decoration = flower_name,
+	})
+end
 
-	function mapgen.register_mushroom(mushroom_name)
-		minetest.register_decoration({
-			name = mushroom_name,
-			deco_type = "simple",
-			place_on = {"default:dirt_with_grass"},
-			sidelen = 16,
-			noise_params = {
-				offset = 0,
-				scale = 0.04,
-				spread = {x = 100, y = 100, z = 100},
-				seed = 7133,
-				octaves = 3,
-				persist = 0.6
-			},
-			y_max = 30,
-			y_min = 1,
-			decoration = mushroom_name,
-			spawn_by = "default:tree",
-			num_spawn_by = 1,
-		})
-	end
+function mapgen.register_mushroom(mushroom_name)
+	minetest.register_decoration({
+		name = mushroom_name,
+		deco_type = "simple",
+		place_on = {"default:dirt_with_grass", "default:dirt_with_coniferous_litter"},
+		sidelen = 16,
+		noise_params = {
+			offset = 0,
+			scale = 0.006,
+			spread = {x = 250, y = 250, z = 250},
+			seed = 2,
+			octaves = 3,
+			persist = 0.66
+		},
+		biomes = {"deciduous_forest", "coniferous_forest"},
+		y_max = 31000,
+		y_min = 1,
+		decoration = mushroom_name,
+	})
+end
 
-	function mapgen.register_waterlily(name)
-		minetest.register_decoration({
-			name = name,
-			deco_type = "simple",
-			place_on = {"default:dirt"},
-			sidelen = 16,
-			noise_params = {
-				offset = -0.12,
-				scale = 0.3,
-				spread = {x = 100, y = 100, z = 100},
-				seed = 33,
-				octaves = 3,
-				persist = 0.7
-			},
-			y_max = 0,
-			y_min = 0,
-			decoration = name.."_waving",
-			param2 = 0,
-			param2_max = 3,
-			place_offset_y = 1,
-		})
-	end
-
-else
-	function mapgen.register_flower(flower_name, seed)
-		minetest.register_decoration({
-			name = flower_name,
-			deco_type = "simple",
-			place_on = {"default:dirt_with_grass"},
-			sidelen = 16,
-			noise_params = {
-				offset = -0.02,
-				scale = 0.04,
-				spread = {x = 200, y = 200, z = 200},
-				seed = seed,
-				octaves = 3,
-				persist = 0.6
-			},
-			biomes = {"grassland", "deciduous_forest"},
-			y_max = 31000,
-			y_min = 1,
-			decoration = flower_name,
-		})
-	end
-
-	function mapgen.register_mushroom(mushroom_name)
-		minetest.register_decoration({
-			name = mushroom_name,
-			deco_type = "simple",
-			place_on = {"default:dirt_with_grass", "default:dirt_with_coniferous_litter"},
-			sidelen = 16,
-			noise_params = {
-				offset = 0,
-				scale = 0.006,
-				spread = {x = 250, y = 250, z = 250},
-				seed = 2,
-				octaves = 3,
-				persist = 0.66
-			},
-			biomes = {"deciduous_forest", "coniferous_forest"},
-			y_max = 31000,
-			y_min = 1,
-			decoration = mushroom_name,
-		})
-	end
-
-	function mapgen.register_waterlily(name)
-		minetest.register_decoration({
-			name = name,
-			deco_type = "simple",
-			place_on = {"default:dirt"},
-			sidelen = 16,
-			noise_params = {
-				offset = -0.12,
-				scale = 0.3,
-				spread = {x = 200, y = 200, z = 200},
-				seed = 33,
-				octaves = 3,
-				persist = 0.7
-			},
-			biomes = {"rainforest_swamp", "savanna_shore", "deciduous_forest_shore"},
-			y_max = 0,
-			y_min = 0,
-			decoration = name.."_waving",
-			param2 = 0,
-			param2_max = 3,
-			place_offset_y = 1,
-		})
-	end
-
+function mapgen.register_waterlily(name)
+	minetest.register_decoration({
+		name = name,
+		deco_type = "simple",
+		place_on = {"default:dirt"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.12,
+			scale = 0.3,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 33,
+			octaves = 3,
+			persist = 0.7
+		},
+		biomes = {"rainforest_swamp", "savanna_shore", "deciduous_forest_shore"},
+		y_max = 0,
+		y_min = 0,
+		decoration = name.."_waving",
+		param2 = 0,
+		param2_max = 3,
+		place_offset_y = 1,
+	})
 end
 
 --

@@ -954,15 +954,6 @@ Example of one shapeless recipe using the dye group and a color group:
 Trees
 -----
 
- * `default.grow_tree(pos, is_apple_tree)`
-  * Grows a mgv6 tree or apple tree at pos
-
- * `default.grow_jungle_tree(pos)`
-  * Grows a mgv6 jungletree at pos
-
- * `default.grow_pine_tree(pos)`
-  * Grows a mgv6 pinetree at pos
-
  * `default.grow_new_apple_tree(pos)`
   * Grows a new design apple tree at pos
 

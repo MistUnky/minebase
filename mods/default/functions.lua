@@ -196,31 +196,6 @@ end
 
 -- Wrapping the functions in ABM action is necessary to make overriding them possible
 
-function default.grow_cactus(pos, node)
-	if node.param2 >= 4 then
-		return
-	end
-	pos.y = pos.y - 1
-	if minetest.get_item_group(minetest.get_node(pos).name, "sand") == 0 then
-		return
-	end
-	pos.y = pos.y + 1
-	local height = 0
-	while node.name == "default:cactus" and height < 4 do
-		height = height + 1
-		pos.y = pos.y + 1
-		node = minetest.get_node(pos)
-	end
-	if height == 4 or node.name ~= "air" then
-		return
-	end
-	if minetest.get_node_light(pos) < 13 then
-		return
-	end
-	minetest.set_node(pos, {name = "default:cactus"})
-	return true
-end
-
 function default.grow_papyrus(pos, node)
 	pos.y = pos.y - 1
 	local name = minetest.get_node(pos).name
@@ -251,17 +226,6 @@ function default.grow_papyrus(pos, node)
 	minetest.set_node(pos, {name = "default:papyrus"})
 	return true
 end
-
-minetest.register_abm({
-	label = "Grow cactus",
-	nodenames = {"default:cactus"},
-	neighbors = {"group:sand"},
-	interval = 12,
-	chance = 83,
-	action = function(...)
-		default.grow_cactus(...)
-	end
-})
 
 minetest.register_abm({
 	label = "Grow papyrus",
@@ -480,99 +444,6 @@ function default.register_mesepost(name, def)
 
 	minetest.register_node(name, def)
 end
-
---
--- Leafdecay
---
-
--- Prevent decay of placed leaves
-
-default.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
-	if placer and placer:is_player() then
-		local node = minetest.get_node(pos)
-		node.param2 = 1
-		minetest.set_node(pos, node)
-	end
-end
-
--- Leafdecay
-local function leafdecay_after_destruct(pos, oldnode, def)
-	for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, def.radius),
-			vector.add(pos, def.radius), def.leaves)) do
-		local node = minetest.get_node(v)
-		local timer = minetest.get_node_timer(v)
-		if node.param2 ~= 1 and not timer:is_started() then
-			timer:start(math.random(20, 120) / 10)
-		end
-	end
-end
-
-local movement_gravity = tonumber(
-	minetest.settings:get("movement_gravity")) or 9.81
-
-local function leafdecay_on_timer(pos, def)
-	if minetest.find_node_near(pos, def.radius, def.trunks) then
-		return false
-	end
-
-	local node = minetest.get_node(pos)
-	local drops = minetest.get_node_drops(node.name)
-	for _, item in ipairs(drops) do
-		local is_leaf
-		for _, v in pairs(def.leaves) do
-			if v == item then
-				is_leaf = true
-			end
-		end
-		if minetest.get_item_group(item, "leafdecay_drop") ~= 0 or
-				not is_leaf then
-			minetest.add_item({
-				x = pos.x - 0.5 + math.random(),
-				y = pos.y - 0.5 + math.random(),
-				z = pos.z - 0.5 + math.random(),
-			}, item)
-		end
-	end
-
-	minetest.remove_node(pos)
-	minetest.check_for_falling(pos)
-
-	-- spawn a few particles for the removed node
-	minetest.add_particlespawner({
-		amount = 8,
-		time = 0.001,
-		minpos = vector.subtract(pos, {x=0.5, y=0.5, z=0.5}),
-		maxpos = vector.add(pos, {x=0.5, y=0.5, z=0.5}),
-		minvel = vector.new(-0.5, -1, -0.5),
-		maxvel = vector.new(0.5, 0, 0.5),
-		minacc = vector.new(0, -movement_gravity, 0),
-		maxacc = vector.new(0, -movement_gravity, 0),
-		minsize = 0,
-		maxsize = 0,
-		node = node,
-	})
-end
-
-function default.register_leafdecay(def)
-	assert(def.leaves)
-	assert(def.trunks)
-	assert(def.radius)
-	for _, v in pairs(def.trunks) do
-		minetest.override_item(v, {
-			after_destruct = function(pos, oldnode)
-				leafdecay_after_destruct(pos, oldnode, def)
-			end,
-		})
-	end
-	for _, v in pairs(def.leaves) do
-		minetest.override_item(v, {
-			on_timer = function(pos)
-				leafdecay_on_timer(pos, def)
-			end,
-		})
-	end
-end
-
 
 --
 -- Convert default:dirt to something that fits the environment

@@ -1,0 +1,22 @@
+# textdomain: mtsedit
+Specify <palette> (like "Mineclone2", "Minetest Game" etc.)=Укажите <palette> (например, «Mineclone2», «Minetest Game» и т. Д.)
+Unable to write @1=Невозможно написать @1
+@1 saved.=@1 сохранено.
+Specify <schematic> file=Укажите файл <схематический>
+Failed to load @1=Не удалось загрузить @1
+Schematic loaded, use right click with the placement tool in your inventory=Схема загружена, используйте правую кнопку мыши с инструментом размещения в вашем инвентаре
+Select an area first by left clicking with the placement tool=Сначала выберите область, щелкнув левой кнопкой мыши с помощью инструмента размещения
+Area=Площадь
+Specify <delta> value=Укажите значение <delta>
+Place the loaded structure=Поместите загруженную структуру
+Failed to place the schematic @1=Не удалось разместить схему @1
+First use the "/mtsedit load" chat command to load a schematic=Сначала используйте команду чата "/mtsedit load", чтобы загрузить схему
+Load and save MTS files easily or export MTSEdit block data=Легко загружайте и сохраняйте файлы MTS или экспортируйте данные блока MTSEdit
+[load|list|save|export|imgs|help] [file]=[load|list|save|export|imgs|help] [файл]
+Load an MTS file from "(world directory)/schems/<schematic>.mts" into the world=Загрузите файл MTS из "(мировой каталог)/schems/<схематический>.mts" в мир
+Show available schematic files=Показать доступные файлы схемы
+Save the selected area into an MTS file=Сохранить выбранную область в файл MTS
+Grow or shrink the selected area=Расти или уменьшай выделенную область
+Export node data to <palette> column of "(world directory)/blocks.csv"=Экспорт данных узла в столбец <palette> в "(мировой каталог)/blocks.csv"
+Export node texture data to "(world directory)/blockimgs.csv"=Экспорт данных текстуры узла в "(мировой каталог)/blockimgs.csv"
+Unknown mtsedit command=Неизвестная mtsedit команда

@@ -1,4 +1,4 @@
-Minetest Game mod: default
+Minebase mod: Default
 ==========================
 See license.txt for license information.
 

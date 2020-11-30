@@ -1,6 +1,6 @@
 default.chest = {}
 
--- support for MT game translation.
+-- support for Minebase translation.
 local S = default.get_translator
 
 function default.chest.get_chest_formspec(pos)

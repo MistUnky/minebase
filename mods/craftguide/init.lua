@@ -256,7 +256,7 @@ local function recipe_fs(fs, data)
 			S("Cooking time: @1", minetest.colorize("yellow", cooktime))
 		table.insert(fs, "tooltip[3.2,0.5;0.5,0.5;"..esc(tooltip).."]")
 	end
-	table.insert(fs, "image[3,1;1,1;sfinv_crafting_arrow.png]")
+	table.insert(fs, "image[3,1;1,1;base_inv_crafting_arrow.png]")
 
 	item_button_fs(fs, 4, 1, recipe.output, recipe.output:match("%S*"))
 end

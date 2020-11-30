@@ -1,9 +1,8 @@
--- Minetest 0.4 mod: default
--- See README.txt for licensing and other information.
+-- default/init.lua 
 
 -- The API documentation in here was moved into game_api.txt
 
--- Load support for MT game translation.
+-- Load support for Minebase translation.
 local S = minetest.get_translator("default")
 
 -- Definitions made by this mod that other mods can use too
@@ -54,7 +53,6 @@ default.gui_survival_form = "size[8,8.5]"..
 local default_path = minetest.get_modpath("default")
 
 dofile(default_path.."/functions.lua")
-dofile(default_path.."/trees.lua")
 dofile(default_path.."/nodes.lua")
 dofile(default_path.."/chests.lua")
 dofile(default_path.."/furnace.lua")

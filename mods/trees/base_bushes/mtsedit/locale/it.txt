@@ -1,0 +1,22 @@
+# textdomain: mtsedit
+Specify <palette> (like "Mineclone2", "Minetest Game" etc.)=Specificare la <tavolozza> (come "Mineclone2", "Minetest Game" ecc.)
+Unable to write @1=Impossibile scrivere @1
+@1 saved.=@1 salvato.
+Specify <schematic> file=Specifica il file <schema>
+Failed to load @1=Impossibile caricare @1
+Schematic loaded, use right click with the placement tool in your inventory=Schema caricato, utilizzare il tasto destro del mouse con lo strumento di posizionamento nell'inventario
+Select an area first by left clicking with the placement tool=Seleziona prima un'area facendo clic con il pulsante sinistro del mouse con lo strumento di posizionamento
+Area=La zona
+Specify <delta> value=Specificare <delta> value
+Place the loaded structure=Posiziona la struttura caricata
+Failed to place the schematic @1=Impossibile posizionare lo schema @1
+First use the "/mtsedit load" chat command to load a schematic=Per prima cosa usa il comando di chat "/mtsedit load" per caricare uno schema
+Load and save MTS files easily or export MTSEdit block data=Carica e salva facilmente i file MTS o esporta i dati del blocco MTSEdit
+[load|list|save|export|imgs|help] [file]=[load|list|save|export|imgs|help] [file]
+Load an MTS file from "(world directory)/schems/<schematic>.mts" into the world=Carica un file MTS da "(directory del mondo)/schems/<schema>.mts" nel mondo
+Show available schematic files=Mostra i file schematici disponibili
+Save the selected area into an MTS file=Salvare l'zona selezionata in un file MTS
+Grow or shrink the selected area=Ingrandisci o riduci l'zona selezionata
+Export node data to <palette> column of "(world directory)/blocks.csv"=Esporta i dati del nodo nella colonna <tavolozza> di "(directory del mondo)/blocks.csv"
+Export node texture data to "(world directory)/blockimgs.csv"=Esporta i dati di trama del nodo in "(directory del mondo)/blockimgs.csv"
+Unknown mtsedit command=Comando mtsedit sconosciuto

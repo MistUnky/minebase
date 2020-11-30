@@ -1,7 +1,7 @@
 -- Disable by mapgen or setting
 
 local mg_name = minetest.get_mapgen_setting("mg_name")
-if mg_name == "v6" or mg_name == "singlenode" or
+if mg_name == "singlenode" or
 		minetest.settings:get_bool("enable_weather") == false then
 	return
 end
