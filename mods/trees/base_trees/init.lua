@@ -9,20 +9,20 @@ dofile(base_trees_path .. "/extra.lua")
 
 trees.register_tree("base_trees:apple", {
 	tree = {
-		desc = S("Apple Tree"),
+		description = S("Apple Tree"),
 		groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
 		burntime = 30
 	},
 	wood = {
-		desc = S("Apple Wood Planks"),
+		description = S("Apple Wood Planks"),
 		burntime = 7,
 	},
 	leaves = {
-		desc = S("Apple Tree Leaves"),
+		description = S("Apple Tree Leaves"),
 		decay_leaves = {"base_trees:apple", "base_trees:apple_leaves"}
 	},
 	sapling = {
-		desc = S("Apple Tree Sapling"),
+		description = S("Apple Tree Sapling"),
 		groups = {snappy = 2, dig_immediate = 3, flammable = 2, attached_node = 1, 
 			sapling = 1},
 		burntime = 5,
@@ -67,20 +67,20 @@ trees.register_tree("base_trees:apple", {
 
 trees.register_tree("base_trees:acacia", {
 	tree = {
-		desc = S("Acacia Tree"),
+		description = S("Acacia Tree"),
 		groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
 		burntime = 34
 	},
 	wood = {
-		desc = S("Acacia Wood Planks"),
+		description = S("Acacia Wood Planks"),
 		burntime = 8
 	},
 	leaves = {
-		desc = S("Acacia Tree Leaves"),
+		description = S("Acacia Tree Leaves"),
 		decay_r = 2
 	},
 	sapling = {
-		desc = S("Acacia Tree Sapling"),
+		description = S("Acacia Tree Sapling"),
 		groups = {snappy = 2, dig_immediate = 3, flammable = 2, attached_node = 1, 
 			sapling = 1},
 		minp = {x = -4, y = 1, z = -4},
@@ -125,19 +125,19 @@ trees.register_tree("base_trees:acacia", {
 
 trees.register_tree("base_trees:aspen", {
 	tree = {
-		desc = S("Aspen Tree"),
+		description = S("Aspen Tree"),
 		groups = {choppy = 3, oddly_breakable_by_hand = 1, flammable = 3},
 		burntime = 22
 	},
 	wood = {
-		desc = S("Aspen Wood Planks"),
+		description = S("Aspen Wood Planks"),
 		burntime = 5
 	},
 	leaves = {
-		desc = S("Aspen Tree Leaves")
+		description = S("Aspen Tree Leaves")
 	},
 	sapling = {
-		desc = S("Aspen Tree Sapling"),
+		description = S("Aspen Tree Sapling"),
 		selection_box = {
 			type = "fixed",
 			fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, 0.5, 3 / 16}
@@ -185,20 +185,20 @@ trees.register_tree("base_trees:aspen", {
 
 trees.register_tree("base_trees:jungle", {	
 	tree = {
-		desc = S("Jungle Tree"),
+		description = S("Jungle Tree"),
 		groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
 		burntime = 38
 	},
 	wood = {
-		desc = S("Jungle Wood Planks"),
+		description = S("Jungle Wood Planks"),
 		burntime = 9
 	},
 	leaves = {
-		desc = S("Jungle Tree Leaves"),
+		description = S("Jungle Tree Leaves"),
 		decay_r = 2
 	},
 	sapling = {
-		desc = S("Jungle Tree Sapling"),
+		description = S("Jungle Tree Sapling"),
 		groups = {snappy = 2, dig_immediate = 3, flammable = 2,
 		attached_node = 1, sapling = 1},
 		maxp = {x = 2, y = 15, z = 2},
@@ -230,19 +230,19 @@ trees.register_tree("base_trees:jungle", {
 
 trees.register_tree("base_trees:pine", {
 	tree = {
-		desc = S("Pine Tree"),
+		description = S("Pine Tree"),
 		groups = {choppy = 3, oddly_breakable_by_hand = 1, flammable = 3},
 		burntime = 26
 	}, 
 	wood = {
-		desc = S("Pine Wood Planks"),
+		description = S("Pine Wood Planks"),
 		burntime = 6
 	},
 	leaves = {
-		desc = S("Pine Needles")
+		description = S("Pine Needles")
 	},
 	sapling = {
-		desc = S("Pine Tree Sapling"),
+		description = S("Pine Tree Sapling"),
 		groups = {snappy = 2, dig_immediate = 3, flammable = 3,attached_node = 1, 
 			sapling = 1},
 		burntime = 5,

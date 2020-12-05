@@ -210,7 +210,7 @@ function trees.register_tree_node(name, def)
 
 	def.groups.tree = 1
 	minetest.register_node(name .. "_tree", {
-		description = def.desc,
+		description = def.description,
 		tiles = def.tiles or {txt .. "_tree_top.png", txt 
 			.. "_tree_top.png", txt .. "_tree.png"},
 		paramtype2 = "facedir",
@@ -235,7 +235,7 @@ function trees.register_wood(name, def)
 		def.groups.oddly_breakable_by_hand = def.groups.oddly_breakable_by_hand + 1
 	end
 	minetest.register_node(name .. "_wood", {
-		description = def.desc,
+		description = def.description,
 		paramtype2 = "facedir",
 		place_param2 = 0,
 		tiles = def.tiles or {txt .. "_wood.png"},
@@ -267,11 +267,11 @@ function trees.register_leaves(name, def)
 		trunk = "_tree"
 	else
 		rarity = 5
-		trunk = ""
+		trunk = "_stem"
 	end
 
 	minetest.register_node(name .. "_leaves", {
-		description = def.desc,
+		description = def.description,
 		drawtype = "allfaces_optional",
 		waving = 1,
 		tiles = def.tiles or {txt .. "_leaves.png"},
@@ -319,7 +319,7 @@ function trees.register_sapling(name, def)
 	end
 
 	minetest.register_node(name .. "_sapling", {
-		description = def.desc,
+		description = def.description,
 		drawtype = "plantlike",
 		tiles = def.tiles or {txt .. "_sapling.png"},
 		inventory_image = def.inventory_image or txt .. "_sapling.png",
@@ -404,8 +404,8 @@ end
 function trees.register_bush_stem(name, def)
 	local txt = name:gsub(":", "_")
 
-	minetest.register_node(name, {
-		description = def.desc,
+	minetest.register_node(name .. "_stem", {
+		description = def.description,
 		drawtype = "plantlike",
 		visual_scale = 1.41,
 		tiles = def.tiles or {txt .. "_stem.png"},
@@ -464,5 +464,4 @@ function trees.register_bush(name, def)
 		trees.register_bush_decoration(name,def.deco)
 	end
 end
-
 

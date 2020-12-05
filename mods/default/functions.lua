@@ -190,10 +190,6 @@ function default.get_inventory_drops(pos, inventory, drops)
 end
 
 
---
--- Papyrus and cactus growing
---
-
 -- Wrapping the functions in ABM action is necessary to make overriding them possible
 
 function default.grow_papyrus(pos, node)

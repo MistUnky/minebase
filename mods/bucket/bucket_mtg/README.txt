@@ -1,4 +1,4 @@
-Minebase mod: bucket_mtg
+Bucket MTG
 =========================
 See license.txt for license information.
 

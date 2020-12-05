@@ -35,20 +35,25 @@ minetest.register_alias("default:junglesapling","base_trees:jungle_sapling")
 
 minetest.register_alias("default:pine_tree","base_trees:pine_tree")
 minetest.register_alias("default:pine_wood","base_trees:pine_wood")
-minetest.register_alias("default:pine_leaves","base_trees:pine_leaves")
+minetest.register_alias("default:pine_needles","base_trees:pine_leaves")
 minetest.register_alias("default:pine_sapling","base_trees:pine_sapling")
 
-minetest.register_alias("default:bush_stem","base_trees:apple_bush_stem")
-minetest.register_alias("default:bush_sapling","base_trees:apple_bush_sapling")
+minetest.register_alias("default:bush_stem","base_bushes:apple_bush_stem")
+minetest.register_alias("default:bush_sapling","base_bushes:apple_bush_sapling")
+minetest.register_alias("default:bush_leaves","base_bushes:apple_bush_leaves")
 
-minetest.register_alias("default:acacia_bush_stem","base_trees:acacia_bush_stem")
-minetest.register_alias("default:acacia_bush_sapling","base_trees:acacia_bush_sapling")
+minetest.register_alias("default:acacia_bush_stem","base_bushes:acacia_bush_stem")
+minetest.register_alias("default:acacia_bush_sapling","base_bushes:acacia_bush_sapling")
+minetest.register_alias("default:acacia_bush_leaves","base_bushes:acacia_bush_leaves")
 
-minetest.register_alias("default:blueberry_bush_stem","base_trees:blueberry_bush_stem")
-minetest.register_alias("default:blueberry_bush_sapling","base_trees:blueberry_bush_sapling")
+minetest.register_alias("default:blueberry_bush_stem","base_bushes:blueberry_bush_stem")
+minetest.register_alias("default:blueberry_bush_sapling","base_bushes:blueberry_bush_sapling")
+minetest.register_alias("default:blueberry_bush_leaves","base_bushes:blueberry_bush_leaves")
+minetest.register_alias("default:blueberry_bush_leaves_with_berries","base_bushes:blueberry_bush_with_berries_leaves")
 
-minetest.register_alias("default:pine_bush_stem","base_trees:pine_bush_stem")
-minetest.register_alias("default:pine_bush_sapling","base_trees:pine_bush_sapling")
+minetest.register_alias("default:pine_bush_stem","base_bushes:pine_bush_stem")
+minetest.register_alias("default:pine_bush_sapling","base_bushes:pine_bush_sapling")
+minetest.register_alias("default:pine_bush_needles","base_bushes:pine_bush_leaves")
 
 minetest.register_alias("default:cactus","cactus:cactus")
 

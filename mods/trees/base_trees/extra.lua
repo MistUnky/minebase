@@ -1,3 +1,5 @@
+-- base_trees/extra.lua 
+
 -- Load support for Minebase translation.
 local S = minetest.get_translator("base_trees")
 
@@ -63,16 +65,10 @@ minetest.register_node("base_trees:apple_mark", {
 -- emergent jungle tree
 --
 
-minetest.register_node("base_trees:emergent_jungle_sapling", {
+trees.register_sapling("base_trees:emergent_jungle", {
 	description = S("Emergent Jungle Tree Sapling"),
-	drawtype = "plantlike",
-	tiles = {"base_trees_emergent_jungle_sapling.png"},
-	inventory_image = "base_trees_emergent_jungle_sapling.png",
-	wield_image = "base_trees_emergent_jungle_sapling.png",
-	paramtype = "light",
-	sunlight_propagates = true,
-	walkable = false,
-	on_timer = function(pos)
+	burntime = 7,
+	grow_sapling = function(pos)
 		minetest.log("action", "An emergent jungle sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		local path = base_trees_path ..
@@ -80,29 +76,8 @@ minetest.register_node("base_trees:emergent_jungle_sapling", {
 		minetest.place_schematic({x = pos.x - 3, y = pos.y - 5, z = pos.z - 3},
 			path, "random", nil, false)
 	end,
-	selection_box = {
-		type = "fixed",
-		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
-	},
-	groups = {snappy = 2, dig_immediate = 3, flammable = 2,
-		attached_node = 1, sapling = 1},
-	sounds = default.node_sound_leaves_defaults(),
-
-	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(300, 1500))
-	end,
-
-	on_place = function(itemstack, placer, pointed_thing)
-		itemstack = trees.sapling_on_place(itemstack, placer, pointed_thing,
-			"base_trees:emergent_jungle_sapling",
-			-- minp, maxp to be checked, relative to sapling pos
-			{x = -3, y = -5, z = -3},
-			{x = 3, y = 31, z = 3},
-			-- maximum interval of interior volume check
-			4)
-
-		return itemstack
-	end,
+	minp = {x = -3, y = -5, z = -3},
+	maxp = {x = 3, y = 31, z = 3},
 })
 
 minetest.register_craft({
@@ -114,21 +89,13 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	type = "fuel",
-	recipe = "base_trees:emergent_jungle_sapling",
-	burntime = 7,
-})
-
 --
 -- Register decorations
 --
 
 local chunksize = tonumber(minetest.get_mapgen_setting("chunksize"))
 if chunksize >= 5 then
-	minetest.register_decoration({
-		name = "base_trees:emergent_jungle_tree",
-		deco_type = "schematic",
+	trees.register_tree_decoration("base_trees:emergent_jungle",{
 		place_on = {"default:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		noise_params = {
@@ -141,11 +108,8 @@ if chunksize >= 5 then
 		},
 		biomes = {"rainforest"},
 		y_max = 32,
-		y_min = 1,
 		schematic = minetest.get_modpath("base_trees") ..
 				"/schematics/base_trees_emergent_jungle.mts",
-		flags = "place_center_x, place_center_z",
-		rotation = "random",
 		place_offset_y = -4,
 	})
 end

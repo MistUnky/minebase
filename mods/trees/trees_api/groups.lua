@@ -1,6 +1,4 @@
---
--- Groups
---
+-- trees_api/groups.lua 
 
 minetest.register_craft({
 	type = "fuel",

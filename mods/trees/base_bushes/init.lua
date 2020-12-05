@@ -8,14 +8,14 @@ local base_bushes_path = minetest.get_modpath("base_bushes")
 -- apple bush
 trees.register_bush("base_bushes:apple", {
 	stem = {
-		desc = S("Bush Stem"),
+		description = S("Bush Stem"),
 		burntime = 7
 	},
 	leaves = {
-		desc = S("Bush Leaves"),
+		description = S("Bush Leaves"),
 	},
 	sapling = {
-		desc = S("Bush Sapling"),
+		description = S("Bush Sapling"),
 		burntime = 3,
 		selection_box = {
 			type = "fixed",
@@ -55,11 +55,11 @@ minetest.register_craft({
 -- acacia bush
 trees.register_bush("base_bushes:acacia", { 
 	stem = {
-		desc = S("Acacia Bush Stem"),
+		description = S("Acacia Bush Stem"),
 		burntime = 8
 	},
 	leaves = {
-		desc = S("Acacia Bush Leaves"),
+		description = S("Acacia Bush Leaves"),
 	},
 	sapling = {
 		description = S("Acacia Bush Sapling"),
@@ -102,11 +102,11 @@ minetest.register_craft({
 -- pine bush
 trees.register_bush("base_bushes:pine", { 
 	stem = {
-		desc = S("Pine Bush Stem"),
+		description = S("Pine Bush Stem"),
 		burntime = 6
 	},
 	leaves = {
-		desc = S("Pine Bush Needles"),
+		description = S("Pine Bush Needles"),
 		tiles = {"base_bushes_pine_bush_needles.png"},
 		special_tiles = {"base_bushes_pine_bush_needles_simple.png"},
 		drop = {

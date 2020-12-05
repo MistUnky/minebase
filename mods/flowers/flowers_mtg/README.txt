@@ -1,8 +1,8 @@
-Minebase mod: flowers_mtg
-========================
+Flowers MTG
+=========================
 See license.txt for license information.
 
 Authors of source code
 ----------------------
-By LibraSubtilis (MIT)
+LibraSubtilis (LGPLv2.1+)
 

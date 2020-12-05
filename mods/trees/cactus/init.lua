@@ -11,7 +11,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "cactus:large_cactus_seedling",
+	output = "cactus:large_seedling",
 	recipe = {
 		{"", "cactus:cactus", ""},
 		{"cactus:cactus", "cactus:cactus", "cactus:cactus"},
@@ -21,7 +21,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "cactus:large_cactus_seedling",
+	recipe = "cactus:large_seedling",
 	burntime = 5,
 })
 
@@ -78,7 +78,7 @@ minetest.register_abm({
 --
 
 minetest.register_decoration({
-	name = "cactus:large_cactus",
+	name = "cactus:large",
 	deco_type = "schematic",
 	place_on = {"default:desert_sand"},
 	sidelen = 16,
@@ -129,12 +129,12 @@ minetest.register_node("cactus:cactus", {
 	on_place = minetest.rotate_node,
 })
 
-minetest.register_node("cactus:large_cactus_seedling", {
+minetest.register_node("cactus:large_seedling", {
 	description = S("Large Cactus Seedling"),
 	drawtype = "plantlike",
 	tiles = {"cactus_large_seedling.png"},
-	inventory_image = "cactus_large_cactus_seedling.png",
-	wield_image = "cactus_large_cactus_seedling.png",
+	inventory_image = "cactus_large_seedling.png",
+	wield_image = "cactus_large_seedling.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
@@ -150,7 +150,7 @@ minetest.register_node("cactus:large_cactus_seedling", {
 
 	on_place = function(itemstack, placer, pointed_thing)
 		itemstack = trees.sapling_on_place(itemstack, placer, pointed_thing,
-			"cactus:large_cactus_seedling",
+			"cactus:large_seedling",
 			{x = -2, y = -1, z = -2},
 			{x = 2, y = 5, z = 2},
 			4)
