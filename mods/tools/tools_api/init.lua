@@ -18,11 +18,11 @@ function tools.register_pickaxe(name, def)
 		inventory_image = def.inventory_image or txt .. "_pickaxe.png",
 		tool_capabilities = def.tool_capabilities or {
 			full_punch_interval = 1.2,
-			max_drop_level=0,
-			groupcaps={
-				cracky = {times={3.2, 1.5, 0.9}, uses=10, maxlevel=1},
+			max_drop_level = 0,
+			groupcaps = {
+				cracky = {times = {3.2, 1.5, 0.9}, uses = 10, maxlevel = 1},
 			},
-			damage_groups = {fleshy=2},
+			damage_groups = {fleshy = 2},
 		},
 		sound = {breaks = "tools_api_breaks"},
 		groups = def.groups or {pickaxe = 1}
@@ -46,11 +46,11 @@ function tools.register_shovel(name, def)
 		wield_image = def.wield_image or txt .. "_shovel.png^[transformR90",
 		tool_capabilities = def.tool_capabilities or {
 			full_punch_interval = 1.2,
-			max_drop_level=0,
-			groupcaps={
-				crumbly = {times={1.7, 1.0, 0.4}, uses=10, maxlevel=1},
+			max_drop_level = 0,
+			groupcaps = {
+				crumbly = {times = {1.7, 1.0, 0.4}, uses = 10, maxlevel = 1},
 			},
-			damage_groups = {fleshy=2},
+			damage_groups = {fleshy = 2},
 		},
 		sound = {breaks = "tools_api_breaks"},
 		groups = def.groups or {shovel = 1}
@@ -73,11 +73,11 @@ function tools.register_axe(name, def)
 		inventory_image = def.inventory_image or txt .. "_axe.png",
 		tool_capabilities = def.tool_capabilities or {
 			full_punch_interval = 1.0,
-			max_drop_level=0,
-			groupcaps={
-				choppy = {times={2.5, 1.7, 1.0}, uses=10, maxlevel=1},
+			max_drop_level = 0,
+			groupcaps = {
+				choppy = {times = {2.5, 1.7, 1.0}, uses = 10, maxlevel = 1},
 			},
-			damage_groups = {fleshy=2},
+			damage_groups = {fleshy = 2},
 		},
 		sound = {breaks = "tools_api_breaks"},
 		groups = {axe = 1}
@@ -100,11 +100,11 @@ function tools.register_sword(name, def)
 		inventory_image = def.inventory_image or txt .. "_sword.png",
 		tool_capabilities = def.tool_capabilities or {
 			full_punch_interval = 1,
-			max_drop_level=0,
-			groupcaps={
-				snappy={times={2.3, 1.2, 0.4}, uses=10, maxlevel=1},
+			max_drop_level = 0,
+			groupcaps = {
+				snappy = {times = {2.3, 1.2, 0.4}, uses = 10, maxlevel = 1},
 			},
-			damage_groups = {fleshy=2},
+			damage_groups = {fleshy = 2},
 		},
 		sound = {breaks = "tools_api_breaks"},
 		groups = {sword = 1}
@@ -120,12 +120,71 @@ function tools.register_sword(name, def)
 	})
 end
 
+-- These functions enable users to create tool sets without understanding the 
+-- mechanisms behind it.
+
+local function set_capabilities(capabilities, values)
+	capabilities.full_punch_interval = capabilities.full_punch_interval or values[1]
+	capabilities.max_drop_level = capabilities.max_drop_level or values[2]
+	capabilities.groupcaps = capabilities.groupcaps or values[3]
+	capabilities.damage_groups = capabilities.damage_groups or values[4]
+end
+
+local function calc_capabilities(x, def)
+	x = x >= -2 and x or -2
+	local y = x + 9
+
+	set_capabilities(def.pickaxe.tool_capabilities, {
+		9 / y, 
+		3 + x, 
+		{
+			cracky = {times = {20 / y, 10 / y, 5 / y}, 
+			uses = 3 * y, maxlevel = 3 + x}
+		},
+		{fleshy = 0.5 * y}
+	})
+
+	set_capabilities(def.shovel.tool_capabilities, {
+		10 / y, 
+		3 + x, 
+		{
+			crumbly = {times = {11 / y, 5 / y, 3 / y}, 
+			uses = 3 * y, maxlevel = 3 + x}
+		},
+		{fleshy = 0.4 * y}
+	})
+	
+	set_capabilities(def.axe.tool_capabilities, {
+		9 / y, 
+		1 + x, 
+		{
+			choppy = {times = {21 / y, 9 / y, 5 / y}, 
+			uses = 3 * y, maxlevel = 3 + x}
+		}, 
+		{fleshy = 0.7 * y}
+	})
+
+	set_capabilities(def.sword.tool_capabilities, {
+		7 / y,
+		1 + x,
+		{
+			snappy = {times = {19 / y, 9 / y, 3 / y}, 
+			uses = 4 * y, maxlevel = 3 + x}
+		},
+		{fleshy = 0.8 * y}
+	})
+end
+
 function tools.register_set(name, def)
 	if def.material then 
 		def.pickaxe.material = def.material
 		def.shovel.material = def.material
 		def.axe.material = def.material
 		def.sword.material = def.material
+	end
+
+	if def.x then
+		calc_capabilities(def.x, def)
 	end
 
 	tools.register_pickaxe(name, def.pickaxe)

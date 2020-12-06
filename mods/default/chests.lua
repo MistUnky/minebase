@@ -1,7 +1,7 @@
 default.chest = {}
 
 -- support for Minebase translation.
-local S = default.get_translator
+local S = minetest.get_translator("default")
 
 function default.chest.get_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," .. pos.z

@@ -3,8 +3,6 @@
 -- support for Minebase translation.
 local S = minetest.get_translator("base_tools")
 
-dofile(minetest.get_modpath("base_tools") .. "/hand.lua")
-
 --
 -- tool sets
 --

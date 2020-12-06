@@ -1,6 +1,5 @@
--- base_tools/hand.lua 
+-- tools/base_hand/init.lua 
 
--- The hand
 -- Override the hand item registered in the engine in builtin/game/register.lua
 minetest.override_item("", {
 	wield_scale = {x=1,y=1,z=2.5},
