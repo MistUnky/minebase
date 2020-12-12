@@ -14,7 +14,7 @@ tools = {}
 function tools.register_pickaxe(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_tool(name .. "_pickaxe", {
-		description = def.description,
+		description = def.description or txt .. "_pickaxe",
 		inventory_image = def.inventory_image or txt .. "_pickaxe.png",
 		tool_capabilities = def.tool_capabilities or {
 			full_punch_interval = 1.2,
@@ -41,7 +41,7 @@ end
 function tools.register_shovel(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_tool(name .. "_shovel", {
-		description = def.description,
+		description = def.description or txt .. "_shovel",
 		inventory_image = def.inventory_image or txt .. "_shovel.png",
 		wield_image = def.wield_image or txt .. "_shovel.png^[transformR90",
 		tool_capabilities = def.tool_capabilities or {
@@ -69,7 +69,7 @@ end
 function tools.register_axe(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_tool(name .."_axe", {
-		description = def.description,
+		description = def.description or txt .. "_axe",
 		inventory_image = def.inventory_image or txt .. "_axe.png",
 		tool_capabilities = def.tool_capabilities or {
 			full_punch_interval = 1.0,
@@ -96,7 +96,7 @@ end
 function tools.register_sword(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_tool(name .. "_sword", {
-		description = def.description,
+		description = def.description or txt .. "_sword",
 		inventory_image = def.inventory_image or txt .. "_sword.png",
 		tool_capabilities = def.tool_capabilities or {
 			full_punch_interval = 1,

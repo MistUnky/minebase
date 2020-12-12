@@ -342,3 +342,43 @@ minetest.register_craft({
 	recipe = "group:stick",
 	burntime = 1,
 })
+
+-- clay
+minetest.register_craftitem("default:clay_lump", {
+	description =  S("Clay Lump"),
+	inventory_image = "default_clay_lump.png",
+})
+
+minetest.register_craftitem("default:clay_brick", {
+	description = S("Clay Brick"),
+	inventory_image = "default_clay_brick.png",
+})
+
+minetest.register_node("default:clay", {
+	description = S("Clay"),
+	tiles = {"default_clay.png"},
+	groups = {crumbly = 3},
+	drop = "default:clay_lump 4",
+	sounds = default.node_sound_dirt_defaults(),
+})
+
+minetest.register_craft({
+	output = "default:clay_brick 4",
+	recipe = {
+		{"default:brick"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:clay_lump 4",
+	recipe = {
+		{"default:clay"},
+	}
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:clay_brick",
+	recipe = "default:clay_lump",
+})
+

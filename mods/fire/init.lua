@@ -136,7 +136,7 @@ minetest.register_craft({
 
 -- Override coalblock to enable permanent flame above
 -- Coalblock is non-flammable to avoid unwanted basic_flame nodes
-minetest.override_item("default:coalblock", {
+minetest.override_item("base_ores:coal_block", {
 	after_destruct = function(pos)
 		pos.y = pos.y + 1
 		if minetest.get_node(pos).name == "fire:permanent_flame" then

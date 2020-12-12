@@ -26,7 +26,7 @@ end
 
 function beds.register_bed(name, def)
 	minetest.register_node(name .. "_bottom", {
-		description = def.description,
+		description = def.description or name:sub(":","_"),
 		inventory_image = def.inventory_image,
 		wield_image = def.wield_image,
 		drawtype = "nodebox",

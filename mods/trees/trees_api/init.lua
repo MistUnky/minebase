@@ -187,7 +187,7 @@ function trees.register_leafdecay(def)
 	for _, v in pairs(def.trunks) do
 		minetest.override_item(v, {
 			after_destruct = function(pos, oldnode)
-				leafdecay_after_destruct(pos, oldnode, def)
+				return leafdecay_after_destruct(pos, oldnode, def)
 			end,
 		})
 	end
@@ -210,7 +210,7 @@ function trees.register_tree_node(name, def)
 
 	def.groups.tree = 1
 	minetest.register_node(name .. "_tree", {
-		description = def.description,
+		description = def.description or txt,
 		tiles = def.tiles or {txt .. "_tree_top.png", txt 
 			.. "_tree_top.png", txt .. "_tree.png"},
 		paramtype2 = "facedir",
@@ -235,7 +235,7 @@ function trees.register_wood(name, def)
 		def.groups.oddly_breakable_by_hand = def.groups.oddly_breakable_by_hand + 1
 	end
 	minetest.register_node(name .. "_wood", {
-		description = def.description,
+		description = def.description or txt,
 		paramtype2 = "facedir",
 		place_param2 = 0,
 		tiles = def.tiles or {txt .. "_wood.png"},
@@ -271,7 +271,7 @@ function trees.register_leaves(name, def)
 	end
 
 	minetest.register_node(name .. "_leaves", {
-		description = def.description,
+		description = def.description or txt,
 		drawtype = "allfaces_optional",
 		waving = 1,
 		tiles = def.tiles or {txt .. "_leaves.png"},
@@ -319,7 +319,7 @@ function trees.register_sapling(name, def)
 	end
 
 	minetest.register_node(name .. "_sapling", {
-		description = def.description,
+		description = def.description or txt,
 		drawtype = "plantlike",
 		tiles = def.tiles or {txt .. "_sapling.png"},
 		inventory_image = def.inventory_image or txt .. "_sapling.png",
@@ -332,7 +332,7 @@ function trees.register_sapling(name, def)
 				-- try again 5 min later
 				minetest.get_node_timer(pos):start(300)
 			else
-				def.grow_sapling(pos)
+				return def.grow_sapling(pos)
 			end
 		end,
 		selection_box = def.selection_box or {
@@ -405,7 +405,7 @@ function trees.register_bush_stem(name, def)
 	local txt = name:gsub(":", "_")
 
 	minetest.register_node(name .. "_stem", {
-		description = def.description,
+		description = def.description or txt,
 		drawtype = "plantlike",
 		visual_scale = 1.41,
 		tiles = def.tiles or {txt .. "_stem.png"},

@@ -100,7 +100,7 @@ function xpanes.register_pane(name, def)
 	local flatgroups = table.copy(def.groups)
 	flatgroups.pane = 1
 	minetest.register_node(name .. "_flat", {
-		description = def.description,
+		description = def.description or name:sub(":","_") .. "_flat",
 		drawtype = "nodebox",
 		paramtype = "light",
 		is_ground_content = false,
@@ -139,7 +139,7 @@ function xpanes.register_pane(name, def)
 		paramtype = "light",
 		is_ground_content = false,
 		sunlight_propagates = true,
-		description = def.description,
+		description = def.description or name:sub(":","_"),
 		tiles = {
 			def.textures[3],
 			def.textures[3],

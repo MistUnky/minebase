@@ -6,34 +6,13 @@ minetest.clear_registered_ores()
 -- Blob ore.
 -- These before scatter ores to avoid other ores in blobs.
 
--- Clay
-
-minetest.register_ore({
-	ore_type        = "blob",
-	ore             = "base_ores:clay",
-	wherein         = {"default:sand"},
-	clust_scarcity  = 16 * 16 * 16,
-	clust_size      = 5,
-	y_max           = 0,
-	y_min           = -15,
-	noise_threshold = 0.0,
-	noise_params    = {
-		offset = 0.5,
-		scale = 0.2,
-		spread = {x = 5, y = 5, z = 5},
-		seed = -316,
-		octaves = 1,
-		persist = 0.0
-	},
-})
-
 -- Scatter ores
 
 -- Coal
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_coal",
+	ore            = "base_ores:coal_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 8 * 8 * 8,
 	clust_num_ores = 9,
@@ -44,7 +23,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_coal",
+	ore            = "base_ores:coal_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 8 * 8 * 8,
 	clust_num_ores = 8,
@@ -55,7 +34,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_coal",
+	ore            = "base_ores:coal_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 12 * 12 * 12,
 	clust_num_ores = 30,
@@ -68,7 +47,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_tin",
+	ore            = "base_ores:tin_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 10 * 10 * 10,
 	clust_num_ores = 5,
@@ -79,7 +58,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_tin",
+	ore            = "base_ores:tin_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 13 * 13 * 13,
 	clust_num_ores = 4,
@@ -90,7 +69,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_tin",
+	ore            = "base_ores:tin_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 10 * 10 * 10,
 	clust_num_ores = 5,
@@ -103,7 +82,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_copper",
+	ore            = "base_ores:copper_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 9 * 9 * 9,
 	clust_num_ores = 5,
@@ -114,7 +93,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_copper",
+	ore            = "base_ores:copper_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 12 * 12 * 12,
 	clust_num_ores = 4,
@@ -125,7 +104,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_copper",
+	ore            = "base_ores:copper_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 9 * 9 * 9,
 	clust_num_ores = 5,
@@ -138,7 +117,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_iron",
+	ore            = "base_ores:iron_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 9 * 9 * 9,
 	clust_num_ores = 12,
@@ -149,7 +128,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_iron",
+	ore            = "base_ores:iron_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 7 * 7 * 7,
 	clust_num_ores = 5,
@@ -160,7 +139,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_iron",
+	ore            = "base_ores:iron_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 12 * 12 * 12,
 	clust_num_ores = 29,
@@ -173,7 +152,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_gold",
+	ore            = "base_ores:gold_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 13 * 13 * 13,
 	clust_num_ores = 5,
@@ -184,7 +163,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_gold",
+	ore            = "base_ores:gold_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 15 * 15 * 15,
 	clust_num_ores = 3,
@@ -195,7 +174,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_gold",
+	ore            = "base_ores:gold_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 13 * 13 * 13,
 	clust_num_ores = 5,
@@ -208,7 +187,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_mese",
+	ore            = "base_ores:mese_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 14 * 14 * 14,
 	clust_num_ores = 5,
@@ -219,7 +198,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_mese",
+	ore            = "base_ores:mese_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 18 * 18 * 18,
 	clust_num_ores = 3,
@@ -230,7 +209,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_mese",
+	ore            = "base_ores:mese_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 14 * 14 * 14,
 	clust_num_ores = 5,
@@ -243,7 +222,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_diamond",
+	ore            = "base_ores:diamond_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 15 * 15 * 15,
 	clust_num_ores = 4,
@@ -254,7 +233,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_diamond",
+	ore            = "base_ores:diamond_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 17 * 17 * 17,
 	clust_num_ores = 4,
@@ -265,7 +244,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:stone_with_diamond",
+	ore            = "base_ores:diamond_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 15 * 15 * 15,
 	clust_num_ores = 4,
@@ -278,7 +257,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:mese",
+	ore            = "base_ores:mese_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 36 * 36 * 36,
 	clust_num_ores = 3,
@@ -289,7 +268,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:mese",
+	ore            = "base_ores:mese_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 36 * 36 * 36,
 	clust_num_ores = 3,
@@ -300,7 +279,7 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "base_ores:mese",
+	ore            = "base_ores:mese_mineral",
 	wherein        = "default:stone",
 	clust_scarcity = 28 * 28 * 28,
 	clust_num_ores = 5,
