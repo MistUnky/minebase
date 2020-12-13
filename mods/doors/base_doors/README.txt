@@ -1,4 +1,4 @@
-Minebase mod: base_doors
+Minebase mod: Base Doors
 ========================
 See license.txt for license information.
 

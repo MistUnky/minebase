@@ -6,6 +6,7 @@ Authors of source code
 ----------------------
 Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)
 Various Minetest developers and contributors (LGPLv2.1+)
+LibraSubtilis (LGPLv2.1+)
 
 Authors of media (textures, sounds, models and schematics)
 ----------------------------------------------------------
@@ -55,7 +56,7 @@ diamond	3, 3 		3, 1 		3, 1 		3, 1
 
 average 2, 1 		2, 1 		2, 1 		2, 1 
 
-I use the best values as base values and create Funktions that calculate all
+I use the best values as base values and create functions that calculate all
 values with one given value x. If x is 1 the base values are used. If x is 
 greater than 1, then the tool has better stats than the base values.
 

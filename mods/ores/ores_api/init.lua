@@ -60,6 +60,45 @@ function ores.register_19(one, nine)
 	})
 end
 
+function ores.register_ore(name, def)
+	minetest.register_ore({
+		ore_type       = def.ore_type or "scatter", --TODO
+		ore            = def.ore or name .. "_mineral",
+		wherein        = def.wherein or "default:stone",
+		clust_scarcity = def.clust_scarcity or 15 * 15 * 15,
+		clust_num_ores = def.clust_num_ores or 7,
+		clust_size     = def.clust_size or 3,
+		y_max          = def.y_max or 31000,
+		y_min          = def.y_min or -31000,
+	})
+end
+
+function ores.register_blob_ores(name, def)
+	for _, ore in pairs(def) do
+		ore.ore_type = "blob"
+		ores.register_ore(name, ore)
+	end
+end
+
+-- The calculations are similar to those in tools_api.
+local function calc_ore_values(ore)
+	local y = ore.x >= -2 and ore.x + 9 or 7
+	ore.clust_scarcity = ore.clust_scarcity or -360/y + 54
+	ore.clust_num_ores = ore.clust_num_ores or 3
+	ore.clust_size = ore.clust_size or 2
+	ore.y_max = ore.y_max or 40960/(9+y) - 6144
+end
+
+function ores.register_scatter_ores(name, def)
+	for _, ore in pairs(def) do
+		ore.ore_type = "scatter"
+		if ore.x then
+			calc_ore_values(ore)
+		end
+		ores.register_ore(name, ore)
+	end
+end
+
 function ores.register_metal(name, def)
 	if def.lump then
 		ores.register_lump(name, def.lump)
@@ -88,6 +127,14 @@ function ores.register_metal(name, def)
 	if def.block then
 		def.block.sounds = default.node_sound_metal_defaults()
 		ores.register_block(name, def.block)
+	end
+	
+  if def.blob_ores then
+		ores.register_blob_ores(name, def.blob_ores)
+	end
+
+	if def.scatter_ores then
+		ores.register_scatter_ores(name, def.scatter_ores)
 	end
 end
 
@@ -125,12 +172,20 @@ function ores.register_crystal(name, def)
 	end
 
 	if def.mineral then
-		def.mineral.drop = name .. "_crystal"
-		def.mineral.groups = {cracky = 1}
+		def.mineral.drop = def.mineral.drop or name .. "_crystal"
+		def.mineral.groups = def.mineral.groups or {cracky = 1}
 		ores.register_mineral(name, def.mineral)
 	end
 
 	if def.block then
 		ores.register_block(name, def.block)
+	end
+
+  if def.blob_ores then
+		ores.register_blob_ores(name, def.blob_ores)
+	end
+
+	if def.scatter_ores then
+		ores.register_scatter_ores(name, def.scatter_ores)
 	end
 end

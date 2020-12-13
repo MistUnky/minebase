@@ -1,5 +1,22 @@
 -- tools_mtg/init.lua
 
+-- Aliases to support loading worlds using nodes following the old naming convention
+-- These can also be helpful when using chat commands, for example /giveme
+minetest.register_alias("WPick", "base_tools:wood_pick")
+minetest.register_alias("STPick", "base_tools:stone_pick")
+minetest.register_alias("SteelPick", "base_tools:steel_pick")
+minetest.register_alias("MesePick", "base_tools:mese_pick")
+minetest.register_alias("WShovel", "base_tools:wood_shovel")
+minetest.register_alias("STShovel", "base_tools:stone_shovel")
+minetest.register_alias("SteelShovel", "base_tools:steel_shovel")
+minetest.register_alias("WAxe", "base_tools:wood_axe")
+minetest.register_alias("STAxe", "base_tools:stone_axe")
+minetest.register_alias("SteelAxe", "base_tools:steel_axe")
+minetest.register_alias("WSword", "base_tools:wood_sword")
+minetest.register_alias("STSword", "base_tools:stone_sword")
+minetest.register_alias("SteelSword", "base_tools:steel_sword")
+
+
 minetest.register_alias("default:pick_wood", "base_tools:wood_pickaxe")
 minetest.register_alias("default:pick_stone", "base_tools:stone_pickaxe")
 minetest.register_alias("default:pick_bronze", "base_tools:bronze_pickaxe")

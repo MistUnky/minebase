@@ -1,4 +1,4 @@
-Minebase mod: base_trapdoors
+Minebase mod: Base Trapdoors
 ========================
 See license.txt for license information.
 

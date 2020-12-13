@@ -132,6 +132,7 @@ end
 
 local function calc_capabilities(x, def)
 	x = x >= -2 and x or -2
+	-- f(x) = a/(9+x)
 	local y = x + 9
 
 	set_capabilities(def.pickaxe.tool_capabilities, {

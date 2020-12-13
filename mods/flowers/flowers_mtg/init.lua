@@ -28,7 +28,3 @@ minetest.register_alias("flowers:waterlily_waving","base_flowers:waterlily_wavin
 
 minetest.register_alias("flowers:mushroom_brown","base_flowers:mushroom_brown")
 minetest.register_alias("flowers:mushroom_red","base_flowers:mushroom_red")
-minetest.register_alias("flowers:mushroom_brown","base_flowers:mushroom_brown")
-minetest.register_alias("flowers:mushroom_red","base_flowers:mushroom_red")
-minetest.register_alias("flowers:mushroom_brown","base_flowers:mushroom_brown")
-minetest.register_alias("flowers:mushroom_red","base_flowers:mushroom_red")

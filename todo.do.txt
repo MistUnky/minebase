@@ -82,6 +82,10 @@ Comments: Make it possible to set the groupcaps, uses and the maxlevel for all
 	values should only be calculated, if they aren't present in the 
 	definition passed to the function.
 
-#5.3	WIP	05.12.2020	3	decision	13.12.2020
+#5.3	closed	05.12.2020	3	decision	13.12.2020
 Description: Extract the code for ores from default.
+Measures: Do it.
+
+#5.4	open	13.12.2020	3	decision	20.12.2020
+Description: Extract the code for biomes from default.
 Measures: Do it.

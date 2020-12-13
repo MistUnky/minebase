@@ -1,4 +1,4 @@
-Minebase mod: base_fence_gates
+Minebase mod: Base Fence Gates
 ========================
 See license.txt for license information.
 
