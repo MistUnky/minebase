@@ -1,7 +1,6 @@
 -- base_ores/init.lua
 
 local S = minetest.get_translator("base_ores")
-minetest.clear_registered_ores()
 
 ores.register_metal("base_ores:copper", {
 	lump = {description = S("Copper Lump")},
@@ -102,7 +101,7 @@ ores.register_metal("base_ores:coal", {
 	}
 })
 
-ores.register_19("base_ores:coal_block", "base_ores:coal_lump")
+base_lib.register_19("base_ores:coal_block", "base_ores:coal_lump")
 
 minetest.register_craft({
 	type = "fuel",

@@ -63,6 +63,6 @@ dofile(default_path.."/craftitems.lua")
 dofile(default_path.."/crafting.lua")
 dofile(default_path.."/mapgen.lua")
 dofile(default_path.."/aliases.lua")
-dofile(default_path.."/legacy.lua")
+--dofile(default_path.."/legacy.lua")
 dofile(default_path.."/tools.lua")
 

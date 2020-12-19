@@ -1,9 +1,10 @@
 -- ores_api/init.lua
 
--- Create a setting that sets the scarcity of ores to a percentage of the hard 
--- coded scarcity.
-
 ores = {}
+ores.percentage_of_ore = tonumber(minetest.settings
+	:get("spiritus_api_spawn_percentage")) or 100
+
+minetest.clear_registered_ores()
 
 function ores.register_lump(name, def)
 	local txt = name:gsub(":", "_")
@@ -44,25 +45,9 @@ function ores.register_block(name, def)
 	})
 end
 
-function ores.register_19(one, nine)
-	minetest.register_craft({
-		output = nine .. " 9",
-		recipe = {{one}}
-	})
-
-	minetest.register_craft({
-		output = one,
-		recipe = {
-			{nine, nine, nine},
-			{nine, nine, nine},
-			{nine, nine, nine},
-		}
-	})
-end
-
 function ores.register_ore(name, def)
 	minetest.register_ore({
-		ore_type       = def.ore_type or "scatter", --TODO
+		ore_type       = def.ore_type or "scatter",
 		ore            = def.ore or name .. "_mineral",
 		wherein        = def.wherein or "default:stone",
 		clust_scarcity = def.clust_scarcity or 15 * 15 * 15,
@@ -116,7 +101,7 @@ function ores.register_metal(name, def)
 		ores.register_ingot(name, def.ingot)
 
 		if def.block then
-			ores.register_19(name .. "_block", name .. "_ingot")
+			base_lib.register_19(name .. "_block", name .. "_ingot")
 		end
 	end
 	
@@ -160,10 +145,10 @@ function ores.register_crystal(name, def)
 		ores.register_crystal_item(name, def.crystal)
 		
 		if def.fragment then
-			ores.register_19(name .. "_crystal", name .. "_crystal_fragment")
+			base_lib.register_19(name .. "_crystal", name .. "_crystal_fragment")
 		end
 		if def.block then
-			ores.register_19(name .. "_block", name .. "_crystal")
+			base_lib.register_19(name .. "_block", name .. "_crystal")
 		end
 	end
 

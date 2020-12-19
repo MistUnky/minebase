@@ -19,102 +19,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "default:sandstone",
-	recipe = {
-		{"default:sand", "default:sand"},
-		{"default:sand", "default:sand"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:sand 4",
-	recipe = {
-		{"default:sandstone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:sandstonebrick 4",
-	recipe = {
-		{"default:sandstone", "default:sandstone"},
-		{"default:sandstone", "default:sandstone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:sandstone_block 9",
-	recipe = {
-		{"default:sandstone", "default:sandstone", "default:sandstone"},
-		{"default:sandstone", "default:sandstone", "default:sandstone"},
-		{"default:sandstone", "default:sandstone", "default:sandstone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:desert_sandstone",
-	recipe = {
-		{"default:desert_sand", "default:desert_sand"},
-		{"default:desert_sand", "default:desert_sand"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:desert_sand 4",
-	recipe = {
-		{"default:desert_sandstone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:desert_sandstone_brick 4",
-	recipe = {
-		{"default:desert_sandstone", "default:desert_sandstone"},
-		{"default:desert_sandstone", "default:desert_sandstone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:desert_sandstone_block 9",
-	recipe = {
-		{"default:desert_sandstone", "default:desert_sandstone", "default:desert_sandstone"},
-		{"default:desert_sandstone", "default:desert_sandstone", "default:desert_sandstone"},
-		{"default:desert_sandstone", "default:desert_sandstone", "default:desert_sandstone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:silver_sandstone",
-	recipe = {
-		{"default:silver_sand", "default:silver_sand"},
-		{"default:silver_sand", "default:silver_sand"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:silver_sand 4",
-	recipe = {
-		{"default:silver_sandstone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:silver_sandstone_brick 4",
-	recipe = {
-		{"default:silver_sandstone", "default:silver_sandstone"},
-		{"default:silver_sandstone", "default:silver_sandstone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:silver_sandstone_block 9",
-	recipe = {
-		{"default:silver_sandstone", "default:silver_sandstone", "default:silver_sandstone"},
-		{"default:silver_sandstone", "default:silver_sandstone", "default:silver_sandstone"},
-		{"default:silver_sandstone", "default:silver_sandstone", "default:silver_sandstone"},
-	}
-})
-
-minetest.register_craft({
 	output = "default:bookshelf",
 	recipe = {
 		{"group:wood", "group:wood", "group:wood"},
@@ -175,55 +79,6 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = "default:stonebrick 4",
-	recipe = {
-		{"default:stone", "default:stone"},
-		{"default:stone", "default:stone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:stone_block 9",
-	recipe = {
-		{"default:stone", "default:stone", "default:stone"},
-		{"default:stone", "default:stone", "default:stone"},
-		{"default:stone", "default:stone", "default:stone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:desert_stonebrick 4",
-	recipe = {
-		{"default:desert_stone", "default:desert_stone"},
-		{"default:desert_stone", "default:desert_stone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:desert_stone_block 9",
-	recipe = {
-		{"default:desert_stone", "default:desert_stone", "default:desert_stone"},
-		{"default:desert_stone", "default:desert_stone", "default:desert_stone"},
-		{"default:desert_stone", "default:desert_stone", "default:desert_stone"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:snowblock",
-	recipe = {
-		{"default:snow", "default:snow", "default:snow"},
-		{"default:snow", "default:snow", "default:snow"},
-		{"default:snow", "default:snow", "default:snow"},
-	}
-})
-
-minetest.register_craft({
-	output = "default:snow 9",
-	recipe = {
-		{"default:snowblock"},
-	}
-})
 
 --
 -- Cooking recipes
@@ -239,24 +94,6 @@ minetest.register_craft({
 	type = "cooking",
 	output = "default:obsidian_glass",
 	recipe = "default:obsidian_shard",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:stone",
-	recipe = "default:cobble",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:stone",
-	recipe = "default:mossycobble",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:desert_stone",
-	recipe = "default:desert_cobble",
 })
 
 
@@ -347,12 +184,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "default:ladder_wood",
 	burntime = 7,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:lava_source",
-	burntime = 60,
 })
 
 minetest.register_craft({
