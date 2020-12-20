@@ -22,7 +22,7 @@ player_api.register_model("base_player_model_extended.b3d", {
 minetest.register_on_joinplayer(function(player)
 	player_api.player_attached[player:get_player_name()] = false
 	player_api.set_model(player, "base_player_model_extended.b3d", 
-		{"base_player_uv2.png"})
+		{"base_player_sam.png"})
 	player:set_local_animation(
 		{x = 0,   y = 79},
 		{x = 168, y = 187},

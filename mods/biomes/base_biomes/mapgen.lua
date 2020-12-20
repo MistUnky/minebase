@@ -2,7 +2,14 @@
 
 minetest.register_alias("mapgen_stone", "base_biomes:stone")
 minetest.register_alias("mapgen_water_source", "base_biomes:water_source")
-minetest.register_alias("mapgen_river_water_source", "base_biomes:river_water_source")
+minetest.register_alias("mapgen_river_water_source", 
+	"base_biomes:river_water_source")
+
+biomes.define_default({
+	sand = "base_biomes:sand",
+	water = "base_biomes:water_source",
+	lava = "base_biomes:lava_source"
+})
 
 -- Icesheet
 
@@ -279,157 +286,45 @@ biomes.register_biome("rainforest_swamp", {
 })
 
 
--- ores
+-- stratum ores
 
-minetest.register_ore({
-	ore_type        = "stratum",
-	ore             = "base_biomes:silver_sandstone",
-	wherein         = {"base_biomes:stone"},
-	clust_scarcity  = 1,
-	y_max           = 46,
-	y_min           = 10,
-	noise_params    = {
-		offset = 28,
-		scale = 16,
-		spread = {x = 128, y = 128, z = 128},
-		seed = 90122,
-		octaves = 1,
-	},
-	stratum_thickness = 4,
-	biomes = {"cold_desert"},
+biomes.register_stratum("base_biomes:silver_sandstone", {
+	wherein = {"base_biomes:stone"},
+	y_max = 46,
+	y_min = 10,
+	offset = 28,
+	biomes = {"cold_desert"}
 })
 
-
-minetest.register_ore({
-	ore_type        = "stratum",
-	ore             = "base_biomes:silver_sandstone",
-	wherein         = {"base_biomes:stone"},
-	clust_scarcity  = 1,
-	y_max           = 42,
-	y_min           = 6,
-	noise_params    = {
-		offset = 24,
-		scale = 16,
-		spread = {x = 128, y = 128, z = 128},
-		seed = 90122,
-		octaves = 1,
-	},
-	stratum_thickness = 2,
-	biomes = {"cold_desert"},
+biomes.register_stratum("base_biomes:silver_sandstone", {
+	wherein = {"base_biomes:stone"},
+	y_max = 42,
+	y_min = 6,
+	offset = 24,
+	biomes = {"cold_desert"}
 })
 
-minetest.register_ore({
-	ore_type        = "stratum",
-	ore             = "base_biomes:desert_sandstone",
-	wherein         = {"base_biomes:desert_stone"},
-	clust_scarcity  = 1,
-	y_max           = 46,
-	y_min           = 10,
-	noise_params    = {
-		offset = 28,
-		scale = 16,
-		spread = {x = 128, y = 128, z = 128},
-		seed = 90122,
-		octaves = 1,
-	},
-	stratum_thickness = 4,
-	biomes = {"desert"},
+biomes.register_stratum("base_biomes:desert_sandstone", {
+	wherein = {"base_biomes:desert_stone"},
+	y_max = 46,
+	y_min = 10,
+	offset = 28,
+	biomes = {"desert"}
 })
 
-minetest.register_ore({
-	ore_type        = "stratum",
-	ore             = "base_biomes:desert_sandstone",
-	wherein         = {"base_biomes:desert_stone"},
-	clust_scarcity  = 1,
-	y_max           = 42,
-	y_min           = 6,
-	noise_params    = {
-		offset = 24,
-		scale = 16,
-		spread = {x = 128, y = 128, z = 128},
-		seed = 90122,
-		octaves = 1,
-	},
-	stratum_thickness = 2,
-	biomes = {"desert"},
+biomes.register_stratum("base_biomes:desert_sandstone", {
+	wherein = {"base_biomes:desert_stone"},
+	y_max = 42,
+	y_min = 6,
+	offset = 24,
+	biomes = {"desert"}
 })
 
-minetest.register_ore({
-	ore_type        = "stratum",
-	ore             = "base_biomes:sandstone",
-	wherein         = {"base_biomes:desert_stone"},
-	clust_scarcity  = 1,
-	y_max           = 39,
-	y_min           = 3,
-	noise_params    = {
-		offset = 21,
-		scale = 16,
-		spread = {x = 128, y = 128, z = 128},
-		seed = 90122,
-		octaves = 1,
-	},
-	stratum_thickness = 2,
-	biomes = {"desert"},
-})
-
-minetest.register_ore({
-	ore_type        = "blob",
-	ore             = "base_biomes:silver_sand",
-	wherein         = {"base_biomes:stone"},
-	clust_scarcity  = 16 * 16 * 16,
-	clust_size      = 5,
-	y_max           = 31000,
-	y_min           = -31000,
-	noise_threshold = 0.0,
-	noise_params    = {
-		offset = 0.5,
-		scale = 0.2,
-		spread = {x = 5, y = 5, z = 5},
-		seed = 2316,
-		octaves = 1,
-		persist = 0.0
-	},
-})
-
-minetest.register_ore({
-	ore_type        = "blob",
-	ore             = "base_biomes:dirt",
-	wherein         = {"base_biomes:stone"},
-	clust_scarcity  = 16 * 16 * 16,
-	clust_size      = 5,
-	y_max           = 31000,
-	y_min           = -31,
-	noise_threshold = 0.0,
-	noise_params    = {
-		offset = 0.5,
-		scale = 0.2,
-		spread = {x = 5, y = 5, z = 5},
-		seed = 17676,
-		octaves = 1,
-		persist = 0.0
-	},
-	-- Only where default:dirt is present as surface material
-	biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
-			"deciduous_forest", "deciduous_forest_shore", "rainforest",
-			"rainforest_swamp"}
-})
-
-minetest.register_ore({
-	ore_type        = "blob",
-	ore             = "base_biomes:gravel",
-	wherein         = {"base_biomes:stone"},
-	clust_scarcity  = 16 * 16 * 16,
-	clust_size      = 5,
-	y_max           = 31000,
-	y_min           = -31000,
-	noise_threshold = 0.0,
-	noise_params    = {
-		offset = 0.5,
-		scale = 0.2,
-		spread = {x = 5, y = 5, z = 5},
-		seed = 766,
-		octaves = 1,
-		persist = 0.0
-	},
+biomes.register_stratum("base_biomes:sandstone", {
+	wherein = {"base_biomes:desert_stone"},
+	y_max = 39,
+	y_min = 3,
+	offset = 21,
+	biomes = {"desert"}
 })
 

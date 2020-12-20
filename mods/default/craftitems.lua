@@ -230,11 +230,6 @@ minetest.register_craftitem("default:paper", {
 	groups = {flammable = 3},
 })
 
-minetest.register_craftitem("default:flint", {
-	description = S("Flint"),
-	inventory_image = "default_flint.png"
-})
-
 --
 -- Crafting recipes
 --

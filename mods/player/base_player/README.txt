@@ -16,7 +16,11 @@ Various alterations and fixes by kilbith, sofar, xunto, Rogier-5, TeTpaAka, Deso
 stujones11, An0n3m0us (CC BY-SA 3.0):
   base_player_model.b3d
   base_player_model.blend
-
-Jordach (CC BY-SA 3.0):
-  base_player_sam.png
+ 
+LibraSubtilis (CC BY-SA 3.0):
+  base_player_model_extended.b3d	(based on base_player_model.blend) 
+  base_player_model_extended.blend	(based on base_player_model.blend)
+  base_player_sam.png 			(based on character.png by Jordach)
+  base_player_uv.png
+  base_player_uv_extended.png
 

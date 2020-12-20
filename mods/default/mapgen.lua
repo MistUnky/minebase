@@ -386,3 +386,64 @@ minetest.register_ore({
 	},
 })
 
+minetest.register_ore({
+	ore_type        = "blob",
+	ore             = "base_biomes:silver_sand",
+	wherein         = {"base_biomes:stone"},
+	clust_scarcity  = 16 * 16 * 16,
+	clust_size      = 5,
+	y_max           = 31000,
+	y_min           = -31000,
+	noise_threshold = 0.0,
+	noise_params    = {
+		offset = 0.5,
+		scale = 0.2,
+		spread = {x = 5, y = 5, z = 5},
+		seed = 2316,
+		octaves = 1,
+		persist = 0.0
+	},
+})
+
+minetest.register_ore({
+	ore_type        = "blob",
+	ore             = "base_biomes:dirt",
+	wherein         = {"base_biomes:stone"},
+	clust_scarcity  = 16 * 16 * 16,
+	clust_size      = 5,
+	y_max           = 31000,
+	y_min           = -31,
+	noise_threshold = 0.0,
+	noise_params    = {
+		offset = 0.5,
+		scale = 0.2,
+		spread = {x = 5, y = 5, z = 5},
+		seed = 17676,
+		octaves = 1,
+		persist = 0.0
+	},
+	-- Only where default:dirt is present as surface material
+	biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
+			"deciduous_forest", "deciduous_forest_shore", "rainforest",
+			"rainforest_swamp"}
+})
+
+minetest.register_ore({
+	ore_type        = "blob",
+	ore             = "base_biomes:gravel",
+	wherein         = {"base_biomes:stone"},
+	clust_scarcity  = 16 * 16 * 16,
+	clust_size      = 5,
+	y_max           = 31000,
+	y_min           = -31000,
+	noise_threshold = 0.0,
+	noise_params    = {
+		offset = 0.5,
+		scale = 0.2,
+		spread = {x = 5, y = 5, z = 5},
+		seed = 766,
+		octaves = 1,
+		persist = 0.0
+	},
+})
+

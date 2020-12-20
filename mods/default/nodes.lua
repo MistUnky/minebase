@@ -181,21 +181,6 @@ minetest.register_node("default:obsidian_block", {
 })
 
 --
--- Soft / Non-Stone
---
-
-minetest.register_node("default:permafrost_with_moss", {
-	description = S("Permafrost with Moss"),
-	tiles = {"default_moss.png", "default_permafrost.png",
-		{name = "default_permafrost.png^default_moss_side.png",
-			tileable_vertical = false}},
-	groups = {cracky = 3},
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name = "default_grass_footstep", gain = 0.25},
-	}),
-})
-
---
 -- Plantlife (non-cubic)
 --
 
