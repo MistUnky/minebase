@@ -33,7 +33,7 @@ trees.register_bush("base_bushes:apple", {
 		end
 	},
 	deco = {
-		place_on = {"default:dirt_with_grass"},
+		place_on = {"base_biomes:dirt_with_grass"},
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,
@@ -80,7 +80,7 @@ trees.register_bush("base_bushes:acacia", {
 		end
 	},
 	deco = {
-		place_on = {"default:dry_dirt_with_dry_grass"},
+		place_on = {"base_biomes:dry_dirt_with_dry_grass"},
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,
@@ -132,7 +132,7 @@ trees.register_bush("base_bushes:pine", {
 		end
 	},
 	deco = {
-		place_on = {"default:dirt_with_snow"},
+		place_on = {"base_biomes:dirt_with_snow"},
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,
@@ -190,7 +190,7 @@ trees.register_bush("base_bushes:blueberry", {
 		end
 	},
 	deco = {
-		place_on = {"default:dirt_with_grass", "default:dirt_with_snow"},
+		place_on = {"base_biomes:dirt_with_grass", "base_biomes:dirt_with_snow"},
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,

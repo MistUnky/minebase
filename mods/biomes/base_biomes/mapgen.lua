@@ -6,6 +6,8 @@ minetest.register_alias("mapgen_river_water_source",
 	"base_biomes:river_water_source")
 
 biomes.define_default({
+	stone_cobble = "base_biomes:stone_cobble",
+	mossy_stone_cobble = "base_biomes:mossy_stone_cobble",
 	sand = "base_biomes:sand",
 	water = "base_biomes:water_source",
 	lava = "base_biomes:lava_source"

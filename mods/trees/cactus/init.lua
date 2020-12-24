@@ -80,7 +80,7 @@ minetest.register_abm({
 minetest.register_decoration({
 	name = "cactus:large",
 	deco_type = "schematic",
-	place_on = {"default:desert_sand"},
+	place_on = {"base_biomes:desert_sand"},
 	sidelen = 16,
 	noise_params = {
 		offset = -0.0003,
@@ -101,7 +101,7 @@ minetest.register_decoration({
 minetest.register_decoration({
 	name = "cactus:cactus",
 	deco_type = "simple",
-	place_on = {"default:desert_sand"},
+	place_on = {"base_biomes:desert_sand"},
 	sidelen = 16,
 	noise_params = {
 		offset = -0.0003,
@@ -125,7 +125,7 @@ minetest.register_node("cactus:cactus", {
 		"cactus_side.png"},
 	paramtype2 = "facedir",
 	groups = {choppy = 3},
-	sounds = default.node_sound_wood_defaults(),
+	sounds = trees.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node,
 })
 
@@ -146,7 +146,7 @@ minetest.register_node("cactus:large_seedling", {
 		}
 	},
 	groups = {choppy = 3, dig_immediate = 3, attached_node = 1},
-	sounds = default.node_sound_wood_defaults(),
+	sounds = trees.node_sound_wood_defaults(),
 
 	on_place = function(itemstack, placer, pointed_thing)
 		itemstack = trees.sapling_on_place(itemstack, placer, pointed_thing,

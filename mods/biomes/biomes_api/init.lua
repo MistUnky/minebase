@@ -1,8 +1,16 @@
 -- biomes_api/init.lua
 
-biomes = {}
+biomes = {LIGHT_MAX = 14}
 
 minetest.clear_registered_biomes()
+
+function biomes.define_default(def)
+	biomes.sand = def.sand
+	biomes.stone_cobble = def.stone_cobble
+	biomes.mossy_stone_cobble = def.mossy_stone_cobble
+	biomes.water = def.water
+	biomes.lava = def.lava
+end
 
 --
 -- Nodes
@@ -14,7 +22,7 @@ function biomes.register_stone(name, def)
 		description = def.description or txt,
 		tiles = def.tiles or {txt .. ".png"},
 		groups = def.groups or {cracky = 3},
-		sounds = def.sounds or default.node_sound_stone_defaults()
+		sounds = def.sounds or biomes.node_sound_stone_defaults()
 	})
 end
 
@@ -27,7 +35,7 @@ function biomes.register_brick(name, def)
 		tiles = def.tiles or {txt .. "_brick.png"},
 		is_ground_content = def.is_ground_content or false,
 		groups = def.groups or {cracky = 2},
-		sounds = def.sounds or default.node_sound_stone_defaults()
+		sounds = def.sounds or biomes.node_sound_stone_defaults()
 	})
 end
 
@@ -38,7 +46,7 @@ function biomes.register_block(name, def)
 		tiles = def.tiles or {txt .. "_block.png"},
 		is_ground_content = def.is_ground_content or false,
 		groups = def.groups or {cracky = 2},
-		sounds = def.sounds or default.node_sound_stone_defaults()
+		sounds = def.sounds or biomes.node_sound_stone_defaults()
 	})
 end
 
@@ -49,7 +57,7 @@ function biomes.register_cobble(name, def)
 		tiles = def.tiles or {txt .. "_cobble.png"},
 		is_ground_content = def.is_ground_content or false,
 		groups = def.groups or {cracky = 3},
-		sounds = def.sounds or default.node_sound_stone_defaults()
+		sounds = def.sounds or biomes.node_sound_stone_defaults()
 	})
 end
 
@@ -88,7 +96,7 @@ function biomes.register_sand(name, def)
 		description = def.description or txt,
 		tiles = def.tiles or {txt .. ".png"},
 		groups = def.groups or {crumbly = 3, falling_node = 1, sand = 1},
-		sounds = def.sounds or default.node_sound_sand_defaults(),
+		sounds = def.sounds or biomes.node_sound_sand_defaults(),
 	})
 end
 
@@ -129,8 +137,8 @@ function biomes.register_node_with(name, def)
 			tileable_vertical = false}},
 		groups = def.groups or {crumbly = 3, soil = 1, spreading_dirt_type = 1},
 		drop = def.drop or name,
-		sounds = def.sounds or default.node_sound_dirt_defaults({
-			footstep = {name = "default_grass_footstep", gain = def.gain or 0.4},
+		sounds = def.sounds or biomes.node_sound_dirt_defaults({
+			footstep = {name = "base_biomes_grass_footstep", gain = def.gain or 0.4},
 		})
 	})
 end
@@ -200,7 +208,7 @@ function biomes.register_liquid_node(name, def)
 		post_effect_color = def.post_effekt_color or {a = 103, r = 30, g = 68, 
 			b = 90},
 		groups = def.groups or {water = 3, liquid = 3, cools_lava = 1},
-		sounds = def.sounds or default.node_sound_water_defaults(),
+		sounds = def.sounds or biomes.node_sound_water_defaults(),
 	})
 end
 
@@ -219,12 +227,6 @@ end
 -- Biomes
 --
 
-function biomes.define_default(def)
-	biomes.sand = def.sand
-	biomes.water = def.water
-	biomes.lava = def.lava
-end
-
 function biomes.register_biome(name, def)
 	minetest.register_biome({
 		name = name,
@@ -237,10 +239,10 @@ function biomes.register_biome(name, def)
 		node_water_top = def.node_water_top,
 		depth_water_top = def.depth_water_top,
 		node_river_water = def.node_river_water,
-		node_riverbed = def.node_riverbed or "default:sand",
+		node_riverbed = def.node_riverbed or biomes.sand,
 		depth_riverbed = def.depth_riverbed or 2,
-		node_dungeon = def.node_dungeon or "default:cobble",
-		node_dungeon_alt = def.node_dungeon_alt or "default:mossycobble",
+		node_dungeon = def.node_dungeon or biomes.stone_cobble,
+		node_dungeon_alt = def.node_dungeon_alt or biomes.mossy_stone_cobble,
 		node_dungeon_stair = def.node_dungeon_stair or "stairs:stair_cobble",
 		y_max = def.y_max or 31000,
 		y_min = def.y_min or 1,
@@ -305,5 +307,91 @@ function biomes.register_stratum(name, def)
 		stratum_thickness = def.stratum_thickness or 2,
 		biomes = def.biomes,
 	})
+end
+
+--
+-- Sounds
+--
+
+function biomes.node_sound_stone_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "base_sounds_hard_footstep", gain = 0.3}
+	table.dug = table.dug or
+			{name = "base_sounds_hard_footstep", gain = 1.0}
+	base_sounds.node_sound_defaults(table)
+	return table
+end
+
+function biomes.node_sound_dirt_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "biomes_api_dirt_footstep", gain = 0.4}
+	table.dug = table.dug or
+			{name = "biomes_api_dirt_footstep", gain = 1.0}
+	table.place = table.place or
+			{name = "base_sounds_place_node", gain = 1.0}
+	base_sounds.node_sound_defaults(table)
+	return table
+end
+
+function biomes.node_sound_sand_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "base_biomes_sand_footstep", gain = 0.05}
+	table.dug = table.dug or
+			{name = "base_biomes_sand_footstep", gain = 0.15}
+	table.place = table.place or
+			{name = "base_sounds_place_node", gain = 1.0}
+	base_sounds.node_sound_defaults(table)
+	return table
+end
+
+function biomes.node_sound_gravel_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "base_biomes_gravel_footstep", gain = 0.1}
+	table.dig = table.dig or
+			{name = "base_biomes_gravel_dig", gain = 0.35}
+	table.dug = table.dug or
+			{name = "base_biomes_gravel_dug", gain = 1.0}
+	table.place = table.place or
+			{name = "base_sounds_place_node", gain = 1.0}
+	base_sounds.node_sound_defaults(table)
+	return table
+end
+
+function biomes.node_sound_ice_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "base_biomes_ice_footstep", gain = 0.3}
+	table.dig = table.dig or
+			{name = "base_biomes_ice_dig", gain = 0.5}
+	table.dug = table.dug or
+			{name = "base_biomes_ice_dug", gain = 0.5}
+	base_sounds.node_sound_defaults(table)
+	return table
+end
+
+function biomes.node_sound_water_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "base_biomes_water_footstep", gain = 0.2}
+	base_sounds.node_sound_defaults(table)
+	return table
+end
+
+function biomes.node_sound_snow_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "base_biomes_snow_footstep", gain = 0.2}
+	table.dig = table.dig or
+			{name = "base_biomes_snow_footstep", gain = 0.3}
+	table.dug = table.dug or
+			{name = "base_biomes_snow_footstep", gain = 0.3}
+	table.place = table.place or
+			{name = "base_sounds_place_node", gain = 1.0}
+	base_sounds.node_sound_defaults(table)
+	return table
 end
 

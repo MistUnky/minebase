@@ -23,7 +23,7 @@ minetest.register_node("base_trees:apple", {
 	groups = {fleshy = 3, dig_immediate = 3, flammable = 2,
 		leafdecay = 3, leafdecay_drop = 1, food_apple = 1},
 	on_use = minetest.item_eat(2),
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = trees.node_sound_leaves_defaults(),
 
 	after_place_node = function(pos, placer, itemstack)
 		minetest.set_node(pos, {name = "base_trees:apple", param2 = 1})
@@ -39,8 +39,8 @@ minetest.register_node("base_trees:apple", {
 
 minetest.register_node("base_trees:apple_mark", {
 	description = S("Apple Marker"),
-	inventory_image = "base_trees_apple.png^default_invisible_node_overlay.png",
-	wield_image = "base_trees_apple.png^default_invisible_node_overlay.png",
+	inventory_image = "base_trees_apple.png",
+	wield_image = "base_trees_apple.png",
 	drawtype = "airlike",
 	paramtype = "light",
 	sunlight_propagates = true,
@@ -96,7 +96,7 @@ minetest.register_craft({
 local chunksize = tonumber(minetest.get_mapgen_setting("chunksize"))
 if chunksize >= 5 then
 	trees.register_tree_decoration("base_trees:emergent_jungle",{
-		place_on = {"default:dirt_with_rainforest_litter"},
+		place_on = {"base_biomes:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		noise_params = {
 			offset = 0.0,

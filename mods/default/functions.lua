@@ -13,76 +13,6 @@ function default.node_sound_defaults(table)
 	return table
 end
 
-function default.node_sound_stone_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_hard_footstep", gain = 0.3}
-	table.dug = table.dug or
-			{name = "default_hard_footstep", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
-function default.node_sound_dirt_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_dirt_footstep", gain = 0.4}
-	table.dug = table.dug or
-			{name = "default_dirt_footstep", gain = 1.0}
-	table.place = table.place or
-			{name = "default_place_node", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
-function default.node_sound_sand_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_sand_footstep", gain = 0.05}
-	table.dug = table.dug or
-			{name = "default_sand_footstep", gain = 0.15}
-	table.place = table.place or
-			{name = "default_place_node", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
-function default.node_sound_gravel_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_gravel_footstep", gain = 0.1}
-	table.dig = table.dig or
-			{name = "default_gravel_dig", gain = 0.35}
-	table.dug = table.dug or
-			{name = "default_gravel_dug", gain = 1.0}
-	table.place = table.place or
-			{name = "default_place_node", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
-function default.node_sound_wood_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_wood_footstep", gain = 0.3}
-	table.dug = table.dug or
-			{name = "default_wood_footstep", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
-function default.node_sound_leaves_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_grass_footstep", gain = 0.45}
-	table.dug = table.dug or
-			{name = "default_grass_footstep", gain = 0.7}
-	table.place = table.place or
-			{name = "default_place_node", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
 function default.node_sound_glass_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
@@ -91,18 +21,6 @@ function default.node_sound_glass_defaults(table)
 			{name = "default_glass_footstep", gain = 0.5}
 	table.dug = table.dug or
 			{name = "default_break_glass", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
-function default.node_sound_ice_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_ice_footstep", gain = 0.3}
-	table.dig = table.dig or
-			{name = "default_ice_dig", gain = 0.5}
-	table.dug = table.dug or
-			{name = "default_ice_dug", gain = 0.5}
 	default.node_sound_defaults(table)
 	return table
 end
@@ -120,58 +38,6 @@ function default.node_sound_metal_defaults(table)
 	default.node_sound_defaults(table)
 	return table
 end
-
-function default.node_sound_water_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_water_footstep", gain = 0.2}
-	default.node_sound_defaults(table)
-	return table
-end
-
-function default.node_sound_snow_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_snow_footstep", gain = 0.2}
-	table.dig = table.dig or
-			{name = "default_snow_footstep", gain = 0.3}
-	table.dug = table.dug or
-			{name = "default_snow_footstep", gain = 0.3}
-	table.place = table.place or
-			{name = "default_place_node", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
-
---
--- Lavacooling
---
-
-default.cool_lava = function(pos, node)
-	if node.name == "default:lava_source" then
-		minetest.set_node(pos, {name = "default:obsidian"})
-	else -- Lava flowing
-		minetest.set_node(pos, {name = "default:stone"})
-	end
-	minetest.sound_play("default_cool_lava",
-		{pos = pos, max_hear_distance = 16, gain = 0.25}, true)
-end
-
-if minetest.settings:get_bool("enable_lavacooling") ~= false then
-	minetest.register_abm({
-		label = "Lava cooling",
-		nodenames = {"default:lava_source", "default:lava_flowing"},
-		neighbors = {"group:cools_lava", "group:water"},
-		interval = 2,
-		chance = 2,
-		catch_up = false,
-		action = function(...)
-			default.cool_lava(...)
-		end,
-	})
-end
-
 
 --
 -- Optimized helper to put all items in an inventory into a drops list
@@ -619,3 +485,33 @@ function default.can_interact_with_node(player, pos)
 
 	return false
 end
+
+--
+-- Lavacooling
+--
+
+default.cool_lava = function(pos, node)
+	if node.name == "base_biomes:lava_source" then
+		minetest.set_node(pos, {name = "default:obsidian"})
+	else -- Lava flowing
+		minetest.set_node(pos, {name = "base_biomes:stone"})
+	end
+	minetest.sound_play("default_cool_lava",
+		{pos = pos, max_hear_distance = 16, gain = 0.25}, true)
+end
+
+if minetest.settings:get_bool("enable_lavacooling") ~= false then
+	minetest.register_abm({
+		label = "Lava cooling",
+		nodenames = {"base_biomes:lava_source", "base_biomes:lava_flowing"},
+		neighbors = {"group:cools_lava", "group:water"},
+		interval = 2,
+		chance = 2,
+		catch_up = false,
+		action = function(...)
+			default.cool_lava(...)
+		end,
+	})
+end
+
+

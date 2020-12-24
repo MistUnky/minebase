@@ -12,7 +12,7 @@ biomes.register_stone_nodes("base_biomes:stone", {
 	block = {description = S("Stone Block")}
 })
 
-biomes.register_cobble("base_biomes:mossy", {
+biomes.register_cobble("base_biomes:mossy_stone", {
 	description = S("Mossy Cobblestone"),
 	groups = {cracky = 3, stone = 1}
 })
@@ -20,7 +20,7 @@ biomes.register_cobble("base_biomes:mossy", {
 minetest.register_craft({
 	type = "cooking",
 	output = "base_biomes:stone",
-	recipe = "base_biomes:mossycobble",
+	recipe = "base_biomes:mossy_stone_cobble",
 })
 
 biomes.register_stone_nodes("base_biomes:desert_stone", {
@@ -55,12 +55,12 @@ biomes.register_nodes_with("base_biomes:dirt", {
 	base_node = {
 		description = S("Dirt"),
 		groups = {crumbly = 3, soil = 1},
-		sounds = default.node_sound_dirt_defaults(),
+		sounds = biomes.node_sound_dirt_defaults(),
 	},{
 		with = "snow",
 		description = S("Dirt with Snow"),
 		groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1, snowy = 1},
-		sounds = default.node_sound_dirt_defaults({
+		sounds = biomes.node_sound_dirt_defaults({
 			footstep = {name = "base_biomes_snow_footstep", gain = 0.2},
 		})
 	}, {
@@ -92,7 +92,7 @@ biomes.register_nodes_with("base_biomes:dry_dirt", {
 	base_node = {
 		description = S("Dry Dirt"),
 		groups = {crumbly = 3, soil = 1},
-		sounds = default.node_sound_dirt_defaults(),
+		sounds = biomes.node_sound_dirt_defaults(),
 	}, {
 		with = "dry_grass",
 		description = S("Dry Dirt with Dry Grass"),
@@ -104,7 +104,7 @@ biomes.register_nodes_with("base_biomes:permafrost", {
 	base_node = {
 		description = S("Permafrost"),
 		groups = {cracky = 3},
-		sounds = default.node_sound_dirt_defaults(),
+		sounds = biomes.node_sound_dirt_defaults(),
 	}, {
 		with = "stones",
 		description = S("Permafrost with Stones"),
@@ -112,7 +112,7 @@ biomes.register_nodes_with("base_biomes:permafrost", {
 			"base_biomes_permafrost.png", {name = "base_biomes_permafrost.png" 
 			.. "^base_biomes_stones_side.png", tileable_vertical = false}},
 		groups = {cracky = 3},
-		sounds = default.node_sound_gravel_defaults(),
+		sounds = biomes.node_sound_gravel_defaults(),
 	}, {
 		with = "moss",
 		description = S("Permafrost with Moss"),
@@ -165,7 +165,7 @@ biomes.register_liquid("base_biomes:lava", {
 	source = {
 		description = S("Lava Source"),
 		length = 3.0,
-		light_source = default.LIGHT_MAX - 1,
+		light_source = biomes.LIGHT_MAX - 1,
 		liquid_viscosity = 7,
 		liquid_renewable = false,
 		damage_per_second = 4 * 2,
@@ -175,7 +175,7 @@ biomes.register_liquid("base_biomes:lava", {
 	flowing = {
 		description = S("Flowing Lava"),
 		length = 3.3,
-		light_source = default.LIGHT_MAX - 1,
+		light_source = biomes.LIGHT_MAX - 1,
 		liquid_viscosity = 7,
 		liquid_renewable = false,
 		damage_per_second = 4 * 2,
@@ -212,7 +212,7 @@ minetest.register_node("base_biomes:snow", {
 		},
 	},
 	groups = {crumbly = 3, falling_node = 1, snowy = 1},
-	sounds = default.node_sound_snow_defaults(),
+	sounds = biomes.node_sound_snow_defaults(),
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
@@ -228,7 +228,7 @@ minetest.register_node("base_biomes:snowblock", {
 	description = S("Snow Block"),
 	tiles = {"base_biomes_snow.png"},
 	groups = {crumbly = 3, cools_lava = 1, snowy = 1},
-	sounds = default.node_sound_snow_defaults(),
+	sounds = biomes.node_sound_snow_defaults(),
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
@@ -246,7 +246,7 @@ minetest.register_node("base_biomes:cave_ice", {
 	groups = {cracky = 3, cools_lava = 1, slippery = 3,
 		not_in_creative_inventory = 1},
 	drop = "base_biomes:ice",
-	sounds = default.node_sound_ice_defaults(),
+	sounds = biomes.node_sound_ice_defaults(),
 })
 
 -- 'is ground content = false' to avoid tunnels in sea ice or ice rivers
@@ -256,15 +256,14 @@ minetest.register_node("base_biomes:ice", {
 	is_ground_content = false,
 	paramtype = "light",
 	groups = {cracky = 3, cools_lava = 1, slippery = 3},
-	sounds = default.node_sound_ice_defaults(),
+	sounds = biomes.node_sound_ice_defaults(),
 })
-
 
 minetest.register_node("base_biomes:gravel", {
 	description = S("Gravel"),
 	tiles = {"base_biomes_gravel.png"},
 	groups = {crumbly = 2, falling_node = 1},
-	sounds = default.node_sound_gravel_defaults(),
+	sounds = biomes.node_sound_gravel_defaults(),
 	drop = {
 		max_items = 1,
 		items = {

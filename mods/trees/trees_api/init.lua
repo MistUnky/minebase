@@ -215,7 +215,7 @@ function trees.register_tree_node(name, def)
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = def.groups,
-		sounds = default.node_sound_wood_defaults(),
+		sounds = trees.node_sound_wood_defaults(),
 		on_place = minetest.rotate_node
 	})
 
@@ -240,7 +240,7 @@ function trees.register_wood(name, def)
 		tiles = def.tiles or {txt .. "_wood.png"},
 		is_ground_content = false,
 		groups = def.groups,
-		sounds = default.node_sound_wood_defaults(),
+		sounds = trees.node_sound_wood_defaults(),
 	})
 
 	minetest.register_craft({
@@ -286,7 +286,7 @@ function trees.register_leaves(name, def)
 				{items = {name .. "_leaves"}}
 			}
 		},
-		sounds = default.node_sound_leaves_defaults(),
+		sounds = trees.node_sound_leaves_defaults(),
 		after_place_node = after_place_leaves,
 		on_timer = def.on_timer,
 		node_dig_prediction = def.node_dig_prediction,
@@ -340,7 +340,7 @@ function trees.register_sapling(name, def)
 		},
 		groups = def.groups or {snappy = 2, dig_immediate = 3, 
 			flammable = 2,attached_node = 1, sapling = 1},
-		sounds = default.node_sound_leaves_defaults(),
+		sounds = trees.node_sound_leaves_defaults(),
 		on_construct = def.on_construct or on_construct_sapling,
 		on_place = on_place_sapling
 	})
@@ -414,7 +414,7 @@ function trees.register_bush_stem(name, def)
 		sunlight_propagates = true,
 		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 1, 
 			flammable = 2},
-		sounds = default.node_sound_wood_defaults(),
+		sounds = trees.node_sound_wood_defaults(),
 		selection_box = {
 			type = "fixed",
 			fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
@@ -462,5 +462,28 @@ function trees.register_bush(name, def)
 	if def.deco then
 		trees.register_bush_decoration(name,def.deco)
 	end
+end
+
+
+function trees.node_sound_wood_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "trees_api_wood_footstep", gain = 0.3}
+	table.dug = table.dug or
+			{name = "trees_api_wood_footstep", gain = 1.0}
+	base_sounds.node_sound_defaults(table)
+	return table
+end
+
+function trees.node_sound_leaves_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "base_biomes_grass_footstep", gain = 0.45}
+	table.dug = table.dug or
+			{name = "base_biomes_grass_footstep", gain = 0.7}
+	table.place = table.place or
+			{name = "base_sounds_place_node", gain = 1.0}
+	base_sounds.node_sound_defaults(table)
+	return table
 end
 

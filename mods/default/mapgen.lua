@@ -2,23 +2,6 @@
 -- Aliases for map generators
 --
 
--- All mapgens
-
--- Stratum ores.
-
--- Silver sandstone
--- Desert sandstone
-
--- Sandstone
-
--- blob ore
-
--- Silver sand
-
--- Dirt
-
--- Gravel
-
 
 --
 -- Register decorations

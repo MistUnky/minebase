@@ -37,7 +37,7 @@ trees.register_tree("base_trees:apple", {
 		end
 	},
 	deco = {
-		place_on = {"default:dirt_with_grass"},
+		place_on = {"base_biomes:dirt_with_grass"},
 		noise_params = {
 			offset = 0.024,
 			scale = 0.015,
@@ -50,7 +50,7 @@ trees.register_tree("base_trees:apple", {
 		schematic = base_trees_path .. "/schematics/base_trees_apple.mts"
 	}, 
 	deco_log = {
-		place_on = {"default:dirt_with_grass"},
+		place_on = {"base_biomes:dirt_with_grass"},
 		noise_params = {
 			offset = 0.0012,
 			scale = 0.0007,
@@ -61,7 +61,7 @@ trees.register_tree("base_trees:apple", {
 		},
 		biomes = {"deciduous_forest"},
 		schematic = base_trees_path .. "/schematics/base_trees_apple_log.mts",
-		spawn_by = "default:dirt_with_grass"
+		spawn_by = "base_biomes:dirt_with_grass"
 	},
 })
 
@@ -95,7 +95,7 @@ trees.register_tree("base_trees:acacia", {
 		end
 	},
 	deco = {
-		place_on = {"default:dry_dirt_with_dry_grass"},
+		place_on = {"base_biomes:dry_dirt_with_dry_grass"},
 		noise_params = {
 			offset = 0,
 			scale = 0.002,
@@ -108,7 +108,7 @@ trees.register_tree("base_trees:acacia", {
 		schematic = base_trees_path .. "/schematics/base_trees_acacia.mts",
 	}, 
 	deco_log = {
-		place_on = {"default:dry_dirt_with_dry_grass"},
+		place_on = {"base_biomes:dry_dirt_with_dry_grass"},
 		noise_params = {
 			offset = 0,
 			scale = 0.001,
@@ -119,7 +119,7 @@ trees.register_tree("base_trees:acacia", {
 		},
 		biomes = {"savanna"},
 		schematic = base_trees_path .. "/schematics/base_trees_acacia_log.mts",
-		spawn_by = "default:dry_dirt_with_dry_grass",
+		spawn_by = "base_biomes:dry_dirt_with_dry_grass",
 	}
 })
 
@@ -155,7 +155,7 @@ trees.register_tree("base_trees:aspen", {
 		end
 	},
 	deco = {
-		place_on = {"default:dirt_with_grass"},
+		place_on = {"base_biomes:dirt_with_grass"},
 		noise_params = {
 			offset = 0.0,
 			scale = -0.015,
@@ -168,7 +168,7 @@ trees.register_tree("base_trees:aspen", {
 		schematic = base_trees_path .. "/schematics/base_trees_aspen.mts",
 	}, 
 	deco_log = {
-		place_on = {"default:dirt_with_grass"},
+		place_on = {"base_biomes:dirt_with_grass"},
 		noise_params = {
 			offset = 0.0,
 			scale = -0.0008,
@@ -179,7 +179,7 @@ trees.register_tree("base_trees:aspen", {
 		},
 		biomes = {"deciduous_forest"},
 		schematic = base_trees_path .. "/schematics/base_trees_aspen_log.mts",
-		spawn_by = "default:dirt_with_grass"
+		spawn_by = "base_biomes:dirt_with_grass"
 	}
 })
 
@@ -212,19 +212,19 @@ trees.register_tree("base_trees:jungle", {
 		end
 	},
 	deco = {
-		place_on = {"default:dirt_with_rainforest_litter"},
+		place_on = {"base_biomes:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		fill_ratio = 0.1,
 		biomes = {"rainforest"},
 		schematic = base_trees_path .. "/schematics/base_trees_jungle.mts",
 	}, 
 	deco_log = {
-		place_on = {"default:dirt_with_rainforest_litter"},
+		place_on = {"base_biomes:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		fill_ratio = 0.005,
 		biomes = {"rainforest"},
 		schematic = base_trees_path .. "/schematics/base_trees_jungle_log.mts",
-		spawn_by = "default:dirt_with_rainforest_litter"
+		spawn_by = "base_biomes:dirt_with_rainforest_litter"
 	}
 })
 
@@ -274,7 +274,7 @@ trees.register_tree("base_trees:pine", {
 		end
 	},
 	deco = {
-		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+		place_on = {"base_biomes:dirt_with_snow", "base_biomes:dirt_with_coniferous_litter"},
 		noise_params = {
 			offset = 0.010,
 			scale = 0.048,
@@ -288,13 +288,13 @@ trees.register_tree("base_trees:pine", {
 		schematic = base_trees_path .. "/schematics/base_trees_pine.mts",
 	}, 
 	deco_log = {
-		place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+		place_on = {"base_biomes:dirt_with_snow", "base_biomes:dirt_with_coniferous_litter"},
 		sidelen = 80,
 		fill_ratio = 0.0018,
 		biomes = {"taiga", "coniferous_forest"},
 		y_min = 4,
 		schematic = base_trees_path .. "/schematics/base_trees_pine_log.mts",
-		spawn_by = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"}
+		spawn_by = {"base_biomes:dirt_with_snow", "base_biomes:dirt_with_coniferous_litter"}
 	}
 })
 
@@ -303,7 +303,7 @@ trees.register_tree("base_trees:pine", {
 --
 
 trees.register_tree_decoration("base_trees:jungle_swamp" , {
-	place_on = {"default:dirt"},
+	place_on = {"base_biomes:dirt"},
 	-- Noise tuned to place swamp trees where papyrus is absent
 	noise_params = {
 		offset = 0.0,
@@ -320,7 +320,7 @@ trees.register_tree_decoration("base_trees:jungle_swamp" , {
 })
 
 trees.register_tree_decoration("base_trees:small_pine", {
-	place_on = {"default:dirt_with_snow", "default:dirt_with_coniferous_litter"},
+	place_on = {"base_biomes:dirt_with_snow", "base_biomes:dirt_with_coniferous_litter"},
 	noise_params = {
 		offset = 0.010,
 		scale = -0.048,

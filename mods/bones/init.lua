@@ -37,7 +37,12 @@ minetest.register_node("bones:bones", {
 	},
 	paramtype2 = "facedir",
 	groups = {dig_immediate = 2},
-	sounds = default.node_sound_gravel_defaults(),
+	sounds = {
+		footstep = {name = "bones_footstep", gain = 0.1},
+		dig = {name = "bones_dig", gain = 0.35},
+		dug = {name = "bones_dug", gain = 1.0},
+		place = {name = "base_sounds_place_node", gain = 1.0}
+	},
 
 	can_dig = function(pos, player)
 		local inv = minetest.get_meta(pos):get_inventory()
