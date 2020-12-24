@@ -1,10 +1,11 @@
 # textdomain: base_bushes
 Bush Stem=Batang Semak
 Bush Leaves=Daun Semak
-Bush Sapling=Bibit Semak
-Blueberry Bush Leaves with Berries=Daun Bluberi Berbuah
-Blueberry Bush Leaves=Daun Bluberi
-Blueberry Bush Sapling=Bibit Bluberi
+Bush Sapling=Anak Semak
+Blueberry Bush Leaves with Berries=Daun Semak Blueberry Berbuah
+Blueberry Bush Leaves=Daun Semak Blueberry
+Blueberry Bush Sapling=Anak Semak Blueberry
+Blueberries=Blueberry
 Acacia Bush Stem=Batang Semak Akasia
 Acacia Bush Leaves=Daun Semak Akasia
 Acacia Bush Sapling=Bibit Semak Akasia
