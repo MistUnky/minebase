@@ -96,7 +96,7 @@ minetest.register_craft({
 local chunksize = tonumber(minetest.get_mapgen_setting("chunksize"))
 if chunksize >= 5 then
 	trees.register_tree_decoration("base_trees:emergent_jungle",{
-		place_on = {"base_biomes:dirt_with_rainforest_litter"},
+		place_on = {"base_earth:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		noise_params = {
 			offset = 0.0,
@@ -106,7 +106,7 @@ if chunksize >= 5 then
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"rainforest"},
+		biomes = {"base_biomes:rainforest"},
 		y_max = 32,
 		schematic = minetest.get_modpath("base_trees") ..
 				"/schematics/base_trees_emergent_jungle.mts",

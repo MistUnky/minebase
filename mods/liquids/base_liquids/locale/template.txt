@@ -1,0 +1,11 @@
+# textdomain: base_liquids
+Snow=
+Snow Block=
+Ice=
+Cave Ice=
+Water Source=
+Flowing Water=
+River Water Source=
+Flowing River Water=
+Lava Source=
+Flowing Lava=

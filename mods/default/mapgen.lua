@@ -21,7 +21,7 @@ local function register_grass_decoration(offset, scale, length)
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"grassland", "deciduous_forest"},
+		biomes = {"base_biomes:grassland", "base_biomes:deciduous_forest"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = "default:grass_" .. length,
@@ -42,7 +42,7 @@ local function register_dry_grass_decoration(offset, scale, length)
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"savanna"},
+		biomes = {"base_biomes:savanna"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = "default:dry_grass_" .. length,
@@ -63,7 +63,7 @@ local function register_fern_decoration(seed, length)
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"coniferous_forest"},
+		biomes = {"base_biomes:coniferous_forest"},
 		y_max = 31000,
 		y_min = 6,
 		decoration = "default:fern_" .. length,
@@ -89,7 +89,7 @@ function default.register_decorations()
 			octaves = 4,
 			persist = 1.0
 		},
-		biomes = {"savanna"},
+		biomes = {"base_biomes:savanna"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = "default:dry_dirt",
@@ -114,7 +114,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"rainforest_swamp"},
+		biomes = {"base_biomes:rainforest_swamp"},
 		y_max = 0,
 		y_min = 0,
 		schematic = minetest.get_modpath("default") .. "/schematics/papyrus_on_dirt.mts",
@@ -135,7 +135,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"savanna_shore"},
+		biomes = {"base_biomes:savanna_shore"},
 		y_max = 0,
 		y_min = 0,
 		schematic = minetest.get_modpath("default") ..
@@ -172,7 +172,7 @@ function default.register_decorations()
 		place_on = {"default:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		fill_ratio = 0.1,
-		biomes = {"rainforest"},
+		biomes = {"base_biomes:rainforest"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = "default:junglegrass",
@@ -194,7 +194,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"desert", "sandstone_desert", "cold_desert"},
+		biomes = {"base_biomes:desert", "base_biomes:sandstone_desert", "base_biomes:cold_desert"},
 		y_max = 31000,
 		y_min = 2,
 		decoration = "default:dry_shrub",
@@ -217,7 +217,7 @@ function default.register_decorations()
 			persist = 0.0,
 			flags = "absvalue, eased"
 		},
-		biomes = {"coniferous_forest_dunes", "grassland_dunes"},
+		biomes = {"base_biomes:coniferous_forest_dunes", "base_biomes:grassland_dunes"},
 		y_max = 6,
 		y_min = 4,
 		decoration = {
@@ -241,7 +241,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 1.0
 		},
-		biomes = {"tundra"},
+		biomes = {"base_biomes:tundra"},
 		y_max = 50,
 		y_min = 2,
 		decoration = "default:permafrost_with_moss",
@@ -268,7 +268,7 @@ function default.register_decorations()
 			octaves = 3,
 			persist = 1.0
 		},
-		biomes = {"tundra", "tundra_beach"},
+		biomes = {"base_biomes:tundra", "base_biomes:tundra_beach"},
 		y_max = 50,
 		y_min = 1,
 		decoration = "default:snow",
@@ -291,9 +291,9 @@ function default.register_decorations()
 			persist = 0.7,
 		},
 		biomes = {
-			"desert_ocean",
-			"savanna_ocean",
-			"rainforest_ocean",
+			"base_biomes:desert_ocean",
+			"base_biomes:savanna_ocean",
+			"base_biomes:rainforest_ocean",
 		},
 		y_max = -2,
 		y_min = -8,
@@ -322,13 +322,13 @@ function default.register_decorations()
 			persist = 0.7
 		},
 		biomes = {
-			"taiga_ocean",
-			"snowy_grassland_ocean",
-			"grassland_ocean",
-			"coniferous_forest_ocean",
-			"deciduous_forest_ocean",
-			"sandstone_desert_ocean",
-			"cold_desert_ocean"},
+			"base_biomes:taiga_ocean",
+			"base_biomes:snowy_grassland_ocean",
+			"base_biomes:grassland_ocean",
+			"base_biomes:coniferous_forest_ocean",
+			"base_biomes:deciduous_forest_ocean",
+			"base_biomes:sandstone_desert_ocean",
+			"base_biomes:cold_desert_ocean"},
 		y_max = -5,
 		y_min = -10,
 		flags = "force_placement",
@@ -371,8 +371,8 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type        = "blob",
-	ore             = "base_biomes:silver_sand",
-	wherein         = {"base_biomes:stone"},
+	ore             = "base_earth:silver_sand",
+	wherein         = {"base_earth:stone"},
 	clust_scarcity  = 16 * 16 * 16,
 	clust_size      = 5,
 	y_max           = 31000,
@@ -390,8 +390,8 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type        = "blob",
-	ore             = "base_biomes:dirt",
-	wherein         = {"base_biomes:stone"},
+	ore             = "base_earth:dirt",
+	wherein         = {"base_earth:stone"},
 	clust_scarcity  = 16 * 16 * 16,
 	clust_size      = 5,
 	y_max           = 31000,
@@ -406,15 +406,15 @@ minetest.register_ore({
 		persist = 0.0
 	},
 	-- Only where default:dirt is present as surface material
-	biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
-			"deciduous_forest", "deciduous_forest_shore", "rainforest",
-			"rainforest_swamp"}
+	biomes = {"base_biomes:taiga", "base_biomes:snowy_grassland", "base_biomes:grassland", "base_biomes:coniferous_forest",
+			"base_biomes:deciduous_forest", "base_biomes:deciduous_forest_shore", "base_biomes:rainforest",
+			"base_biomes:rainforest_swamp"}
 })
 
 minetest.register_ore({
 	ore_type        = "blob",
-	ore             = "base_biomes:gravel",
-	wherein         = {"base_biomes:stone"},
+	ore             = "base_earth:gravel",
+	wherein         = {"base_earth:stone"},
 	clust_scarcity  = 16 * 16 * 16,
 	clust_size      = 5,
 	y_max           = 31000,

@@ -96,7 +96,7 @@ function flowers.register_flower(name, def)
 		walkable = false,
 		buildable_to = true,
 		groups = def.groups,
-		sounds = default.node_sound_leaves_defaults(),
+		sounds = trees.node_sound_leaves_defaults(),
 		selection_box = {
 			type = "fixed",
 			fixed = def.box_size
@@ -183,7 +183,7 @@ function flowers.register_mushroom(name, def)
 		walkable = false,
 		buildable_to = true,
 		groups = def.groups,
-		sounds = default.node_sound_leaves_defaults(),
+		sounds = trees.node_sound_leaves_defaults(),
 		on_use = def.on_use,
 		selection_box = {
 			type = "fixed",
@@ -239,7 +239,7 @@ function flowers.register_waterlily(name, def)
 		buildable_to = true,
 		floodable = true,
 		groups = def.groups,
-		sounds = default.node_sound_leaves_defaults(),
+		sounds = trees.node_sound_leaves_defaults(),
 		node_placement_prediction = "",
 		node_box = {
 			type = "fixed",

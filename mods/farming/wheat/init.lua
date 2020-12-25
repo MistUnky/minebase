@@ -65,7 +65,7 @@ minetest.register_node("wheat:straw", {
 	tiles = {"wheat_straw.png"},
 	is_ground_content = false,
 	groups = {snappy=3, flammable=4, fall_damage_add_percent=-30},
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = trees.node_sound_leaves_defaults(),
 })
 
 -- Registered before the stairs so the stairs get fuel recipes.
@@ -79,7 +79,7 @@ if minetest.get_modpath("stairs") then
 	local recipe = "wheat:straw"
 	local groups = {snappy = 3, flammable = 4}
 	local images = {"wheat_straw.png"}
-	local sounds = default.node_sound_leaves_defaults()
+	local sounds = trees.node_sound_leaves_defaults()
 
 	stairs.register_stair("straw", recipe, groups, images, S("Straw Stair"),
 		sounds, true)

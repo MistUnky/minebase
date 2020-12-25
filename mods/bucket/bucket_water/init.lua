@@ -4,8 +4,8 @@ local S = minetest.get_translator("bucket_water")
 minetest.register_alias("bucket_water", "bucket_water:bucket")
 
 bucket.register_liquid(
-	"default:water_source",
-	"default:water_flowing",
+	"base_liquids:water_source",
+	"base_liquids:water_flowing",
 	"bucket_water:bucket",
 	"bucket_water_bucket.png",
 	S("Water Bucket"),

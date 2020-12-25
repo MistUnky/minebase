@@ -25,20 +25,6 @@ function default.node_sound_glass_defaults(table)
 	return table
 end
 
-function default.node_sound_metal_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_metal_footstep", gain = 0.4}
-	table.dig = table.dig or
-			{name = "default_dig_metal", gain = 0.5}
-	table.dug = table.dug or
-			{name = "default_dug_metal", gain = 0.5}
-	table.place = table.place or
-			{name = "default_place_node_metal", gain = 0.5}
-	default.node_sound_defaults(table)
-	return table
-end
-
 --
 -- Optimized helper to put all items in an inventory into a drops list
 --
@@ -293,7 +279,7 @@ function default.register_mesepost(name, def)
 		sunlight_propagates = true,
 		is_ground_content = false,
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-		sounds = default.node_sound_wood_defaults(),
+		--TODO: sounds = trees.node_sound_wood_defaults(),
 	}
 	for k, v in pairs(default_fields) do
 		if def[k] == nil then
@@ -485,33 +471,4 @@ function default.can_interact_with_node(player, pos)
 
 	return false
 end
-
---
--- Lavacooling
---
-
-default.cool_lava = function(pos, node)
-	if node.name == "base_biomes:lava_source" then
-		minetest.set_node(pos, {name = "default:obsidian"})
-	else -- Lava flowing
-		minetest.set_node(pos, {name = "base_biomes:stone"})
-	end
-	minetest.sound_play("default_cool_lava",
-		{pos = pos, max_hear_distance = 16, gain = 0.25}, true)
-end
-
-if minetest.settings:get_bool("enable_lavacooling") ~= false then
-	minetest.register_abm({
-		label = "Lava cooling",
-		nodenames = {"base_biomes:lava_source", "base_biomes:lava_flowing"},
-		neighbors = {"group:cools_lava", "group:water"},
-		interval = 2,
-		chance = 2,
-		catch_up = false,
-		action = function(...)
-			default.cool_lava(...)
-		end,
-	})
-end
-
 

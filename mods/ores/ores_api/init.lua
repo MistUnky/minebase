@@ -27,10 +27,10 @@ function ores.register_mineral(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name .. "_mineral", {
 		description = def.description or txt .. "_mineral",
-		tiles = def.tiles or {"default_stone.png^" .. txt .. "_mineral.png"},
+		tiles = def.tiles or {"base_earth_stone.png^" .. txt .. "_mineral.png"},
 		groups = def.groups or {cracky = 2},
 		drop = def.drop or name .. "_lump",
-		sounds = default.node_sound_stone_defaults(),
+		sounds = earth.node_sound_stone_defaults(),
 	})
 end
 
@@ -49,7 +49,7 @@ function ores.register_ore(name, def)
 	minetest.register_ore({
 		ore_type       = def.ore_type or "scatter",
 		ore            = def.ore or name .. "_mineral",
-		wherein        = def.wherein or "default:stone",
+		wherein        = def.wherein or "base_earth:stone",
 		clust_scarcity = def.clust_scarcity or 15 * 15 * 15,
 		clust_num_ores = def.clust_num_ores or 7,
 		clust_size     = def.clust_size or 3,
@@ -110,7 +110,7 @@ function ores.register_metal(name, def)
 	end
 
 	if def.block then
-		def.block.sounds = default.node_sound_metal_defaults()
+		def.block.sounds = ores.node_sound_metal_defaults()
 		ores.register_block(name, def.block)
 	end
 	
@@ -174,3 +174,17 @@ function ores.register_crystal(name, def)
 		ores.register_scatter_ores(name, def.scatter_ores)
 	end
 end
+
+function ores.node_sound_metal_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "ores_api_metal_footstep", gain = 0.4}
+	table.dig = table.dig or
+			{name = "ores_api_dig_metal", gain = 0.5}
+	table.dug = table.dug or
+			{name = "ores_api_dug_metal", gain = 0.5}
+	table.place = table.place or
+			{name = "ores_api_place_node_metal", gain = 0.5}
+	return table
+end
+

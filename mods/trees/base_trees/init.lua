@@ -37,7 +37,7 @@ trees.register_tree("base_trees:apple", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dirt_with_grass"},
+		place_on = {"base_earth:dirt_with_grass"},
 		noise_params = {
 			offset = 0.024,
 			scale = 0.015,
@@ -46,11 +46,11 @@ trees.register_tree("base_trees:apple", {
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"deciduous_forest"},
+		biomes = {"base_biomes:deciduous_forest"},
 		schematic = base_trees_path .. "/schematics/base_trees_apple.mts"
 	}, 
 	deco_log = {
-		place_on = {"base_biomes:dirt_with_grass"},
+		place_on = {"base_earth:dirt_with_grass"},
 		noise_params = {
 			offset = 0.0012,
 			scale = 0.0007,
@@ -59,9 +59,9 @@ trees.register_tree("base_trees:apple", {
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"deciduous_forest"},
+		biomes = {"base_biomes:deciduous_forest"},
 		schematic = base_trees_path .. "/schematics/base_trees_apple_log.mts",
-		spawn_by = "base_biomes:dirt_with_grass"
+		spawn_by = "base_earth:dirt_with_grass"
 	},
 })
 
@@ -95,7 +95,7 @@ trees.register_tree("base_trees:acacia", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dry_dirt_with_dry_grass"},
+		place_on = {"base_earth:dry_dirt_with_dry_grass"},
 		noise_params = {
 			offset = 0,
 			scale = 0.002,
@@ -104,11 +104,11 @@ trees.register_tree("base_trees:acacia", {
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"savanna"},
+		biomes = {"base_biomes:savanna"},
 		schematic = base_trees_path .. "/schematics/base_trees_acacia.mts",
 	}, 
 	deco_log = {
-		place_on = {"base_biomes:dry_dirt_with_dry_grass"},
+		place_on = {"base_earth:dry_dirt_with_dry_grass"},
 		noise_params = {
 			offset = 0,
 			scale = 0.001,
@@ -117,9 +117,9 @@ trees.register_tree("base_trees:acacia", {
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"savanna"},
+		biomes = {"base_biomes:savanna"},
 		schematic = base_trees_path .. "/schematics/base_trees_acacia_log.mts",
-		spawn_by = "base_biomes:dry_dirt_with_dry_grass",
+		spawn_by = "base_earth:dry_dirt_with_dry_grass",
 	}
 })
 
@@ -155,7 +155,7 @@ trees.register_tree("base_trees:aspen", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dirt_with_grass"},
+		place_on = {"base_earth:dirt_with_grass"},
 		noise_params = {
 			offset = 0.0,
 			scale = -0.015,
@@ -164,11 +164,11 @@ trees.register_tree("base_trees:aspen", {
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"deciduous_forest"},
+		biomes = {"base_biomes:deciduous_forest"},
 		schematic = base_trees_path .. "/schematics/base_trees_aspen.mts",
 	}, 
 	deco_log = {
-		place_on = {"base_biomes:dirt_with_grass"},
+		place_on = {"base_earth:dirt_with_grass"},
 		noise_params = {
 			offset = 0.0,
 			scale = -0.0008,
@@ -177,9 +177,9 @@ trees.register_tree("base_trees:aspen", {
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"deciduous_forest"},
+		biomes = {"base_biomes:deciduous_forest"},
 		schematic = base_trees_path .. "/schematics/base_trees_aspen_log.mts",
-		spawn_by = "base_biomes:dirt_with_grass"
+		spawn_by = "base_earth:dirt_with_grass"
 	}
 })
 
@@ -212,19 +212,19 @@ trees.register_tree("base_trees:jungle", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dirt_with_rainforest_litter"},
+		place_on = {"base_earth:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		fill_ratio = 0.1,
-		biomes = {"rainforest"},
+		biomes = {"base_biomes:rainforest"},
 		schematic = base_trees_path .. "/schematics/base_trees_jungle.mts",
 	}, 
 	deco_log = {
-		place_on = {"base_biomes:dirt_with_rainforest_litter"},
+		place_on = {"base_earth:dirt_with_rainforest_litter"},
 		sidelen = 80,
 		fill_ratio = 0.005,
-		biomes = {"rainforest"},
+		biomes = {"base_biomes:rainforest"},
 		schematic = base_trees_path .. "/schematics/base_trees_jungle_log.mts",
-		spawn_by = "base_biomes:dirt_with_rainforest_litter"
+		spawn_by = "base_earth:dirt_with_rainforest_litter"
 	}
 })
 
@@ -274,7 +274,7 @@ trees.register_tree("base_trees:pine", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dirt_with_snow", "base_biomes:dirt_with_coniferous_litter"},
+		place_on = {"base_liquids:dirt_with_snow", "base_earth:dirt_with_coniferous_litter"},
 		noise_params = {
 			offset = 0.010,
 			scale = 0.048,
@@ -283,18 +283,18 @@ trees.register_tree("base_trees:pine", {
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"taiga", "coniferous_forest"},
+		biomes = {"base_biomes:taiga", "base_biomes:coniferous_forest"},
 		y_min = 4,
 		schematic = base_trees_path .. "/schematics/base_trees_pine.mts",
 	}, 
 	deco_log = {
-		place_on = {"base_biomes:dirt_with_snow", "base_biomes:dirt_with_coniferous_litter"},
+		place_on = {"base_liquids:dirt_with_snow", "base_earth:dirt_with_coniferous_litter"},
 		sidelen = 80,
 		fill_ratio = 0.0018,
-		biomes = {"taiga", "coniferous_forest"},
+		biomes = {"base_biomes:taiga", "base_biomes:coniferous_forest"},
 		y_min = 4,
 		schematic = base_trees_path .. "/schematics/base_trees_pine_log.mts",
-		spawn_by = {"base_biomes:dirt_with_snow", "base_biomes:dirt_with_coniferous_litter"}
+		spawn_by = {"base_liquids:dirt_with_snow", "base_earth:dirt_with_coniferous_litter"}
 	}
 })
 
@@ -303,7 +303,7 @@ trees.register_tree("base_trees:pine", {
 --
 
 trees.register_tree_decoration("base_trees:jungle_swamp" , {
-	place_on = {"base_biomes:dirt"},
+	place_on = {"base_earth:dirt"},
 	-- Noise tuned to place swamp trees where papyrus is absent
 	noise_params = {
 		offset = 0.0,
@@ -313,14 +313,14 @@ trees.register_tree_decoration("base_trees:jungle_swamp" , {
 		octaves = 1,
 		persist = 0.5
 	},
-	biomes = {"rainforest_swamp"},
+	biomes = {"base_biomes:rainforest_swamp"},
 	y_max = 0,
 	y_min = -1,
 	schematic = base_trees_path .. "/schematics/base_trees_jungle.mts",
 })
 
 trees.register_tree_decoration("base_trees:small_pine", {
-	place_on = {"base_biomes:dirt_with_snow", "base_biomes:dirt_with_coniferous_litter"},
+	place_on = {"base_liquids:dirt_with_snow", "base_earth:dirt_with_coniferous_litter"},
 	noise_params = {
 		offset = 0.010,
 		scale = -0.048,
@@ -329,7 +329,7 @@ trees.register_tree_decoration("base_trees:small_pine", {
 		octaves = 3,
 		persist = 0.66
 	},
-	biomes = {"taiga", "coniferous_forest"},
+	biomes = {"base_biomes:taiga", "base_biomes:coniferous_forest"},
 	y_min = 4,
 	schematic = base_trees_path .. "/schematics/base_trees_small_pine.mts",
 })

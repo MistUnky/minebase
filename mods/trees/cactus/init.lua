@@ -80,7 +80,7 @@ minetest.register_abm({
 minetest.register_decoration({
 	name = "cactus:large",
 	deco_type = "schematic",
-	place_on = {"base_biomes:desert_sand"},
+	place_on = {"base_earth:desert_sand"},
 	sidelen = 16,
 	noise_params = {
 		offset = -0.0003,
@@ -101,7 +101,7 @@ minetest.register_decoration({
 minetest.register_decoration({
 	name = "cactus:cactus",
 	deco_type = "simple",
-	place_on = {"base_biomes:desert_sand"},
+	place_on = {"base_earth:desert_sand"},
 	sidelen = 16,
 	noise_params = {
 		offset = -0.0003,

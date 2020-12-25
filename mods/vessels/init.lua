@@ -48,12 +48,12 @@ end
 
 minetest.register_node("vessels:shelf", {
 	description = S("Vessels Shelf"),
-	tiles = {"default_wood.png", "default_wood.png", "default_wood.png",
-		"default_wood.png", "vessels_shelf.png", "vessels_shelf.png"},
+	tiles = {"base_trees_apple_wood.png", "base_trees_apple_wood.png", "base_trees_apple_wood.png",
+		"base_trees_apple_wood.png", "vessels_shelf.png", "vessels_shelf.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
-	sounds = default.node_sound_wood_defaults(),
+	sounds = trees.node_sound_wood_defaults(),
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
@@ -170,15 +170,15 @@ minetest.register_node("vessels:steel_bottle", {
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
 	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
-	sounds = default.node_sound_defaults(),
+	sounds = base_sounds.node_sound_defaults(),
 })
 
 minetest.register_craft( {
 	output = "vessels:steel_bottle 5",
 	recipe = {
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"", "default:steel_ingot", ""}
+		{"base_ores:steel_ingot", "", "base_ores:steel_ingot"},
+		{"base_ores:steel_ingot", "", "base_ores:steel_ingot"},
+		{"", "base_ores:steel_ingot", ""}
 	}
 })
 
@@ -216,7 +216,7 @@ minetest.register_craft({
 
 minetest.register_craft( {
 	type = "cooking",
-	output = "default:steel_ingot",
+	output = "base_ores:steel_ingot",
 	recipe = "vessels:steel_bottle",
 })
 

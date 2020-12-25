@@ -478,9 +478,9 @@ end
 function trees.node_sound_leaves_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
-			{name = "base_biomes_grass_footstep", gain = 0.45}
+			{name = "base_earth_grass_footstep", gain = 0.45}
 	table.dug = table.dug or
-			{name = "base_biomes_grass_footstep", gain = 0.7}
+			{name = "base_earth_grass_footstep", gain = 0.7}
 	table.place = table.place or
 			{name = "base_sounds_place_node", gain = 1.0}
 	base_sounds.node_sound_defaults(table)

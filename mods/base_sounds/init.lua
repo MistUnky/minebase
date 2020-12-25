@@ -2,7 +2,7 @@
 
 base_sounds = {}
 
-function base_sounds.defaults(table)
+function base_sounds.node_sound_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
 			{name = "", gain = 1.0}

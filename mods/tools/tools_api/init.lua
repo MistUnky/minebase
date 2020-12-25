@@ -11,11 +11,11 @@ minetest.register_craft({
 
 tools = {}
 
-function tools.register_pickaxe(name, def)
+function tools.register_pick(name, def)
 	local txt = name:gsub(":", "_")
-	minetest.register_tool(name .. "_pickaxe", {
-		description = def.description or txt .. "_pickaxe",
-		inventory_image = def.inventory_image or txt .. "_pickaxe.png",
+	minetest.register_tool(name .. "_pick", {
+		description = def.description or txt .. "_pick",
+		inventory_image = def.inventory_image or txt .. "_pick.png",
 		tool_capabilities = def.tool_capabilities or {
 			full_punch_interval = 1.2,
 			max_drop_level = 0,
@@ -29,7 +29,7 @@ function tools.register_pickaxe(name, def)
 	})
 
 	minetest.register_craft({
-		output = name .. "_pickaxe",
+		output = name .. "_pick",
 		recipe = {
 			{def.material, def.material, def.material},
 			{"", "group:stick", ""},
@@ -135,7 +135,7 @@ local function calc_capabilities(x, def)
 	-- f(x) = a/(9+x)
 	local y = x + 9
 
-	set_capabilities(def.pickaxe.tool_capabilities, {
+	set_capabilities(def.pick.tool_capabilities, {
 		9 / y, 
 		3 + x, 
 		{
@@ -178,7 +178,7 @@ end
 
 function tools.register_set(name, def)
 	if def.material then 
-		def.pickaxe.material = def.material
+		def.pick.material = def.material
 		def.shovel.material = def.material
 		def.axe.material = def.material
 		def.sword.material = def.material
@@ -188,7 +188,7 @@ function tools.register_set(name, def)
 		calc_capabilities(def.x, def)
 	end
 
-	tools.register_pickaxe(name, def.pickaxe)
+	tools.register_pick(name, def.pick)
 	tools.register_shovel(name, def.shovel)
 	tools.register_axe(name, def.axe)
 	tools.register_sword(name, def.sword)

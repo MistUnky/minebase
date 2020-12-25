@@ -459,7 +459,7 @@ minetest.register_node("tnt:gunpowder", {
 	},
 	groups = {dig_immediate = 2, attached_node = 1, flammable = 5,
 		connect_to_raillike = minetest.raillike_group("gunpowder")},
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = trees.node_sound_leaves_defaults(),
 
 	on_punch = function(pos, node, puncher)
 		if puncher:get_wielded_item():get_name() == "default:torch" then
@@ -533,7 +533,7 @@ minetest.register_node("tnt:gunpowder_burning", {
 		connect_to_raillike = minetest.raillike_group("gunpowder"),
 		not_in_creative_inventory = 1
 	},
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = trees.node_sound_leaves_defaults(),
 	on_timer = function(pos, elapsed)
 		for dx = -1, 1 do
 		for dz = -1, 1 do
@@ -623,7 +623,7 @@ function tnt.register_tnt(def)
 			tiles = {tnt_top, tnt_bottom, tnt_side},
 			is_ground_content = false,
 			groups = {dig_immediate = 2, mesecon = 2, tnt = 1, flammable = 5},
-			sounds = default.node_sound_wood_defaults(),
+			sounds = trees.node_sound_wood_defaults(),
 			after_place_node = function(pos, placer)
 				if placer:is_player() then
 					local meta = minetest.get_meta(pos)
@@ -677,7 +677,7 @@ function tnt.register_tnt(def)
 			},
 		light_source = 5,
 		drop = "",
-		sounds = default.node_sound_wood_defaults(),
+		sounds = trees.node_sound_wood_defaults(),
 		groups = {falling_node = 1, not_in_creative_inventory = 1},
 		on_timer = function(pos, elapsed)
 			tnt.boom(pos, def)

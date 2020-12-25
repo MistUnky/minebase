@@ -1,280 +1,327 @@
 -- base_biomes/init.lua 
 
-local S = minetest.get_translator("base_biomes")
-local path = minetest.get_modpath("base_biomes")
-
-dofile(path .. "/mapgen.lua")
-
-biomes.register_stone_nodes("base_biomes:stone", {
-	stone = {description = S("Stone")},
-	cobble = {description = S("Cobblestone")},
-	brick = {description = S("Stone Brick")},
-	block = {description = S("Stone Block")}
+biomes.define_default({
+	stone_cobble = "base_earth:stone_cobble",
+	mossy_stone_cobble = "base_earth:mossy_stone_cobble",
+	sand = "base_earth:sand",
+	water = "base_liquids:water_source",
+	lava = "base_liquids:lava_source"
 })
 
-biomes.register_cobble("base_biomes:mossy_stone", {
-	description = S("Mossy Cobblestone"),
-	groups = {cracky = 3, stone = 1}
-})
+-- Icesheet
 
-minetest.register_craft({
-	type = "cooking",
-	output = "base_biomes:stone",
-	recipe = "base_biomes:mossy_stone_cobble",
-})
-
-biomes.register_stone_nodes("base_biomes:desert_stone", {
-	stone = {description = S("Desert Stone")},
-	cobble = {description = S("Desert Cobblestone")},
-	brick = {description = S("Desert Stone Brick")},
-	block = {description = S("Desert Stone Block")}
-})
-
-biomes.register_sand_nodes("base_biomes:sand", {
-	sand = {description = S("Sand")},
-	stone = {description = S("Sandstone")},
-	brick = {description = S("Sandstone Brick")},
-	block = {description = S("Sandstone Block")}
-})
-
-biomes.register_sand_nodes("base_biomes:desert_sand", {
-	sand = {description = S("Desert Sand")},
-	stone = {description = S("Desert Sandstone")},
-	brick = {description = S("Desert Sandstone Brick")},
-	block = {description = S("Desert Sandstone Block")}
-})
-
-biomes.register_sand_nodes("base_biomes:silver_sand", {
-	sand = {description = S("Silver Sand")},
-	stone = {description = S("Silver Sandstone")},
-	brick = {description = S("Silver Sandstone Brick")},
-	block = {description = S("Silver Sandstone Block")}
-})
-
-biomes.register_nodes_with("base_biomes:dirt", {
-	base_node = {
-		description = S("Dirt"),
-		groups = {crumbly = 3, soil = 1},
-		sounds = biomes.node_sound_dirt_defaults(),
-	},{
-		with = "snow",
-		description = S("Dirt with Snow"),
-		groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1, snowy = 1},
-		sounds = biomes.node_sound_dirt_defaults({
-			footstep = {name = "base_biomes_snow_footstep", gain = 0.2},
-		})
-	}, {
-		with = "grass",
-		description = S("Dirt with Grass"),
-		gain = 0.25
-	},{
-		with = "grass_footsteps",
-		description = S("Dirt with Grass and Footsteps"),
-		tiles = {"base_biomes_grass.png^base_biomes_footprint.png", 
-			"base_biomes_dirt.png",
-			{name = "base_biomes_dirt.png^base_biomes_grass_side.png",
-				tileable_vertical = false}},
-		groups = {crumbly = 3, soil = 1, not_in_creative_inventory = 1},
-		gain = 0.25
-	}, {
-		with = "coniferous_litter",
-		description = S("Dirt with Coniferous Litter"),
-	},{
-		with = "dry_grass",
-		description = S("Dirt with Dry Grass"),
-	}, {
-		with = "rainforest_litter",
-		description = S("Dirt with Rainforest Litter"),
-	}
-})
-
-biomes.register_nodes_with("base_biomes:dry_dirt", {
-	base_node = {
-		description = S("Dry Dirt"),
-		groups = {crumbly = 3, soil = 1},
-		sounds = biomes.node_sound_dirt_defaults(),
-	}, {
-		with = "dry_grass",
-		description = S("Dry Dirt with Dry Grass"),
-		groups = {crumbly = 3, soil = 1},
-	}
-})
-
-biomes.register_nodes_with("base_biomes:permafrost", {
-	base_node = {
-		description = S("Permafrost"),
-		groups = {cracky = 3},
-		sounds = biomes.node_sound_dirt_defaults(),
-	}, {
-		with = "stones",
-		description = S("Permafrost with Stones"),
-		tiles = {"base_biomes_permafrost.png^base_biomes_stones.png", 
-			"base_biomes_permafrost.png", {name = "base_biomes_permafrost.png" 
-			.. "^base_biomes_stones_side.png", tileable_vertical = false}},
-		groups = {cracky = 3},
-		sounds = biomes.node_sound_gravel_defaults(),
-	}, {
-		with = "moss",
-		description = S("Permafrost with Moss"),
-		groups = {cracky = 3},
-		gain = 0.25
-	}
-})
-
-biomes.register_liquid("base_biomes:water", {
-	source = {
-		description = S("Water Source"),
-		waving = 3,
-		alpha = 191,
-		post_effect_color = {a = 103, r = 30, g = 60, b = 90},
+biomes.register_biome_set("base_biomes:icesheet", {
+	surface = {
+		node_dust = "base_biomes:snowblock",
+		node_top = "base_biomes:snowblock",
+		node_filler = "base_biomes:snowblock",
+		node_stone = "base_biomes:cave_ice",
+		node_water_top = "base_biomes:ice",
+		depth_water_top = 10,
+		node_river_water = "base_biomes:ice",
+		node_riverbed = "base_earth:gravel",
+		node_dungeon = "base_biomes:ice",
+		node_dungeon_stair = "stairs:stair_ice",
+		y_min = -8,
+		heat_point = 0,
+		humidity_point = 73
+	}, 
+	ocean = {
+		node_dust = "base_biomes:snowblock",
+		node_water_top = "base_biomes:ice",
+		depth_water_top = 10,
+		y_max = -9,
 	},
-	flowing = {
-		description = S("Flowing Water"),
-		waving = 3,
-		length = 0.5,
-		alpha = 191,
-		groups = {water = 3, liquid = 3, not_in_creative_inventory = 1,
-			cools_lava = 1},
+	under = {}
+})
+
+-- Tundra
+
+biomes.register_biome("base_biomes:tundra_highland", {
+	node_dust = "base_biomes:snow",
+	node_riverbed = "base_earth:gravel",
+	y_min = 47,
+	heat_point = 0,
+	humidity_point = 40,
+})
+
+biomes.register_biome_set("base_biomes:tundra", {
+	surface = {
+		node_top = "base_earth:permafrost_with_stones",
+		node_filler = "base_earth:permafrost",
+		depth_filler = 1,
+		node_riverbed = "base_earth:gravel",
+		vertical_blend = 4,
+		y_max = 46,
+		y_min = 2,
+		heat_point = 0,
+		humidity_point = 40
+	},
+	ocean = {
+		node_riverbed = "base_earth:gravel",
+		y_max = -4,
+	},
+	under = {}
+})
+
+biomes.register_biome("base_biomes:tundra_beach", {
+	node_top = "base_earth:gravel",
+	node_filler = "base_earth:gravel",
+	depth_filler = 2,
+	node_riverbed = "base_earth:gravel",
+	vertical_blend = 1,
+	y_max = 1,
+	y_min = -3,
+	heat_point = 0,
+	humidity_point = 40,
+})
+
+-- Taiga
+
+biomes.register_biome_set("base_biomes:taiga", {
+	surface = {
+		node_dust = "base_biomes:snow",
+		node_top = "base_earth:dirt_with_snow",
+		node_filler = "base_earth:dirt",
+		y_min = 4,
+		heat_point = 25,
+		humidity_point = 70
+	},
+	ocean = {
+		node_dust = "base_biomes:snow",
+		y_max = 3,
+	},
+	under = {}
+})
+
+-- Snowy grassland
+
+biomes.register_biome_set("base_biomes:snowy_grassland", {
+	surface = {
+		node_dust = "base_biomes:snow",
+		node_top = "base_earth:dirt_with_snow",
+		node_filler = "base_earth:dirt",
+		depth_filler = 1,
+		y_min = 4,
+		heat_point = 20,
+		humidity_point = 35
+	}, 
+	ocean = {
+		node_dust = "base_biomes:snow",
+		y_max = 3,
+	},
+	under = {}
+})
+
+-- Grassland
+
+biomes.register_biome_set("base_biomes:grassland", {
+	surface = {
+		node_top = "base_earth:dirt_with_grass",
+		node_filler = "base_earth:dirt",
+		depth_filler = 1,
+		y_min = 6,
+		humidity_point = 35
+	},
+	ocean = {
+		y_max = 3,
+		humidity_point = 35,
+	},
+	under = {}
+})
+
+biomes.register_biome("base_biomes:grassland_dunes", {
+	node_top = "base_earth:sand",
+	node_filler = "base_earth:sand",
+	depth_filler = 2,
+	vertical_blend = 1,
+	y_max = 5,
+	y_min = 4,
+	humidity_point = 35,
+})
+
+-- Coniferous forest
+
+biomes.register_biome_set("base_biomes:coniferous_forest", {
+	surface = {
+		node_top = "base_earth:dirt_with_coniferous_litter",
+		node_filler = "base_earth:dirt",
+		y_min = 6,
+		heat_point = 45,
+		humidity_point = 70,
+	},
+	ocean = {
+		y_max = 3,
+	},
+	under = {}
+})
+
+biomes.register_biome("base_biomes:coniferous_forest_dunes", {
+	node_top = "base_earth:sand",
+	node_filler = "base_earth:sand",
+	vertical_blend = 1,
+	y_max = 5,
+	y_min = 4,
+	heat_point = 45,
+	humidity_point = 70,
+})
+
+-- Deciduous forest
+
+biomes.register_biome_set("base_biomes:deciduous_forest", {
+	surface = {
+		node_top = "base_earth:dirt_with_grass",
+		node_filler = "base_earth:dirt",
+		heat_point = 60,
+		humidity_point = 68,
+	},
+	ocean = {
+		y_max = -2,
+	},
+	under = {
+		heat_point = 92,
+		humidity_point = 16,
 	}
 })
 
-biomes.register_liquid("base_biomes:river_water", {
-	source = {
-		description = S("River Water Source"),
-		alpha = 160,
-		-- Not renewable to avoid horizontal spread of water sources in sloping
-		-- rivers that can cause water to overflow riverbanks and cause floods.
-		-- River water source is instead made renewable by the 'force renew'
-		-- option used in the 'bucket' mod by the river water bucket.
-		liquid_renewable = false,
-		liquid_range = 2,
-		post_effect_color = {a = 103, r = 30, g = 76, b = 90},
+biomes.register_biome("base_biomes:deciduous_forest_shore", {
+	node_top = "base_earth:dirt",
+	node_filler = "base_earth:dirt",
+	y_max = 0,
+	y_min = -1,
+	heat_point = 60,
+	humidity_point = 68,
+})
+
+-- Sandstone desert
+
+biomes.register_biome_set("base_biomes:sandstone_desert", {
+	surface = {
+		node_top = "base_earth:sand",
+		node_filler = "base_earth:sand",
+		depth_filler = 1,
+		node_stone = "base_earth:sandstone",
+		node_dungeon = "base_earth:sandstonebrick",
+		node_dungeon_stair = "stairs:stair_sandstone_block",
+		y_min = 4,
+		heat_point = 60,
+		humidity_point = 0,
+	}, 
+	ocean = {
+		node_stone = "base_earth:sandstone",
+		node_dungeon = "base_earth:sandstonebrick",
+		node_dungeon_stair = "stairs:stair_sandstone_block",
+		y_max = 3,
 	},
-	flowing = {
-		description = S("Flowing River Water"),
-		length = 0.5,
-		alpha = 160,
-		liquid_renewable = false,
-		liquid_range = 2,
-		groups = {water = 3, liquid = 3, not_in_creative_inventory = 1,
-			cools_lava = 1},
-	}
+	under = {}
 })
 
-biomes.register_liquid("base_biomes:lava", {
-	source = {
-		description = S("Lava Source"),
-		length = 3.0,
-		light_source = biomes.LIGHT_MAX - 1,
-		liquid_viscosity = 7,
-		liquid_renewable = false,
-		damage_per_second = 4 * 2,
-		post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-		groups = {lava = 3, liquid = 2, igniter = 1},
+-- Cold desert
+
+biomes.register_biome_set("base_biomes:cold_desert", {
+	surface = {
+		node_top = "base_earth:silver_sand",
+		node_filler = "base_earth:silver_sand",
+		depth_filler = 1,
+		y_min = 4,
+		heat_point = 40,
+		humidity_point = 0,
 	},
-	flowing = {
-		description = S("Flowing Lava"),
-		length = 3.3,
-		light_source = biomes.LIGHT_MAX - 1,
-		liquid_viscosity = 7,
-		liquid_renewable = false,
-		damage_per_second = 4 * 2,
-		groups = {lava = 3, liquid = 2, igniter = 1,
-			not_in_creative_inventory = 1},
-	}
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "base_biomes:lava_source",
-	burntime = 60,
-})
-
-minetest.register_node("base_biomes:snow", {
-	description = S("Snow"),
-	tiles = {"base_biomes_snow.png"},
-	inventory_image = "base_biomes_snowball.png",
-	wield_image = "base_biomes_snowball.png",
-	paramtype = "light",
-	buildable_to = true,
-	floodable = true,
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
-		},
+	ocean = {
+		y_max = 3,
 	},
-	collision_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -6 / 16, 0.5},
-		},
+	under = {}
+})
+
+-- Savanna
+
+biomes.register_biome_set("base_biomes:savanna", {
+	surface = {
+		node_top = "base_earth:dry_dirt_with_dry_grass",
+		node_filler = "base_earth:dry_dirt",
+		depth_filler = 1,
+		heat_point = 89,
+		humidity_point = 42,
 	},
-	groups = {crumbly = 3, falling_node = 1, snowy = 1},
-	sounds = biomes.node_sound_snow_defaults(),
-
-	on_construct = function(pos)
-		pos.y = pos.y - 1
-		if minetest.get_node(pos).name == "base_biomes:dirt_with_grass" then
-			minetest.set_node(pos, {name = "base_biomes:dirt_with_snow"})
-		end
-	end,
+	ocean = {
+		y_max = -2,
+	},
+	under = {}
 })
 
-base_lib.register_craft19("base_biomes:snowblock", "base_biomes:snow")
-
-minetest.register_node("base_biomes:snowblock", {
-	description = S("Snow Block"),
-	tiles = {"base_biomes_snow.png"},
-	groups = {crumbly = 3, cools_lava = 1, snowy = 1},
-	sounds = biomes.node_sound_snow_defaults(),
-
-	on_construct = function(pos)
-		pos.y = pos.y - 1
-		if minetest.get_node(pos).name == "base_biomes:dirt_with_grass" then
-			minetest.set_node(pos, {name = "base_biomes:dirt_with_snow"})
-		end
-	end,
+biomes.register_biome("base_biomes:savanna_shore", {
+	node_top = "base_earth:dry_dirt",
+	node_filler = "base_earth:dry_dirt",
+	y_max = 0,
+	y_min = -1,
+	heat_point = 89,
+	humidity_point = 42,
 })
 
--- Mapgen-placed ice with 'is ground content = true' to contain tunnels
-minetest.register_node("base_biomes:cave_ice", {
-	description = S("Cave Ice"),
-	tiles = {"base_biomes_ice.png"},
-	paramtype = "light",
-	groups = {cracky = 3, cools_lava = 1, slippery = 3,
-		not_in_creative_inventory = 1},
-	drop = "base_biomes:ice",
-	sounds = biomes.node_sound_ice_defaults(),
+-- Rainforest
+
+biomes.register_biome_set("base_biomes:rainforest", {
+	surface = {
+		node_top = "base_earth:dirt_with_rainforest_litter",
+		node_filler = "base_earth:dirt",
+		heat_point = 86,
+		humidity_point = 65,
+	},
+	ocean = {
+		y_max = -2,
+	},
+	under = {}
 })
 
--- 'is ground content = false' to avoid tunnels in sea ice or ice rivers
-minetest.register_node("base_biomes:ice", {
-	description = S("Ice"),
-	tiles = {"base_biomes_ice.png"},
-	is_ground_content = false,
-	paramtype = "light",
-	groups = {cracky = 3, cools_lava = 1, slippery = 3},
-	sounds = biomes.node_sound_ice_defaults(),
+biomes.register_biome("base_biomes:rainforest_swamp", {
+	node_top = "base_earth:dirt",
+	node_filler = "base_earth:dirt",
+	y_max = 0,
+	y_min = -1,
+	heat_point = 86,
+	humidity_point = 65,
 })
 
-minetest.register_node("base_biomes:gravel", {
-	description = S("Gravel"),
-	tiles = {"base_biomes_gravel.png"},
-	groups = {crumbly = 2, falling_node = 1},
-	sounds = biomes.node_sound_gravel_defaults(),
-	drop = {
-		max_items = 1,
-		items = {
-			{items = {"base_biomes:flint"}, rarity = 16},
-			{items = {"base_biomes:gravel"}}
-		}
-	}
+
+-- stratum ores
+
+biomes.register_stratum("base_earth:silver_sandstone", {
+	wherein = {"base_earth:stone"},
+	y_max = 46,
+	y_min = 10,
+	offset = 28,
+	biomes = {"cold_desert"}
 })
 
-minetest.register_craftitem("base_biomes:flint", {
-	description = S("Flint"),
-	inventory_image = "base_biomes_flint.png"
+biomes.register_stratum("base_earth:silver_sandstone", {
+	wherein = {"base_earth:stone"},
+	y_max = 42,
+	y_min = 6,
+	offset = 24,
+	biomes = {"cold_desert"}
+})
+
+biomes.register_stratum("base_earth:desert_sandstone", {
+	wherein = {"base_earth:desert_stone"},
+	y_max = 46,
+	y_min = 10,
+	offset = 28,
+	biomes = {"desert"}
+})
+
+biomes.register_stratum("base_earth:desert_sandstone", {
+	wherein = {"base_earth:desert_stone"},
+	y_max = 42,
+	y_min = 6,
+	offset = 24,
+	biomes = {"desert"}
+})
+
+biomes.register_stratum("base_earth:sandstone", {
+	wherein = {"base_earth:desert_stone"},
+	y_max = 39,
+	y_min = 3,
+	offset = 21,
+	biomes = {"desert"}
 })
 

@@ -9,8 +9,8 @@ minetest.register_alias("bucket", "bucket_api:bucket_empty")
 minetest.register_craft({
 	output = "bucket_api:bucket_empty 1",
 	recipe = {
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"", "default:steel_ingot", ""},
+		{"base_ores:steel_ingot", "", "base_ores:steel_ingot"},
+		{"", "base_ores:steel_ingot", ""},
 	}
 })
 

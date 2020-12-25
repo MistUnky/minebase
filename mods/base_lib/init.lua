@@ -51,3 +51,19 @@ function base_lib.register_craft19(one, nine)
 	})
 end
 
+function base_lib.register_craft99(one, nine)
+	minetest.register_craft({
+		output = nine .. " 9",
+		recipe = {{one}}
+	})
+
+	minetest.register_craft({
+		output = one .. " 9",
+		recipe = {
+			{nine, nine, nine},
+			{nine, nine, nine},
+			{nine, nine, nine},
+		}
+	})
+end
+

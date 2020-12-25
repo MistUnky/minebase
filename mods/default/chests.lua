@@ -300,7 +300,7 @@ default.chest.register_chest("default:chest", {
 		"default_chest_front.png",
 		"default_chest_inside.png"
 	},
-	sounds = default.node_sound_wood_defaults(),
+	--TODO: sounds = trees.node_sound_wood_defaults(),
 	sound_open = "default_chest_open",
 	sound_close = "default_chest_close",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2},
@@ -316,7 +316,7 @@ default.chest.register_chest("default:chest_locked", {
 		"default_chest_lock.png",
 		"default_chest_inside.png"
 	},
-	sounds = default.node_sound_wood_defaults(),
+	--TODO: sounds = trees.node_sound_wood_defaults(),
 	sound_open = "default_chest_open",
 	sound_close = "default_chest_close",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2},

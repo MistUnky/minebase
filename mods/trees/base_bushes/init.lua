@@ -33,7 +33,7 @@ trees.register_bush("base_bushes:apple", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dirt_with_grass"},
+		place_on = {"base_earth:dirt_with_grass"},
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,
@@ -42,7 +42,7 @@ trees.register_bush("base_bushes:apple", {
 			octaves = 3,
 			persist = 0.7,
 		},
-		biomes = {"grassland", "deciduous_forest"},
+		biomes = {"base_biomes:grassland", "base_biomes:deciduous_forest"},
 		schematic = base_bushes_path .. "/schematics/base_bushes_apple.mts",
 	}
 })
@@ -80,7 +80,7 @@ trees.register_bush("base_bushes:acacia", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dry_dirt_with_dry_grass"},
+		place_on = {"base_earth:dry_dirt_with_dry_grass"},
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,
@@ -89,7 +89,7 @@ trees.register_bush("base_bushes:acacia", {
 			octaves = 3,
 			persist = 0.7,
 		},
-		biomes = {"savanna"},
+		biomes = {"base_biomes:savanna"},
 		schematic = base_bushes_path .. "/schematics/base_bushes_acacia.mts",
 	}
 })
@@ -132,7 +132,7 @@ trees.register_bush("base_bushes:pine", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dirt_with_snow"},
+		place_on = {"base_liquids:dirt_with_snow"},
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,
@@ -141,7 +141,7 @@ trees.register_bush("base_bushes:pine", {
 			octaves = 3,
 			persist = 0.7,
 		},
-		biomes = {"taiga", "snowy_grassland"},
+		biomes = {"base_biomes:taiga", "base_biomes:snowy_grassland"},
 		y_min = 4,
 		schematic = base_bushes_path .. "/schematics/base_bushes_pine.mts",
 	}
@@ -190,7 +190,7 @@ trees.register_bush("base_bushes:blueberry", {
 		end
 	},
 	deco = {
-		place_on = {"base_biomes:dirt_with_grass", "base_biomes:dirt_with_snow"},
+		place_on = {"base_earth:dirt_with_grass", "base_liquids:dirt_with_snow"},
 		noise_params = {
 			offset = -0.004,
 			scale = 0.01,
@@ -199,7 +199,7 @@ trees.register_bush("base_bushes:blueberry", {
 			octaves = 3,
 			persist = 0.7,
 		},
-		biomes = {"grassland", "snowy_grassland"},
+		biomes = {"base_biomes:grassland", "base_biomes:snowy_grassland"},
 		place_offset_y = 1,
 		schematic = base_bushes_path .. "/schematics/base_bushes_blueberry.mts",
 	}

@@ -21,13 +21,13 @@ doors.register("base_doors:steel", {
 		inventory_image = "base_doors_item_steel.png",
 		protected = true,
 		groups = {node = 1, cracky = 1, level = 2},
-		sounds = default.node_sound_metal_defaults(),
+		sounds = ores.node_sound_metal_defaults(),
 		sound_open = "doors_api_steel_open",
 		sound_close = "doors_api_steel_close",
 		recipe = {
-			{"default:steel_ingot", "default:steel_ingot"},
-			{"default:steel_ingot", "default:steel_ingot"},
-			{"default:steel_ingot", "default:steel_ingot"},
+			{"base_ores:steel_ingot", "base_ores:steel_ingot"},
+			{"base_ores:steel_ingot", "base_ores:steel_ingot"},
+			{"base_ores:steel_ingot", "base_ores:steel_ingot"},
 		}
 })
 

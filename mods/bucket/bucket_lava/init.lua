@@ -4,8 +4,8 @@ local S = minetest.get_translator("bucket_lava")
 minetest.register_alias("bucket_lava", "bucket_lava:bucket")
 
 bucket.register_liquid(
-	"default:lava_source",
-	"default:lava_flowing",
+	"base_liquids:lava_source",
+	"base_liquids:lava_flowing",
 	"bucket_lava:bucket",
 	"bucket_lava_bucket.png",
 	S("Lava Bucket"),

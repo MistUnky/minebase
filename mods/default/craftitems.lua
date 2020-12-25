@@ -219,11 +219,6 @@ minetest.register_craftitem("default:book_written", {
 	on_use = book_on_use,
 })
 
-minetest.register_craftitem("default:obsidian_shard", {
-	description = S("Obsidian Shard"),
-	inventory_image = "default_obsidian_shard.png",
-})
-
 minetest.register_craftitem("default:paper", {
 	description = S("Paper"),
 	inventory_image = "default_paper.png",
@@ -245,13 +240,6 @@ minetest.register_craft({
 
 default.register_craft_metadata_copy("default:book", "default:book_written")
 
-
-minetest.register_craft({
-	output = "default:obsidian_shard 9",
-	recipe = {
-		{"default:obsidian"}
-	}
-})
 
 minetest.register_craft({
 	output = "default:paper",
@@ -354,7 +342,7 @@ minetest.register_node("default:clay", {
 	tiles = {"default_clay.png"},
 	groups = {crumbly = 3},
 	drop = "default:clay_lump 4",
-	sounds = default.node_sound_dirt_defaults(),
+	sounds = earth.node_sound_dirt_defaults(),
 })
 
 minetest.register_craft({

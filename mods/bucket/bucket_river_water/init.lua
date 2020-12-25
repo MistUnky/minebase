@@ -8,8 +8,8 @@ local S = minetest.get_translator("bucket_river_water")
 -- used here.
 
 bucket.register_liquid(
-	"default:river_water_source",
-	"default:river_water_flowing",
+	"base_liquids:river_water_source",
+	"base_liquids:river_water_flowing",
 	"bucket_river_water:bucket",
 	"bucket_river_water_bucket.png",
 	S("River Water Bucket"),

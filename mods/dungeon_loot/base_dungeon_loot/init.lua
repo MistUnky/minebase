@@ -3,20 +3,20 @@
 local loot = {
 	-- various items
 	{name = "default:stick", chance = 0.6, count = {3, 6}},
-	{name = "default:flint", chance = 0.4, count = {1, 3}},
+	{name = "base_earth:flint", chance = 0.4, count = {1, 3}},
 
 	-- natural materials
-	{name = "default:sand", chance = 0.8, count = {4, 32}, y = {-64, 32768},
+	{name = "base_earth:sand", chance = 0.8, count = {4, 32}, y = {-64, 32768},
 		types = {"normal"}},
-	{name = "default:desert_sand", chance = 0.8, count = {4, 32}, y = {-64, 32768},
+	{name = "base_earth:desert_sand", chance = 0.8, count = {4, 32}, y = {-64, 32768},
 		types = {"sandstone"}},
-	{name = "default:desert_cobble", chance = 0.8, count = {4, 32},
+	{name = "base_earth:desert_cobble", chance = 0.8, count = {4, 32},
 		types = {"desert"}},
-	{name = "default:snow", chance = 0.8, count = {8, 64}, y = {-64, 32768},
+	{name = "base_liquids:snow", chance = 0.8, count = {8, 64}, y = {-64, 32768},
 		types = {"ice"}},
-	{name = "default:dirt", chance = 0.6, count = {2, 16}, y = {-64, 32768},
+	{name = "base_earth:dirt", chance = 0.6, count = {2, 16}, y = {-64, 32768},
 		types = {"normal", "sandstone", "desert"}},
-	{name = "default:obsidian", chance = 0.25, count = {1, 3}, y = {-32768, -512}},
+	{name = "base_liquids:obsidian", chance = 0.25, count = {1, 3}, y = {-32768, -512}},
 }
 
 -- minerals

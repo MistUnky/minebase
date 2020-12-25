@@ -14,14 +14,14 @@ minetest.register_craft({
 	output = "steel_bars:bar",
 	type = "shaped",
 	recipe = {
-		{"default:steel_ingot","",""},
-		{"default:steel_ingot","",""},
-		{"default:steel_ingot","",""}
+		{"base_ores:steel_ingot","",""},
+		{"base_ores:steel_ingot","",""},
+		{"base_ores:steel_ingot","",""}
 	}
 })
 
 minetest.register_craft({
-	output = "default:steel_ingot 3",
+	output = "base_ores:steel_ingot 3",
 	type = "cooking",
 	recipe = "steel_bars:bar",
 	cooktime = 4
@@ -36,7 +36,7 @@ minetest.register_node("steel_bars:block", {
 	sunlight_propagates = true,
 	is_ground_content = false,
 	groups = {cracky = 1},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = ores.node_sound_metal_defaults(),
 })
 
 minetest.register_craft({
@@ -55,7 +55,7 @@ minetest.register_craft({
 	type = "shaped",
 	recipe = {
 		{"","",""},
-		{"steel_bars:bar","default:steel_ingot","steel_bars:bar"},
+		{"steel_bars:bar","base_ores:steel_ingot","steel_bars:bar"},
 		{"","",""}
 	}
 })
@@ -68,7 +68,7 @@ if minetest.get_modpath("xpanes_api") then
 		inventory_image = "steel_bars_bars.png",
 		wield_image = "steel_bars_bars.png",
 		groups = {cracky=2},
-		sounds = default.node_sound_metal_defaults(),
+		sounds = ores.node_sound_metal_defaults(),
 		recipe = {
 			{"steel_bars:bar", "steel_bars:bar", "steel_bars:bar"},
 			{"steel_bars:bar", "steel_bars:bar", "steel_bars:bar"}
@@ -85,7 +85,7 @@ if minetest.get_modpath("doors_api") then
 		inventory_image = "steel_bars_door_item.png",
 		protected = true,
 		groups = {node = 1, cracky = 1, level = 2},
-		sounds = default.node_sound_metal_defaults(),
+		sounds = ores.node_sound_metal_defaults(),
 		sound_open = "steel_bars_door_open",
 		sound_close = "steel_bars_door_close",
 		recipe = {
@@ -103,7 +103,7 @@ if minetest.get_modpath("doors_api") then
 		tile_side = "steel_bars_trapdoor_side.png",
 		protected = true,
 		groups = {node = 1, cracky = 1, level = 2, door = 1},
-		sounds = default.node_sound_metal_defaults(),
+		sounds = ores.node_sound_metal_defaults(),
 		sound_open = "steel_bars_door_open",
 		sound_close = "steel_bars_door_close",
 	})
@@ -126,7 +126,7 @@ if minetest.get_modpath("stairs") then
 			"steel_bars_stairs_side.png^[transformFX", "steel_bars_stairs_side.png",
 			"steel_bars_bars.png", "steel_bars_stairs_split.png"},
 		S("Steel Bar Stair"),
-		default.node_sound_metal_defaults(),
+		ores.node_sound_metal_defaults(),
 		false
 	)
 
@@ -136,7 +136,7 @@ if minetest.get_modpath("stairs") then
 		{cracky = 1, oddly_breakable_by_hand = 3},
 		{"steel_bars_bars.png", "steel_bars_bars.png", "steel_bars_stairs_split.png"},
 		S("Steel Bar Slab"),
-		default.node_sound_metal_defaults(),
+		ores.node_sound_metal_defaults(),
 		false
 	)
 
@@ -161,7 +161,7 @@ if minetest.get_modpath("stairs") then
 		"steel_bars_stairs_outer_side.png", "steel_bars_stairs_side.png",
 		"steel_bars_stairs_side.png^[transformR90","steel_bars_stairs_outer_side.png"},
 		"",
-		default.node_sound_metal_defaults(),
+		ores.node_sound_metal_defaults(),
 		false,
 		S("Outer Steel Bar Stair")
 	)
@@ -183,7 +183,7 @@ if minetest.get_modpath("base_rails") then
 		type = "shaped",
 		recipe = {
 			{"","group:wood",""},
-			{"steel_bars:bar","default:mese_crystal","steel_bars:bar"},
+			{"steel_bars:bar","base_ores:mese_crystal","steel_bars:bar"},
 			{"","group:wood",""}
 		}
 	})
@@ -193,7 +193,7 @@ if minetest.get_modpath("base_rails") then
 		type = "shaped",
 		recipe = {
 			{"","group:wood",""},
-			{"steel_bars:bar","default:coal_lump","steel_bars:bar"},
+			{"steel_bars:bar","base_ores:coal_lump","steel_bars:bar"},
 			{"","group:wood",""}
 		}
 	})

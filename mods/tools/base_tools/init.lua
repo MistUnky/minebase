@@ -9,7 +9,7 @@ local S = minetest.get_translator("base_tools")
 
 tools.register_set("base_tools:wood", {
 	material = "group:wood",
-	pickaxe = {
+	pick = {
 		description = S("Wooden Pickaxe"),
 		tool_capabilities = {
 			full_punch_interval = 1.2,
@@ -61,7 +61,7 @@ tools.register_set("base_tools:wood", {
 
 tools.register_set("base_tools:stone", {
 	material = "group:stone",
-	pickaxe = {
+	pick = {
 		description = S("Stone Pickaxe"),
 		tool_capabilities = {
 			full_punch_interval = 1.3,
@@ -109,7 +109,7 @@ tools.register_set("base_tools:stone", {
 
 tools.register_set("base_tools:bronze", {
 	material = "default:bronze_ingot",
-	pickaxe = {
+	pick = {
 		description = S("Bronze Pickaxe"),
 		tool_capabilities = {
 			full_punch_interval = 1.0,
@@ -157,7 +157,7 @@ tools.register_set("base_tools:bronze", {
 
 tools.register_set("base_tools:steel", {
 	material = "default:steel_ingot",
-	pickaxe = {
+	pick = {
 		description = S("Steel Pickaxe"),
 		tool_capabilities = {
 			full_punch_interval = 1.0,
@@ -205,7 +205,7 @@ tools.register_set("base_tools:steel", {
 
 tools.register_set("base_tools:mese", {
 	material = "default:mese_crystal",
-	pickaxe = {
+	pick = {
 		description = S("Mese Pickaxe"),
 		tool_capabilities = {
 			full_punch_interval = 0.9,
@@ -253,7 +253,7 @@ tools.register_set("base_tools:mese", {
 
 tools.register_set("base_tools:diamond", {
 	material = "default:diamond",
-	pickaxe = {
+	pick = {
 		description = S("Diamond Pickaxe"),
 		tool_capabilities = {
 			full_punch_interval = 0.9,

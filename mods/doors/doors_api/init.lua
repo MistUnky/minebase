@@ -78,8 +78,8 @@ end
 -- nodes from being placed in the top half of the door.
 minetest.register_node("doors_api:hidden", {
 	description = S("Hidden Door Segment"),
-	inventory_image = "doors_api_hidden_segment.png^default_invisible_node_overlay.png",
-	wield_image = "doors_api_hidden_segment.png^default_invisible_node_overlay.png",
+	inventory_image = "doors_api_hidden_segment.png",
+	wield_image = "doors_api_hidden_segment.png",
 	drawtype = "airlike",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -352,7 +352,7 @@ function doors.register(name, def)
 	def.recipe = nil
 
 	if not def.sounds then
-		def.sounds = default.node_sound_wood_defaults()
+		def.sounds = trees.node_sound_wood_defaults()
 	end
 
 	if not def.sound_open then
@@ -569,7 +569,7 @@ function doors.register_trapdoor(name, def)
 	end
 
 	if not def.sounds then
-		def.sounds = default.node_sound_wood_defaults()
+		def.sounds = trees.node_sound_wood_defaults()
 	end
 
 	if not def.sound_open then
@@ -667,7 +667,7 @@ function doors.register_fencegate(name, def)
 	end
 
 	if not fence.sounds then
-		fence.sounds = default.node_sound_wood_defaults()
+		fence.sounds = trees.node_sound_wood_defaults()
 	end
 
 	fence.groups.fence = 1
