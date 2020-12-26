@@ -28,29 +28,7 @@ default:clay
 Plantlife
 ---------
 
-default:papyrus
 default:dry_shrub
-default:junglegrass
-
-default:grass_1
-default:grass_2
-default:grass_3
-default:grass_4
-default:grass_5
-
-default:dry_grass_1
-default:dry_grass_2
-default:dry_grass_3
-default:dry_grass_4
-default:dry_grass_5
-
-default:fern_1
-default:fern_2
-default:fern_3
-
-default:marram_grass_1
-default:marram_grass_2
-default:marram_grass_3
 
 default:sand_with_kelp
 

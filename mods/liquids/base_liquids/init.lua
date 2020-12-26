@@ -181,7 +181,7 @@ base_lib.register_craft19("base_liquids:obsidian", "base_liquids:obsidian_shard"
 -- Lavacooling
 --
 
-function cool_lava(pos, node)
+local function cool_lava(pos, node)
 	if node.name == "base_liquids:lava_source" then
 		minetest.set_node(pos, {name = "base_liquids:obsidian"})
 	else -- Lava flowing

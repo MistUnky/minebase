@@ -36,8 +36,6 @@ minetest.register_alias("default:dirt_with_grass",
 	"base_earth:dirt_with_grass")
 minetest.register_alias("default:dirt_with_rainforest_litter", 
 	"base_earth:dirt_with_rainforest_litter")
-minetest.register_alias("default:dirt_with_snow", 
-	"base_earth:dirt_with_snow")
 minetest.register_alias("default:dirt_with_grass_footsteps", 
 	"base_earth:dirt_with_grass_footsteps")
 minetest.register_alias("default:dry_dirt", "base_earth:dry_dirt")

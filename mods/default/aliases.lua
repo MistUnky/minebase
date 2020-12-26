@@ -5,8 +5,6 @@
 minetest.register_alias("lump_of_clay", "default:clay_lump")
 minetest.register_alias("clay", "default:clay")
 minetest.register_alias("brick", "default:brick")
-minetest.register_alias("junglegrass", "default:junglegrass")
-minetest.register_alias("papyrus", "default:papyrus")
 minetest.register_alias("bookshelf", "default:bookshelf")
 minetest.register_alias("glass", "default:glass")
 minetest.register_alias("wooden_fence", "default:fence_wood")

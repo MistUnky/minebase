@@ -19,5 +19,6 @@ minetest.register_alias("default:river_water_source",
 minetest.register_alias("default:snowball", "base_liquids:snowball")
 minetest.register_alias("default:snowblock", "base_liquids:snow_block")
 minetest.register_alias("default:snow", "base_liquids:snow")
+minetest.register_alias("default:dirt_with_snow", "base_liquids:dirt_with_snow")
 minetest.register_alias("default:water_flowing", "base_liquids:water_flowing")
 minetest.register_alias("default:water_source", "base_liquids:water_source")

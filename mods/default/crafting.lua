@@ -132,18 +132,6 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:junglegrass",
-	burntime = 3,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:papyrus",
-	burntime = 3,
-})
-
-minetest.register_craft({
-	type = "fuel",
 	recipe = "default:bookshelf",
 	burntime = 30,
 })
@@ -160,29 +148,6 @@ minetest.register_craft({
 	burntime = 10,
 })
 
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:grass_1",
-	burntime = 2,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:dry_grass_1",
-	burntime = 2,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:fern_1",
-	burntime = 2,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:marram_grass_1",
-	burntime = 2,
-})
 
 minetest.register_craft({
 	type = "fuel",

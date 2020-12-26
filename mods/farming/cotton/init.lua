@@ -70,20 +70,22 @@ minetest.register_craft({
 	burntime = 1,
 })
 
--- Make default:junglegrass occasionally drop cotton seed.
+-- Make base_grasses:jungle_grass occasionally drop cotton seed.
 
 -- This is the old source of cotton seeds that makes no sense. It is a leftover
--- from Mapgen V6 where junglegrass was the only plant available to be a source.
+-- from Mapgen V6 where jungle_grass was the only plant available to be a source.
 -- This source is kept for now to avoid disruption but should probably be
 -- removed in future as players get used to the new source.
 
-minetest.override_item("default:junglegrass", {drop = {
-	max_items = 1,
-	items = {
-		{items = {"cotton:seed_cotton"}, rarity = 8},
-		{items = {"default:junglegrass"}},
-	}
-}})
+for i = 1, 3 do
+	minetest.override_item("base_grasses:jungle_grass_" .. i, {drop = {
+		max_items = 1,
+		items = {
+			{items = {"cotton:seed_cotton"}, rarity = 8},
+			{items = {"base_grasses:jungle_grass_1"}},
+		}
+	}})
+end
 
 
 -- Wild cotton as a source of cotton seed
