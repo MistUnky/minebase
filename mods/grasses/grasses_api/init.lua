@@ -4,28 +4,28 @@ grasses = {}
 
 grasses.on_place = function(name, max, itemstack, placer, pointed_thing)
 	-- place a random grass node
-	local stack = ItemStack(name .. "_grass_" .. math.random(1, max))
+	local stack = ItemStack(name .. "_" .. math.random(1, max))
 	local ret = minetest.item_place(stack, placer, pointed_thing)
-	return ItemStack(name .. "_grass_1 " .. itemstack:get_count() - 
+	return ItemStack(name .. "_1 " .. itemstack:get_count() - 
 		(1 - ret:get_count()))
 end
 
 function grasses.register_grass(name, def)
 	local txt = name:gsub(":", "_")
 	local _i = def.i and "_" .. def.i or ""
-	minetest.register_node(name .. "_grass" .. _i, {
+	minetest.register_node(name .. _i, {
 		description = def.description or txt,
 		drawtype = "plantlike",
 		waving = def.waving or 1,
 		visual_scale = def.visual_scale,
-		tiles = def.tiles or {txt .. "_grass" .. _i .. ".png"},
-		inventory_image = def.inventory_image or txt .. "_grass" .. _i .. ".png",
-		wield_image = def.wield_image or txt .. "_grass" .. _i .. ".png",
+		tiles = def.tiles or {txt .. _i .. ".png"},
+		inventory_image = def.inventory_image or txt ..  _i .. ".png",
+		wield_image = def.wield_image or txt .. _i .. ".png",
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,
 		buildable_to = true,
-		drop = def.drop or name .. "_grass" .. (def.i and "_1" or ""),
+		drop = def.drop or name .. (def.i and "_1" or ""),
 		groups = def.groups or {snappy = 3, flora = 1, attached_node = 1, 
 			flammable = 1, not_in_creative_inventory = def.not_in_creative_inventory},
 		sounds = trees.node_sound_leaves_defaults(),
@@ -38,7 +38,7 @@ function grasses.register_grass(name, def)
 	if def.burntime then
 		minetest.register_craft({
 			type = "fuel",
-			recipe = "base_grasses:" .. name .."_grass" .. _i,
+			recipe = "base_grasses:" .. name .. _i,
 			burntime = def.burntime,
 		})
 	end
@@ -48,7 +48,7 @@ function grasses.register_decoration(name, def)
 	local txt = name:gsub(":", "_")
 	local _i = def.i and "_" .. def.i or ""
 	minetest.register_decoration({
-		name = name .. "_grass" .. _i,
+		name = name .. _i,
 		deco_type = "simple",
 		place_on = def.place_on,
 		sidelen = def.sidelen or 16,
@@ -57,7 +57,7 @@ function grasses.register_decoration(name, def)
 		biomes = def.biomes or {"base_biomes:grassland"},
 		y_max = def.y_max or 31000,
 		y_min = def.y_min or 1,
-		decoration = def.decoration or name .. "_grass" .. _i,
+		decoration = def.decoration or name .. _i,
 	})
 end
 

@@ -10,14 +10,14 @@ farming.register_plant("cotton:cotton", {
 	steps = 8,
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
-	fertility = {"grassland", "desert"},
+	fertility = {"base_biomes:grassland", "base_biomes:desert"},
 	groups = {flammable = 4},
 })
 
 minetest.register_decoration({
 	name = "cotton:wild",
 	deco_type = "simple",
-	place_on = {"default:dry_dirt_with_dry_grass"},
+	place_on = {"base_earth:dry_dirt_with_dry_grass"},
 	sidelen = 16,
 	noise_params = {
 		offset = -0.1,
@@ -27,7 +27,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.7
 	},
-	biomes = {"savanna"},
+	biomes = {"base_biomes:savanna"},
 	y_max = 31000,
 	y_min = 1,
 	decoration = "cotton:wild",

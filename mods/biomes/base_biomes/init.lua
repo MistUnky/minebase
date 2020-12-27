@@ -12,23 +12,23 @@ biomes.define_default({
 
 biomes.register_biome_set("base_biomes:icesheet", {
 	surface = {
-		node_dust = "base_biomes:snowblock",
-		node_top = "base_biomes:snowblock",
-		node_filler = "base_biomes:snowblock",
-		node_stone = "base_biomes:cave_ice",
-		node_water_top = "base_biomes:ice",
+		node_dust = "base_liquids:snow_block",
+		node_top = "base_liquids:snow_block",
+		node_filler = "base_liquids:snow_block",
+		node_stone = "base_liquids:cave_ice",
+		node_water_top = "base_liquids:ice",
 		depth_water_top = 10,
-		node_river_water = "base_biomes:ice",
+		node_river_water = "base_liquids:ice",
 		node_riverbed = "base_earth:gravel",
-		node_dungeon = "base_biomes:ice",
+		node_dungeon = "base_liquids:ice",
 		node_dungeon_stair = "stairs:stair_ice",
 		y_min = -8,
 		heat_point = 0,
 		humidity_point = 73
 	}, 
 	ocean = {
-		node_dust = "base_biomes:snowblock",
-		node_water_top = "base_biomes:ice",
+		node_dust = "base_liquids:snow_block",
+		node_water_top = "base_liquids:ice",
 		depth_water_top = 10,
 		y_max = -9,
 	},
@@ -38,7 +38,7 @@ biomes.register_biome_set("base_biomes:icesheet", {
 -- Tundra
 
 biomes.register_biome("base_biomes:tundra_highland", {
-	node_dust = "base_biomes:snow",
+	node_dust = "base_liquids:snow",
 	node_riverbed = "base_earth:gravel",
 	y_min = 47,
 	heat_point = 0,
@@ -80,7 +80,7 @@ biomes.register_biome("base_biomes:tundra_beach", {
 
 biomes.register_biome_set("base_biomes:taiga", {
 	surface = {
-		node_dust = "base_biomes:snow",
+		node_dust = "base_liquids:snow",
 		node_top = "base_earth:dirt_with_snow",
 		node_filler = "base_earth:dirt",
 		y_min = 4,
@@ -88,7 +88,7 @@ biomes.register_biome_set("base_biomes:taiga", {
 		humidity_point = 70
 	},
 	ocean = {
-		node_dust = "base_biomes:snow",
+		node_dust = "base_liquids:snow",
 		y_max = 3,
 	},
 	under = {}
@@ -98,7 +98,7 @@ biomes.register_biome_set("base_biomes:taiga", {
 
 biomes.register_biome_set("base_biomes:snowy_grassland", {
 	surface = {
-		node_dust = "base_biomes:snow",
+		node_dust = "base_liquids:snow",
 		node_top = "base_earth:dirt_with_snow",
 		node_filler = "base_earth:dirt",
 		depth_filler = 1,
@@ -107,7 +107,7 @@ biomes.register_biome_set("base_biomes:snowy_grassland", {
 		humidity_point = 35
 	}, 
 	ocean = {
-		node_dust = "base_biomes:snow",
+		node_dust = "base_liquids:snow",
 		y_max = 3,
 	},
 	under = {}
@@ -290,7 +290,7 @@ biomes.register_stratum("base_earth:silver_sandstone", {
 	y_max = 46,
 	y_min = 10,
 	offset = 28,
-	biomes = {"cold_desert"}
+	biomes = {"base_biomes:cold_desert"}
 })
 
 biomes.register_stratum("base_earth:silver_sandstone", {
@@ -298,7 +298,7 @@ biomes.register_stratum("base_earth:silver_sandstone", {
 	y_max = 42,
 	y_min = 6,
 	offset = 24,
-	biomes = {"cold_desert"}
+	biomes = {"base_biomes:cold_desert"}
 })
 
 biomes.register_stratum("base_earth:desert_sandstone", {
@@ -306,7 +306,7 @@ biomes.register_stratum("base_earth:desert_sandstone", {
 	y_max = 46,
 	y_min = 10,
 	offset = 28,
-	biomes = {"desert"}
+	biomes = {"base_biomes:desert"}
 })
 
 biomes.register_stratum("base_earth:desert_sandstone", {
@@ -314,7 +314,7 @@ biomes.register_stratum("base_earth:desert_sandstone", {
 	y_max = 42,
 	y_min = 6,
 	offset = 24,
-	biomes = {"desert"}
+	biomes = {"base_biomes:desert"}
 })
 
 biomes.register_stratum("base_earth:sandstone", {
@@ -322,6 +322,6 @@ biomes.register_stratum("base_earth:sandstone", {
 	y_max = 39,
 	y_min = 3,
 	offset = 21,
-	biomes = {"desert"}
+	biomes = {"base_biomes:desert"}
 })
 

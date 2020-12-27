@@ -90,7 +90,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.6
 	},
-	biomes = {"desert"},
+	biomes = {"base_biomes:desert"},
 	y_max = 31000,
 	y_min = 4,
 	schematic = cactus_path .. "/schematics/cactus_large.mts",
@@ -111,7 +111,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.6
 	},
-	biomes = {"desert"},
+	biomes = {"base_biomes:desert"},
 	y_max = 31000,
 	y_min = 4,
 	decoration = "cactus:cactus",

@@ -99,14 +99,14 @@ minetest.register_craft({
 	burntime = 1,
 })
 
--- Make base_grasses:common_grass_* occasionally drop wheat seed
+-- Make base_grasses:grass_* occasionally drop wheat seed
 
 for i = 1, 5 do
-	minetest.override_item("base_grasses:common_grass_"..i, {drop = {
+	minetest.override_item("base_grasses:grass_"..i, {drop = {
 		max_items = 1,
 		items = {
 			{items = {"wheat:seed_wheat"}, rarity = 5},
-			{items = {"base_grasses:common_grass_1"}},
+			{items = {"base_grasses:grass_1"}},
 		}
 	}})
 end

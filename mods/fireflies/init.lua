@@ -54,8 +54,8 @@ minetest.register_node("fireflies:firefly", {
 minetest.register_node("fireflies:hidden_firefly", {
 	description = S("Hidden Firefly"),
 	drawtype = "airlike",
-	inventory_image = "fireflies_firefly.png^default_invisible_node_overlay.png",
-	wield_image =  "fireflies_firefly.png^default_invisible_node_overlay.png",
+	inventory_image = "fireflies_firefly.png",
+	wield_image =  "fireflies_firefly.png",
 	paramtype = "light",
 	sunlight_propagates = true,
 	walkable = false,
@@ -190,19 +190,19 @@ minetest.register_decoration({
 	name = "fireflies:firefly_low",
 	deco_type = "simple",
 	place_on = {
-		"default:dirt_with_grass",
-		"default:dirt_with_coniferous_litter",
-		"default:dirt_with_rainforest_litter",
-		"default:dirt"
+		"base_earth:dirt_with_grass",
+		"base_earth:dirt_with_coniferous_litter",
+		"base_earth:dirt_with_rainforest_litter",
+		"base_earth:dirt"
 	},
 	place_offset_y = 2,
 	sidelen = 80,
 	fill_ratio = 0.0005,
 	biomes = {
-		"deciduous_forest",
-		"coniferous_forest",
-		"rainforest",
-		"rainforest_swamp"
+		"base_biomes:deciduous_forest",
+		"base_biomes:coniferous_forest",
+		"base_biomes:rainforest",
+		"base_biomes:rainforest_swamp"
 	},
 	y_max = 31000,
 	y_min = -1,
@@ -213,19 +213,19 @@ minetest.register_decoration({
 	name = "fireflies:firefly_high",
 	deco_type = "simple",
 	place_on = {
-		"default:dirt_with_grass",
-		"default:dirt_with_coniferous_litter",
-		"default:dirt_with_rainforest_litter",
-		"default:dirt"
+		"base_earth:dirt_with_grass",
+		"base_earth:dirt_with_coniferous_litter",
+		"base_earth:dirt_with_rainforest_litter",
+		"base_earth:dirt"
 	},
 	place_offset_y = 3,
 	sidelen = 80,
 	fill_ratio = 0.0005,
 	biomes = {
-		"deciduous_forest",
-		"coniferous_forest",
-		"rainforest",
-		"rainforest_swamp"
+		"base_biomes:deciduous_forest",
+		"base_biomes:coniferous_forest",
+		"base_biomes:rainforest",
+		"base_biomes:rainforest_swamp"
 	},
 	y_max = 31000,
 	y_min = -1,

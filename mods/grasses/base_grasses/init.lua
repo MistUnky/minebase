@@ -3,7 +3,7 @@
 -- Load support for Minebase translation.
 local S = minetest.get_translator("base_grasses")
 
-grasses.register_grass_set("base_grasses:common", {
+grasses.register_grass_set("base_grasses:grass", {
 	first = {
 		description = S("Grass"),
 		height = -5
@@ -14,7 +14,7 @@ grasses.register_grass_set("base_grasses:common", {
 	max = 5
 })
 
-grasses.register_grass_set("base_grasses:dry", {
+grasses.register_grass_set("base_grasses:dry_grass", {
 	first = {
 		description = S("Dry Grass"),
 		groups = {snappy = 3, flammable = 3, flora = 1, attached_node = 1, 
@@ -39,7 +39,7 @@ grasses.register_grass_set("base_grasses:fern", {
 	max = 3
 })
 
-grasses.register_grass_set("base_grasses:marram", {
+grasses.register_grass_set("base_grasses:marram_grass", {
 	first = {
 		description = S("Marram Grass"),
 		groups = {snappy = 3, flammable = 3, attached_node = 1},
@@ -70,7 +70,7 @@ grasses.register_grass_set("base_grasses:marram", {
 	}
 })
 
-grasses.register_grass_set("base_grasses:jungle", {
+grasses.register_grass_set("base_grasses:jungle_grass", {
 	first = {
 		description = S("Jungle Grass"),
 		visual_scale = 1.69,
@@ -93,7 +93,7 @@ grasses.register_grass_set("base_grasses:jungle", {
 })
 
 local function register_grass_decoration(offset, scale, length)
-	grasses.register_decoration("base_grasses:common", {
+	grasses.register_decoration("base_grasses:grass", {
 		place_on = {"base_earth:dirt_with_grass"},
 		noise_params = {
 			offset = offset,
@@ -115,7 +115,7 @@ register_grass_decoration(0.015,  0.045, 2)
 register_grass_decoration(0.03,   0.03,  1)
 
 local function register_dry_grass_decoration(offset, scale, length)
-	grasses.register_decoration("base_grasses:dry", {
+	grasses.register_decoration("base_grasses:dry_grass", {
 		place_on = {"base_earth:dry_dirt_with_dry_grass"},
 		noise_params = {
 			offset = offset,

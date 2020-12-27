@@ -9,7 +9,7 @@ function mapgen.register_flower(flower_name, seed)
 	minetest.register_decoration({
 		name = flower_name,
 		deco_type = "simple",
-		place_on = {"default:dirt_with_grass"},
+		place_on = {"base_earth:dirt_with_grass"},
 		sidelen = 16,
 		noise_params = {
 			offset = -0.02,
@@ -19,7 +19,7 @@ function mapgen.register_flower(flower_name, seed)
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"grassland", "deciduous_forest"},
+		biomes = {"base_biomes:grassland", "base_biomes:deciduous_forest"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = flower_name,
@@ -30,7 +30,7 @@ function mapgen.register_mushroom(mushroom_name)
 	minetest.register_decoration({
 		name = mushroom_name,
 		deco_type = "simple",
-		place_on = {"default:dirt_with_grass", "default:dirt_with_coniferous_litter"},
+		place_on = {"base_earth:dirt_with_grass", "base_earth:dirt_with_coniferous_litter"},
 		sidelen = 16,
 		noise_params = {
 			offset = 0,
@@ -40,7 +40,7 @@ function mapgen.register_mushroom(mushroom_name)
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"deciduous_forest", "coniferous_forest"},
+		biomes = {"base_biomes:deciduous_forest", "base_biomes:coniferous_forest"},
 		y_max = 31000,
 		y_min = 1,
 		decoration = mushroom_name,
@@ -51,7 +51,7 @@ function mapgen.register_waterlily(name)
 	minetest.register_decoration({
 		name = name,
 		deco_type = "simple",
-		place_on = {"default:dirt"},
+		place_on = {"base_earth:dirt"},
 		sidelen = 16,
 		noise_params = {
 			offset = -0.12,
@@ -61,7 +61,7 @@ function mapgen.register_waterlily(name)
 			octaves = 3,
 			persist = 0.7
 		},
-		biomes = {"rainforest_swamp", "savanna_shore", "deciduous_forest_shore"},
+		biomes = {"base_biomes:rainforest_swamp", "base_biomes:savanna_shore", "base_biomes:deciduous_forest_shore"},
 		y_max = 0,
 		y_min = 0,
 		decoration = name.."_waving",
@@ -117,7 +117,7 @@ function flowers.flower_spread(pos, node)
 	-- as this is the only way to generate them.
 	-- However, preserve grasses in sand dune biomes.
 	if minetest.get_item_group(under.name, "sand") == 1 and
-			under.name ~= "default:sand" then
+			under.name ~= "base_earth:sand" then
 		minetest.set_node(pos, {name = "default:dry_shrub"})
 		return
 	end
@@ -152,7 +152,7 @@ function flowers.flower_spread(pos, node)
 					-- Only spread to same surface node
 					soil_name == under.name and
 					-- Desert sand is in the soil group
-					soil_name ~= "default:desert_sand" then
+					soil_name ~= "base_earth:desert_sand" then
 				minetest.set_node(soil_above, {name = node.name})
 			end
 		end
