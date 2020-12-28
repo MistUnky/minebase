@@ -34,22 +34,3 @@ minetest.register_alias("doors:trapdoor_steel", "base_trapdoors:steel")
 minetest.register_alias("doors:trapdoor_steel_open", 
 	"base_trapdoors:steel_open")
 
-minetest.register_alias("doors:gate_wood_open", "base_fence_gates:wood_open")
-minetest.register_alias("doors:gate_wood_closed", 
-	"base_fence_gates:wood_closed")
-minetest.register_alias("doors:gate_acacia_wood_open", 
-	"base_fence_gates:acacia_wood_open")
-minetest.register_alias("doors:gate_acacia_wood_closed", 
-	"base_fence_gates:acacia_wood_closed")
-minetest.register_alias("doors:gate_junglewood_open", 
-	"base_fence_gates:junglewood_open")
-minetest.register_alias("doors:gate_junglewood_closed", 
-	"base_fence_gates:junglewood_closed")
-minetest.register_alias("doors:gate_pine_wood_open", 
-	"base_fence_gates:pine_wood_open")
-minetest.register_alias("doors:gate_pine_wood_closed", 
-	"base_fence_gates:pine_wood_closed")
-minetest.register_alias("doors:gate_aspen_wood_open", 
-	"base_fence_gates:aspen_wood_open")
-minetest.register_alias("doors:gate_aspen_wood_closed", 
-	"base_fence_gates:aspen_wood_closed")

@@ -107,3 +107,47 @@ function hydrophytes.register_coral(name, def)
 		sounds = def.sounds or earth.node_sound_stone_defaults(),
 	})
 end
+
+function hydrophytes.register_decoration(name, def)
+	minetest.register_decoration({
+		name = name,
+		deco_type = "simple",
+		place_on = def.place_on,
+		place_offset_y = def.place_offset_y or -1,
+		sidelen = def.sidelen or 4,
+		noise_params = def.noise_params or {
+			offset = -4,
+			scale = 4,
+			spread = {x = 50, y = 50, z = 50},
+			seed = 7013,
+			octaves = 3,
+			persist = 0.7,
+		},
+		biomes = def.biomes or {
+			"base_biomes:coniferous_forest_ocean",
+			"base_biomes:cold_desert_ocean",
+			"base_biomes:deciduous_forest_ocean",
+			"base_biomes:desert_ocean",
+			"base_biomes:grassland_ocean",
+			"base_biomes:rainforest_ocean",
+			"base_biomes:sandstone_desert_ocean",
+			"base_biomes:savanna_ocean",
+			"base_biomes:snowy_grassland_ocean",
+			"base_biomes:taiga_ocean"
+		},
+		y_max = def.y_max or -5,
+		y_min = def.y_min or -10,
+		flags = def.flags or "force_placement",
+		decoration = def.decoration or name,
+		param2 = def.param2,
+		param2_max = def.param2_max
+	})
+end
+
+function hydrophytes.register_phyte_set(name, def)
+	hydrophytes.register_phyte(name, def.phyte)
+
+	if def.deco then
+		hydrophytes.register_decoration(name, def.deco)
+	end
+end

@@ -503,7 +503,7 @@ my_register_stair_and_slab(
 )
 
 my_register_stair_and_slab(
-	"junglewood",
+	"jungle_wood",
 	"base_trees:jungle_wood",
 	{choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 	{"base_trees_jungle_wood.png"},
