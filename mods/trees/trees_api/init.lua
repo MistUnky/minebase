@@ -406,16 +406,21 @@ function trees.register_bush_stem(name, def)
 	minetest.register_node(name .. "_stem", {
 		description = def.description or txt,
 		drawtype = "plantlike",
-		visual_scale = 1.41,
+		visual_scale = def.visual_scale or 1.41,
+		waving = def.waving,
 		tiles = def.tiles or {txt .. "_stem.png"},
 		inventory_image = def.inventory_image or txt .. "_stem.png",
 		wield_image = def.wield_image or txt .. "_stem.png",
 		paramtype = "light",
+		paramtype2 = def.paramtype2,
+		place_param2 = def.place_param2,
 		sunlight_propagates = true,
+		walkable = def.walkable,
+		buildable_to = def.buildable_to,
 		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 1, 
 			flammable = 2},
-		sounds = trees.node_sound_wood_defaults(),
-		selection_box = {
+		sounds = def.sounds or trees.node_sound_wood_defaults(),
+		selection_box = def.selection_box or {
 			type = "fixed",
 			fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
 		},
@@ -431,7 +436,7 @@ end
 function trees.register_bush_decoration(name, def)
 	minetest.register_decoration({
 		name = name,
-		deco_type = "schematic",
+		deco_type = def.deco_type or "schematic",
 		place_on = def.place_on,
 		sidelen = def.sidelen or 16,
 		noise_params = def.noise_params,
@@ -439,6 +444,8 @@ function trees.register_bush_decoration(name, def)
 		y_max = def.y_max or 31000,
 		y_min = def.y_min or 1,
 		place_offset_y = def.place_offset_y or 0,
+		decoration = def.decoration,
+		param2 = def.param2,
 		schematic = def.schematic,
 		flags = "place_center_x, place_center_z",
 	})
@@ -451,9 +458,14 @@ function trees.register_bush(name, def)
 		trees.register_bush_stem(name, def.stem)
 	end
 	
-	def.leaves.decay_r = def.leaves.decay_r or 1
-	trees.register_leaves(name, def.leaves)
-	trees.register_sapling(name, def.sapling)
+	if def.leaves then
+		def.leaves.decay_r = def.leaves.decay_r or 1
+		trees.register_leaves(name, def.leaves)
+	end
+
+	if def.sapling then
+		trees.register_sapling(name, def.sapling)
+	end
 
 	if def.wood then
 		trees.register_wood(name, def.wood)

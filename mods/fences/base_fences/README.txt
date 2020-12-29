@@ -18,19 +18,19 @@ celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 Textures
 --------
 paramat (CC BY-SA 3.0):
-  base_fences_pine_wood.png
-  base_fences_acacia_wood.png
-  base_fences_jungle_wood.png
-  base_fences_fence_rail_acacia_wood
-  base_fences_fence_rail_aspen_wood -- Derived from a texture by sofar (CC BY-SA 3.0)
-  base_fences_fence_rail_jungle_wood
-  base_fences_fence_rail_pine_wood
-  base_fences_fence_rail_wood -- Derived from a texture by BlockMen (CC BY-SA 3.0)
+  base_fences_pine_wood_post.png
+  base_fences_acacia_wood_post.png
+  base_fences_jungle_wood_post.png
+  base_fences_fence_acacia_wood_rail.png
+  base_fences_fence_aspen_wood_rail.png -- Derived from a texture by sofar (CC BY-SA 3.0)
+  base_fences_fence_jungle_wood_rail.png
+  base_fences_fence_pine_wood_rail.png
+  base_fences_fence_wood_rail.png -- Derived from a texture by BlockMen (CC BY-SA 3.0)
 
 BlockMen (CC BY-SA 3.0):
-  base_fences_wood.png
+  base_fences_apple_wood_post.png
 
 sofar (CC BY-SA 3.0):
-  base_fences_aspen_wood, derived from base_fences_pine_wood (by paramat)
+  base_fences_aspen_wood_post, derived from base_fences_pine_wood (by paramat)
 
 

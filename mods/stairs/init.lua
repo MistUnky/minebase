@@ -784,7 +784,7 @@ my_register_stair_and_slab(
 	"brick",
 	"default:brick",
 	{cracky = 3},
-	{"default_brick.png"},
+	{"clay_brick_block.png"},
 	"Brick Stair",
 	"Brick Slab",
 	earth.node_sound_stone_defaults(),
@@ -878,11 +878,11 @@ stairs.register_stair(
 	"glass",
 	"default:glass",
 	{cracky = 3, oddly_breakable_by_hand = 3},
-	{"stairs_glass_split.png", "default_glass.png",
+	{"stairs_glass_split.png", "base_glass_common_glass.png",
 	"stairs_glass_stairside.png^[transformFX", "stairs_glass_stairside.png",
-	"default_glass.png", "stairs_glass_split.png"},
+	"base_glass_common_glass.png", "stairs_glass_split.png"},
 	S("Glass Stair"),
-	default.node_sound_glass_defaults(),
+	glass.node_sound_glass_defaults(),
 	false
 )
 
@@ -890,9 +890,9 @@ stairs.register_slab(
 	"glass",
 	"default:glass",
 	{cracky = 3, oddly_breakable_by_hand = 3},
-	{"default_glass.png", "default_glass.png", "stairs_glass_split.png"},
+	{"base_glass_common_glass.png", "base_glass_common_glass.png", "stairs_glass_split.png"},
 	S("Glass Slab"),
-	default.node_sound_glass_defaults(),
+	glass.node_sound_glass_defaults(),
 	false
 )
 
@@ -900,11 +900,11 @@ stairs.register_stair_inner(
 	"glass",
 	"default:glass",
 	{cracky = 3, oddly_breakable_by_hand = 3},
-	{"stairs_glass_stairside.png^[transformR270", "default_glass.png",
-	"stairs_glass_stairside.png^[transformFX", "default_glass.png",
-	"default_glass.png", "stairs_glass_stairside.png"},
+	{"stairs_glass_stairside.png^[transformR270", "base_glass_common_glass.png",
+	"stairs_glass_stairside.png^[transformFX", "base_glass_common_glass.png",
+	"base_glass_common_glass.png", "stairs_glass_stairside.png"},
 	"",
-	default.node_sound_glass_defaults(),
+	glass.node_sound_glass_defaults(),
 	false,
 	S("Inner Glass Stair")
 )
@@ -913,11 +913,11 @@ stairs.register_stair_outer(
 	"glass",
 	"default:glass",
 	{cracky = 3, oddly_breakable_by_hand = 3},
-	{"stairs_glass_stairside.png^[transformR90", "default_glass.png",
+	{"stairs_glass_stairside.png^[transformR90", "base_glass_common_glass.png",
 	"stairs_glass_outer_stairside.png", "stairs_glass_stairside.png",
 	"stairs_glass_stairside.png^[transformR90","stairs_glass_outer_stairside.png"},
 	"",
-	default.node_sound_glass_defaults(),
+	glass.node_sound_glass_defaults(),
 	false,
 	S("Outer Glass Stair")
 )
@@ -926,11 +926,11 @@ stairs.register_stair(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
-	{"stairs_obsidian_glass_split.png", "default_obsidian_glass.png",
+	{"stairs_obsidian_glass_split.png", "base_glass_obsidian_glass.png",
 	"stairs_obsidian_glass_stairside.png^[transformFX", "stairs_obsidian_glass_stairside.png",
-	"default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
+	"base_glass_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
 	S("Obsidian Glass Stair"),
-	default.node_sound_glass_defaults(),
+	glass.node_sound_glass_defaults(),
 	false
 )
 
@@ -938,9 +938,9 @@ stairs.register_slab(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
-	{"default_obsidian_glass.png", "default_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
+	{"base_glass_obsidian_glass.png", "base_glass_obsidian_glass.png", "stairs_obsidian_glass_split.png"},
 	S("Obsidian Glass Slab"),
-	default.node_sound_glass_defaults(),
+	glass.node_sound_glass_defaults(),
 	false
 )
 
@@ -948,11 +948,11 @@ stairs.register_stair_inner(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
-	{"stairs_obsidian_glass_stairside.png^[transformR270", "default_obsidian_glass.png",
-	"stairs_obsidian_glass_stairside.png^[transformFX", "default_obsidian_glass.png",
-	"default_obsidian_glass.png", "stairs_obsidian_glass_stairside.png"},
+	{"stairs_obsidian_glass_stairside.png^[transformR270", "base_glass_obsidian_glass.png",
+	"stairs_obsidian_glass_stairside.png^[transformFX", "base_glass_obsidian_glass.png",
+	"base_glass_obsidian_glass.png", "stairs_obsidian_glass_stairside.png"},
 	"",
-	default.node_sound_glass_defaults(),
+	glass.node_sound_glass_defaults(),
 	false,
 	S("Inner Obsidian Glass Stair")
 )
@@ -961,11 +961,11 @@ stairs.register_stair_outer(
 	"obsidian_glass",
 	"default:obsidian_glass",
 	{cracky = 3},
-	{"stairs_obsidian_glass_stairside.png^[transformR90", "default_obsidian_glass.png",
+	{"stairs_obsidian_glass_stairside.png^[transformR90", "base_glass_obsidian_glass.png",
 	"stairs_obsidian_glass_outer_stairside.png", "stairs_obsidian_glass_stairside.png",
 	"stairs_obsidian_glass_stairside.png^[transformR90","stairs_obsidian_glass_outer_stairside.png"},
 	"",
-	default.node_sound_glass_defaults(),
+	glass.node_sound_glass_defaults(),
 	false,
 	S("Outer Obsidian Glass Stair")
 )

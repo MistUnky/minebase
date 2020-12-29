@@ -51,7 +51,7 @@ minetest.register_craft({
 
 
 minetest.register_craft({
-	output = "default:ladder_steel 15",
+	output = "base_ladders:steel_ladder 15",
 	type = "shaped",
 	recipe = {
 		{"","",""},
@@ -148,7 +148,7 @@ if minetest.get_modpath("stairs") then
 			"steel_bars_stairs_side.png^[transformFX", "steel_bars_bars.png",
 			"steel_bars_bars.png", "steel_bars_stairs_side.png"},
 		"",
-		default.node_sound_glass_defaults(),
+		glass.node_sound_glass_defaults(),
 		false,
 		S("Inner Steel Bar Stair")
 	)

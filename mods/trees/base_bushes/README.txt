@@ -40,6 +40,9 @@ random-geek (CC BY-SA 3.0):
   base_bushes_blueberry_bush_leaves_simple.png, derived from base_bushes_bush_leaves (by paramat)
   base_bushes_blueberry_bush_sapling.png
 
+Extex101 (CC BY-SA 3.0)
+  base_bushes_dry_bush_stem.png -- Derived from the original texture by celeron55
+
 Schematics
 ----------
 paramat (CC BY-SA 3.0):

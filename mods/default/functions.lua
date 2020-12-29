@@ -13,18 +13,6 @@ function default.node_sound_defaults(table)
 	return table
 end
 
-function default.node_sound_glass_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "default_glass_footstep", gain = 0.3}
-	table.dig = table.dig or
-			{name = "default_glass_footstep", gain = 0.5}
-	table.dug = table.dug or
-			{name = "default_break_glass", gain = 1.0}
-	default.node_sound_defaults(table)
-	return table
-end
-
 --
 -- Optimized helper to put all items in an inventory into a drops list
 --

@@ -36,13 +36,13 @@ doors.register("base_doors:glass", {
 		description = S("Glass Door"),
 		inventory_image = "base_doors_item_glass.png",
 		groups = {node = 1, cracky=3, oddly_breakable_by_hand=3},
-		sounds = default.node_sound_glass_defaults(),
+		sounds = glass.node_sound_glass_defaults(),
 		sound_open = "doors_api_glass_open",
 		sound_close = "doors_api_glass_close",
 		recipe = {
-			{"default:glass", "default:glass"},
-			{"default:glass", "default:glass"},
-			{"default:glass", "default:glass"},
+			{"base_glass:common_glass", "base_glass:common_glass"},
+			{"base_glass:common_glass", "base_glass:common_glass"},
+			{"base_glass:common_glass", "base_glass:common_glass"},
 		}
 })
 
@@ -51,13 +51,13 @@ doors.register("base_doors:obsidian_glass", {
 		description = S("Obsidian Glass Door"),
 		inventory_image = "base_doors_item_obsidian_glass.png",
 		groups = {node = 1, cracky=3},
-		sounds = default.node_sound_glass_defaults(),
+		sounds = glass.node_sound_glass_defaults(),
 		sound_open = "doors_api_glass_open",
 		sound_close = "doors_api_glass_close",
 		recipe = {
-			{"default:obsidian_glass", "default:obsidian_glass"},
-			{"default:obsidian_glass", "default:obsidian_glass"},
-			{"default:obsidian_glass", "default:obsidian_glass"},
+			{"base_glass:obsidian_glass", "base_glass:obsidian_glass"},
+			{"base_glass:obsidian_glass", "base_glass:obsidian_glass"},
+			{"base_glass:obsidian_glass", "base_glass:obsidian_glass"},
 		},
 })
 

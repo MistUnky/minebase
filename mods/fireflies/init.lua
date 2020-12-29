@@ -148,7 +148,7 @@ minetest.register_node("fireflies:firefly_bottle", {
 		type = "fixed",
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
-	sounds = default.node_sound_glass_defaults(),
+	sounds = glass.node_sound_glass_defaults(),
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		local lower_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if minetest.is_protected(pos, player:get_player_name()) or

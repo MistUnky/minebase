@@ -205,8 +205,7 @@ trees.register_bush("base_bushes:blueberry", {
 	}
 })
 
-trees.register_leaves("base_bushes:blueberry_bush_with_berries", {
-	description = S("Blueberry Bush Leaves with Berries"),
+trees.register_leaves("base_bushes:blueberry_bush_with_berries", { description = S("Blueberry Bush Leaves with Berries"),
 	tiles = {"base_bushes_blueberry_bush_leaves.png" 
 		.. "^base_bushes_blueberry_bush_overlay.png"},
 	special_tiles = {"base_bushes_blueberry_bush_leaves.png" 
@@ -225,5 +224,44 @@ minetest.register_craftitem("base_bushes:blueberries", {
 	inventory_image = "base_bushes_blueberries.png",
 	groups = {food_blueberries = 1, food_berry = 1},
 	on_use = minetest.item_eat(2),
+})
+
+-- dry shrub
+
+trees.register_bush("base_bushes:dry", {
+	stem = {
+		description = S("Dry Shrub"),
+		visual_scale = 1,
+		waving = 1,
+		paramtype2 = "meshoptions",
+		place_param2 = 4,
+		walkable = false,
+		buildable_to = true,
+		groups = {snappy = 3, flammable = 3, attached_node = 1},
+		sounds = trees.node_sound_leaves_defaults(),
+		selection_box = {
+			type = "fixed",
+			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, 4 / 16, 6 / 16},
+		},
+		burntime = 2
+	},
+	deco = {
+		deco_type = "simple",
+		place_on = {"base_earth:desert_sand", "base_earth:sand", 
+			"base_earth:silver_sand"},
+		noise_params = {
+			offset = 0,
+			scale = 0.02,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 329,
+			octaves = 3,
+			persist = 0.6
+		},
+		biomes = {"base_biomes:desert", "base_biomes:sandstone_desert", 
+			"base_biomes:cold_desert"},
+		y_min = 2,
+		decoration = "base_bushes:dry",
+		param2 = 4,
+	}
 })
 

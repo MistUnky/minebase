@@ -57,3 +57,4 @@ minetest.register_alias("default:pine_bush_needles","base_bushes:pine_bush_leave
 
 minetest.register_alias("default:cactus","cactus:cactus")
 
+minetest.register_alias("default:dry_shrub", "base_bushes:dry_bush_stem") 

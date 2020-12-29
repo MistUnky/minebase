@@ -23,14 +23,14 @@ paramat (CC BY-SA 3.0):
 
 Sounds
 ------
-fencegate_open.ogg:
+fences_api_gate_open.ogg:
   http://www.freesound.org/people/mhtaylor67/sounds/126041/ - (CC0 1.0)
-fencegate_close.ogg:
+fences_api_gate_close.ogg:
   http://www.freesound.org/people/BarkersPinhead/sounds/274807/ - (CC-BY-3.0)
   http://www.freesound.org/people/rivernile7/sounds/249573/ - (CC-BY-3.0)
 
 Models
 ------
 Fence gate models by sofar (CC-BY-SA-3.0)
- - fencegate_open.obj
- - fencegate_closed.obj
+ - fences_api_gate_open.obj
+ - fences_api_gate_closed.obj

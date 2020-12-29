@@ -2,6 +2,10 @@
 
 earth = {}
 
+function earth.define_default(def)
+	earth.stone = def.stone
+end
+
 function earth.register_stone(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name, {
@@ -86,6 +90,28 @@ function earth.register_sand(name, def)
 	})
 end
 
+function earth.register_ore(name, def)
+	minetest.register_ore({
+		ore_type = def.type or "blob",
+		ore = name,
+		wherein = def.wherein or {earth.stone},
+		clust_scarcity = def.clust_scarcity or 16 * 16 * 16,
+		clust_size = def.clust_size or 5,
+		y_max = def.y_max or 31000,
+		y_min = def.y_min or -31000,
+		noise_threshold = def.noise_threshold or 0.0,
+		noise_params = def.noise_params or {
+			offset = 0.5,
+			scale = 0.2,
+			spread = {x = 5, y = 5, z = 5},
+			seed = def.seed or 2316,
+			octaves = 1,
+			persist = 0.0
+		},
+		biomes = def.biomes
+	})
+end
+
 function earth.register_sand_nodes(name, def)
 	local namestone = name .. "stone"
 	earth.register_sand(name, def.sand)
@@ -111,6 +137,10 @@ function earth.register_sand_nodes(name, def)
 	if def.block then
 		earth.register_block(namestone, def.block)
 	end
+
+	if def.ore then
+		earth.register_ore(name, def.ore)
+	end 
 end
 
 function earth.register_node_with(name, def)
@@ -130,8 +160,10 @@ function earth.register_node_with(name, def)
 end
 
 function earth.register_nodes_with(name, def)
-	def.base_node.tiles = def.base_node.tiles or {name:gsub(":", "_") .. ".png"}
-	minetest.register_node(name, def.base_node)
+	if def.base_node then
+		def.base_node.tiles = def.base_node.tiles or {name:gsub(":", "_") .. ".png"}
+		minetest.register_node(name, def.base_node)
+	end
 
 	for _, de in ipairs(def) do
 		earth.register_node_with(name, de)

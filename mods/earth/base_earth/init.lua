@@ -3,6 +3,8 @@
 local S = minetest.get_translator("base_earth")
 minetest.register_alias("mapgen_stone", "base_earth:stone")
 
+earth.define_default({stone = "base_earth:stone"})
+
 earth.register_stone_nodes("base_earth:stone", {
 	stone = {description = S("Stone")},
 	cobble = {description = S("Cobblestone")},
@@ -46,7 +48,8 @@ earth.register_sand_nodes("base_earth:silver_sand", {
 	sand = {description = S("Silver Sand")},
 	stone = {description = S("Silver Sandstone")},
 	brick = {description = S("Silver Sandstone Brick")},
-	block = {description = S("Silver Sandstone Block")}
+	block = {description = S("Silver Sandstone Block")},
+	ore = {seed = 2316}
 })
 
 earth.register_nodes_with("base_earth:dirt", {
@@ -77,6 +80,16 @@ earth.register_nodes_with("base_earth:dirt", {
 		with = "rainforest_litter",
 		description = S("Dirt with Rainforest Litter"),
 	}
+})
+
+earth.register_ore("base_earth:dirt", {
+	y_min = -31,
+	seed = 17676,
+	-- Only where default:dirt is present as surface material
+	biomes = {"base_biomes:taiga", "base_biomes:snowy_grassland", 
+		"base_biomes:grassland", "base_biomes:coniferous_forest",
+		"base_biomes:deciduous_forest", "base_biomes:deciduous_forest_shore", 
+		"base_biomes:rainforest", "base_biomes:rainforest_swamp"}
 })
 
 earth.register_nodes_with("base_earth:dry_dirt", {
@@ -130,4 +143,6 @@ minetest.register_craftitem("base_earth:flint", {
 	description = S("Flint"),
 	inventory_image = "base_earth_flint.png"
 })
+
+earth.register_ore("base_earth:gravel", {seed = 766})
 

@@ -305,24 +305,24 @@ tools.register_set("base_tools:diamond", {
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "base_tools:pick_wood",
+	recipe = "base_tools:wood_pick",
 	burntime = 6,
 })
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "base_tools:shovel_wood",
+	recipe = "base_tools:wood_shovel",
 	burntime = 4,
 })
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "base_tools:axe_wood",
+	recipe = "base_tools:wood_axe",
 	burntime = 6,
 })
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "base_tools:sword_wood",
+	recipe = "base_tools:wood_sword",
 	burntime = 5,
 })

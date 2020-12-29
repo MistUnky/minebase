@@ -118,7 +118,7 @@ minetest.register_node("vessels:glass_bottle", {
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
 	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
-	sounds = default.node_sound_glass_defaults(),
+	sounds = glass.node_sound_glass_defaults(),
 })
 
 minetest.register_craft( {
@@ -144,7 +144,7 @@ minetest.register_node("vessels:drinking_glass", {
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
 	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
-	sounds = default.node_sound_glass_defaults(),
+	sounds = glass.node_sound_glass_defaults(),
 })
 
 minetest.register_craft( {

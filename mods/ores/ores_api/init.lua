@@ -47,14 +47,16 @@ end
 
 function ores.register_ore(name, def)
 	minetest.register_ore({
-		ore_type       = def.ore_type or "scatter",
-		ore            = def.ore or name .. "_mineral",
-		wherein        = def.wherein or "base_earth:stone",
+		ore_type = def.ore_type or "scatter",
+		ore = def.ore or name .. "_mineral",
+		wherein = def.wherein or "base_earth:stone",
 		clust_scarcity = def.clust_scarcity or 15 * 15 * 15,
 		clust_num_ores = def.clust_num_ores or 7,
-		clust_size     = def.clust_size or 3,
-		y_max          = def.y_max or 31000,
-		y_min          = def.y_min or -31000,
+		clust_size = def.clust_size or 3,
+		y_max = def.y_max or 31000,
+		y_min = def.y_min or -31000,
+		noise_threshold = def.noise_threshold,
+		noise_params = def.noise_params
 	})
 end
 
