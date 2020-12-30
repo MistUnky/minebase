@@ -14,33 +14,11 @@ function default.node_sound_defaults(table)
 end
 
 --
--- Optimized helper to put all items in an inventory into a drops list
---
-
-function default.get_inventory_drops(pos, inventory, drops)
-	local inv = minetest.get_meta(pos):get_inventory()
-	local n = #drops
-	for i = 1, inv:get_size(inventory) do
-		local stack = inv:get_stack(inventory, i)
-		if stack:get_count() > 0 then
-			drops[n+1] = stack:to_table()
-			n = n + 1
-		end
-	end
-end
-
-
--- Wrapping the functions in ABM action is necessary to make overriding them possible
-
-
---
--- Fence registration helper
---
-
---
 -- Convert default:dirt to something that fits the environment
 --
 
+
+-- TODO: move to base_earth
 minetest.register_abm({
 	label = "Grass spread",
 	nodenames = {"default:dirt"},

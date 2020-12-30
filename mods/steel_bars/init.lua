@@ -50,15 +50,17 @@ minetest.register_craft({
 })
 
 
-minetest.register_craft({
-	output = "base_ladders:steel_ladder 15",
-	type = "shaped",
-	recipe = {
-		{"","",""},
-		{"steel_bars:bar","base_ores:steel_ingot","steel_bars:bar"},
-		{"","",""}
-	}
-})
+if minetest.get_modpath("base_ladders") then
+	minetest.register_craft({
+		output = "base_ladders:steel_ladder 15",
+		type = "shaped",
+		recipe = {
+			{"","",""},
+			{"steel_bars:bar","base_ores:steel_ingot","steel_bars:bar"},
+			{"","",""}
+		}
+	})
+end
 
 
 if minetest.get_modpath("xpanes_api") then

@@ -23,7 +23,7 @@ farming.register_hoe("base_hoes:steel", {
 	description = S("Steel Hoe"),
 	inventory_image = "base_hoes_steel.png",
 	max_uses = 500,
-	material = "default:steel_ingot",
+	material = "base_ores:steel_ingot",
 	groups = {hoe = 1}
 })
 
