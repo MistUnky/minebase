@@ -265,7 +265,7 @@ minetest.register_on_dieplayer(function(player)
 		player_inv:set_list(list_name, {})
 	end
 
-	meta:set_string("formspec", containers.create_formspec("current_name"))
+	meta:set_string("formspec", containers.create_formspec("context"))
 	meta:set_string("owner", player_name)
 
 	if share_bones_time ~= 0 then

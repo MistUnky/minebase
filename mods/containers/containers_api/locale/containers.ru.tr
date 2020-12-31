@@ -1,6 +1,6 @@
 # textdomain: default
 Locked Chest=Заблокированный Сундук
-Locked Chest (owned by @1)=Заблокированный Сундук (владелец: @1)
+(owned by @1)=(владелец: @1)
 You do not own this chest.=Вы не владелец этого сундука.
 a locked chest=заблокированный сундук
 Chest=Сундук

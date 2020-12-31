@@ -5,7 +5,33 @@ local S = minetest.get_translator("containers_api")
 
 containers = {}
 containers.open_containers = {}
+containers.form = {}
 
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+	if not containers.form[formname] then
+		return
+	end
+
+	if not player or not fields.quit then
+		return
+	end
+
+	local pn = player:get_player_name()
+	if not containers.open_containers[pn] then
+		return
+	end
+
+	print(dump(containers.open_containers))
+	containers.close(pn)
+	return true
+end)
+
+minetest.register_on_leaveplayer(function(player)
+	local pn = player:get_player_name()
+	if containers.open_containers[pn] then
+		containers.close(pn)
+	end
+end)
 
 function containers.get_inventory_drops(pos, inventory, drops)
 	local inv = minetest.get_meta(pos):get_inventory()
@@ -19,25 +45,47 @@ function containers.get_inventory_drops(pos, inventory, drops)
 	end
 end
 
-local empty = {}
-function containers.create_formspec(name, def)
-	def = def or empty
+function containers.create_formspec(inventory1, def)
+	inventory1 = inventory1 or "context"
+	if def then
+		return table.concat({
+			"size[", def.width or 8, ",", def.height or 9, "]",
+			"list[", inventory1, ";", def.list1 or "main", ";", 
+				def.x1 or 0, ",", def.y1 or 0.3, ";", 
+				def.inventory1_width or 8, ",", def.inventory1_height or 4,";]",
+			"list[current_player;main;", 
+				def.x2 or 0, ",", def.y2 or 4.85, ";", 
+				"8,1;]",
+			"list[current_player;main;",
+				def.x2 or 0, ",", def.y2 and def.y2 + 1.23 or 6.08, ";",
+				"8,3;8]",
+			"listring[", inventory1, ";", def.list1 or "main", "]",
+			"listring[current_player;main]",
+			default.get_hotbar_bg(def.x2 or 0, def.y2 or 4.85),
+			def.formspec_def and def.formspec_def.overlay
+		})
+	else
+		return table.concat({
+			"size[8,9]\z
+			list[", inventory1, ";main;0,0.3;8,4;]\z
+			list[current_player;main;0,4.85;8,1;]\z
+			list[current_player;main;0,6.08;8,3;8]\z
+			listring[", inventory1, ";main]\z
+			listring[current_player;main]",
+			default.get_hotbar_bg(0, 4.85)
+		})
+	end
+end
 
-	return table.concat({
-		"size[", def.width or 8, ",", def.height or 9, "]",
-		"list[", name, ";", def.list1 or "main", ";", 
-			def.x1 or 0, ",", def.y1 or 0.3, ";", 
-			def.inventory1_width or 8, ",", def.inventory1_height or 4,";]",
-		"list[current_player;main;", 
-			def.x2 or 0, ",", def.y2 or 4.85, ";", 
-			"8,1;]",
-		"list[current_player;main;",
-			def.x2 or 0, ",", def.y2 and def.y2 + 1.23 or 6.08, ";",
-			"8,3;8]",
-		"listring[", name, ";", def.list1 or "main", "]",
-		"listring[current_player;main]",
-		default.get_hotbar_bg(def.x2 or 0, def.y2 or 4.85)
-	})
+local function create_overlay(image)
+	local formspec = {}
+	for fx = 0, 7 do
+		for fy = 0, 3 do
+			table.insert(formspec, "image[" .. fx .. "," .. (fy + 0.3)
+				.. ";1,1;" .. image .. "]")
+		end
+	end
+	return table.concat(formspec)
 end
 
 function containers.lid_obstructed(pos)
@@ -55,7 +103,7 @@ function containers.close(name)
 	local container_open_info = containers.open_containers[name]
 	local pos = container_open_info.pos
 	local sound = container_open_info.sound
-	local swap = container_open_info.swap
+	local swap = container_open_info.closed_node
 
 	containers.open_containers[name] = nil
 	for k, v in pairs(containers.open_containers) do
@@ -77,37 +125,53 @@ function containers.unprotected.on_construct(pos)
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	meta:set_string("infotext", node_def.description)
 	local inv = meta:get_inventory()
-	inv:set_size("main", node_def.inventory_width * node_def.inventory_height)
+	inv:set_size("main", node_def.inventory_width 
+		* node_def.inventory_height)
+	if node_def.update then
+		node_def.update(pos)
+	end
 end
 
 function containers.unprotected.can_dig(pos,player)
-	local meta = minetest.get_meta(pos)
-	local inv = meta:get_inventory()
-	return inv:is_empty("main")
+	return minetest.get_meta(pos):get_inventory():is_empty("main")
 end
 
 function containers.unprotected.on_rightclick(pos, node, clicker, itemstack)
 	local node_def = minetest.registered_nodes[node.name]
-	minetest.sound_play(node_def.sound_open, {gain = 0.3, pos = pos,
+	minetest.sound_play(node_def.sound, {gain = 0.3, pos = pos,
 			max_hear_distance = 10}, true)
-	if not containers.lid_obstructed(pos) then
+	if not containers.lid_obstructed(pos) and node_def.opened_node then
 		minetest.swap_node(pos, {
-				name = node.name .. "_opened",
+				name = node_def.opened_node,
 				param2 = node.param2 })
 	end
 	minetest.after(0.2, minetest.show_formspec, clicker:get_player_name(),
-		node_def.name, containers.create_formspec("nodemeta:" .. pos.x .. "," 
-		.. pos.y .. "," .. pos.z))
+		node.name, containers.create_formspec("nodemeta:" .. pos.x .. "," 
+		.. pos.y .. "," .. pos.z, node_def))
 	containers.open_containers[clicker:get_player_name()] = { pos = pos,
-			sound = node_def.sound_close, swap = node.name }
+			sound = node_def.sound, swap = node_def.closed_node }
 end
 
+--TODO: Hier eventuell ein _opened entfernen.
 function containers.unprotected.on_blast(pos)
 	local drops = {}
 	containers.get_inventory_drops(pos, "main", drops)
-	drops[#drops+1] = name
+	drops[#drops+1] = minetest.get_node(pos).name
 	minetest.remove_node(pos)
 	return drops
+end
+
+function containers.unprotected.allow_metadata_inventory_put(pos, _, _, stack)
+	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+	if node_def.allowed_item_group then
+		if minetest.get_item_group(stack:get_name(), node_def.allowed_item_group) 
+			~= 0 then
+			return stack:get_count()
+		end
+	else
+		return stack:get_count()
+	end
+	return 0
 end
 
 containers.protected = {}
@@ -118,6 +182,9 @@ function containers.protected.on_construct(pos)
 	meta:set_string("owner", "")
 	local inv = meta:get_inventory()
 	inv:set_size("main", node_def.inventory_width * node_def.inventory_height)
+	if node_def.update then
+		node_def.update(pos)
+	end
 end
 
 function containers.protected.after_place_node(pos, placer)
@@ -141,18 +208,18 @@ function containers.protected.on_rightclick(pos, node, clicker, itemstack)
 	end
 	local node_def = minetest.registered_nodes[node.name]
 
-	minetest.sound_play(node_def.sound_open, {gain = 0.3,
+	minetest.sound_play(node_def.sound, {gain = 0.3,
 			pos = pos, max_hear_distance = 10}, true)
-	if not containers.lid_obstructed(pos) then
+	if not containers.lid_obstructed(pos) and node_def.opened_node then
 		minetest.swap_node(pos,
-				{ name = node.name .. "_opened",
+				{ name = node_def.opened_node,
 				param2 = node.param2 })
 	end
 	minetest.after(0.2, minetest.show_formspec, clicker:get_player_name(),
 		node.name, containers.create_formspec("nodemeta:" .. pos.x .. "," .. pos.y 
-		.. "," .. pos.z))
+		.. "," .. pos.z, node_def))
 	containers.open_containers[clicker:get_player_name()] = { pos = pos,
-			sound = node_def.sound_close, swap = node.name }
+			sound = node_def.sound, swap = node_def.closed_node }
 end
 
 function containers.protected.on_blast() end
@@ -167,10 +234,18 @@ end
 
 function containers.protected.allow_metadata_inventory_put(pos, _, _, stack, 
 	player)
-	if not default.can_interact_with_node(player, pos) then
-		return 0
+	if default.can_interact_with_node(player, pos) then
+		local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+		if node_def.allowed_item_group then
+			if minetest.get_item_group(stack:get_name(), node_def.allowed_item_group) 
+				~= 0 then
+				return stack:get_count()
+			end
+		else
+			return stack:get_count()
+		end
 	end
-	return stack:get_count()
+	return 0
 end
 
 function containers.protected.allow_metadata_inventory_take(pos, _, _, stack, 
@@ -201,7 +276,8 @@ function containers.protected.on_key_use(pos, player)
 	end
 
 	minetest.show_formspec(player:get_player_name(), minetest.get_node(pos).name,
-		containers.get_chest_formspec(pos))
+		containers.create_formspec("nodemeta:" .. pos.x .. "," .. pos.y 
+		.. "," .. pos.z, node_def))
 end
 
 function containers.protected.on_skeleton_key_use(pos, player, newsecret)
@@ -209,11 +285,12 @@ function containers.protected.on_skeleton_key_use(pos, player, newsecret)
 	local owner = meta:get_string("owner")
 	local pn = player:get_player_name()
 
-	-- verify placer is owner of lockable chest
-	-- TODO
+	-- verify placer is owner of lockable container
 	if owner ~= pn then
 		minetest.record_protection_violation(pos, pn)
-		minetest.chat_send_player(pn, S("You do not own this chest."))
+		minetest.chat_send_player(pn, minetest.registered_nodes
+			[minetest.get_node(pos).name].description .. " ".. S("(owned by @1)", 
+			meta:get_string("owner")))
 		return nil
 	end
 
@@ -223,32 +300,121 @@ function containers.protected.on_skeleton_key_use(pos, player, newsecret)
 		meta:set_string("key_lock_secret", secret)
 	end
 
-	return secret, S("a locked chest"), owner
+	return secret, S("a locked container"), owner
 end
 
 function containers.on_metadata_inventory_move(pos, _, _, _, _, _, player)
 	minetest.log("action", player:get_player_name() ..
-		" moves stuff in chest at " .. minetest.pos_to_string(pos))
+		" moves stuff in container at " .. minetest.pos_to_string(pos))
+	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+	if node_def.update then
+		node_def.update(pos)
+	end
 end
 
 function containers.on_metadata_inventory_put(pos, _, _, stack, player)
 	minetest.log("action", player:get_player_name() ..
 		" moves " .. stack:get_name() ..
-		" to chest at " .. minetest.pos_to_string(pos))
+		" to container at " .. minetest.pos_to_string(pos))
+	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+	if node_def.update then
+		node_def.update(pos)
+	end
 end
 
 function containers.on_metadata_inventory_take(pos, _, _, stack, player)
 	minetest.log("action", player:get_player_name() ..
 		" takes " .. stack:get_name() ..
-		" from chest at " .. minetest.pos_to_string(pos))
+		" from container at " .. minetest.pos_to_string(pos))
+	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+	if node_def.update then
+		node_def.update(pos)
+	end
+end
+
+local function register_container(name, def)
+	local txt = name:gsub(":", "_")
+	local callbacks_p = def.protected and containers.protected or 
+		containers.unprotected
+
+	local tiles
+	if def.tiles then
+		tiles = table.copy(def.tiles)
+		tiles[3] = tiles[3] .. "^[transformFX"
+	else
+		tiles = {txt .. "_top.png", txt .. "_top.png",
+			txt .. "_side.png^[transformFX", txt .. "_side.png", txt .. "_side.png",
+			txt .. "_front.png",
+		}
+	end
+
+	if def.formspec_def and def.formspec_def.slot_image then
+		def.formspec_def.overlay = create_overlay(def.formspec_def.slot_image)
+	end
+
+	minetest.register_node(name, {
+		description = def.description or txt,
+		drawtype = def.drawtype,
+		visual = def.visual,
+		mesh = def.mesh,
+		tiles = tiles,
+		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 2},
+		drop = def.drop,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		selection_box = def.selection_box,
+		legacy_facedir_simple = true,
+		is_ground_content = false,
+		inventory_width = def.inventory_width or 8,
+		inventory_height = def.inventory_height or 4,
+		allowed_item_group = def.allowed_item_group,
+		formspec_def = def.formspec_def,
+		update = def.update,
+		sound = def.sound or txt .. "_open",
+		sounds = def.sounds or trees.node_sound_wood_defaults(),
+		can_dig = def.can_dig or callbacks_p.can_dig,
+		on_blast = def.on_blast or callbacks_p.on_blast,
+		on_construct = def.on_construct or callbacks_p.on_construct,
+		after_place_node = callbacks_p.after_place_node,
+		on_rightclick = def.on_rightclick or callbacks_p.on_rightclick,
+		allow_metadata_inventory_move = def.allow_metadata_inventory_move
+			or callbacks_p.allow_metadata_inventory_move,
+		allow_metadata_inventory_put = def.allow_metadata_inventory_put 
+			or callbacks_p.allow_metadata_inventory_put,
+		allow_metadata_inventory_take = def.allow_metadata_inventory_take 
+			or callbacks_p.allow_metadata_inventory_take,
+		on_metadata_inventory_move = def.on_metadata_inventory_move 
+			or containers.on_metadata_inventory_move,
+		on_metadata_inventory_put = def.on_metadata_inventory_put 
+			or containers.on_metadata_inventory_put,
+		on_metadata_inventory_take = def.on_metadata_inventory_take 
+			or containers.on_metadata_inventory_take,
+		on_key_use = def.on_key_use or callbacks_p.on_key_use,
+		on_skeleton_key_use = def.on_skeleton_key_use 
+			or callbacks_p.on_skeleton_key_use
+	})
+
+	if def.recipe then
+		minetest.register_craft({
+			output = name,
+			recipe = def.recipe
+		})
+	end
+
+	if def.burntime then
+		minetest.register_craft({
+			type = "fuel",
+			recipe = name,
+			burntime = def.burntime,
+		})
+	end
 end
 
 local open = {}
-
 function open.can_dig() return false end
 function open.on_blast() end
 
-local function register_container(name, def)
+local function register_container_opened(name, def)
 	local txt = name:gsub(":", "_")
 	local callbacks_p = def.protected and containers.protected or 
 		containers.unprotected
@@ -256,70 +422,43 @@ local function register_container(name, def)
 	local groups
 	if def.groups then
 		groups = table.copy(def.groups)
-	else
-		groups = {choppy = 2, oddly_breakable_by_hand = 2}
-	end
-
-	local diff = {}
-	if def.sub == "_opened" then
 		groups.not_in_creative_inventory = 1
-		diff.drop = def.drop or name
-		diff.can_dig = open.can_dig
-		diff.on_blast = open.on_blast
-		diff.mesh = def.mesh
-		diff.drawtype = def.drawtype or "mesh"
-		diff.visual = def.visual or "mesh"
-		diff.selection_box = def.selection_box or {
-			type = "fixed",
-			fixed = { -1/2, -1/2, -1/2, 1/2, 3/16, 1/2 },
-		}
-		if def.tiles then
-			diff.tiles = table.copy(def.tiles)
-			diff.tiles[3] = diff.tiles[4] 
-			diff.tiles[5] = diff.tiles[6]
-			diff.tiles[6] = def.inside
-		else
-			diff.tiles = {txt .. "_top.png", txt .. "_top.png", txt .. "_side.png", 
-				txt .. "_side.png", txt .. "_front.png", txt .. "_inside.png"
-			}
-		end
 	else
-		diff.drop = def.drop
-		diff.can_dig = callbacks_p.can_dig
-		diff.on_blast = callbacks_p.on_blast
-		if def.tiles then
-			diff.tiles = table.copy(def.tiles)
-			diff.tiles[3] = diff.tiles[3] .. "^[transformFX"
-		else
-			diff.tiles = {txt .. "_top.png", txt .. "_top.png",
-				txt .. "_side.png^[transformFX", txt .. "_side.png", txt .. "_side.png",
-				txt .. "_front.png",
-			}
-		end
-		diff.inventory_width = def.inventory_width or 8
-		diff.inventory_height = def.inventory_height or 4
+		groups = {not_in_creative_inventory = 1}
 	end
 
-	minetest.register_node(name .. def.sub, {
+	local tiles
+	if def.tiles then
+		tiles = table.copy(def.tiles)
+		tiles[3] = tiles[4] 
+		tiles[5] = tiles[6]
+		tiles[6] = def.inside
+	else
+		tiles = {txt .. "_top.png", txt .. "_top.png", txt .. "_side.png", 
+			txt .. "_side.png", txt .. "_front.png", txt .. "_inside.png"
+		}
+	end
+
+	minetest.register_node(name .. "_opened", {
 		description = def.description or txt,
-		drawtype = diff.drawtype,
-		visual = diff.visual,
-		mesh = diff.mesh,
-		tiles = diff.tiles,
+		drawtype = def.drawtype or "mesh",
+		visual = def.visual or "mesh",
+		mesh = def.mesh or "containers_chest_open.obj",
+		tiles = tiles,
 		groups = groups,
-		drop = diff.drop,
+		drop = name,
 		paramtype = "light",
 		paramtype2 = "facedir",
-		selection_box = diff.selection_box,
+		selection_box = def.selection_box or {
+			type = "fixed",
+			fixed = { -1/2, -1/2, -1/2, 1/2, 3/16, 1/2 },
+		},
 		legacy_facedir_simple = true,
 		is_ground_content = false,
-		inventory_width = diff.inventory_width,
-		inventory_height = diff.inventory_height,
+		sound = def.sound or txt .. "_open",
 		sounds = def.sounds or trees.node_sound_wood_defaults(),
-		sound_open = def.sound_open or txt .. "_open",
-		sound_close = def.sound_close or txt .. "_close",
-		can_dig = def.can_dig or diff.can_dig,
-		on_blast = def.on_blast or diff.on_blast,
+		can_dig = open.can_dig,
+		on_blast = open.on_blast,
 		on_construct = def.on_construct or callbacks_p.on_construct,
 		after_place_node = callbacks_p.after_place_node,
 		on_rightclick = def.on_rightclick or callbacks_p.on_rightclick,
@@ -342,13 +481,16 @@ local function register_container(name, def)
 end
 
 function containers.register_container(name, def)
-	def.closed.sub = ""
+	if def.opened then
+		def.closed.opened_node = name .. "_opened"
+	end
 	register_container(name, def.closed)
 
 	if def.opened then
-		def.opened.sub = "_opened"
 		def.opened.tiles = def.opened.tiles or def.closed.tiles
-		register_container(name, def.opened)
+		def.opened.closed_node = name
+		register_container_opened(name, def.opened)
 	end
+	containers.form[name] = true
 end
 

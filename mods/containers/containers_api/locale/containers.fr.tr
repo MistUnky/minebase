@@ -1,6 +1,6 @@
 # textdomain: default
 Locked Chest=Coffre verrouillé
-Locked Chest (owned by @1)=Coffre verrouillé (possédé par @1)
+(owned by @1)=(possédé par @1)
 You do not own this chest.=Ce coffre ne vous appartient pas.
 a locked chest=un coffre verrouillé
 Chest=Coffre
