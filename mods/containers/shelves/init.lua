@@ -65,7 +65,7 @@ containers.register_container("shelves:vessels", {
 		description = S("Vessels Shelf"),
 		tiles = {"base_trees_apple_wood.png", "base_trees_apple_wood.png", 
 			"base_trees_apple_wood.png", "base_trees_apple_wood.png", 
-			"shelves_vessel.png", "shelves_vessel.png"},
+			"shelves_vessels.png", "shelves_vessels.png"},
 		groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 		allowed_item_group = "vessel",
 		recipe = {

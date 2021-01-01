@@ -12,17 +12,6 @@ earth.register_stone_nodes("base_earth:stone", {
 	block = {description = S("Stone Block")}
 })
 
-earth.register_cobble("base_earth:mossy_stone", {
-	description = S("Mossy Cobblestone"),
-	groups = {cracky = 3, stone = 1}
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "base_earth:stone",
-	recipe = "base_earth:mossy_stone_cobble",
-})
-
 earth.register_stone_nodes("base_earth:desert_stone", {
 	stone = {description = S("Desert Stone")},
 	cobble = {description = S("Desert Cobblestone")},
@@ -85,7 +74,7 @@ earth.register_nodes_with("base_earth:dirt", {
 earth.register_ore("base_earth:dirt", {
 	y_min = -31,
 	seed = 17676,
-	-- Only where default:dirt is present as surface material
+	-- Only where base_earth:dirt is present as surface material
 	biomes = {"base_biomes:taiga", "base_biomes:snowy_grassland", 
 		"base_biomes:grassland", "base_biomes:coniferous_forest",
 		"base_biomes:deciduous_forest", "base_biomes:deciduous_forest_shore", 
@@ -97,6 +86,18 @@ earth.register_nodes_with("base_earth:dry_dirt", {
 		description = S("Dry Dirt"),
 		groups = {crumbly = 3, soil = 1},
 		sounds = earth.node_sound_dirt_defaults(),
+		deco = {
+			place_on = {"base_earth:dry_dirt_with_dry_grass"},
+			noise_params = {
+				offset = -1.5,
+				scale = -1.5,
+				spread = {x = 200, y = 200, z = 200},
+				seed = 329,
+				octaves = 4,
+				persist = 1.0
+			},
+			biomes = {"base_biomes:savanna"},
+		}
 	}, {
 		with = "dry_grass",
 		description = S("Dry Dirt with Dry Grass"),
@@ -117,12 +118,7 @@ earth.register_nodes_with("base_earth:permafrost", {
 			.. "^base_earth_stones_side.png", tileable_vertical = false}},
 		groups = {cracky = 3},
 		sounds = earth.node_sound_gravel_defaults(),
-	}, {
-		with = "moss",
-		description = S("Permafrost with Moss"),
-		groups = {cracky = 3},
-		gain = 0.25
-	}
+	} 
 })
 
 minetest.register_node("base_earth:gravel", {
@@ -145,4 +141,68 @@ minetest.register_craftitem("base_earth:flint", {
 })
 
 earth.register_ore("base_earth:gravel", {seed = 766})
+
+
+minetest.register_abm({
+	label = "Grass spread",
+	nodenames = {"base_earth:dirt"},
+	neighbors = {
+		"air",
+		"group:grass",
+		"group:dry_grass",
+		"base_liquids:snow",
+	},
+	interval = 6,
+	chance = 50,
+	catch_up = false,
+	action = function(pos, node)
+		-- Check for darkness: night, shadow or under a light-blocking node
+		-- Returns if ignore above
+		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+		if (minetest.get_node_light(above) or 0) < 13 then
+			return
+		end
+
+		-- Look for spreading dirt-type neighbours
+		local p2 = minetest.find_node_near(pos, 1, "group:spreading_dirt_type")
+		if p2 then
+			local n3 = minetest.get_node(p2)
+			minetest.set_node(pos, {name = n3.name})
+			return
+		end
+
+		-- Else, any seeding nodes on top?
+		local name = minetest.get_node(above).name
+		-- Snow check is cheapest, so comes first
+		if name == "base_liquids:snow" then
+			minetest.set_node(pos, {name = "base_liquids:dirt_with_snow"})
+		elseif minetest.get_item_group(name, "grass") ~= 0 then
+			minetest.set_node(pos, {name = "base_earth:dirt_with_grass"})
+		elseif minetest.get_item_group(name, "dry_grass") ~= 0 then
+			minetest.set_node(pos, {name = "base_earth:dirt_with_dry_grass"})
+		end
+	end
+})
+
+minetest.register_abm({
+	label = "Grass covered",
+	nodenames = {"group:spreading_dirt_type", "base_earth:dry_dirt_with_dry_grass"},
+	interval = 8,
+	chance = 50,
+	catch_up = false,
+	action = function(pos, node)
+		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+		local name = minetest.get_node(above).name
+		local nodedef = minetest.registered_nodes[name]
+		if name ~= "ignore" and nodedef and not ((nodedef.sunlight_propagates or
+				nodedef.paramtype == "light") and
+				nodedef.liquidtype == "none") then
+			if node.name == "base_earth:dry_dirt_with_dry_grass" then
+				minetest.set_node(pos, {name = "base_earth:dry_dirt"})
+			else
+				minetest.set_node(pos, {name = "base_earth:dirt"})
+			end
+		end
+	end
+})
 

@@ -6,6 +6,14 @@ local S = minetest.get_translator("chests")
 containers.register_container("chests:common", {
 	closed = {
 		description = S("Chest"),
+		tiles = {
+			"chests_common_top.png",
+			"chests_common_top.png",
+			"chests_common_side.png",
+			"chests_common_side.png",
+			"chests_common_side.png",
+			"chests_common_front.png"
+		},
 		burntime = 30,
 		recipe = {
 			{"group:wood", "group:wood", "group:wood"},
@@ -13,7 +21,7 @@ containers.register_container("chests:common", {
 			{"group:wood", "group:wood", "group:wood"},
 		}
 	},
-	opened = {}
+	opened = {inside = "chests_common_inside.png"}
 })
 
 containers.register_container("chests:common_locked", {

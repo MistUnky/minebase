@@ -17,13 +17,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	local pn = player:get_player_name()
-	if not containers.open_containers[pn] then
-		return
+	if containers.open_containers[pn] then
+		containers.close(pn)
+		return true
 	end
-
-	print(dump(containers.open_containers))
-	containers.close(pn)
-	return true
 end)
 
 minetest.register_on_leaveplayer(function(player)
@@ -89,8 +86,7 @@ local function create_overlay(image)
 end
 
 function containers.lid_obstructed(pos)
-	local above = {x = pos.x, y = pos.y + 1, z = pos.z}
-	local def = minetest.registered_nodes[minetest.get_node(above).name]
+	local def = minetest.registered_nodes[minetest.get_node(pos).name]
 	-- allow ladders, signs, wallmounted things and torches to not obstruct
 	return not (def and
 			(def.drawtype == "airlike" or
@@ -103,8 +99,8 @@ function containers.close(name)
 	local container_open_info = containers.open_containers[name]
 	local pos = container_open_info.pos
 	local sound = container_open_info.sound
-	local swap = container_open_info.closed_node
-
+	local node_closed = container_open_info.node_closed
+	
 	containers.open_containers[name] = nil
 	for k, v in pairs(containers.open_containers) do
 		if v.pos.x == pos.x and v.pos.y == pos.y and v.pos.z == pos.z then
@@ -112,9 +108,11 @@ function containers.close(name)
 		end
 	end
 
-	local node = minetest.get_node(pos)
-	minetest.after(0.2, minetest.swap_node, pos, { name = swap,
-			param2 = node.param2 })
+	if node_closed then
+		local node = minetest.get_node(pos)
+		minetest.after(0.2, minetest.swap_node, pos, { name = node_closed,
+				param2 = node.param2 })
+	end
 	minetest.sound_play(sound, {gain = 0.3, pos = pos,
 		max_hear_distance = 10}, true)
 end
@@ -136,23 +134,40 @@ function containers.unprotected.can_dig(pos,player)
 	return minetest.get_meta(pos):get_inventory():is_empty("main")
 end
 
+local function determine_opening_pos(tmp, pos)
+	local out = table.copy(pos)
+	tmp = tmp.opening_side
+	if tmp == "+y" then
+		out.y = out.y + 1
+	elseif tmp == "+x" then
+		out.x = out.x + 1
+	elseif tmp == "-x" then
+		out.x = out.x - 1
+	elseif tmp == "+z" then
+		out.z = out.z + 1
+	elseif tmp == "-z" then
+		out.z = out.z - 1
+	elseif tmp == "-y" then
+		out.y = out.y - 1
+	end
+	return out
+end
+
 function containers.unprotected.on_rightclick(pos, node, clicker, itemstack)
 	local node_def = minetest.registered_nodes[node.name]
 	minetest.sound_play(node_def.sound, {gain = 0.3, pos = pos,
 			max_hear_distance = 10}, true)
-	if not containers.lid_obstructed(pos) and node_def.opened_node then
-		minetest.swap_node(pos, {
-				name = node_def.opened_node,
-				param2 = node.param2 })
+	if node_def.node_opened and not containers.lid_obstructed(
+		determine_opening_pos(node_def, pos)) then
+		minetest.swap_node(pos, {name = node_def.node_opened, param2 = node.param2})
 	end
 	minetest.after(0.2, minetest.show_formspec, clicker:get_player_name(),
-		node.name, containers.create_formspec("nodemeta:" .. pos.x .. "," 
-		.. pos.y .. "," .. pos.z, node_def))
-	containers.open_containers[clicker:get_player_name()] = { pos = pos,
-			sound = node_def.sound, swap = node_def.closed_node }
+		node_def.node_closed or node.name, containers.create_formspec("nodemeta:" 
+		.. pos.x .. "," .. pos.y .. "," .. pos.z, node_def))
+	containers.open_containers[clicker:get_player_name()] = {pos = pos,
+			sound = node_def.sound, node_closed = node_def.node_closed}
 end
 
---TODO: Hier eventuell ein _opened entfernen.
 function containers.unprotected.on_blast(pos)
 	local drops = {}
 	containers.get_inventory_drops(pos, "main", drops)
@@ -196,10 +211,8 @@ function containers.protected.after_place_node(pos, placer)
 end
 
 function containers.protected.can_dig(pos, player)
-	local meta = minetest.get_meta(pos);
-	local inv = meta:get_inventory()
-	return inv:is_empty("main") and
-			default.can_interact_with_node(player, pos)
+	return minetest.get_meta(pos):get_inventory():is_empty("main") and
+		default.can_interact_with_node(player, pos)
 end
 
 function containers.protected.on_rightclick(pos, node, clicker, itemstack)
@@ -210,16 +223,15 @@ function containers.protected.on_rightclick(pos, node, clicker, itemstack)
 
 	minetest.sound_play(node_def.sound, {gain = 0.3,
 			pos = pos, max_hear_distance = 10}, true)
-	if not containers.lid_obstructed(pos) and node_def.opened_node then
-		minetest.swap_node(pos,
-				{ name = node_def.opened_node,
-				param2 = node.param2 })
+	if node_def.node_opened and not containers.lid_obstructed(
+		determine_opening_pos(node_def, pos)) then
+		minetest.swap_node(pos, {name = node_def.node_opened,param2 = node.param2})
 	end
 	minetest.after(0.2, minetest.show_formspec, clicker:get_player_name(),
-		node.name, containers.create_formspec("nodemeta:" .. pos.x .. "," .. pos.y 
-		.. "," .. pos.z, node_def))
-	containers.open_containers[clicker:get_player_name()] = { pos = pos,
-			sound = node_def.sound, swap = node_def.closed_node }
+		node_def.node_closed or node.name, containers.create_formspec("nodemeta:" 
+		.. pos.x .. "," .. pos.y .. "," .. pos.z, node_def))
+	containers.open_containers[clicker:get_player_name()] = {pos = pos,
+			sound = node_def.sound, node_closed = node_def.node_closed}
 end
 
 function containers.protected.on_blast() end
@@ -275,7 +287,8 @@ function containers.protected.on_key_use(pos, player)
 		return
 	end
 
-	minetest.show_formspec(player:get_player_name(), minetest.get_node(pos).name,
+	minetest.show_formspec(player:get_player_name(), minetest.registered_nodes
+		[minetest.get_node(pos).name].node_closed or node.name,
 		containers.create_formspec("nodemeta:" .. pos.x .. "," .. pos.y 
 		.. "," .. pos.z, node_def))
 end
@@ -342,8 +355,8 @@ local function register_container(name, def)
 		tiles = table.copy(def.tiles)
 		tiles[3] = tiles[3] .. "^[transformFX"
 	else
-		tiles = {txt .. "_top.png", txt .. "_top.png",
-			txt .. "_side.png^[transformFX", txt .. "_side.png", txt .. "_side.png",
+		tiles = {txt .. "_top.png", txt .. "_bottom.png",
+			txt .. "_side.png^[transformFX", txt .. "_side.png", txt .. "_back.png",
 			txt .. "_front.png",
 		}
 	end
@@ -371,6 +384,9 @@ local function register_container(name, def)
 		formspec_def = def.formspec_def,
 		update = def.update,
 		sound = def.sound or txt .. "_open",
+		node_opened = def.node_opened,
+		node_closed = def.node_opened and name,
+		opening_side = def.opening_side or "+y",
 		sounds = def.sounds or trees.node_sound_wood_defaults(),
 		can_dig = def.can_dig or callbacks_p.can_dig,
 		on_blast = def.on_blast or callbacks_p.on_blast,
@@ -391,7 +407,9 @@ local function register_container(name, def)
 			or containers.on_metadata_inventory_take,
 		on_key_use = def.on_key_use or callbacks_p.on_key_use,
 		on_skeleton_key_use = def.on_skeleton_key_use 
-			or callbacks_p.on_skeleton_key_use
+			or callbacks_p.on_skeleton_key_use,
+		on_punch = def.on_punch,
+		on_timer = def.on_timer
 	})
 
 	if def.recipe then
@@ -434,7 +452,7 @@ local function register_container_opened(name, def)
 		tiles[5] = tiles[6]
 		tiles[6] = def.inside
 	else
-		tiles = {txt .. "_top.png", txt .. "_top.png", txt .. "_side.png", 
+		tiles = {txt .. "_top.png", txt .. "_bottom.png", txt .. "_side.png", 
 			txt .. "_side.png", txt .. "_front.png", txt .. "_inside.png"
 		}
 	end
@@ -456,6 +474,7 @@ local function register_container_opened(name, def)
 		legacy_facedir_simple = true,
 		is_ground_content = false,
 		sound = def.sound or txt .. "_open",
+		node_closed = name,
 		sounds = def.sounds or trees.node_sound_wood_defaults(),
 		can_dig = open.can_dig,
 		on_blast = open.on_blast,
@@ -482,13 +501,12 @@ end
 
 function containers.register_container(name, def)
 	if def.opened then
-		def.closed.opened_node = name .. "_opened"
+		def.closed.node_opened = name .. "_opened"
 	end
 	register_container(name, def.closed)
 
 	if def.opened then
 		def.opened.tiles = def.opened.tiles or def.closed.tiles
-		def.opened.closed_node = name
 		register_container_opened(name, def.opened)
 	end
 	containers.form[name] = true

@@ -107,6 +107,29 @@ minetest.register_node("base_liquids:snow", {
 	end,
 })
 
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = {
+		"base_earth:permafrost_with_moss",
+		"base_earth:permafrost_with_stones",
+		"base_earth:stone",
+		"base_earth:gravel"
+	},
+	sidelen = 4,
+	noise_params = {
+		offset = 0,
+		scale = 1.0,
+		spread = {x = 100, y = 100, z = 100},
+		seed = 172555,
+		octaves = 3,
+		persist = 1.0
+	},
+	biomes = {"base_biomes:tundra", "base_biomes:tundra_beach"},
+	y_max = 50,
+	y_min = 1,
+	decoration = "base_liquids:snow",
+})
+
 base_lib.register_craft19("base_liquids:snow_block", "base_liquids:snow")
 
 minetest.register_node("base_liquids:snow_block", {

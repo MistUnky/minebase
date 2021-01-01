@@ -159,14 +159,46 @@ function earth.register_node_with(name, def)
 	})
 end
 
+function earth.register_deco(name, def)
+	minetest.register_decoration({
+		deco_type = def.deco_type or "simple",
+		place_on = def.place_on,
+		sidelen = def.sidelen or 4,
+		noise_params = def.noise_params or {
+			offset = -1.25,
+			scale = 0.25,
+			spread = {x = 150, y = 150, z = 150},
+			seed = 27162,
+			octaves = 4,
+			persist = 1.0
+		},
+		biomes = def.biomes,
+		y_max = def.y_max or 31000,
+		y_min = def.y_min or 1,
+		decoration = def.decoration,
+		place_offset_y = def.place_offset_y or -1,
+		flags = def.flags or "force_placement"
+	})
+end
+
 function earth.register_nodes_with(name, def)
 	if def.base_node then
 		def.base_node.tiles = def.base_node.tiles or {name:gsub(":", "_") .. ".png"}
 		minetest.register_node(name, def.base_node)
+
+		if def.base_node.deco then
+			def.base_node.deco.decoration = def.base_node.deco.decoration or name 
+			earth.register_deco(name, def.base_node.deco)
+		end
 	end
 
 	for _, de in ipairs(def) do
 		earth.register_node_with(name, de)
+		
+		if de.deco then
+			de.deco.decoration = de.deco.decoration or name .. "_with_" .. de.with
+			earth.register_deco(name, de.deco)
+		end
 	end
 end
 
