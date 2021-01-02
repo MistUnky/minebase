@@ -64,8 +64,8 @@ minetest.register_craftitem("map:mapping_kit", {
 minetest.register_craft({
 	output = "map:mapping_kit",
 	recipe = {
-		{"default:glass", "default:paper", "group:stick"},
-		{"default:steel_ingot", "default:paper", "default:steel_ingot"},
+		{"base_glass:common", "default:paper", "group:stick"},
+		{"base_ores:steel_ingot", "default:paper", "base_ores:steel_ingot"},
 		{"group:wood", "default:paper", "dye:black"},
 	}
 })

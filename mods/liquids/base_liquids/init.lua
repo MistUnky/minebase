@@ -107,10 +107,18 @@ minetest.register_node("base_liquids:snow", {
 	end,
 })
 
+minetest.register_node("base_liquids:cloud", {
+	description = S("Cloud"),
+	tiles = {"base_liquids_cloud.png"},
+	is_ground_content = false,
+	sounds = base.node_sound_defaults(),
+	groups = {dig_immediate = 3},
+})
+
 minetest.register_decoration({
 	deco_type = "simple",
 	place_on = {
-		"base_earth:permafrost_with_moss",
+		"mossy:permafrost",
 		"base_earth:permafrost_with_stones",
 		"base_earth:stone",
 		"base_earth:gravel"
@@ -130,7 +138,7 @@ minetest.register_decoration({
 	decoration = "base_liquids:snow",
 })
 
-base_lib.register_craft19("base_liquids:snow_block", "base_liquids:snow")
+base.register_craft19("base_liquids:snow_block", "base_liquids:snow")
 
 minetest.register_node("base_liquids:snow_block", {
 	description = S("Snow Block"),
@@ -197,7 +205,7 @@ minetest.register_craftitem("base_liquids:obsidian_shard", {
 	description = S("Obsidian Shard"),
 	inventory_image = "base_liquids_obsidian_shard.png",
 })
-base_lib.register_craft19("base_liquids:obsidian", "base_liquids:obsidian_shard")
+base.register_craft19("base_liquids:obsidian", "base_liquids:obsidian_shard")
 
 
 --

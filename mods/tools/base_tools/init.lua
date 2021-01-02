@@ -108,7 +108,7 @@ tools.register_set("base_tools:stone", {
 })
 
 tools.register_set("base_tools:bronze", {
-	material = "default:bronze_ingot",
+	material = "base_ores:bronze_ingot",
 	pick = {
 		description = S("Bronze Pickaxe"),
 		tool_capabilities = {
@@ -156,7 +156,7 @@ tools.register_set("base_tools:bronze", {
 })
 
 tools.register_set("base_tools:steel", {
-	material = "default:steel_ingot",
+	material = "base_ores:steel_ingot",
 	pick = {
 		description = S("Steel Pickaxe"),
 		tool_capabilities = {
@@ -204,7 +204,7 @@ tools.register_set("base_tools:steel", {
 })
 
 tools.register_set("base_tools:mese", {
-	material = "default:mese_crystal",
+	material = "base_ores:mese_crystal",
 	pick = {
 		description = S("Mese Pickaxe"),
 		tool_capabilities = {
@@ -252,7 +252,7 @@ tools.register_set("base_tools:mese", {
 })
 
 tools.register_set("base_tools:diamond", {
-	material = "default:diamond",
+	material = "base_ores:diamond",
 	pick = {
 		description = S("Diamond Pickaxe"),
 		tool_capabilities = {

@@ -16,6 +16,6 @@ celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 Textures
 --------
 Gambit (CC BY-SA 3.0):
-  default_sign_wall_wood.png
+  base_signs_wood_sign_wall.png
 
 

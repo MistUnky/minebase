@@ -17,5 +17,5 @@ celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 Textures
 --------
 Gambit (CC BY-SA 3.0):
-  default_ladder_steel.png
+  base_ladders_steel_ladder.png
 

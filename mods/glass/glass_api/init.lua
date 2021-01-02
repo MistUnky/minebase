@@ -10,7 +10,7 @@ function glass.node_sound_glass_defaults(table)
 			{name = "glass_api_footstep", gain = 0.5}
 	table.dug = table.dug or
 			{name = "glass_api_break", gain = 1.0}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 

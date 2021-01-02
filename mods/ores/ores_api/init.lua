@@ -103,7 +103,7 @@ function ores.register_metal(name, def)
 		ores.register_ingot(name, def.ingot)
 
 		if def.block then
-			base_lib.register_craft19(name .. "_block", name .. "_ingot")
+			base.register_craft19(name .. "_block", name .. "_ingot")
 		end
 	end
 	
@@ -147,10 +147,10 @@ function ores.register_crystal(name, def)
 		ores.register_crystal_item(name, def.crystal)
 		
 		if def.fragment then
-			base_lib.register_craft19(name .. "_crystal", name .. "_crystal_fragment")
+			base.register_craft19(name .. "_crystal", name .. "_crystal_fragment")
 		end
 		if def.block then
-			base_lib.register_craft19(name .. "_block", name .. "_crystal")
+			base.register_craft19(name .. "_block", name .. "_crystal")
 		end
 	end
 

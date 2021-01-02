@@ -167,8 +167,8 @@ function fences.register_mesepost(name, def)
 		minetest.register_craft({
 			output = name .. " 4",
 			recipe = {
-				{'', 'default:glass', ''},
-				{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
+				{'', 'base_glass:common', ''},
+				{'base_ores:mese_crystal', 'base_ores:mese_crystal', 'base_ores:mese_crystal'},
 				{'', def.material, ''},
 			}
 		})

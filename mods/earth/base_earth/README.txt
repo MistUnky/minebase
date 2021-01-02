@@ -42,11 +42,9 @@ paramat (CC BY-SA 3.0):
   base_earth_permafrost.png -- Derived from a texture by Neuromancer (CC BY-SA 3.0)
   base_earth_stones.png -- Derived from a texture by sofar (CC0 1.0)
   base_earth_stones_side.png -- Derived from a texture by sofar (CC0 1.0)
-  base_earth_moss.png
-  base_earth_moss_side.png
 
 TumeniNodes (CC BY-SA 3.0):
-  base_earth_desert_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
+  base_earth_desert_stone_cobble.png -- Derived from a texture by brunob.santos (CC BY-SA 3.0)
   base_earth_coniferous_litter.png
   base_earth_coniferous_litter_side.png
   base_earth_grass.png
@@ -56,8 +54,7 @@ sofar (CC0 1.0):
   base_earth_gravel.png -- Derived from Gambit's PixelBOX texture pack light gravel
 
 Neuromancer (CC BY-SA 3.0):
-  base_earth_cobble.png, based on texture by Brane praefect
-  base_earth_mossycobble.png, based on texture by Brane praefect
+  base_earth_stone_cobble.png, based on texture by Brane praefect
 
 Gambit (CC BY-SA 3.0):
   base_earth_flint.png

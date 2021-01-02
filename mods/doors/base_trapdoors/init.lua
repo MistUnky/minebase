@@ -37,8 +37,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "base_trapdoors:steel",
 	recipe = {
-		{"default:steel_ingot", "default:steel_ingot"},
-		{"default:steel_ingot", "default:steel_ingot"},
+		{"base_ores:steel_ingot", "base_ores:steel_ingot"},
+		{"base_ores:steel_ingot", "base_ores:steel_ingot"},
 	}
 })
 

@@ -8,6 +8,7 @@ local S = minetest.get_translator("farming_api")
 farming = {}
 farming.path = minetest.get_modpath("farming_api")
 farming.get_translator = S
+farming.LIGHT_MAX = 14
 
 -- Wear out hoes, place soil
 -- TODO Ignore group:flower
@@ -64,7 +65,7 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 
 	-- turn the node into soil and play sound
 	minetest.set_node(pt.under, {name = regN[under.name].soil.dry})
-	minetest.sound_play("default_dig_crumbly", {
+	minetest.sound_play("earth_api_dig_crumbly", {
 		pos = pt.under,
 		gain = 0.5,
 	}, true)
@@ -106,7 +107,7 @@ farming.register_hoe = function(name, def)
 			return farming.hoe_on_use(itemstack, user, pointed_thing, def.max_uses)
 		end,
 		groups = def.groups,
-		sound = {breaks = "default_tool_breaks"},
+		sound = {breaks = "tools_api_breaks"},
 	})
 	-- Register its recipe
 	if def.recipe then
@@ -312,8 +313,8 @@ farming.register_plant = function(name, def)
 		fertility = def.fertility,
 		sounds = earth.node_sound_dirt_defaults({
 			dig = {name = "", gain = 0},
-			dug = {name = "default_grass_footstep", gain = 0.2},
-			place = {name = "default_place_node", gain = 0.25},
+			dug = {name = "base_earth_grass_footstep", gain = 0.2},
+			place = {name = "base_sounds_place_node", gain = 0.25},
 		}),
 
 		on_place = function(itemstack, placer, pointed_thing)

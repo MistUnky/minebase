@@ -18,15 +18,15 @@ celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 Textures
 --------
 Pithydon (CC BY-SA 3.0)
-  default_coral_brown.png
-  default_coral_orange.png
-  default_coral_skeleton.png
+  base_hydrophytes_coral_brown.png
+  base_hydrophytes_coral_orange.png
+  base_hydrophytes_coral_skeleton.png
 
 tobyplowy (CC BY-SA 3.0):
-  default_kelp.png
+  base_hydrophytes_kelp.png
 
 Topywo (CC BY-SA 3.0)
-  default_coral_cyan.png
-  default_coral_green.png
-  default_coral_pink.png
+  base_hydrophytes_coral_cyan.png
+  base_hydrophytes_coral_green.png
+  base_hydrophytes_coral_pink.png
 

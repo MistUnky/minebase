@@ -36,7 +36,7 @@ local boat = {
 		collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
 		visual = "mesh",
 		mesh = "boats_boat.obj",
-		textures = {"default_wood.png"},
+		textures = {"base_trees_apple_wood.png"},
 	},
 
 	driver = nil,

@@ -70,13 +70,13 @@ function earth.register_stone_nodes(name, def)
 	if def.brick then
 		def.brick.groups = def.brick.groups or {cracky = 2, stone = 1},
 		earth.register_brick(name, def.brick)
-		base_lib.register_craft44(name .. "_brick", name)
+		base.register_craft44(name .. "_brick", name)
 	end
 
 	if def.block then
 		def.block.groups = def.block.groups or {cracky = 2, stone = 1}
 		earth.register_block(name, def.block)
-		base_lib.register_craft99(name .. "_block", name)
+		base.register_craft99(name .. "_block", name)
 	end
 end
 
@@ -117,16 +117,16 @@ function earth.register_sand_nodes(name, def)
 	earth.register_sand(name, def.sand)
 
 	if def.stone then
-		base_lib.register_craft14(namestone, name)
+		base.register_craft14(namestone, name)
 		def.stone.groups = def.stone.groups or {cracky = 3, crumbly = 1},
 		earth.register_stone(namestone, def.stone)
 
 		if def.brick then
-			base_lib.register_craft44(namestone .. "_brick 4", namestone)
+			base.register_craft44(namestone .. "_brick 4", namestone)
 		end
 
 		if def.block then
-			base_lib.register_craft99(namestone .. "_block", namestone)
+			base.register_craft99(namestone .. "_block", namestone)
 		end
 	end
 
@@ -212,7 +212,7 @@ function earth.node_sound_stone_defaults(table)
 			{name = "base_sounds_hard_footstep", gain = 0.3}
 	table.dug = table.dug or
 			{name = "base_sounds_hard_footstep", gain = 1.0}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 
@@ -224,7 +224,7 @@ function earth.node_sound_dirt_defaults(table)
 			{name = "earth_api_dirt_footstep", gain = 1.0}
 	table.place = table.place or
 			{name = "base_sounds_place_node", gain = 1.0}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 
@@ -236,7 +236,7 @@ function earth.node_sound_sand_defaults(table)
 			{name = "earth_api_sand_footstep", gain = 0.15}
 	table.place = table.place or
 			{name = "base_sounds_place_node", gain = 1.0}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 
@@ -250,7 +250,7 @@ function earth.node_sound_gravel_defaults(table)
 			{name = "earth_api_gravel_dug", gain = 1.0}
 	table.place = table.place or
 			{name = "base_sounds_place_node", gain = 1.0}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 

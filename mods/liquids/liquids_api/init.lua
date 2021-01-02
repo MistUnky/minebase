@@ -85,7 +85,7 @@ function liquids.node_sound_ice_defaults(table)
 			{name = "liquids_api_ice_dig", gain = 0.5}
 	table.dug = table.dug or
 			{name = "liquids_api_ice_dug", gain = 0.5}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 
@@ -93,7 +93,7 @@ function liquids.node_sound_water_defaults(table)
 	table = table or {}
 	table.footstep = table.footstep or
 			{name = "liquids_api_water_footstep", gain = 0.2}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 
@@ -107,7 +107,7 @@ function liquids.node_sound_snow_defaults(table)
 			{name = "liquids_api_snow_footstep", gain = 0.3}
 	table.place = table.place or
 			{name = "base_sounds_place_node", gain = 1.0}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 

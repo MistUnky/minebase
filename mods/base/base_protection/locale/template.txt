@@ -1,0 +1,4 @@
+# textdomain: base_protection
+Skeleton Key=
+Key to @1's @2=
+Key=

@@ -1,6 +1,6 @@
 -- tnt/init.lua
 
-tnt = {}
+tnt = {LIGHT_MAX = 14}
 
 -- Load support for Minebase translation.
 local S = minetest.get_translator("tnt")
@@ -14,8 +14,8 @@ end
 -- loss probabilities array (one in X will be lost)
 local loss_prob = {}
 
-loss_prob["default:cobble"] = 3
-loss_prob["default:dirt"] = 4
+loss_prob["base_earth:cobble"] = 3
+loss_prob["base_earth:dirt"] = 4
 
 local tnt_radius = tonumber(minetest.settings:get("tnt_radius") or 3)
 
@@ -430,7 +430,7 @@ minetest.register_node("tnt:boom", {
 	drawtype = "airlike",
 	inventory_image = "tnt_boom.png",
 	wield_image = "tnt_boom.png",
-	light_source = default.LIGHT_MAX,
+	light_source = tnt.LIGHT_MAX,
 	walkable = false,
 	drop = "",
 	groups = {dig_immediate = 3, not_in_creative_inventory = 1},
@@ -562,7 +562,7 @@ minetest.register_node("tnt:gunpowder_burning", {
 minetest.register_craft({
 	output = "tnt:gunpowder 5",
 	type = "shapeless",
-	recipe = {"default:coal_lump", "default:gravel"}
+	recipe = {"base_ores:coal_lump", "base_earth:gravel"}
 })
 
 minetest.register_craftitem("tnt:tnt_stick", {
@@ -593,7 +593,7 @@ if enable_tnt then
 	minetest.register_abm({
 		label = "TNT ignition",
 		nodenames = {"group:tnt", "tnt:gunpowder"},
-		neighbors = {"fire:basic_flame", "default:lava_source", "default:lava_flowing"},
+		neighbors = {"fire:basic_flame", "base_liquids:lava_source", "base_liquids:lava_flowing"},
 		interval = 4,
 		chance = 1,
 		action = function(pos, node)

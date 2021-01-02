@@ -5,25 +5,25 @@ local radius = 8
 
 local allsounds = {
 	["env_sounds_water"] = {
-		trigger = {"default:water_flowing", "default:river_water_flowing"},
+		trigger = {"base_liquids:water_flowing", "base_liquids:river_water_flowing"},
 		base_volume = 0.04,
 		max_volume = 0.4,
 		per_node = 0.004,
 	},
 	["env_sounds_lava"] = {
-		trigger = {"default:lava_source", "default:lava_flowing"},
+		trigger = {"base_liquids:lava_source", "base_liquids:lava_flowing"},
 		base_volume = 0,
 		max_volume = 0.6,
 		per_node = {
-			["default:lava_source"] = 0.008,
-			["default:lava_flowing"] = 0.002,
+			["base_liquids:lava_source"] = 0.008,
+			["base_liquids:lava_flowing"] = 0.002,
 		},
 	},
 }
 
 if minetest.settings:get_bool("river_source_sounds") then
 	table.insert(allsounds["env_sounds_water"].trigger,
-		"default:river_water_source")
+		"base_liquids:river_water_source")
 end
 
 

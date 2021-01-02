@@ -10,7 +10,7 @@ farming.register_plant("wheat:wheat", {
 	inventory_image = "wheat_seed.png",
 	steps = 8,
 	minlight = 13,
-	maxlight = default.LIGHT_MAX,
+	maxlight = farming.LIGHT_MAX,
 	fertility = {"grassland"},
 	groups = {food_wheat = 1, flammable = 4},
 	place_param2 = 3,

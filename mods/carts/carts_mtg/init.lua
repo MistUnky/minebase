@@ -1,5 +1,11 @@
 -- carts_mtg/init.lua
 
+-- Aliases to support loading worlds using nodes following the old naming convention
+-- These can also be helpful when using chat commands, for example /giveme
+minetest.register_alias("rail", "base_rails:rail")
+minetest.register_alias("default:rail", "base_rails:rail")
+
+
 -- Aliases for Mintest Game carts mod
 minetest.register_alias("carts:rail", "base_rails:rail")
 minetest.register_alias("carts:powerrail", "base_rails:powerrail")

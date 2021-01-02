@@ -483,7 +483,7 @@ function trees.node_sound_wood_defaults(table)
 			{name = "trees_api_wood_footstep", gain = 0.3}
 	table.dug = table.dug or
 			{name = "trees_api_wood_footstep", gain = 1.0}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 
@@ -495,7 +495,7 @@ function trees.node_sound_leaves_defaults(table)
 			{name = "base_earth_grass_footstep", gain = 0.7}
 	table.place = table.place or
 			{name = "base_sounds_place_node", gain = 1.0}
-	base_sounds.node_sound_defaults(table)
+	base.node_sound_defaults(table)
 	return table
 end
 

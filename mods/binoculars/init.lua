@@ -65,8 +65,8 @@ minetest.register_craftitem("binoculars:binoculars", {
 minetest.register_craft({
 	output = "binoculars:binoculars",
 	recipe = {
-		{"default:obsidian_glass", "", "default:obsidian_glass"},
-		{"default:bronze_ingot", "default:bronze_ingot", "default:bronze_ingot"},
-		{"default:obsidian_glass", "", "default:obsidian_glass"},
+		{"base_glass:obsidian", "", "base_glass:obsidian"},
+		{"base_ores:bronze_ingot", "base_ores:bronze_ingot", "base_ores:bronze_ingot"},
+		{"base_glass:obsidian", "", "base_glass:obsidian"},
 	}
 })

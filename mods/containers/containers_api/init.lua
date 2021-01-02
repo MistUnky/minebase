@@ -212,11 +212,11 @@ end
 
 function containers.protected.can_dig(pos, player)
 	return minetest.get_meta(pos):get_inventory():is_empty("main") and
-		default.can_interact_with_node(player, pos)
+		base.can_interact_with_node(player, pos)
 end
 
 function containers.protected.on_rightclick(pos, node, clicker, itemstack)
-	if not default.can_interact_with_node(clicker, pos) then
+	if not base.can_interact_with_node(clicker, pos) then
 		return itemstack
 	end
 	local node_def = minetest.registered_nodes[node.name]
@@ -238,7 +238,7 @@ function containers.protected.on_blast() end
 
 function containers.protected.allow_metadata_inventory_move(pos, _, _, _ , _, 
 	count, player)
-	if not default.can_interact_with_node(player, pos) then
+	if not base.can_interact_with_node(player, pos) then
 		return 0
 	end
 	return count
@@ -246,7 +246,7 @@ end
 
 function containers.protected.allow_metadata_inventory_put(pos, _, _, stack, 
 	player)
-	if default.can_interact_with_node(player, pos) then
+	if base.can_interact_with_node(player, pos) then
 		local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 		if node_def.allowed_item_group then
 			if minetest.get_item_group(stack:get_name(), node_def.allowed_item_group) 
@@ -262,7 +262,7 @@ end
 
 function containers.protected.allow_metadata_inventory_take(pos, _, _, stack, 
 	player)
-	if not default.can_interact_with_node(player, pos) then
+	if not base.can_interact_with_node(player, pos) then
 		return 0
 	end
 	return stack:get_count()

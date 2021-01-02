@@ -9,7 +9,7 @@ farming.register_plant("cotton:cotton", {
 	inventory_image = "cotton_seed.png",
 	steps = 8,
 	minlight = 13,
-	maxlight = default.LIGHT_MAX,
+	maxlight = farming.LIGHT_MAX,
 	fertility = {"base_biomes:grassland", "base_biomes:desert"},
 	groups = {flammable = 4},
 })

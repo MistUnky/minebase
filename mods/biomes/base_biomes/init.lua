@@ -2,7 +2,7 @@
 
 biomes.define_default({
 	stone_cobble = "base_earth:stone_cobble",
-	mossy_stone_cobble = "base_earth:mossy_stone_cobble",
+	mossy_stone_cobble = "mossy:stone_cobble",
 	sand = "base_earth:sand",
 	water = "base_liquids:water_source",
 	lava = "base_liquids:lava_source"

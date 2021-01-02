@@ -17,19 +17,19 @@ celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 Textures
 --------
 BlockMen (CC BY-SA 3.0):
-  default_chest_front.png
-  default_chest_lock.png
-  default_chest_side.png
-  default_chest_top.png
+  chests_common_front.png
+  chests_common_lock.png
+  chests_common_side.png
+  chests_common_top.png
 
 sofar (CC BY-SA 3.0):
-  default_chest_inside
+  chests_common_inside
 
 Sounds
 ------
 Chests sounds added by sofar, derived of several files mixed together:
-  default_chest_open.ogg
-  default_chest_close.ogg
+  chests_common_open.ogg
+  chests_common_close.ogg
     - http://www.freesound.org/people/Sevin7/sounds/269722/ CC0
     - http://www.freesound.org/people/Percy%20Duke/sounds/23448/ CC-BY-3.0
     - http://www.freesound.org/people/kingsamas/sounds/135576/ CC-BY-3.0

@@ -61,10 +61,16 @@ walls.register("walls:stone_cobble", S("Cobblestone Wall"),
 	earth.node_sound_stone_defaults())
 
 walls.register("walls:mossy_stone_cobble", S("Mossy Cobblestone Wall"), 
-	{"base_earth_mossy_stone_cobble.png"},	"base_earth:mossy_stone_cobble", 
+	{"mossy_stone_cobble.png"},	"mossy:stone_cobble", 
 	earth.node_sound_stone_defaults())
 
 walls.register("walls:desert_stone_cobble", S("Desert Cobblestone Wall"), 
 	{"base_earth_desert_stone_cobble.png"}, "base_earth:desert_stone_cobble", 
 	earth.node_sound_stone_defaults())
 
+mossy.register_growth("walls:mossy", {
+	nodenames = {"walls:stone_cobble"},
+	map = {
+		["walls:stone_cobble"] = "walls:mossy_stone_cobble",
+	}
+})

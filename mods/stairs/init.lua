@@ -1113,3 +1113,17 @@ S("Inner Snow Block Stair")
 S("Outer Snow Block Stair")
 S("Snow Block Slab")
 --]]
+
+--[[
+mossy.register_growth("stairs:mossy", {
+	nodenames = {"stairs:slab_cobble", "stairs:stair_cobble", 
+		"stairs:stair_inner_cobble", "stairs:stair_outer_cobble"},
+	map = {
+		["stairs:slab_cobble"] = "stairs:slab_mossycobble",
+		["stairs:stair_cobble"] = "stairs:stair_mossycobble",
+		["stairs:stair_inner_cobble"] = "stairs:stair_inner_mossycobble",
+		["stairs:stair_outer_cobble"] = "stairs:stair_outer_mossycobble",
+	}
+})
+
+--]]

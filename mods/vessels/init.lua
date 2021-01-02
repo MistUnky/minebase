@@ -24,9 +24,9 @@ minetest.register_node("vessels:glass_bottle", {
 minetest.register_craft( {
 	output = "vessels:glass_bottle 10",
 	recipe = {
-		{"default:glass", "", "default:glass"},
-		{"default:glass", "", "default:glass"},
-		{"", "default:glass", ""}
+		{"base_glass:common", "", "base_glass:common"},
+		{"base_glass:glass", "", "base_glass:glass"},
+		{"", "base_glass:glass", ""}
 	}
 })
 
@@ -50,9 +50,9 @@ minetest.register_node("vessels:drinking_glass", {
 minetest.register_craft( {
 	output = "vessels:drinking_glass 14",
 	recipe = {
-		{"default:glass", "", "default:glass"},
-		{"default:glass", "", "default:glass"},
-		{"default:glass", "default:glass", "default:glass"}
+		{"base_glass:common", "", "base_glass:common"},
+		{"base_glass:common", "", "base_glass:common"},
+		{"base_glass:common", "base_glass:common", "base_glass:common"}
 	}
 })
 
@@ -70,7 +70,7 @@ minetest.register_node("vessels:steel_bottle", {
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 	},
 	groups = {vessel = 1, dig_immediate = 3, attached_node = 1},
-	sounds = base_sounds.node_sound_defaults(),
+	sounds = base.node_sound_defaults(),
 })
 
 minetest.register_craft( {
@@ -110,7 +110,7 @@ minetest.register_craft( {
 
 minetest.register_craft({
 	type = "cooking",
-	output = "default:glass",
+	output = "base_glass:common",
 	recipe = "vessels:glass_fragments",
 })
 
