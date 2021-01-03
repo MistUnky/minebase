@@ -30,18 +30,6 @@ minetest.register_on_leaveplayer(function(player)
 	end
 end)
 
-function containers.get_inventory_drops(pos, inventory, drops)
-	local inv = minetest.get_meta(pos):get_inventory()
-	local n = #drops
-	for i = 1, inv:get_size(inventory) do
-		local stack = inv:get_stack(inventory, i)
-		if stack:get_count() > 0 then
-			drops[n+1] = stack:to_table()
-			n = n + 1
-		end
-	end
-end
-
 function containers.create_formspec(inventory1, def)
 	inventory1 = inventory1 or "context"
 	if def then
@@ -58,8 +46,8 @@ function containers.create_formspec(inventory1, def)
 				"8,3;8]",
 			"listring[", inventory1, ";", def.list1 or "main", "]",
 			"listring[current_player;main]",
-			default.get_hotbar_bg(def.x2 or 0, def.y2 or 4.85),
-			def.formspec_def and def.formspec_def.overlay
+			base.get_hotbar_bg(def.x2 or 0, def.y2 or 4.85),
+			def.overlay or ""
 		})
 	else
 		return table.concat({
@@ -69,7 +57,7 @@ function containers.create_formspec(inventory1, def)
 			list[current_player;main;0,6.08;8,3;8]\z
 			listring[", inventory1, ";main]\z
 			listring[current_player;main]",
-			default.get_hotbar_bg(0, 4.85)
+			base.get_hotbar_bg(0, 4.85)
 		})
 	end
 end
@@ -123,15 +111,17 @@ function containers.unprotected.on_construct(pos)
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	meta:set_string("infotext", node_def.description)
 	local inv = meta:get_inventory()
-	inv:set_size("main", node_def.inventory_width 
-		* node_def.inventory_height)
+	inv:set_size(node_def.formspec_def and node_def.formspec_def.list1 or "main", 
+		node_def.inventory_width * node_def.inventory_height)
 	if node_def.update then
 		node_def.update(pos)
 	end
 end
 
 function containers.unprotected.can_dig(pos,player)
-	return minetest.get_meta(pos):get_inventory():is_empty("main")
+	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+	return minetest.get_meta(pos):get_inventory():is_empty(node_def.formspec_def
+		.list1)
 end
 
 local function determine_opening_pos(tmp, pos)
@@ -163,15 +153,17 @@ function containers.unprotected.on_rightclick(pos, node, clicker, itemstack)
 	end
 	minetest.after(0.2, minetest.show_formspec, clicker:get_player_name(),
 		node_def.node_closed or node.name, containers.create_formspec("nodemeta:" 
-		.. pos.x .. "," .. pos.y .. "," .. pos.z, node_def))
+		.. pos.x .. "," .. pos.y .. "," .. pos.z, node_def.formspec_def))
 	containers.open_containers[clicker:get_player_name()] = {pos = pos,
 			sound = node_def.sound, node_closed = node_def.node_closed}
 end
 
 function containers.unprotected.on_blast(pos)
 	local drops = {}
-	containers.get_inventory_drops(pos, "main", drops)
-	drops[#drops+1] = minetest.get_node(pos).name
+	local name = minetest.get_node(pos).name
+	local node_def = minetest.registered_nodes[name]
+	base.get_inventory_drops(pos, node_def.formspec_def.list1 or "main", drops)
+	drops[#drops+1] = name
 	minetest.remove_node(pos)
 	return drops
 end
@@ -196,7 +188,8 @@ function containers.protected.on_construct(pos)
 	meta:set_string("infotext", node_def.description)
 	meta:set_string("owner", "")
 	local inv = meta:get_inventory()
-	inv:set_size("main", node_def.inventory_width * node_def.inventory_height)
+	inv:set_size(node_def.formspec_def and node_def.formspec_def.list1 or "main", 
+		node_def.inventory_width * node_def.inventory_height)
 	if node_def.update then
 		node_def.update(pos)
 	end
@@ -211,8 +204,10 @@ function containers.protected.after_place_node(pos, placer)
 end
 
 function containers.protected.can_dig(pos, player)
-	return minetest.get_meta(pos):get_inventory():is_empty("main") and
-		base.can_interact_with_node(player, pos)
+	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+	return minetest.get_meta(pos):get_inventory():is_empty(node_def.formspec_def
+		and node_def.formspec_def.list1 or "main") and base.can_interact_with_node(
+		player, pos)
 end
 
 function containers.protected.on_rightclick(pos, node, clicker, itemstack)
@@ -229,7 +224,7 @@ function containers.protected.on_rightclick(pos, node, clicker, itemstack)
 	end
 	minetest.after(0.2, minetest.show_formspec, clicker:get_player_name(),
 		node_def.node_closed or node.name, containers.create_formspec("nodemeta:" 
-		.. pos.x .. "," .. pos.y .. "," .. pos.z, node_def))
+		.. pos.x .. "," .. pos.y .. "," .. pos.z, node_def.formspec_def))
 	containers.open_containers[clicker:get_player_name()] = {pos = pos,
 			sound = node_def.sound, node_closed = node_def.node_closed}
 end
@@ -290,7 +285,7 @@ function containers.protected.on_key_use(pos, player)
 	minetest.show_formspec(player:get_player_name(), minetest.registered_nodes
 		[minetest.get_node(pos).name].node_closed or node.name,
 		containers.create_formspec("nodemeta:" .. pos.x .. "," .. pos.y 
-		.. "," .. pos.z, node_def))
+		.. "," .. pos.z, node_def.formspec_def))
 end
 
 function containers.protected.on_skeleton_key_use(pos, player, newsecret)

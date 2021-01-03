@@ -5,7 +5,7 @@ local S = minetest.get_translator("shelves")
 
 local function update_bookshelf(pos)
 	local meta = minetest.get_meta(pos)
-	local invlist = meta:get_inventory():get_list("main")
+	local invlist = meta:get_inventory():get_list("books")
 
 	local sum_written, sum_empty = 0, 0
 	for _, stack in ipairs(invlist) do
@@ -38,14 +38,17 @@ containers.register_container("shelves:book", {
 		},
 		allowed_item_group = "book",
 		burntime = 30,
-		formspec_def = {slot_image = "shelves_book_slot.png"},
+		formspec_def = {
+			list1 = "books",
+			slot_image = "shelves_book_slot.png"
+		},
 		update = update_bookshelf
 	}
 })
 
 local function update_vessels_shelf(pos)
 	local meta = minetest.get_meta(pos)
-	local invlist = meta:get_inventory():get_list("main")
+	local invlist = meta:get_inventory():get_list("vessels")
 
 	local sum = 0
 	for _, stack in ipairs(invlist) do
@@ -74,7 +77,10 @@ containers.register_container("shelves:vessels", {
 			{"group:wood", "group:wood", "group:wood"},
 		},
 		burntime = 30,
-		formspec_def = {slot_image = "shelves_vessel_slot.png"},
+		formspec_def = {
+			list1 = "vessels",
+			slot_image = "shelves_vessel_slot.png"
+		},
 		update = update_vessels_shelf
 	}
 })

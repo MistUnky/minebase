@@ -1,22 +1,15 @@
--- mods/default/craftitems.lua
+-- books_api/init.lua
 
--- support for Minebase translation.
-local S = default.get_translator
+-- Load support for Minebase translation.
+local S = minetest.get_translator("base_books")
+
+books = {}
+books.form = {}
 
 local lpp = 14 -- Lines per book's page
-local function book_on_use(itemstack, user)
-	local player_name = user:get_player_name()
-	local meta = itemstack:get_meta()
+function books.create_formspec(player_name, data)
 	local title, text, owner = "", "", player_name
 	local page, page_max, lines, string = 1, 1, {}, ""
-
-	-- Backwards compatibility
-	local old_data = minetest.deserialize(itemstack:get_metadata())
-	if old_data then
-		meta:from_table({ fields = old_data })
-	end
-
-	local data = meta:to_table().fields
 
 	if data.owner then
 		title = data.title
@@ -38,29 +31,41 @@ local function book_on_use(itemstack, user)
 		end
 	end
 
-	local formspec
 	local esc = minetest.formspec_escape
 	if owner == player_name then
-		formspec = "size[8,8]" ..
-			"field[0.5,1;7.5,0;title;" .. esc(S("Title:")) .. ";" ..
-				esc(title) .. "]" ..
-			"textarea[0.5,1.5;7.5,7;text;" .. esc(S("Contents:")) .. ";" ..
-				esc(text) .. "]" ..
-			"button_exit[2.5,7.5;3,1;save;" .. esc(S("Save")) .. "]"
+		return table.concat({"size[8,8]\z
+			field[0.5,1;7.5,0;title;",  esc(S("Title:")), ";", esc(title), "]\z
+			textarea[0.5,1.5;7.5,7;text;", esc(S("Contents:")), ";", esc(text), "]\z
+			button_exit[2.5,7.5;3,1;save;", esc(S("Save")), "]"})
 	else
-		formspec = "size[8,8]" ..
-			"label[0.5,0.5;" .. esc(S("by @1", owner)) .. "]" ..
-			"tablecolumns[color;text]" ..
-			"tableoptions[background=#00000000;highlight=#00000000;border=false]" ..
-			"table[0.4,0;7,0.5;title;#FFFF00," .. esc(title) .. "]" ..
-			"textarea[0.5,1.5;7.5,7;;" ..
-				minetest.formspec_escape(string ~= "" and string or text) .. ";]" ..
-			"button[2.4,7.6;0.8,0.8;book_prev;<]" ..
-			"label[3.2,7.7;" .. esc(S("Page @1 of @2", page, page_max)) .. "]" ..
-			"button[4.9,7.6;0.8,0.8;book_next;>]"
+		return table.concat({"size[8,8]\z
+			label[0.5,0.5;", esc(S("by @1", owner)), "]\z
+			tablecolumns[color;text]\z
+			tableoptions[background=#00000000;highlight=#00000000;border=false]\z
+			table[0.4,0;7,0.5;title;#FFFF00,", esc(title), "]\z
+			textarea[0.5,1.5;7.5,7;;",
+				minetest.formspec_escape(string ~= "" and string or text), ";]\z
+			button[2.4,7.6;0.8,0.8;book_prev;<]\z
+			label[3.2,7.7;", esc(S("Page @1 of @2", page, page_max)), "]\z
+			button[4.9,7.6;0.8,0.8;book_next;>]"})
+	end
+end
+
+function books.on_use(itemstack, user)
+	local player_name = user:get_player_name()
+	local meta = itemstack:get_meta()
+
+	-- Backwards compatibility
+	local old_data = minetest.deserialize(itemstack:get_metadata())
+	if old_data then
+		meta:from_table({ fields = old_data })
 	end
 
-	minetest.show_formspec(player_name, "default:book", formspec)
+	local formspec = books.create_formspec(player_name, meta:to_table().fields)
+
+	local name = itemstack:get_name()
+	name = name:sub(-8) == "_written" and name:sub(1, -9) or name
+	minetest.show_formspec(player_name, name, formspec)
 	return itemstack
 end
 
@@ -68,20 +73,20 @@ local max_text_size = 10000
 local max_title_size = 80
 local short_title_size = 35
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname ~= "default:book" then return end
+	if not books.form[formname] then return end
 	local inv = player:get_inventory()
 	local stack = player:get_wielded_item()
 
 	if fields.save and fields.title and fields.text
 			and fields.title ~= "" and fields.text ~= "" then
 		local new_stack, data
-		if stack:get_name() ~= "default:book_written" then
+		if stack:get_name() ~= formname .. "_written" then
 			local count = stack:get_count()
 			if count == 1 then
-				stack:set_name("default:book_written")
+				stack:set_name(formname .. "_written")
 			else
 				stack:set_count(count - 1)
-				new_stack = ItemStack("default:book_written")
+				new_stack = ItemStack(formname .. "_written")
 			end
 		else
 			data = stack:get_meta():to_table().fields
@@ -91,7 +96,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			return
 		end
 
-		if not data then data = {} end
+		data = data or {}
 		data.title = fields.title:sub(1, max_title_size)
 		data.owner = player:get_player_name()
 		local short_title = data.title
@@ -138,52 +143,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 
 		stack:get_meta():from_table({fields = data})
-		stack = book_on_use(stack, player)
+		stack = books.on_use(stack, player)
 	end
 
 	-- Update stack
 	player:set_wielded_item(stack)
 end)
 
---
--- Craftitem registry
---
-
-minetest.register_craftitem("default:book", {
-	description = S("Book"),
-	inventory_image = "default_book.png",
-	groups = {book = 1, flammable = 3},
-	on_use = book_on_use,
-})
-
-minetest.register_craftitem("default:book_written", {
-	description = S("Book with Text"),
-	inventory_image = "default_book_written.png",
-	groups = {book = 1, not_in_creative_inventory = 1, flammable = 3},
-	stack_max = 1,
-	on_use = book_on_use,
-})
-
-minetest.register_craftitem("default:paper", {
-	description = S("Paper"),
-	inventory_image = "default_paper.png",
-	groups = {flammable = 3},
-})
-
---
--- Crafting recipes
---
-
-minetest.register_craft({
-	output = "default:book",
-	recipe = {
-		{"default:paper"},
-		{"default:paper"},
-		{"default:paper"},
-	}
-})
-
-function default.register_craft_metadata_copy(ingredient, result)
+function books.register_craft_metadata_copy(ingredient, result)
 	minetest.register_craft({
 		type = "shapeless",
 		output = result,
@@ -213,67 +180,47 @@ function default.register_craft_metadata_copy(ingredient, result)
 	end)
 end
 
+function books.register_book(name, def)
+	local txt = name:gsub(":", "_")
+	minetest.register_craftitem(name, {
+		description = def.description or txt,
+		inventory_image = def.inventory_image or txt .. ".png",
+		wield_image = def.wield_image or txt .. ".png",
+		groups = def.groups or {book = 1, flammable = 3, 
+			not_in_creative_inventory = def.not_in_creative_inventory},
+		stack_max = def.stack_max,
+		on_use = def.on_use or books.on_use,
+		on_secondary_use = def.on_secondary_use,
+		on_drop = def.on_drop,
+		after_use = def.after_use,
+		on_place = def.on_place
+	})
 
-default.register_craft_metadata_copy("default:book", "default:book_written")
+	if def.recipe then
+		minetest.register_craft({
+			output = name,
+			recipe = def.recipe
+		})
+	end
 
+	if def.burntime then
+		minetest.register_craft({
+			type = "fuel",
+			recipe = name,
+			burntime = def.burntime
+		})
+	end
+end
 
-minetest.register_craft({
-	output = "default:paper",
-	recipe = {
-		{"default:papyrus", "default:papyrus", "default:papyrus"},
-	}
-})
-
---
--- Fuels
---
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:book",
-	burntime = 3,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:book_written",
-	burntime = 3,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:paper",
-	burntime = 1,
-})
-
--- Stick
--- Craftitem registry
---
-
-minetest.register_craftitem("default:stick", {
-	description = S("Stick"),
-	inventory_image = "default_stick.png",
-	groups = {stick = 1, flammable = 2},
-})
-
---
--- Crafting recipes
---
-
-minetest.register_craft({
-	output = "default:stick 4",
-	recipe = {
-		{"group:wood"},
-	}
-})
-
---
--- Fuels
---
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "group:stick",
-	burntime = 1,
-})
-
+function books.register_book_set(name, def)
+	local txt = name:gsub(":", "_")
+	books.register_book(name, def.new)
+	books.form[name] = true 
+	
+	if def.written then
+		def.written.stack_max = def.written.stack_max or 1
+		def.written.not_in_creative_inventory = 1
+		books.register_book(name .. "_written", def.written)
+		books.register_craft_metadata_copy(name, name .. "_written")
+	end
+end

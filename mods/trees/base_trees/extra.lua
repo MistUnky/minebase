@@ -113,3 +113,27 @@ if chunksize >= 5 then
 		place_offset_y = -4,
 	})
 end
+
+--
+-- stick
+--
+
+minetest.register_craftitem("base_trees:stick", {
+	description = S("Stick"),
+	inventory_image = "base_trees_stick.png",
+	groups = {stick = 1, flammable = 2},
+})
+
+minetest.register_craft({
+	output = "base_trees:stick 4",
+	recipe = {
+		{"group:wood"},
+	}
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:stick",
+	burntime = 1,
+})
+

@@ -1,6 +1,7 @@
 -- torch/init.lua
--- support for Minebase translation.
-local S = default.get_translator
+
+-- Load support for Minebase translation.
+local S = minetest.get_translator("torch")
 
 lights.register_torch("torch:common", {
 	floor = {
@@ -44,22 +45,5 @@ minetest.register_craft({
 		{"base_ores:coal_lump"},
 		{"group:stick"},
 	}
-})
-
-minetest.register_lbm({
-	name = "torch:3dtorch",
-	nodenames = {"torch:common_floor", "torches:floor", "torches:wall"},
-	action = function(pos, node)
-		if node.param2 == 0 then
-			minetest.set_node(pos, {name = "torch:common_ceiling",
-				param2 = node.param2})
-		elseif node.param2 == 1 then
-			minetest.set_node(pos, {name = "torch:common_floor",
-				param2 = node.param2})
-		else
-			minetest.set_node(pos, {name = "torch:common_wall",
-				param2 = node.param2})
-		end
-	end
 })
 

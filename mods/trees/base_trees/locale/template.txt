@@ -22,3 +22,4 @@ Aspen Tree=
 Aspen Wood Planks=
 Aspen Tree Leaves=
 Aspen Tree Sapling=
+Stick=

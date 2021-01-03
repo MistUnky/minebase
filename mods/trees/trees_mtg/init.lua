@@ -5,6 +5,7 @@ minetest.register_alias("tree", "base_trees:apple_tree")
 minetest.register_alias("jungletree", "base_trees:jungle_tree")
 minetest.register_alias("leaves", "base_trees:apple_leaves")
 minetest.register_alias("cactus", "cactus:cactus")
+minetest.register_alias("Stick", "base_trees:stick")
 minetest.register_alias("wood", "base_trees:apple_wood")
 minetest.register_alias("sapling", "base_trees:apple_sapling")
 minetest.register_alias("apple", "base_trees:apple")
@@ -58,3 +59,6 @@ minetest.register_alias("default:pine_bush_needles","base_bushes:pine_bush_leave
 minetest.register_alias("default:cactus","cactus:cactus")
 
 minetest.register_alias("default:dry_shrub", "base_bushes:dry_bush_stem") 
+
+minetest.register_alias("default:stick", "base_trees:stick")
+

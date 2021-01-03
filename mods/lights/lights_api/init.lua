@@ -1,6 +1,6 @@
 -- lights_api/init.lua
 
-lights = {}
+lights = {LIGHT_MAX = 14}
 
 function lights.on_flood(pos, oldnode, newnode)
 	local name = oldnode.name
@@ -113,5 +113,45 @@ function lights.register_torch(name, def)
 
 	if def.ceiling then
 		lights.register_torch_ceiling(name, def.ceiling)
+	end
+end
+
+function lights.register_light(name, def)
+	local txt = name:gsub(":", "_")
+	minetest.register_node(name, {
+		description = def.description or txt,
+		tiles = def.tiles or {txt .. ".png"},
+		inventory_image = def.inventory_image,
+		wield_image = def.wield_image,
+		paramtype = "light",
+		paramtype2 = def.paramtype2,
+		sunlight_propagates = true,
+		is_ground_content = false,
+		walkable = def.walkable or true,
+		light_source = lights.LIGHT_MAX,
+		drop = def.drop,
+		groups = def.groups or {dig_immediate = 3},
+		sounds = def.sounds or trees.node_sound_wood_defaults(),
+		drawtype = def.drawtype,
+		mesh = def.mesh,
+		selection_box = def.selection_box,
+		on_flood = def.on_flood,
+		on_rotate = def.on_rotate,
+		on_place = def.on_place
+	})
+	
+	if def.recipe then
+		minetest.register_craft({
+			output = name,
+			recipe = def.recipe
+		})
+	end
+
+	if def.burntime then
+		minetest.register_craft({
+			type = "fuel",
+			recipe = name,
+			burntime = def.burntime,
+		})
 	end
 end

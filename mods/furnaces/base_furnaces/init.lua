@@ -1,49 +1,12 @@
--- default/furnace.lua
+-- furnace/init.lua
 
--- support for Minebase translation.
-local S = default.get_translator
+-- Load support for Minebase translation.
+local S = minetest.get_translator("base_furnaces")
+
 
 --
 -- Formspecs
 --
-
-function default.get_furnace_active_formspec(fuel_percent, item_percent)
-	return "size[8,8.5]"..
-		"list[context;src;2.75,0.5;1,1;]"..
-		"list[context;fuel;2.75,2.5;1,1;]"..
-		"image[2.75,1.5;1,1;default_furnace_fire_bg.png^[lowpart:"..
-		(fuel_percent)..":default_furnace_fire_fg.png]"..
-		"image[3.75,1.5;1,1;gui_furnace_arrow_bg.png^[lowpart:"..
-		(item_percent)..":gui_furnace_arrow_fg.png^[transformR270]"..
-		"list[context;dst;4.75,0.96;2,2;]"..
-		"list[current_player;main;0,4.25;8,1;]"..
-		"list[current_player;main;0,5.5;8,3;8]"..
-		"listring[context;dst]"..
-		"listring[current_player;main]"..
-		"listring[context;src]"..
-		"listring[current_player;main]"..
-		"listring[context;fuel]"..
-		"listring[current_player;main]"..
-		default.get_hotbar_bg(0, 4.25)
-end
-
-function default.get_furnace_inactive_formspec()
-	return "size[8,8.5]"..
-		"list[context;src;2.75,0.5;1,1;]"..
-		"list[context;fuel;2.75,2.5;1,1;]"..
-		"image[2.75,1.5;1,1;default_furnace_fire_bg.png]"..
-		"image[3.75,1.5;1,1;gui_furnace_arrow_bg.png^[transformR270]"..
-		"list[context;dst;4.75,0.96;2,2;]"..
-		"list[current_player;main;0,4.25;8,1;]"..
-		"list[current_player;main;0,5.5;8,3;8]"..
-		"listring[context;dst]"..
-		"listring[current_player;main]"..
-		"listring[context;src]"..
-		"listring[current_player;main]"..
-		"listring[context;fuel]"..
-		"listring[current_player;main]"..
-		default.get_hotbar_bg(0, 4.25)
-end
 
 --
 -- Node callback functions that are the same for active and inactive furnace
@@ -158,7 +121,7 @@ local function furnace_node_timer(pos, elapsed)
 						dst_full = true
 					end
 					-- Play cooling sound
-					minetest.sound_play("default_cool_lava",
+					minetest.sound_play("base_liquids_cool_lava",
 						{pos = pos, max_hear_distance = 16, gain = 0.1}, true)
 				else
 					-- Item could not be cooked: probably missing fuel
@@ -239,22 +202,22 @@ local function furnace_node_timer(pos, elapsed)
 		active = true
 		local fuel_percent = 100 - math.floor(fuel_time / fuel_totaltime * 100)
 		fuel_state = S("@1%", fuel_percent)
-		formspec = default.get_furnace_active_formspec(fuel_percent, item_percent)
-		swap_node(pos, "default:furnace_active")
+		formspec = furnaces.get_active_formspec(fuel_percent, item_percent)
+		swap_node(pos, "base_furnaces:furnace_active")
 		-- make sure timer restarts automatically
 		result = true
 
 		-- Play sound every 5 seconds while the furnace is active
 		if timer_elapsed == 0 or (timer_elapsed+1) % 5 == 0 then
-			minetest.sound_play("default_furnace_active",
+			minetest.sound_play("base_furnaces_furnace_active",
 				{pos = pos, max_hear_distance = 16, gain = 0.5}, true)
 		end
 	else
 		if fuellist and not fuellist[1]:is_empty() then
 			fuel_state = S("@1%", 0)
 		end
-		formspec = default.get_furnace_inactive_formspec()
-		swap_node(pos, "default:furnace")
+		formspec = furnaces.get_inactive_formspec()
+		swap_node(pos, "base_furnaces:furnace")
 		-- stop timer on the inactive furnace
 		minetest.get_node_timer(pos):stop()
 		meta:set_int("timer_elapsed", 0)
@@ -285,12 +248,12 @@ end
 -- Node definitions
 --
 
-minetest.register_node("default:furnace", {
+minetest.register_node("base_furnaces:furnace", {
 	description = S("Furnace"),
 	tiles = {
-		"default_furnace_top.png", "default_furnace_bottom.png",
-		"default_furnace_side.png", "default_furnace_side.png",
-		"default_furnace_side.png", "default_furnace_front.png"
+		"base_furnaces_furnace_top.png", "base_furnaces_furnace_bottom.png",
+		"base_furnaces_furnace_side.png", "base_furnaces_furnace_side.png",
+		"base_furnaces_furnace_side.png", "base_furnaces_furnace_front.png"
 	},
 	paramtype2 = "facedir",
 	groups = {cracky=2},
@@ -324,10 +287,10 @@ minetest.register_node("default:furnace", {
 	end,
 	on_blast = function(pos)
 		local drops = {}
-		default.get_inventory_drops(pos, "src", drops)
-		default.get_inventory_drops(pos, "fuel", drops)
-		default.get_inventory_drops(pos, "dst", drops)
-		drops[#drops+1] = "default:furnace"
+		base.get_inventory_drops(pos, "src", drops)
+		base.get_inventory_drops(pos, "fuel", drops)
+		base.get_inventory_drops(pos, "dst", drops)
+		drops[#drops+1] = "base_furnaces:furnace"
 		minetest.remove_node(pos)
 		return drops
 	end,
@@ -337,14 +300,14 @@ minetest.register_node("default:furnace", {
 	allow_metadata_inventory_take = allow_metadata_inventory_take,
 })
 
-minetest.register_node("default:furnace_active", {
+minetest.register_node("base_furnaces:furnace_active", {
 	description = S("Furnace"),
 	tiles = {
-		"default_furnace_top.png", "default_furnace_bottom.png",
-		"default_furnace_side.png", "default_furnace_side.png",
-		"default_furnace_side.png",
+		"base_furnaces_furnace_top.png", "base_furnaces_furnace_bottom.png",
+		"base_furnaces_furnace_side.png", "base_furnaces_furnace_side.png",
+		"base_furnaces_furnace_side.png",
 		{
-			image = "default_furnace_front_active.png",
+			image = "base_furnaces_furnace_front_active.png",
 			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
@@ -356,7 +319,7 @@ minetest.register_node("default:furnace_active", {
 	},
 	paramtype2 = "facedir",
 	light_source = 8,
-	drop = "default:furnace",
+	drop = "base_furnaces:furnace",
 	groups = {cracky=2, not_in_creative_inventory=1},
 	legacy_facedir_simple = true,
 	is_ground_content = false,
@@ -371,7 +334,7 @@ minetest.register_node("default:furnace_active", {
 })
 
 minetest.register_craft({
-	output = "default:furnace",
+	output = "base_furnaces:furnace",
 	recipe = {
 		{"group:stone", "group:stone", "group:stone"},
 		{"group:stone", "", "group:stone"},
