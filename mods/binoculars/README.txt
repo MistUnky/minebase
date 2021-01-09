@@ -1,5 +1,5 @@
 Minebase mod: Binoculars
-=============================
+========================
 See license.txt for license information.
 
 Authors of source code
@@ -15,8 +15,8 @@ Crafting
 --------
 binoculars:binoculars
 
-default:obsidian_glass O
-default:bronze_ingot B
+base_glass:obsidian_glass O
+base_ores:bronze_ingot B
 
 O_O
 BBB

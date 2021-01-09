@@ -1,6 +1,9 @@
 Minebase mod: bed
-=======================
+=================
 See license.txt for license information.
+
+This mod registeres a simple bed made of nodeboxes. A bed allows to skip the 
+night by sleeping.
 
 Authors of source code
 ----------------------

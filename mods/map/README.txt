@@ -18,10 +18,10 @@ Crafting
 --------
 map:mapping_kit
 
-default:glass G
-default:paper P
+base_glass:common G
+base_books:paper P
 group:stick S
-default:steel_ingot I
+base_ores:steel_ingot I
 group:wood W
 dye:black D
 

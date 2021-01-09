@@ -462,7 +462,7 @@ minetest.register_node("tnt:gunpowder", {
 	sounds = trees.node_sound_leaves_defaults(),
 
 	on_punch = function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == "default:torch" then
+		if puncher:get_wielded_item():get_name() == "torch:common" then
 			minetest.set_node(pos, {name = "tnt:gunpowder_burning"})
 			minetest.log("action", puncher:get_player_name() ..
 				" ignites tnt:gunpowder at " ..
@@ -576,7 +576,7 @@ if enable_tnt then
 		output = "tnt:tnt_stick 2",
 		recipe = {
 			{"tnt:gunpowder", "", "tnt:gunpowder"},
-			{"tnt:gunpowder", "default:paper", "tnt:gunpowder"},
+			{"tnt:gunpowder", "base_books:paper", "tnt:gunpowder"},
 			{"tnt:gunpowder", "", "tnt:gunpowder"},
 		}
 	})
@@ -631,7 +631,7 @@ function tnt.register_tnt(def)
 				end
 			end,
 			on_punch = function(pos, node, puncher)
-				if puncher:get_wielded_item():get_name() == "default:torch" then
+				if puncher:get_wielded_item():get_name() == "torch:common" then
 					minetest.swap_node(pos, {name = name .. "_burning"})
 					minetest.registered_nodes[name .. "_burning"].on_construct(pos)
 					minetest.log("action", puncher:get_player_name() ..

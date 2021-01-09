@@ -28,3 +28,5 @@ function dungeon_loot._internal_get_loot(pos_y, dungeontype)
 end
 
 dofile(minetest.get_modpath("dungeon_loot_api") .. "/mapgen.lua")
+
+

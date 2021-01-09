@@ -33,7 +33,7 @@ containers.register_container("shelves:book", {
 		groups = {choppy = 3, oddly_breakable_by_hand = 2, flammable = 3},
 		recipe = {
 			{"group:wood", "group:wood", "group:wood"},
-			{"default:book", "default:book", "default:book"},
+			{"base_books:book", "base_books:book", "base_books:book"},
 			{"group:wood", "group:wood", "group:wood"},
 		},
 		allowed_item_group = "book",

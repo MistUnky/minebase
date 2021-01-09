@@ -15,3 +15,10 @@ Authors of media (textures, models and sounds)
 celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0):
   player_api_sprite.png
   player_api_sprite_back.png
+
+Sounds
+------
+sonictechtonic (CC BY 3.0):                                                     
+https://www.freesound.org/people/sonictechtonic/sounds/241872/                  
+  player_api_damage.ogg
+

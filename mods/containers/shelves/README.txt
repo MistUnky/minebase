@@ -17,7 +17,7 @@ celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 Textures
 --------
 paramat (CC BY-SA 3.0):
-  default_bookshelf_slot.png -- Derived from a texture by Gambit (CC-BY-SA 3.0)
+  shelves_book_slot.png -- Derived from a texture by Gambit (CC-BY-SA 3.0)
 
 Vanessa Ezekowitz (CC BY-SA 3.0)
   shelves_vessels.png

@@ -2,6 +2,13 @@ Minebase mod: Base Sounds
 ==========================
 See license.txt for license information.
 
+base.node_sound_defaults receives one argument t and sets default values for
+t.footstep, t.dug and t.place. It does not override existing values. The default
+values are:
+t.footstep	{name = "", gain = 1.0}
+t.dug		{name = "base_sounds_dug_node", gain = 0.25}
+t.place		{name = "base_sounds_place_node_hard", gain = 1.0}
+
 Authors of source code
 ----------------------
 Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)

@@ -1,6 +1,17 @@
 Minebase mod: Base GUI
-==========================
+======================
 See license.txt for license information.
+
+
+This mods sets the hotbar textures and the formspec prepend for every joining 
+player.
+
+base.get_hotbar_bg(x,y)
+	It returns an overlay for the inventory slots that represent the
+	hotbar in a formspec. x and y are used for the position of the overlay.
+
+base.gui_survival_form
+	A formspec containing a crafting grid and the player inventory.
 
 Authors of source code
 ----------------------

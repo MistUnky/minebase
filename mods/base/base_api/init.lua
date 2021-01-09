@@ -51,27 +51,31 @@ function base.register_craft19(one, nine)
 	})
 end
 
-function base.register_craft99(one, nine)
+function base.register_craft99(nine1, nine2)
 	minetest.register_craft({
-		output = nine .. " 9",
-		recipe = {{one}}
+		output = nine2 .. " 9",
+		recipe = {
+			{nine1, nine1, nine1},
+			{nine1, nine1, nine1},
+			{nine1, nine1, nine1},
+		}
 	})
 
 	minetest.register_craft({
-		output = one .. " 9",
+		output = nine1 .. " 9",
 		recipe = {
-			{nine, nine, nine},
-			{nine, nine, nine},
-			{nine, nine, nine},
+			{nine2, nine2, nine2},
+			{nine2, nine2, nine2},
+			{nine2, nine2, nine2},
 		}
 	})
 end
 
-function base.get_inventory_drops(pos, inventory, drops)
+function base.get_inventory_drops(pos, list, drops)
 	local inv = minetest.get_meta(pos):get_inventory()
 	local n = #drops
-	for i = 1, inv:get_size(inventory) do
-		local stack = inv:get_stack(inventory, i)
+	for i = 1, inv:get_size(list) do
+		local stack = inv:get_stack(list, i)
 		if stack:get_count() > 0 then
 			drops[n+1] = stack:to_table()
 			n = n + 1

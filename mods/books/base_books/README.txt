@@ -17,9 +17,9 @@ celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 Textures
 --------
 Gambit (CC BY-SA 3.0):
-  default_paper.png
-  default_book.png
+  base_books_paper.png
+  base_books_book.png
 
 CloudyProton (CC BY-SA 3.0):
-  default_book_written.png, based on default_book.png by Gambit
+  base_books_book_written.png, based on base_books_book.png by Gambit
 
