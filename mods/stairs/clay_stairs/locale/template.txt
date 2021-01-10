@@ -1,0 +1,5 @@
+# textdomain: clay_stairs
+Brick Stair=
+Inner Brick Stair=
+Outer Brick Stair=
+Brick Slab=

@@ -1,0 +1,9 @@
+# textdomain: glass_stairs
+Glass Stair=
+Glass Slab=
+Inner Glass Stair=
+Outer Glass Stair=
+Obsidian Glass Stair=
+Obsidian Glass Slab=
+Inner Obsidian Glass Stair=
+Outer Obsidian Glass Stair=

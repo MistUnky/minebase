@@ -1,0 +1,21 @@
+# textdomain: tree_stairs
+Wooden Stair=
+Inner Wooden Stair=
+Outer Wooden Stair=
+Wooden Slab=
+Jungle Wood Stair=
+Inner Jungle Wood Stair=
+Outer Jungle Wood Stair=
+Jungle Wood Slab=
+Pine Wood Stair=
+Inner Pine Wood Stair=
+Outer Pine Wood Stair=
+Pine Wood Slab=
+Acacia Wood Stair=
+Inner Acacia Wood Stair=
+Outer Acacia Wood Stair=
+Acacia Wood Slab=
+Aspen Wood Stair=
+Inner Aspen Wood Stair=
+Outer Aspen Wood Stair=
+Aspen Wood Slab=

@@ -231,7 +231,7 @@ if minetest.settings:get_bool("enable_lavacooling") ~= false then
 		chance = 2,
 		catch_up = false,
 		action = function(...)
-			liquids.cool_lava(...)
+			cool_lava(...)
 		end,
 	})
 end

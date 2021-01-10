@@ -1,0 +1,21 @@
+# textdomain: liquid_stairs
+Obsidian Stair=
+Inner Obsidian Stair=
+Outer Obsidian Stair=
+Obsidian Slab=
+Obsidian Brick Stair=
+Inner Obsidian Brick Stair=
+Outer Obsidian Brick Stair=
+Obsidian Brick Slab=
+Obsidian Block Stair=
+Inner Obsidian Block Stair=
+Outer Obsidian Block Stair=
+Obsidian Block Slab=
+Ice Stair=
+Inner Ice Stair=
+Outer Ice Stair=
+Ice Slab=
+Snow Block Stair=
+Inner Snow Block Stair=
+Outer Snow Block Stair=
+Snow Block Slab=

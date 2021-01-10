@@ -51,7 +51,7 @@ pterygota.register_deco("fireflies:firefly_hidden_high", {
 	decoration = "fireflies:firefly_hidden",
 })
 
-if minetest.get_modpath("farming") ~= nil then
+if minetest.get_modpath("farming") then
 	-- bug net
 	minetest.register_tool("fireflies:bug_net", {
 		description = S("Bug Net"),
@@ -89,8 +89,7 @@ if minetest.get_modpath("farming") ~= nil then
 	})
 end
 
-if minetest.get_modpath("vessels") ~= nil 
-	and minetest.get_modpath("glass_api") ~= nil then
+if minetest.get_modpath("vessels") and minetest.get_modpath("glass_api") then
 	-- firefly in a bottle
 	pterygota.register_visible("fireflies:firefly_bottle", {
 		description = S("Firefly in a Bottle"),

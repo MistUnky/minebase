@@ -5,6 +5,7 @@ dofile(minetest.get_modpath("steel_bars") .. "/mtg.lua")
 -- Load support for Minebase translation.
 local S = minetest.get_translator("steel_bars")
 
+
 minetest.register_craftitem("steel_bars:bar", {
 	description = S("Steel Bar"),
 	inventory_image = "steel_bars_bar.png",
@@ -50,6 +51,17 @@ minetest.register_craft({
 })
 
 
+if minetest.get_modpath("base_tools") then
+	minetest.register_craft({
+		output = "base_tools:steel_pick",
+		recipe = {
+			{"", "steel_bars:bar", ""},
+			{"", "group:stick", ""},
+			{"", "group:stick", ""}
+		}
+	})
+end
+
 if minetest.get_modpath("base_ladders") then
 	minetest.register_craft({
 		output = "base_ladders:steel_ladder 15",
@@ -61,7 +73,6 @@ if minetest.get_modpath("base_ladders") then
 		}
 	})
 end
-
 
 if minetest.get_modpath("xpanes_api") then
 	xpanes.register_pane("steel_bars:bars", {

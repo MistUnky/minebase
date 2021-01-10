@@ -7,9 +7,9 @@ if minetest.settings:get_bool("river_source_sounds") then
 	table.insert(trigger, "base_liquids:river_water_source")
 end
 
-env_sounds.register_sound("env_sounds_water", {trigger = trigger})
+env_sounds.register_sound("base_env_sounds:water", {trigger = trigger})
 
-env_sounds.register_sound("env_sounds_lava", {
+env_sounds.register_sound("base_env_sounds:lava", {
 	trigger = {"base_liquids:lava_source", "base_liquids:lava_flowing"},
 	base_volume = 0,
 	max_volume = 0.6,

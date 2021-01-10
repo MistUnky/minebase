@@ -71,6 +71,12 @@ function mossy.register_growth(name, def)
 		})
 		for key, val in pairs(def.map) do
 			mossy.map[key] = val
+
+			minetest.register_craft({
+				type = "cooking",
+				output = key,
+				recipe = val
+			})
 		end
 	end
 end

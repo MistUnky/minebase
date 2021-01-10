@@ -1,0 +1,21 @@
+# textdomain: ore_stairs
+Steel Block Stair=
+Inner Steel Block Stair=
+Outer Steel Block Stair=
+Steel Block Slab=
+Tin Block Stair=
+Inner Tin Block Stair=
+Outer Tin Block Stair=
+Tin Block Slab=
+Copper Block Stair=
+Inner Copper Block Stair=
+Outer Copper Block Stair=
+Copper Block Slab=
+Bronze Block Stair=
+Inner Bronze Block Stair=
+Outer Bronze Block Stair=
+Bronze Block Slab=
+Gold Block Stair=
+Inner Gold Block Stair=
+Outer Gold Block Stair=
+Gold Block Slab=
