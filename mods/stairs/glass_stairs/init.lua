@@ -5,6 +5,24 @@ local S = minetest.get_translator("glass_stairs")
 
 -- Glass stair nodes need to be registered individually to utilize specialized textures.
 
+stairs.register_step_nodes("glass_stairs:common", {
+	material = "base_glass:common_glass",
+	tiles = {"base_glass_common_glass.png"},
+	stair_description = S("Glass Stair"),
+	slab_description = S("Glass Slab"),
+	inner_description = S("Inner Glass Stair"),
+	outer_description = S("Outer Glass Stair"),
+	inner_step_description = S("Inner Glass Step"),
+	outer_step_description = S("Outer Glass Step"),
+	step_description = S("Glass Step"),
+	steps_description = S("Glass Steps"),
+	steps_half_description = S("Glass Steps Half"),
+	steps_slab_description = S("Glass Steps Slab"),
+	groups = {cracky = 3, oddly_breakable_by_hand = 3},
+	sounds = glass.node_sound_glass_defaults(),
+	worldaligntex = false
+})
+
 stairs.register_stair("glass_stairs:common", {
 	material = "base_glass:common_glass",
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
@@ -33,7 +51,7 @@ stairs.register_inner_stair("glass_stairs:common", {
 		"base_glass_common_glass.png", "glass_stairs_stairside.png^[transformFX", 
 		"base_glass_common_glass.png", "base_glass_common_glass.png", 
 		"glass_stairs_stairside.png"},
-	inner_description = S("Inner Glass Stair"),
+	inner_stair_description = S("Inner Glass Stair"),
 	sounds = glass.node_sound_glass_defaults(),
 	worldaligntex = false,
 })
@@ -45,7 +63,7 @@ stairs.register_outer_stair("glass_stairs:common", {
 		"base_glass_common_glass.png", "glass_stairs_outer_stairside.png", 
 		"glass_stairs_stairside.png", "glass_stairs_stairside.png^[transformR90",
 		"glass_stairs_outer_stairside.png"},
-	outer_description = S("Outer Glass Stair"),
+	outer_stair_description = S("Outer Glass Stair"),
 	sounds = glass.node_sound_glass_defaults(),
 	worldaligntex = false,
 })
@@ -80,7 +98,7 @@ stairs.register_inner_stair("glass_stairs:obsidian_glass", {
 		"glass_stairs_obsidian_stairside.png^[transformFX", 
 		"base_glass_obsidian_glass.png", "base_glass_obsidian_glass.png", 
 		"glass_stairs_obsidian_stairside.png"},
-	inner_description = S("Inner Obsidian Glass Stair"),
+	inner_stair_description = S("Inner Obsidian Glass Stair"),
 	sounds = glass.node_sound_glass_defaults(),
 	worldaligntex = false,
 })
@@ -94,7 +112,8 @@ stairs.register_outer_stair("glass_stairs:obsidian_glass", {
 		"glass_stairs_obsidian_stairside.png", 
 		"glass_stairs_obsidian_stairside.png^[transformR90",
 		"glass_stairs_obsidian_outer_stairside.png"},
-	outer_description = S("Outer Obsidian Glass Stair"),
+	outer_stair_description = S("Outer Obsidian Glass Stair"),
 	sounds = glass.node_sound_glass_defaults(),
 	worldaligntex = false,
 })
+--]]

@@ -9,7 +9,7 @@ walls.register_wall("mossy_walls:stone_cobble", {
 })
 
 mossy.register_growth("mossy_walls:stone_cobble", {
-	nodenames = {"mossy_walls:stone_cobble"},
+	nodenames = {"base_walls:stone_cobble"},
 	map = {
 		["base_walls:stone_cobble"] = "mossy_walls:stone_cobble",
 	}

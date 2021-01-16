@@ -130,7 +130,7 @@ if minetest.get_modpath("doors_api") then
 	})
 end
 
-if minetest.get_modpath("stairs") then
+if minetest.get_modpath("stairs_api") then
 	stairs.register_stair(
 		"bars",
 		"steel_bars:bar",

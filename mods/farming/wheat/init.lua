@@ -75,7 +75,7 @@ minetest.register_craft({
 	burntime = 3,
 })
 
-if minetest.get_modpath("stairs") then
+if minetest.get_modpath("stairs_api") then
 	local recipe = "wheat:straw"
 	local groups = {snappy = 3, flammable = 4}
 	local images = {"wheat_straw.png"}
