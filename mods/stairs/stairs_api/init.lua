@@ -307,6 +307,34 @@ function stairs.register_stair_and_slab(name, def)
 	stairs.register_outer_stair(name, def)
 end
 
+function stairs.register_step(name, def)
+	local slab_images = adapt_slab_images(def.tiles, def.worldaligntex)
+	local groups = table.copy(def.groups)
+	groups.slab = 1
+	name = name .. "_step"
+
+	minetest.register_node(name, {
+		description = def.description or def.step_description,
+		drawtype = "nodebox",
+		tiles = slab_images,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		is_ground_content = false,
+		groups = groups,
+		sounds = def.sounds,
+		node_box = {
+			type = "fixed",
+			fixed = {-0.5, -0.5, 0.0, 0.5, 0.0, 0.5},
+		},
+		on_place = def.on_place or stairs.on_place_slab,
+	})
+
+
+	if def.material then
+		stairs.register_fuel(name, def.material, 0.25)
+	end
+end
+
 function stairs.register_outer_step(name, def)
 	local slab_images = adapt_slab_images(def.tiles, def.worldaligntex)
 	local groups = table.copy(def.groups)
@@ -363,34 +391,6 @@ function stairs.register_inner_step(name, def)
 
 	if def.material then
 		stairs.register_fuel(name, def.material, 0.375)
-	end
-end
-
-function stairs.register_step(name, def)
-	local slab_images = adapt_slab_images(def.tiles, def.worldaligntex)
-	local groups = table.copy(def.groups)
-	groups.slab = 1
-	name = name .. "_step"
-
-	minetest.register_node(name, {
-		description = def.description or def.step_description,
-		drawtype = "nodebox",
-		tiles = slab_images,
-		paramtype = "light",
-		paramtype2 = "facedir",
-		is_ground_content = false,
-		groups = groups,
-		sounds = def.sounds,
-		node_box = {
-			type = "fixed",
-			fixed = {-0.5, -0.5, 0.0, 0.5, 0.0, 0.5},
-		},
-		on_place = def.on_place or stairs.on_place_slab,
-	})
-
-
-	if def.material then
-		stairs.register_fuel(name, def.material, 0.25)
 	end
 end
 
@@ -532,15 +532,15 @@ local function stacked(one, two, result)
 	})
 end
 
-function stairs.register_step_nodes(name, def)
+function stairs.register_step_crafts(name, def)
 	local step = name .. "_step"
 	local steps_half = name .. "_steps_half"
 	local outer_step = name .. "_outer_step"
 	local inner_step = name .. "_inner_step"
 
-	stairs.register_outer_step(name, def)
 	half(steps_half, outer_step .. " 6")
 	side_by_side(outer_step, step)
+
 	if def.outer_stair_description then
 		half(name .. "_outer_stair", outer_step .. " 15")
 	end
@@ -560,35 +560,87 @@ function stairs.register_step_nodes(name, def)
 			stacked(inner_step, slab, name .. "_inner_stair")
 		end
 	end
-
 	local steps = name .. "_steps"
+	steps_craft(step, steps)
 
-	stairs.register_inner_step(name, def)
 	side_by_side(outer_step, step, inner_step)
 	stacked(inner_step, name .. "_stair")
 	if def.inner_stair_description then
 		half(name .. "_inner_stair", inner_step .. " 7")
 	end
 
-	stairs.register_step(name, def)
 	half(steps, step .. " 6")
 	if def.stair_description then
 		half(name .. "_stair", step .. " 9")
 	end
 
-	stairs.register_steps(name, def)
-	steps_craft(step, steps)
-
-	stairs.register_steps_half(name, def)
 	steps_craft(outer_step, steps_half)
 	side_by_side(steps_half, steps_half, steps)
 
-	stairs.register_steps_slab(name, def)
 	half(name .. "_steps_slab", inner_step .. " 6")
+end
+
+function stairs.register_step_nodes(name, def)
+	stairs.register_step(name, def)
+	stairs.register_outer_step(name, def)
+	stairs.register_inner_step(name, def)
+	stairs.register_steps(name, def)
+	stairs.register_steps_half(name, def)
+	stairs.register_steps_slab(name, def)
+	stairs.register_step_crafts(name, def)
 end
 
 function stairs.register_all(name, def)
 	stairs.register_stair_and_slab(name, def)
 	stairs.register_step_nodes(name, def)
+end
+
+function stairs.register_glass_stair_and_slab(name, def)
+	def.tiles = {def.split, def.full, def.stairside .. "^[transformFX", 
+		def.stairside, def.full, def.split}
+	stairs.register_stair(name, def)
+
+	def.tiles = {def.full, def.full, def.split}
+	stairs.register_slab(name, def)
+
+	def.tiles = {def.stairside .. "^[transformR270", def.full, def.stairside 
+		.. "^[transformFX", def.full, def.full, def.stairside}
+	stairs.register_inner_stair(name, def)
+
+	def.tiles = {def.stairside .. "^[transformR90", def.full, def.outer_stairside, 
+			def.stairside, def.stairside .. "^[transformR90", def.outer_stairside}
+	stairs.register_outer_stair(name, def)
+end
+
+function stairs.register_glass_step_nodes(name, def)
+	def.tiles = {def.split, def.split, def.outer_stairside .. "^[transformR180", 
+		def.outer_stairside .. "^[transformR90", def.split, def.split}
+	stairs.register_step(name, def)
+
+	def.tiles = {def.stairside .. "^[transformR270", def.stairside, def.quartered, 
+			def.split, def.split, def.quartered }
+	stairs.register_inner_step(name, def)
+
+	def.tiles = {def.quartered}
+	stairs.register_outer_step(name, def)
+
+	def.tiles = {def.split, def.split, def.quartered, def.quartered, def.split,
+			def.split}
+	stairs.register_steps(name, def)
+
+	def.tiles = {def.quartered}
+	stairs.register_steps_half(name, def)
+
+	def.tiles = {def.stairside .. "^[transformR270", 
+		def.stairside .. "^[transformR270", def.quartered, def.full, 
+		def.stairside .. "^[transformR180", def.stairside}
+	stairs.register_steps_slab(name, def)
+
+	stairs.register_step_crafts(name, def)
+end
+
+function stairs.register_glass_all(name, def)
+	stairs.register_glass_stair_and_slab(name, def)
+	stairs.register_glass_step_nodes(name, def)
 end
 

@@ -10,6 +10,7 @@ function biomes.define_default(def)
 	biomes.mossy_stone_cobble = def.mossy_stone_cobble
 	biomes.water = def.water
 	biomes.lava = def.lava
+	biomes.stone_cobble_stair = def.stone_cobble_stair 
 end
 
 --
@@ -32,7 +33,7 @@ function biomes.register_biome(name, def)
 		depth_riverbed = def.depth_riverbed or 2,
 		node_dungeon = def.node_dungeon or biomes.stone_cobble,
 		node_dungeon_alt = def.node_dungeon_alt or biomes.mossy_stone_cobble,
-		node_dungeon_stair = def.node_dungeon_stair or "stairs:stair_cobble",
+		node_dungeon_stair = def.node_dungeon_stair or biomes.stone_cobble_stair,
 		y_max = def.y_max or 31000,
 		y_min = def.y_min or 1,
 		heat_point = def.heat_point or 50,

@@ -1,5 +1,5 @@
-Minebase mod: Stairs API
-========================
+Stairs MT 
+=========
 See license.txt for license information.
 
 Authors of source code

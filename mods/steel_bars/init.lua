@@ -131,53 +131,27 @@ if minetest.get_modpath("doors_api") then
 end
 
 if minetest.get_modpath("stairs_api") then
-	stairs.register_stair(
-		"bars",
-		"steel_bars:bar",
-		{cracky = 1, oddly_breakable_by_hand = 3},
-		{"steel_bars_stairs_split.png", "steel_bars_bars.png",
-			"steel_bars_stairs_side.png^[transformFX", "steel_bars_stairs_side.png",
-			"steel_bars_bars.png", "steel_bars_stairs_split.png"},
-		S("Steel Bar Stair"),
-		ores.node_sound_metal_defaults(),
-		false
-	)
-
-	stairs.register_slab(
-		"bars",
-		"steel_bars:bar",
-		{cracky = 1, oddly_breakable_by_hand = 3},
-		{"steel_bars_bars.png", "steel_bars_bars.png", "steel_bars_stairs_split.png"},
-		S("Steel Bar Slab"),
-		ores.node_sound_metal_defaults(),
-		false
-	)
-
-	stairs.register_stair_inner(
-		"bars",
-		"steel_bars:bar",
-		{cracky = 1, oddly_breakable_by_hand = 3},
-		{"steel_bars_stairs_side.png^[transformR270", "steel_bars_bars.png",
-			"steel_bars_stairs_side.png^[transformFX", "steel_bars_bars.png",
-			"steel_bars_bars.png", "steel_bars_stairs_side.png"},
-		"",
-		glass.node_sound_glass_defaults(),
-		false,
-		S("Inner Steel Bar Stair")
-	)
-
-	stairs.register_stair_outer(
-		"bars",
-		"steel_bars:bar",
-		{cracky = 1, oddly_breakable_by_hand = 3},
-		{"steel_bars_stairs_side.png^[transformR90", "steel_bars_bars.png",
-		"steel_bars_stairs_outer_side.png", "steel_bars_stairs_side.png",
-		"steel_bars_stairs_side.png^[transformR90","steel_bars_stairs_outer_side.png"},
-		"",
-		ores.node_sound_metal_defaults(),
-		false,
-		S("Outer Steel Bar Stair")
-	)
+	stairs.register_glass_all("steel_bars:block", {
+		material = "steel_bars:bar",
+		groups = {cracky = 1, oddly_breakable_by_hand = 3},
+		sounds = ores.node_sound_metal_defaults(),
+		worldaligntex = false,
+		stair_description = S("Steel Bar Stair"),
+		slab_description = S("Steel Bar Slab"),
+		inner_stair_description = S("Inner Steel Bar Stair"),
+		outer_stair_description = S("Outer Steel Bar Stair"),
+		step_description = S("Steel Bar Step"),
+		inner_step_description = S("Inner Steel Bar Step"),
+		outer_step_description = S("Outer Steel Bar Step"),
+		steps_description = S("Steel Bar Steps"),
+		steps_half_description = S("Steel Bar Steps Half"),
+		steps_slab_description = S("Steel Bar Steps Slab"),
+		full = "steel_bars_bars.png",
+		split = "steel_bars_stair_split.png",
+		stairside = "steel_bars_stairside.png",
+		outer_stairside = "steel_bars_stair_outer_side.png",
+		quartered = "steel_bars_stair_outer_side.png",
+	})
 end
 
 if minetest.get_modpath("base_rails") then

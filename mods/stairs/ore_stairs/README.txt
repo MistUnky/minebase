@@ -1,4 +1,4 @@
-Minebase mod: Stairs API
+Minebase mod: Ore Stairs
 ========================
 See license.txt for license information.
 

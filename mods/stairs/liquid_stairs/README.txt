@@ -1,5 +1,5 @@
-Minebase mod: Stairs API
-========================
+Minebase mod: Liquid Stairs
+===========================
 See license.txt for license information.
 
 Authors of source code

@@ -5,7 +5,8 @@ biomes.define_default({
 	mossy_stone_cobble = "mossy:stone_cobble",
 	sand = "base_earth:sand",
 	water = "base_liquids:water_source",
-	lava = "base_liquids:lava_source"
+	lava = "base_liquids:lava_source",
+	stone_cobble_stair = "earth_stairs:stone_cobble_stair"
 })
 
 -- Icesheet
@@ -21,7 +22,7 @@ biomes.register_biome_set("base_biomes:icesheet", {
 		node_river_water = "base_liquids:ice",
 		node_riverbed = "base_earth:gravel",
 		node_dungeon = "base_liquids:ice",
-		node_dungeon_stair = "stairs:stair_ice",
+		node_dungeon_stair = "liquid_stairs:ice_stair",
 		y_min = -8,
 		heat_point = 0,
 		humidity_point = 73
@@ -202,7 +203,7 @@ biomes.register_biome_set("base_biomes:sandstone_desert", {
 		depth_filler = 1,
 		node_stone = "base_earth:sandstone",
 		node_dungeon = "base_earth:sandstonebrick",
-		node_dungeon_stair = "stairs:stair_sandstone_block",
+		node_dungeon_stair = "earth_stairs:sandstone_block_stair",
 		y_min = 4,
 		heat_point = 60,
 		humidity_point = 0,
@@ -210,7 +211,7 @@ biomes.register_biome_set("base_biomes:sandstone_desert", {
 	ocean = {
 		node_stone = "base_earth:sandstone",
 		node_dungeon = "base_earth:sandstonebrick",
-		node_dungeon_stair = "stairs:stair_sandstone_block",
+		node_dungeon_stair = "earth_stairs:sandstone_block_stair",
 		y_max = 3,
 	},
 	under = {}
