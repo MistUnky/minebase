@@ -5,12 +5,13 @@ dungeon_loot.CHESTS_MAX = 2
 dungeon_loot.STACKS_PER_CHEST_MAX = 8
 dungeon_loot.registered_loot = {}
 
-function dungeon_loot.register(t)
-	if t.name ~= nil then
-		t = {t} -- single entry
-	end
-	for _, loot in ipairs(t) do
+function dungeon_loot.register(loot)
+	if loot.name then
 		table.insert(dungeon_loot.registered_loot, loot)
+	else
+		for _, item in ipairs(loot) do
+			table.insert(dungeon_loot.registered_loot, item)
+		end
 	end
 end
 

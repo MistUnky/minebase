@@ -1,3 +1,0 @@
-# textdomain: base_cart
-Cart=
-(Sneak+Click to pick up)=

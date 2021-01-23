@@ -139,15 +139,15 @@ trash:set_size("main", 1)
 
 creative.formspec_add = ""
 
-function creative.register_tab(name, title, items)
-	sfinv.register_page("creative:" .. name, {
-		title = title,
-		is_in_nav = function(self, player, context)
+function creative.register_tab(name, def)
+	sfinv.register_page(name, {
+		title = def.title,
+		is_in_nav = def.is_in_nav or function(self, player, context)
 			return minetest.is_creative_enabled(player:get_player_name())
 		end,
-		get = function(self, player, context)
+		get = def.get or function(self, player, context)
 			local player_name = player:get_player_name()
-			creative.update_creative_inventory(player_name, items)
+			creative.update_creative_inventory(player_name, def.items)
 			local inv = player_inventory[player_name]
 			local pagenum = math.floor(inv.start_i / (4*8) + 1)
 			local pagemax = math.ceil(inv.size / (4*8))
@@ -175,14 +175,15 @@ function creative.register_tab(name, title, items)
 				"list[detached:creative_" .. player_name .. ";main;0,0;8,4;" .. tostring(inv.start_i) .. "]" ..
 				creative.formspec_add, true)
 		end,
-		on_enter = function(self, player, context)
+		on_enter = def.on_enter or function(self, player, context)
 			local player_name = player:get_player_name()
 			local inv = player_inventory[player_name]
 			if inv then
 				inv.start_i = 0
 			end
 		end,
-		on_player_receive_fields = function(self, player, context, fields)
+		on_player_receive_fields = def.on_player_receive_fields or function(self, 
+			player, context, fields)
 			local player_name = player:get_player_name()
 			local inv = player_inventory[player_name]
 			assert(inv)
@@ -241,10 +242,25 @@ minetest.register_on_mods_loaded(function()
 	end
 end)
 
-creative.register_tab("all", S("All"), minetest.registered_items)
-creative.register_tab("nodes", S("Nodes"), registered_nodes)
-creative.register_tab("tools", S("Tools"), registered_tools)
-creative.register_tab("craftitems", S("Items"), registered_craftitems)
+creative.register_tab("creative:all", {
+	title = S("All"), 
+	items = minetest.registered_items
+})
+
+creative.register_tab("creative:nodes", {
+	title = S("Nodes"), 
+	items = registered_nodes
+})
+
+creative.register_tab("creative:tools", {
+	title = S("Tools"), 
+	items = registered_tools
+})
+
+creative.register_tab("creative:craftitems", {
+	title = S("Items"), 
+	items = registered_craftitems
+})
 
 local old_homepage_name = sfinv.get_homepage_name
 function sfinv.get_homepage_name(player)

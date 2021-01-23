@@ -1,6 +1,12 @@
 # Minebase
 
-A refactored version of the default game bundled in the Minetest engine.  
+
+This project uses a modified version of [SemVer](https://semver.org/) for 
+version numbers. In addition to a major, minor and patch number there is a 
+year number. On every birthday this number is incremented and all other numbers 
+are reset to 0 (Year.Major.Minor.Patch).
+The birthday is the day of my first commit to this repository on Nov 1 2020. It
+was a Sunday at 12:27:53 to be exact.
 
 For further information, check 
 [this forum topic](https://forum.minetest.net/viewtopic.php?f=15&t=9724).   
@@ -22,13 +28,6 @@ https://wiki.minetest.net/Installing_Mods
 
 ## Compatibility
 
-The Minebase GitHub master HEAD is generally compatible with the GitHub
-master HEAD of the Minetest engine.  
-Additionally, when the Minetest engine is tagged to be a certain version (e.g.
-0.4.10), Minebase is tagged with the version too.
-
-When stable releases are made, Minetest Game and the Minetest engine is packaged 
-and made available at [www.minetest.net](https://www.minetest.net/downloads/).
 
 ## Licensing
 

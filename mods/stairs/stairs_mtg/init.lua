@@ -27,7 +27,8 @@ local tmp = {
 	tree_stairs = {
 		wood = "apple_wood", junglewood = "jungle_wood", "pine_wood", "acacia_wood", 
 		"aspen_wood",
-	}
+	},
+	wheat_stairs = {"straw"}
 }
 
 -- Get setting for replace ABM

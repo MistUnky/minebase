@@ -24,10 +24,10 @@ function carts:manage_attachment(player, obj)
 	end
 	local status = obj ~= nil
 	local player_name = player:get_player_name()
-	if player_api.player_attached[player_name] == status then
+	if players.player_attached[player_name] == status then
 		return
 	end
-	player_api.player_attached[player_name] = status
+	players.player_attached[player_name] = status
 
 	if status then
 		player:set_attach(obj, "", {x=0, y=-4.5, z=0}, {x=0, y=0, z=0})
@@ -215,46 +215,46 @@ function carts:pathfinder(pos_, old_pos, old_dir, distance, ctrl,
 	return pf_pos, pf_dir
 end
 
-function carts:register_rail(name, def_overwrite, railparams)
-	local def = {
+function carts:get_rail_groups(groups)
+	groups = groups and table.copy(groups) or {dig_immediate = 2}
+	groups.attached_node = 1
+	groups.rail = 1
+	groups.connect_to_raillike = minetest.raillike_group("rail")
+	return groups
+end
+
+function carts:register_rail(name, def)
+	if def.railparams then
+		carts.railparams[name] = table.copy(def.railparams)
+	end
+
+	local txt = name:gsub(":", "_")
+	minetest.register_node(name, {
+		description = def.description,
+		tiles = def.tiles or {
+			txt .. "_straight.png", txt .. "_curved.png",
+			txt .. "_t_junction.png", txt .. "_crossing.png"
+		},
+		groups = carts:get_rail_groups(def.groups),
 		drawtype = "raillike",
 		paramtype = "light",
 		sunlight_propagates = true,
 		is_ground_content = false,
-		walkable = false,
-		selection_box = {
+		walkable = def.walkable or false,
+		wield_image = def.wield_image or txt .. "_straight.png",
+		inventory_image = def.inventory_image or txt .. "_straight.png",
+		selection_box = def.selection_box or {
 			type = "fixed",
 			fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 		},
-		sounds = ores.node_sound_metal_defaults()
-	}
-	for k, v in pairs(def_overwrite) do
-		def[k] = v
-	end
-	if not def.inventory_image then
-		def.wield_image = def.tiles[1]
-		def.inventory_image = def.tiles[1]
-	end
+		sounds = def.sounds or ores.node_sound_metal_defaults()
+	})
 
-	if railparams then
-		carts.railparams[name] = table.copy(railparams)
+	if def.recipe then
+		minetest.register_craft({
+			output = name .. " 18",
+			recipe = def.recipe 
+		})
 	end
-
-	minetest.register_node(name, def)
 end
 
-function carts:get_rail_groups(additional_groups)
-	-- Get the default rail groups and add more when a table is given
-	local groups = {
-		dig_immediate = 2,
-		attached_node = 1,
-		rail = 1,
-		connect_to_raillike = minetest.raillike_group("rail")
-	}
-	if type(additional_groups) == "table" then
-		for k, v in pairs(additional_groups) do
-			groups[k] = v
-		end
-	end
-	return groups
-end

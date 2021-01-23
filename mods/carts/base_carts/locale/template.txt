@@ -1,0 +1,3 @@
+# textdomain: base_carts
+Cart=
+(Sneak+Click to pick up)=

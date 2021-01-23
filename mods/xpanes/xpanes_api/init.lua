@@ -86,13 +86,6 @@ end)
 
 xpanes = {}
 function xpanes.register_pane(name, def)
-	-- Needed for backwards compatibility.
-	if not name:find(":") then
-		print('Warning! The name does not follow naming conventions: "mod:' .. name 
-			.. '".')
-		name = ":xpanes_api:" .. name
-	end
-
 	for i = 1, 15 do
 		minetest.register_alias(name .. "_" .. i, name .. "_flat")
 	end

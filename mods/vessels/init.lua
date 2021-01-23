@@ -120,9 +120,3 @@ minetest.register_craft( {
 	recipe = "vessels:steel_bottle",
 })
 
--- Register glass fragments as dungeon loot
-if minetest.global_exists("dungeon_loot") then
-	dungeon_loot.register({
-		name = "vessels:glass_fragments", chance = 0.35, count = {1, 4}
-	})
-end

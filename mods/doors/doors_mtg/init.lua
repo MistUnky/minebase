@@ -34,3 +34,13 @@ minetest.register_alias("doors:trapdoor_steel", "base_trapdoors:steel")
 minetest.register_alias("doors:trapdoor_steel_open", 
 	"base_trapdoors:steel_open")
 
+
+minetest.register_alias("xpanes:door_steel_bar", "steel_bar_doors:door")
+minetest.register_alias("xpanes:door_steel_bar_a", "steel_bar_doors:door_a")
+minetest.register_alias("xpanes:door_steel_bar_b", "steel_bar_doors:door_b")
+minetest.register_alias("xpanes:door_steel_bar_c", "steel_bar_doors:door_c")
+minetest.register_alias("xpanes:door_steel_bar_d", "steel_bar_doors:door_d")
+
+minetest.register_alias("xpanes:trapdoor_steel_bar", "steel_bar_doors:trapdoor")
+minetest.register_alias("xpanes:trapdoor_steel_bar_open", 
+	"steel_bar_doors:trapdoor_open")

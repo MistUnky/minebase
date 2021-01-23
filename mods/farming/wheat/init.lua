@@ -68,32 +68,11 @@ minetest.register_node("wheat:straw", {
 	sounds = trees.node_sound_leaves_defaults(),
 })
 
--- Registered before the stairs so the stairs get fuel recipes.
 minetest.register_craft({
 	type = "fuel",
 	recipe = "wheat:straw",
 	burntime = 3,
 })
-
-if minetest.get_modpath("stairs_api") then
-	stairs.register_all("wheat:straw", {
-		stair_description = S("Straw Stair"),
-		slab_description = S("Straw Slab"), 
-		inner_description = S("Inner Straw Stair"),
-		outer_description = S("Outer Straw Stair"),
-		step_description = S("Straw Step"),
-		inner_step_description = S("Inner Straw Step"),
-		outer_step_description = S("Outer Straw Step"),
-		steps_description = S("Straw Steps"),
-		steps_half_description = S("Straw Steps Half"),
-		steps_slab_description = S("Straw Steps Slab"),
-		material = "wheat:straw",
-		groups = {snappy = 3, flammable = 4},
-		tiles = {"wheat_straw.png"},
-		sounds = trees.node_sound_leaves_defaults(),
-		worldaligntex = true
-	})
-end
 
 -- Fuels
 
@@ -115,9 +94,3 @@ for i = 1, 5 do
 	}})
 end
 
-
--- Register farming items as dungeon loot
-
-if minetest.global_exists("dungeon_loot") then
-	dungeon_loot.register({name = "wheat:wheat", chance = 0.5, count = {2, 5}})
-end

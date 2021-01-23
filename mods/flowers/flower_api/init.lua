@@ -1,91 +1,32 @@
 -- flowers_api/init.lua
 
--- Namespace for functions
-
 flowers = {}
-local mapgen = {}
 
-function mapgen.register_flower(flower_name, seed)
-	minetest.register_decoration({
-		name = flower_name,
-		deco_type = "simple",
-		place_on = {"base_earth:dirt_with_grass"},
-		sidelen = 16,
-		noise_params = {
-			offset = -0.02,
-			scale = 0.04,
-			spread = {x = 200, y = 200, z = 200},
-			seed = seed,
-			octaves = 3,
-			persist = 0.6
-		},
-		biomes = {"base_biomes:grassland", "base_biomes:deciduous_forest"},
-		y_max = 31000,
-		y_min = 1,
-		decoration = flower_name,
-	})
-end
-
-function mapgen.register_mushroom(mushroom_name)
-	minetest.register_decoration({
-		name = mushroom_name,
-		deco_type = "simple",
-		place_on = {"base_earth:dirt_with_grass", "base_earth:dirt_with_coniferous_litter"},
-		sidelen = 16,
-		noise_params = {
-			offset = 0,
-			scale = 0.006,
-			spread = {x = 250, y = 250, z = 250},
-			seed = 2,
-			octaves = 3,
-			persist = 0.66
-		},
-		biomes = {"base_biomes:deciduous_forest", "base_biomes:coniferous_forest"},
-		y_max = 31000,
-		y_min = 1,
-		decoration = mushroom_name,
-	})
-end
-
-function mapgen.register_waterlily(name)
+function flowers.register_decoration(name, def)
 	minetest.register_decoration({
 		name = name,
 		deco_type = "simple",
-		place_on = {"base_earth:dirt"},
+		place_on = def.place_on,
 		sidelen = 16,
-		noise_params = {
-			offset = -0.12,
-			scale = 0.3,
-			spread = {x = 200, y = 200, z = 200},
-			seed = 33,
-			octaves = 3,
-			persist = 0.7
-		},
-		biomes = {"base_biomes:rainforest_swamp", "base_biomes:savanna_shore", "base_biomes:deciduous_forest_shore"},
-		y_max = 0,
-		y_min = 0,
-		decoration = name.."_waving",
-		param2 = 0,
-		param2_max = 3,
-		place_offset_y = 1,
+		noise_params = def.noise_params,
+		biomes = def.biomes,
+		y_max = def.y_max or 31000,
+		y_min = def.y_min or 1,
+		decoration = def.decoration or name,
+		param2 = def.param2 or 0,
+		param2_max = def.param2_max or 3,
+		place_offset_y = def.place_offset_y or 1,
 	})
 end
 
---
--- Flowers
---
-
--- Flower registration
-
 function flowers.register_flower(name, def)
-	-- Common flowers' groups
 	def.groups.snappy = 3
 	def.groups.flower = 1
 	def.groups.flora = 1
 	def.groups.attached_node = 1
 
 	minetest.register_node(name, {
-		description = def.desc,
+		description = def.description,
 		drawtype = "plantlike",
 		waving = 1,
 		tiles = { def.image },
@@ -103,11 +44,22 @@ function flowers.register_flower(name, def)
 		}
 	})
 
-	mapgen.register_flower(name,def.seed)
+	if def.deco then
+		local deco = def.deco
+		deco.place_on = deco.place_on or {"base_earth:dirt_with_grass"}
+		deco.noise_params = deco.noise_params or {
+			offset = -0.02,
+			scale = 0.04,
+			spread = {x = 200, y = 200, z = 200},
+			seed = deco.seed,
+			octaves = 3,
+			persist = 0.6
+		}
+		deco.biomes = deco.biomes or {"base_biomes:grassland", 
+			"base_biomes:deciduous_forest"}
+		flowers.register_decoration(name, deco)
+	end
 end
-
--- Flower spread
--- Public function to enable override by mods
 
 function flowers.flower_spread(pos, node)
 	pos.y = pos.y - 1
@@ -169,11 +121,9 @@ minetest.register_abm({
 	end,
 })
 
--- Mushroom spread and death
-
 function flowers.register_mushroom(name, def)
 	minetest.register_node(name, {
-		description = def.desc,
+		description = def.description,
 		tiles = { def.image },
 		inventory_image = def.image,
 		wield_image = def.image,
@@ -191,7 +141,22 @@ function flowers.register_mushroom(name, def)
 		}
 	})
 
-	mapgen.register_mushroom(name)
+	if def.deco then
+		local deco = def.deco
+		deco.place_on = deco.place_on or {"base_earth:dirt_with_grass", 
+			"base_earth:dirt_with_coniferous_litter"}
+		deco.noise_params = deco.noise_params or {
+			offset = 0,
+			scale = 0.006,
+			spread = {x = 250, y = 250, z = 250},
+			seed = 2,
+			octaves = 3,
+			persist = 0.66
+		}
+		deco.biomes = deco.biomes or {"base_biomes:deciduous_forest", 
+			"base_biomes:coniferous_forest"}
+		flowers.register_decoration(name, deco)
+	end
 end
 
 function flowers.mushroom_spread(pos, node)
@@ -227,7 +192,7 @@ minetest.register_abm({
 
 function flowers.register_waterlily(name, def)
 	local water_lily = {
-		description = def.desc,
+		description = def.description,
 		drawtype = "nodebox",
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -288,5 +253,25 @@ function flowers.register_waterlily(name, def)
 	minetest.register_node(name, water_lily)
 	minetest.register_node(name .. "_waving", water_lily_waving)
 
-	mapgen.register_waterlily(name)
+	if def.deco then
+		local deco = def.deco
+		deco.place_on = deco.place_on or {"base_earth:dirt"}
+		deco.noise_params = deco.noise_params or {
+			offset = -0.12,
+			scale = 0.3,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 33,
+			octaves = 3,
+			persist = 0.7
+		}
+		deco.biomes = deco.biomes or {"base_biomes:rainforest_swamp", 
+			"base_biomes:savanna_shore", "base_biomes:deciduous_forest_shore"}
+		deco.y_max = 0
+		deco.y_min = 0
+		deco.decoration = deco.decoration or name.."_waving"
+		deco.param2 = 0
+		deco.param2_max = 3
+		deco.place_offset_y = 1
+		flowers.register_decoration(name, deco)
+	end
 end

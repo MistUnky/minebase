@@ -602,23 +602,17 @@ if enable_tnt then
 	})
 end
 
-function tnt.register_tnt(def)
-	local name
-	if not def.name:find(':') then
-		name = "tnt:" .. def.name
-	else
-		name = def.name
-		def.name = def.name:match(":([%w_]+)")
-	end
+function tnt.register_tnt(name, def)
+	local txt = name:gsub(":", "_")
 	if not def.tiles then def.tiles = {} end
-	local tnt_top = def.tiles.top or def.name .. "_top.png"
-	local tnt_bottom = def.tiles.bottom or def.name .. "_bottom.png"
-	local tnt_side = def.tiles.side or def.name .. "_side.png"
-	local tnt_burning = def.tiles.burning or def.name .. "_top_burning_animated.png"
+	local tnt_top = def.tiles.top or txt .. "_top.png"
+	local tnt_bottom = def.tiles.bottom or txt .. "_bottom.png"
+	local tnt_side = def.tiles.side or txt .. "_side.png"
+	local tnt_burning = def.tiles.burning or txt .. "_top_burning_animated.png"
 	if not def.damage_radius then def.damage_radius = def.radius * 2 end
 
 	if enable_tnt then
-		minetest.register_node(":" .. name, {
+		minetest.register_node(name, {
 			description = def.description,
 			tiles = {tnt_top, tnt_bottom, tnt_side},
 			is_ground_content = false,
@@ -662,7 +656,7 @@ function tnt.register_tnt(def)
 		})
 	end
 
-	minetest.register_node(":" .. name .. "_burning", {
+	minetest.register_node(name .. "_burning", {
 		tiles = {
 			{
 				name = tnt_burning,
@@ -692,8 +686,7 @@ function tnt.register_tnt(def)
 	})
 end
 
-tnt.register_tnt({
-	name = "tnt:tnt",
+tnt.register_tnt("tnt:tnt", {
 	description = S("TNT"),
 	radius = tnt_radius,
 })

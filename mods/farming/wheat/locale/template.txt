@@ -1,16 +1,6 @@
 # textdomain: wheat
 Straw=
-Straw Stair=
-Inner Straw Stair=
-Outer Straw Stair=
-Straw Slab=
 Wheat Seed=
 Wheat=
 Flour=
 Bread=
-Straw Step=
-Inner Straw Step=
-Outer Straw Step=
-Straw Steps=
-Straw Steps Half=
-Straw Steps Slab=

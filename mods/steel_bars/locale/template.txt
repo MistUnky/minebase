@@ -1,16 +1,4 @@
 # textdomain: steel_bars
 Steel Bar=
 Steel Bar Block=
-Steel Bar Door=
-Steel Bar Trapdoor=
 Steel Bars=
-Steel Bar Stair=
-Steel Bar Slab=
-Inner Steel Bar Stair=
-Outer Steel Bar Stair=
-Steel Bar Step=
-Inner Steel Bar Step=
-Outer Steel Bar Step=
-Steel Bar Steps=
-Steel Bar Steps Half=
-Steel Bar Steps Slab=
