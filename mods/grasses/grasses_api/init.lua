@@ -28,7 +28,7 @@ function grasses.register_grass(name, def)
 		drop = def.drop or name .. (def.i and "_1" or ""),
 		groups = def.groups or {snappy = 3, flora = 1, attached_node = 1, 
 			flammable = 1, not_in_creative_inventory = def.not_in_creative_inventory},
-		sounds = trees.node_sound_leaves_defaults(),
+		sounds = sounds.get_defaults("tree_sounds:leaves"),
 		selection_box = def.selection_box or {
 			type = "fixed",
 			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, def.height or -5, 6 / 16},

@@ -101,7 +101,7 @@ if minetest.get_modpath("vessels") and minetest.get_modpath("glass_api") then
 			type = "fixed",
 			fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 		},
-		sounds = glass.node_sound_glass_defaults(),
+		sounds = sounds.get_defaults("glass_sounds:glass"),
 		on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 			local lower_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
 			if minetest.is_protected(pos, player:get_player_name()) or

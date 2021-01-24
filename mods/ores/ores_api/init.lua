@@ -30,7 +30,7 @@ function ores.register_mineral(name, def)
 		tiles = def.tiles or {"base_earth_stone.png^" .. txt .. "_mineral.png"},
 		groups = def.groups or {cracky = 2},
 		drop = def.drop or name .. "_lump",
-		sounds = earth.node_sound_stone_defaults(),
+		sounds = sounds.get_defaults("earth_sounds:stone"),
 	})
 end
 
@@ -112,7 +112,7 @@ function ores.register_metal(name, def)
 	end
 
 	if def.block then
-		def.block.sounds = ores.node_sound_metal_defaults()
+		def.block.sounds = sounds.get_defaults("ore_sounds:metal")
 		ores.register_block(name, def.block)
 	end
 	
@@ -177,16 +177,4 @@ function ores.register_crystal(name, def)
 	end
 end
 
-function ores.node_sound_metal_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "ores_api_metal_footstep", gain = 0.4}
-	table.dig = table.dig or
-			{name = "ores_api_dig_metal", gain = 0.5}
-	table.dug = table.dug or
-			{name = "ores_api_dug_metal", gain = 0.5}
-	table.place = table.place or
-			{name = "ores_api_place_node_metal", gain = 0.5}
-	return table
-end
 

@@ -65,7 +65,7 @@ minetest.register_node("wheat:straw", {
 	tiles = {"wheat_straw.png"},
 	is_ground_content = false,
 	groups = {snappy=3, flammable=4, fall_damage_add_percent=-30},
-	sounds = trees.node_sound_leaves_defaults(),
+	sounds = sounds.get_defaults("tree_sounds:leaves"),
 })
 
 minetest.register_craft({

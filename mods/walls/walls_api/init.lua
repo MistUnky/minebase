@@ -34,7 +34,7 @@ function walls.register_wall(name, def)
 			.. ".png"} or {txt .. ".png"},
 		walkable = true,
 		groups = def.groups or { cracky = 3, wall = 1, stone = 2 },
-		sounds = def.sounds or earth.node_sound_stone_defaults()
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
 	})
 
 	-- crafting recipe

@@ -49,7 +49,7 @@ function fences.register_post(name, def)
 		is_ground_content = false,
 		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 2, 
 			flammable = 2, fence = 1},
-		sounds = def.sounds or trees.node_sound_wood_defaults()
+		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 	})
 
 	minetest.register_craft({
@@ -112,7 +112,7 @@ function fences.register_rail(name, def)
 		is_ground_content = false,
 		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 2, 
 			flammable = 2, fence = 1},
-		sounds = def.sounds or trees.node_sound_wood_defaults()
+		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 	})
 
 	minetest.register_craft({
@@ -160,7 +160,7 @@ function fences.register_mesepost(name, def)
 		is_ground_content = false,
 		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 2, 
 			flammable = 2},
-		sounds = def.sounds or trees.node_sound_wood_defaults(),
+		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 	})
 
 	if def.material then
@@ -223,7 +223,7 @@ local function register_gate(name, def)
 		drop = def.drop or name .. "_closed",
 		connect_sides = def.connect_sides or {"left", "right"},
 		groups = groups,
-		sounds = def.sounds or trees.node_sound_wood_defaults(),
+		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		sound = sound,
 		swap = swap,
 		mesh = def.mesh or mesh,

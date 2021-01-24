@@ -17,7 +17,7 @@ stairs.register_all("wheat_stairs:straw", {
 	material = "wheat:straw",
 	groups = {snappy = 3, flammable = 4},
 	tiles = {"wheat_straw.png"},
-	sounds = trees.node_sound_leaves_defaults(),
+	sounds = sounds.get_defaults("tree_sounds:leaves"),
 	worldaligntex = true
 })
 

@@ -17,7 +17,7 @@ stairs.register_all("earth_stairs:stone", {
 	steps_description = S("Stone Steps"),
 	steps_half_description = S("Stone Steps Half"),
 	steps_slab_description = S("Stone Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -35,7 +35,7 @@ stairs.register_all("earth_stairs:stone_cobble", {
 	steps_description = S("Cobblestone Steps"),
 	steps_half_description = S("Cobblestone Steps Half"),
 	steps_slab_description = S("Cobblestone Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -53,7 +53,7 @@ stairs.register_all("earth_stairs:stone_brick", {
 	steps_description = S("Stone Brick Steps"),
 	steps_half_description = S("Stone Brick Steps Half"),
 	steps_slab_description = S("Stone Brick Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = false
 })
 
@@ -71,7 +71,7 @@ stairs.register_all("earth_stairs:stone_block", {
 	steps_description = S("Stone Block Steps"),
 	steps_half_description = S("Stone Block Steps Half"),
 	steps_slab_description = S("Stone Block Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -89,7 +89,7 @@ stairs.register_all("earth_stairs:desert_stone", {
 	steps_description = S("Desert Stone Steps"),
 	steps_half_description = S("Desert Stone Steps Half"),
 	steps_slab_description = S("Desert Stone Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -107,7 +107,7 @@ stairs.register_all("earth_stairs:desert_stone_cobble", {
 	steps_description = S("Desert Cobblestone Steps"),
 	steps_half_description = S("Desert Cobblestone Steps Half"),
 	steps_slab_description = S("Desert Cobblestone Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -125,7 +125,7 @@ stairs.register_all("earth_stairs:desert_stone_brick", {
 	steps_description = S("Desert Stone Brick Steps"),
 	steps_half_description = S("Desert Stone Brick Steps Half"),
 	steps_slab_description = S("Desert Stone Brick Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = false
 })
 
@@ -143,7 +143,7 @@ stairs.register_all("earth_stairs:desert_stone_block", {
 	steps_description = S("Desert Stone Block Steps"),
 	steps_half_description = S("Desert Stone Block Steps Half"),
 	steps_slab_description = S("Desert Stone Block Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -161,7 +161,7 @@ stairs.register_all("earth_stairs:sandstone", {
 	steps_description = S("Sandstone Steps"),
 	steps_half_description = S("Sandstone Steps Half"),
 	steps_slab_description = S("Sandstone Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -179,7 +179,7 @@ stairs.register_all("earth_stairs:sandstone_brick", {
 	steps_description = S("Sandstone Brick Steps"),
 	steps_half_description = S("Sandstone Brick Steps Half"),
 	steps_slab_description = S("Sandstone Brick Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = false
 })
 
@@ -197,7 +197,7 @@ stairs.register_all("earth_stairs:sandstone_block", {
 	steps_description = S("Sandstone Block Steps"),
 	steps_half_description = S("Sandstone Block Steps Half"),
 	steps_slab_description = S("Sandstone Block Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -215,7 +215,7 @@ stairs.register_all("earth_stairs:desert_sandstone", {
 	steps_description = S("Desert Sandstone Steps"),
 	steps_half_description = S("Desert Sandstone Steps Half"),
 	steps_slab_description = S("Desert Sandstone Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -233,7 +233,7 @@ stairs.register_all("earth_stairs:desert_sandstone_brick", {
 	steps_description = S("Desert Sandstone Brick Steps"),
 	steps_half_description = S("Desert Sandstone Brick Steps Half"),
 	steps_slab_description = S("Desert Sandstone Brick Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = false
 })
 
@@ -251,7 +251,7 @@ stairs.register_all("earth_stairs:desert_sandstone_block", {
 	steps_description = S("Desert Sandstone Block Steps"),
 	steps_half_description = S("Desert Sandstone Block Steps Half"),
 	steps_slab_description = S("Desert Sandstone Block Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -269,7 +269,7 @@ stairs.register_all("earth_stairs:silver_sandstone", {
 	steps_description = S("Silver Sandstone Steps"),
 	steps_half_description = S("Silver Sandstone Steps Half"),
 	steps_slab_description = S("Silver Sandstone Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -287,7 +287,7 @@ stairs.register_all("earth_stairs:silver_sandstone_brick", {
 	steps_description = S("Silver Sandstone Brick Steps"),
 	steps_half_description = S("Silver Sandstone Brick Steps Half"),
 	steps_slab_description = S("Silver Sandstone Brick Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = false
 })
 
@@ -305,7 +305,7 @@ stairs.register_all("earth_stairs:silver_sandstone_block", {
 	steps_description = S("Silver Sandstone Block Steps"),
 	steps_half_description = S("Silver Sandstone Block Steps Half"),
 	steps_slab_description = S("Silver Sandstone Block Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 

@@ -64,7 +64,7 @@ minetest.register_node("base_soil:dirt", {
 	tiles = {"base_earth_dirt.png^base_soil_dirt.png", "base_earth_dirt.png"},
 	drop = "base_earth:dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=2, grassland = 1, field = 1},
-	sounds = earth.node_sound_dirt_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:dirt"),
 	soil = {
 		base = "base_earth:dirt",
 		dry = "base_soil:dirt",
@@ -77,7 +77,7 @@ minetest.register_node("base_soil:dirt_wet", {
 	tiles = {"base_earth_dirt.png^base_soil_dirt_wet.png", "base_earth_dirt.png^base_soil_dirt_wet_side.png"},
 	drop = "base_earth:dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=3, wet = 1, grassland = 1, field = 1},
-	sounds = earth.node_sound_dirt_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:dirt"),
 	soil = {
 		base = "base_earth:dirt",
 		dry = "base_soil:dirt",
@@ -90,7 +90,7 @@ minetest.register_node("base_soil:dry_dirt", {
 	tiles = {"base_earth_dry_dirt.png^base_soil_dirt.png", "base_earth_dry_dirt.png"},
 	drop = "base_earth:dry_dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=2, grassland = 1, field = 1},
-	sounds = earth.node_sound_dirt_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:dirt"),
 	soil = {
 		base = "base_earth:dry_dirt",
 		dry = "base_soil:dry_dirt",
@@ -103,7 +103,7 @@ minetest.register_node("base_soil:dry_dirt_wet", {
 	tiles = {"base_earth_dry_dirt.png^base_soil_dirt_wet.png", "base_earth_dry_dirt.png^base_soil_dirt_wet_side.png"},
 	drop = "base_earth:dry_dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=3, wet = 1, grassland = 1, field = 1},
-	sounds = earth.node_sound_dirt_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:dirt"),
 	soil = {
 		base = "base_earth:dry_dirt",
 		dry = "base_soil:dry_dirt",
@@ -124,7 +124,7 @@ minetest.register_node("base_soil:desert_sand_soil", {
 	drop = "base_earth:desert_sand",
 	tiles = {"base_soil_desert_sand.png", "base_earth_desert_sand.png"},
 	groups = {crumbly=3, not_in_creative_inventory = 1, falling_node=1, sand=1, soil = 2, desert = 1, field = 1},
-	sounds = earth.node_sound_sand_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:sand"),
 	soil = {
 		base = "base_earth:desert_sand",
 		dry = "base_soil:desert_sand_soil",
@@ -137,7 +137,7 @@ minetest.register_node("base_soil:desert_sand_wet", {
 	drop = "base_earth:desert_sand",
 	tiles = {"base_soil_desert_sand_wet.png", "base_soil_desert_sand_wet_side.png"},
 	groups = {crumbly=3, falling_node=1, sand=1, not_in_creative_inventory=1, soil=3, wet = 1, desert = 1, field = 1},
-	sounds = earth.node_sound_sand_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:sand"),
 	soil = {
 		base = "base_earth:desert_sand",
 		dry = "base_soil:desert_sand_soil",

@@ -58,7 +58,7 @@ function liquids.register_liquid_node(name, def)
 		post_effect_color = def.post_effekt_color or {a = 103, r = 30, g = 68, 
 			b = 90},
 		groups = def.groups or {water = 3, liquid = 3, cools_lava = 1},
-		sounds = def.sounds or liquids.node_sound_water_defaults(),
+		sounds = def.sounds or sounds.get_defaults("liquid_sounds:water"),
 	})
 end
 
@@ -71,43 +71,5 @@ function liquids.register_liquid(name, def)
 	def.flowing.post_effect_color = def.flowing.post_effect_color 
 		or def.source.post_effect_color
 	liquids.register_liquid_node(name, def.flowing)
-end
-
--- 
--- Sounds
--- 
-
-function liquids.node_sound_ice_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "liquids_api_ice_footstep", gain = 0.3}
-	table.dig = table.dig or
-			{name = "liquids_api_ice_dig", gain = 0.5}
-	table.dug = table.dug or
-			{name = "liquids_api_ice_dug", gain = 0.5}
-	base.node_sound_defaults(table)
-	return table
-end
-
-function liquids.node_sound_water_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "liquids_api_water_footstep", gain = 0.2}
-	base.node_sound_defaults(table)
-	return table
-end
-
-function liquids.node_sound_snow_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "liquids_api_snow_footstep", gain = 0.2}
-	table.dig = table.dig or
-			{name = "liquids_api_snow_footstep", gain = 0.3}
-	table.dug = table.dug or
-			{name = "liquids_api_snow_footstep", gain = 0.3}
-	table.place = table.place or
-			{name = "base_sounds_place_node", gain = 1.0}
-	base.node_sound_defaults(table)
-	return table
 end
 

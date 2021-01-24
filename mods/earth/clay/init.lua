@@ -8,7 +8,7 @@ minetest.register_node("clay:node", {
 	tiles = {"clay_node.png"},
 	groups = {crumbly = 3},
 	drop = "clay:lump 4",
-	sounds = earth.node_sound_dirt_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:dirt"),
 })
 
 minetest.register_node("clay:brick_block", {
@@ -21,7 +21,7 @@ minetest.register_node("clay:brick_block", {
 	},
 	is_ground_content = false,
 	groups = {cracky = 3},
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 })
 
 minetest.register_craftitem("clay:lump", {

@@ -20,7 +20,7 @@ minetest.register_node("mossy:permafrost", {
 		tileable_vertical = false}},
 	groups = {cracky = 3},
 	drop = "base_earth:permafrost",
-	sounds = earth.node_sound_dirt_defaults({
+	sounds = sounds.get_defaults("earth_sounds:dirt", {
 		footstep = {name = "earth_grass_footstep", gain = 0.25},
 	})
 })

@@ -27,12 +27,7 @@ containers.register_container("bones:bones", {
 			"bones_front.png"
 		},
 		groups = {dig_immediate = 2},
-		sounds = {
-			footstep = {name = "bones_footstep", gain = 0.1},
-			dig = {name = "bones_dig", gain = 0.35},
-			dug = {name = "bones_dug", gain = 1.0},
-			place = {name = "base_sounds_place_node", gain = 1.0}
-		},
+		sounds = sounds.get_defaults("earth_sounds:gravel"),
 		protected = true,
 
 		on_punch = function(pos, node, player)

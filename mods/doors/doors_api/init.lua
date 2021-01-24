@@ -19,6 +19,52 @@ local function replace_old_owner_information(pos)
 	end
 end
 
+local doors_get = {}
+function doors_get.door_open(self, player)
+	if self:state() then
+		return false
+	end
+	return doors.door_toggle(self.pos, nil, player)
+end
+
+function doors_get.door_close(self, player)
+	if not self:state() then
+		return false
+	end
+	return doors.door_toggle(self.pos, nil, player)
+end
+
+function doors_get.door_toggle(self, player)
+	return doors.door_toggle(self.pos, nil, player)
+end
+
+function doors_get.door_state(self)
+	local state = minetest.get_meta(self.pos):get_int("state")
+	return state %2 == 1
+end
+
+function doors_get.trapdoor_open(self, player)
+	if self:state() then
+		return false
+	end
+	return doors.trapdoor_toggle(self.pos, nil, player)
+end
+
+function doors_get.trapdoor_close(self, player)
+	if not self:state() then
+		return false
+	end
+	return doors.trapdoor_toggle(self.pos, nil, player)
+end
+
+function doors_get.trapdoor_toggle(self, player)
+	return doors.trapdoor_toggle(self.pos, nil, player)
+end
+
+function doors_get.trapdoor_state(self)
+	return minetest.get_node(self.pos).name:sub(-5) == "_open"
+end
+
 -- returns an object to a door object or nil
 function doors.get(pos)
 	local node_name = minetest.get_node(pos).name
@@ -26,48 +72,19 @@ function doors.get(pos)
 		-- A normal upright door
 		return {
 			pos = pos,
-			open = function(self, player)
-				if self:state() then
-					return false
-				end
-				return doors.door_toggle(self.pos, nil, player)
-			end,
-			close = function(self, player)
-				if not self:state() then
-					return false
-				end
-				return doors.door_toggle(self.pos, nil, player)
-			end,
-			toggle = function(self, player)
-				return doors.door_toggle(self.pos, nil, player)
-			end,
-			state = function(self)
-				local state = minetest.get_meta(self.pos):get_int("state")
-				return state %2 == 1
-			end
+			open = doors_get.door_open,
+			close = doors_get.door_close,
+			toggle = doors_get.door_toggle,
+			state = doors_get.door_state 
 		}
 	elseif doors.registered_trapdoors[node_name] then
 		-- A trapdoor
 		return {
 			pos = pos,
-			open = function(self, player)
-				if self:state() then
-					return false
-				end
-				return doors.trapdoor_toggle(self.pos, nil, player)
-			end,
-			close = function(self, player)
-				if not self:state() then
-					return false
-				end
-				return doors.trapdoor_toggle(self.pos, nil, player)
-			end,
-			toggle = function(self, player)
-				return doors.trapdoor_toggle(self.pos, nil, player)
-			end,
-			state = function(self)
-				return minetest.get_node(self.pos).name:sub(-5) == "_open"
-			end
+			open = doors_get.trapdoor_open,
+			close = doors_get.trapdoor_close,
+			toggle = doors_get.trapdoor_toggle,
+			state = doors_get.trapdoor_state
 		}
 	else
 		return nil
@@ -212,10 +229,6 @@ local function can_dig_door(pos, digger)
 end
 
 function doors.register(name, def)
-	if not name:find(":") then
-		name = "doors_api:" .. name
-	end
-
 	-- replace old doors of this type automatically
 	minetest.register_lbm({
 		name = ":doors_api:replace_" .. name:gsub(":", "_"),
@@ -251,7 +264,7 @@ function doors.register(name, def)
 		end
 	})
 
-	minetest.register_craftitem(":" .. name, {
+	minetest.register_craftitem(name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
 		groups = table.copy(def.groups),
@@ -352,7 +365,7 @@ function doors.register(name, def)
 	def.recipe = nil
 
 	if not def.sounds then
-		def.sounds = trees.node_sound_wood_defaults()
+		def.sounds = sounds.get_defaults("tree_sounds:wood")
 	end
 
 	if not def.sound_open then
@@ -371,25 +384,22 @@ function doors.register(name, def)
 		sounds = { def.sound_close, def.sound_open },
 	}
 	if not def.on_rightclick then
-		def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		def.on_rightclick = function(pos, node, clicker, itemstack)
 			doors.door_toggle(pos, node, clicker)
 			return itemstack
 		end
 	end
-	def.after_dig_node = function(pos, node, meta, digger)
+	def.after_dig_node = function(pos, node)
 		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
 		minetest.check_for_falling({x = pos.x, y = pos.y + 1, z = pos.z})
 	end
-	def.on_rotate = function(pos, node, user, mode, new_param2)
-		return false
-	end
+	def.on_rotate = function() return false end
 
 	if def.protected then
 		def.can_dig = can_dig_door
 		def.on_blast = function() end
 		def.on_key_use = function(pos, player)
-			local door = doors.get(pos)
-			door:toggle(player)
+			doors.get(pos):toggle(player)
 		end
 		def.on_skeleton_key_use = function(pos, player, newsecret)
 			replace_old_owner_information(pos)
@@ -414,7 +424,7 @@ function doors.register(name, def)
 		end
 		def.node_dig_prediction = ""
 	else
-		def.on_blast = function(pos, intensity)
+		def.on_blast = function(pos)
 			minetest.remove_node(pos)
 			-- hidden node doesn't get blasted away.
 			minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
@@ -437,16 +447,16 @@ function doors.register(name, def)
 	def.collision_box = {type = "fixed", fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}}
 
 	def.mesh = "doors_api_door_a.obj"
-	minetest.register_node(":" .. name .. "_a", def)
+	minetest.register_node(name .. "_a", def)
 
 	def.mesh = "doors_api_door_b.obj"
-	minetest.register_node(":" .. name .. "_b", def)
+	minetest.register_node(name .. "_b", def)
 
 	def.mesh = "doors_api_door_a2.obj"
-	minetest.register_node(":" .. name .. "_c", def)
+	minetest.register_node(name .. "_c", def)
 
 	def.mesh = "doors_api_door_b2.obj"
-	minetest.register_node(":" .. name .. "_d", def)
+	minetest.register_node(name .. "_d", def)
 
 	doors.registered_doors[name .. "_a"] = true
 	doors.registered_doors[name .. "_b"] = true
@@ -505,14 +515,10 @@ function doors.trapdoor_toggle(pos, node, clicker)
 end
 
 function doors.register_trapdoor(name, def)
-	if not name:find(":") then
-		name = "doors_api:" .. name
-	end
-
 	local name_closed = name
 	local name_opened = name.."_open"
 
-	def.on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+	def.on_rightclick = function(pos, node, clicker, itemstack)
 		doors.trapdoor_toggle(pos, node, clicker)
 		return itemstack
 	end
@@ -525,7 +531,7 @@ function doors.register_trapdoor(name, def)
 
 	if def.protected then
 		def.can_dig = can_dig_door
-		def.after_place_node = function(pos, placer, itemstack, pointed_thing)
+		def.after_place_node = function(pos, placer, itemstack)
 			local pn = placer:get_player_name()
 			local meta = minetest.get_meta(pos)
 			meta:set_string("owner", pn)
@@ -536,8 +542,7 @@ function doors.register_trapdoor(name, def)
 
 		def.on_blast = function() end
 		def.on_key_use = function(pos, player)
-			local door = doors.get(pos)
-			door:toggle(player)
+			doors.get(pos):toggle(player)
 		end
 		def.on_skeleton_key_use = function(pos, player, newsecret)
 			replace_old_owner_information(pos)
@@ -562,14 +567,14 @@ function doors.register_trapdoor(name, def)
 		end
 		def.node_dig_prediction = ""
 	else
-		def.on_blast = function(pos, intensity)
+		def.on_blast = function(pos)
 			minetest.remove_node(pos)
 			return {name}
 		end
 	end
 
 	if not def.sounds then
-		def.sounds = trees.node_sound_wood_defaults()
+		def.sounds = sounds.get_defaults("tree_sounds:wood")
 	end
 
 	if not def.sound_open then

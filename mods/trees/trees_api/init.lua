@@ -11,7 +11,7 @@ dofile(minetest.get_modpath("trees_api") .. "/groups.lua")
 -- Functions
 --
 
-trees.after_place_leaves = function(pos, placer, itemstack, pointed_thing)
+function trees.after_place_leaves(pos, placer, itemstack, pointed_thing)
 	if placer and placer:is_player() then
 		local node = minetest.get_node(pos)
 		node.param2 = 1
@@ -24,7 +24,8 @@ local function after_place_leaves(...)
 	return trees.after_place_leaves(...)
 end
 
-local function leafdecay_after_destruct(pos, oldnode, def)
+local function leafdecay_after_destruct(pos, oldnode)
+	local def = minetest.registered_nodes[oldnode.name].leafdecay
 	for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, def.radius),
 			vector.add(pos, def.radius), def.leaves)) do
 		local node = minetest.get_node(v)
@@ -38,7 +39,8 @@ end
 local movement_gravity = tonumber(minetest.settings:get("movement_gravity")) 
 	or 9.81
 
-local function leafdecay_on_timer(pos, def)
+local function leafdecay_on_timer(pos)
+	local def = minetest.registered_nodes[minetest.get_node(pos).name].leafdecay
 	if minetest.find_node_near(pos, def.radius, def.trunks) then
 		return false
 	end
@@ -100,8 +102,13 @@ function trees.can_grow(pos)
 	return true
 end
 
-function trees.sapling_on_place(itemstack, placer, pointed_thing,
-		sapling_name, minp_relative, maxp_relative, interval)
+function trees.sapling_on_place(itemstack, placer, pointed_thing)
+	local sapling_name = itemstack:get_name()
+	local sdef = minetest.registered_nodes[sapling_name]
+	local minp_relative = sdef.minp
+	local maxp_relative = sdef.maxp
+	local interval	= sdef.max_interval
+
 	-- Position of sapling
 	local pos = pointed_thing.under
 	local node = minetest.get_node_or_nil(pos)
@@ -179,26 +186,6 @@ function trees.sapling_on_place(itemstack, placer, pointed_thing,
 	return itemstack
 end
 
-function trees.register_leafdecay(def)
-	assert(def.leaves)
-	assert(def.trunks)
-	assert(def.radius)
-	for _, v in pairs(def.trunks) do
-		minetest.override_item(v, {
-			after_destruct = function(pos, oldnode)
-				return leafdecay_after_destruct(pos, oldnode, def)
-			end,
-		})
-	end
-	for _, v in pairs(def.leaves) do
-		minetest.override_item(v, {
-			on_timer = function(pos)
-				leafdecay_on_timer(pos, def)
-			end,
-		})
-	end
-end
-
 --
 -- Trees
 --
@@ -215,8 +202,14 @@ function trees.register_tree_node(name, def)
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		groups = def.groups,
-		sounds = trees.node_sound_wood_defaults(),
-		on_place = minetest.rotate_node
+		sounds = sounds.get_defaults("tree_sounds:wood"),
+		on_place = minetest.rotate_node,
+		after_destruct = leafdecay_after_destruct,
+		leafdecay = not def.no_decay and {
+			trunks = {name .. "_tree"},
+			leaves = def.decay_leaves or {name .. "_leaves"},
+			radius = def.decay_r or 3,
+		}
 	})
 
 	minetest.register_craft({
@@ -240,7 +233,7 @@ function trees.register_wood(name, def)
 		tiles = def.tiles or {txt .. "_wood.png"},
 		is_ground_content = false,
 		groups = def.groups,
-		sounds = trees.node_sound_wood_defaults(),
+		sounds = sounds.get_defaults("tree_sounds:wood"),
 	})
 
 	minetest.register_craft({
@@ -286,36 +279,31 @@ function trees.register_leaves(name, def)
 				{items = {name .. "_leaves"}}
 			}
 		},
-		sounds = trees.node_sound_leaves_defaults(),
+		sounds = sounds.get_defaults("tree_sounds:leaves"),
 		after_place_node = after_place_leaves,
-		on_timer = def.on_timer,
+		on_timer = def.on_timer or leafdecay_on_timer,
 		node_dig_prediction = def.node_dig_prediction,
-		after_dig_node = def.after_dig_node
-	})
-
-	if not def.no_decay then
-		trees.register_leafdecay({
+		after_dig_node = def.after_dig_node,
+		leafdecay = not def.no_decay and {
 			trunks = {name .. trunk},
 			leaves = def.decay_leaves or {name .. "_leaves"},
 			radius = def.decay_r or 3,
-		})
-	end 
+		}
+	})
+end
+
+local function sapling_on_timer(pos) 
+	if not trees.can_grow(pos) then
+		-- try again 5 min later
+		minetest.get_node_timer(pos):start(300)
+	else
+		return minetest.registered_nodes[minetest.get_node(pos).name]
+			.grow_sapling(pos)
+	end
 end
 
 function trees.register_sapling(name, def)
 	local txt = name:gsub(":", "_")
-
-	local function on_place_sapling(itemstack, placer, pointed_thing)
-			itemstack = trees.sapling_on_place(itemstack, placer, pointed_thing,
-				name .. "_sapling",
-				-- minp, maxp to be checked, relative to sapling pos
-				-- minp_relative.y = 1 because sapling pos has been checked
-				def.minp or {x = -2, y = 1, z = -2},
-				def.maxp or {x = 2, y = 14, z = 2},
-				-- maximum interval of interior volume check
-				def.max_interval or 4)
-			return itemstack
-	end
 
 	minetest.register_node(name .. "_sapling", {
 		description = def.description or txt,
@@ -326,23 +314,19 @@ function trees.register_sapling(name, def)
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,
-		on_timer = function(pos) 
-			if not trees.can_grow(pos) then
-				-- try again 5 min later
-				minetest.get_node_timer(pos):start(300)
-			else
-				return def.grow_sapling(pos)
-			end
-		end,
+		on_timer = sapling_on_timer,
 		selection_box = def.selection_box or {
 			type = "fixed",
 			fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
 		},
 		groups = def.groups or {snappy = 2, dig_immediate = 3, 
 			flammable = 2,attached_node = 1, sapling = 1},
-		sounds = trees.node_sound_leaves_defaults(),
+		sounds = sounds.get_defaults("tree_sounds:leaves"),
 		on_construct = def.on_construct or on_construct_sapling,
-		on_place = on_place_sapling
+		on_place = trees.sapling_on_place,
+		minp = def.minp or {x = -2, y = 1, z = -2},
+		maxp = def.maxp or {x = 2, y = 14, z = 2},
+		max_interval = def.max_interval or 4
 	})
 
 	minetest.register_craft({
@@ -419,11 +403,17 @@ function trees.register_bush_stem(name, def)
 		buildable_to = def.buildable_to,
 		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 1, 
 			flammable = 2},
-		sounds = def.sounds or trees.node_sound_wood_defaults(),
+		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		selection_box = def.selection_box or {
 			type = "fixed",
 			fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
 		},
+		after_destruct = leafdecay_after_destruct,
+		leafdecay = not def.no_decay and {
+			trunks = {name .. "_stem"},
+			leaves = def.decay_leaves or {name .. "_leaves"},
+			radius = def.decay_r or 3,
+		}
 	})
 
 	minetest.register_craft({
@@ -474,28 +464,5 @@ function trees.register_bush(name, def)
 	if def.deco then
 		trees.register_bush_decoration(name,def.deco)
 	end
-end
-
-
-function trees.node_sound_wood_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "trees_api_wood_footstep", gain = 0.3}
-	table.dug = table.dug or
-			{name = "trees_api_wood_footstep", gain = 1.0}
-	base.node_sound_defaults(table)
-	return table
-end
-
-function trees.node_sound_leaves_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "base_earth_grass_footstep", gain = 0.45}
-	table.dug = table.dug or
-			{name = "base_earth_grass_footstep", gain = 0.7}
-	table.place = table.place or
-			{name = "base_sounds_place_node", gain = 1.0}
-	base.node_sound_defaults(table)
-	return table
 end
 

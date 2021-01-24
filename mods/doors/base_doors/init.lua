@@ -21,7 +21,7 @@ doors.register("base_doors:steel", {
 		inventory_image = "base_doors_item_steel.png",
 		protected = true,
 		groups = {node = 1, cracky = 1, level = 2},
-		sounds = ores.node_sound_metal_defaults(),
+		sounds = sounds.get_defaults("ore_sounds:metal"),
 		sound_open = "doors_api_steel_open",
 		sound_close = "doors_api_steel_close",
 		recipe = {
@@ -36,7 +36,7 @@ doors.register("base_doors:glass", {
 		description = S("Glass Door"),
 		inventory_image = "base_doors_item_glass.png",
 		groups = {node = 1, cracky=3, oddly_breakable_by_hand=3},
-		sounds = glass.node_sound_glass_defaults(),
+		sounds = sounds.get_defaults("glass_sounds:glass"),
 		sound_open = "doors_api_glass_open",
 		sound_close = "doors_api_glass_close",
 		recipe = {
@@ -51,7 +51,7 @@ doors.register("base_doors:obsidian_glass", {
 		description = S("Obsidian Glass Door"),
 		inventory_image = "base_doors_item_obsidian_glass.png",
 		groups = {node = 1, cracky=3},
-		sounds = glass.node_sound_glass_defaults(),
+		sounds = sounds.get_defaults("glass_sounds:glass"),
 		sound_open = "doors_api_glass_open",
 		sound_close = "doors_api_glass_close",
 		recipe = {

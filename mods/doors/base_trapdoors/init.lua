@@ -19,7 +19,7 @@ doors.register_trapdoor("base_trapdoors:steel", {
 	tile_front = "base_trapdoors_steel.png",
 	tile_side = "base_trapdoors_steel_side.png",
 	protected = true,
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	sound_open = "doors_api_steel_open",
 	sound_close = "doors_api_steel_close",
 	groups = {cracky = 1, level = 2, door = 1},

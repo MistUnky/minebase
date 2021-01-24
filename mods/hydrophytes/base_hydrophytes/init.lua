@@ -58,7 +58,7 @@ hydrophytes.register_phyte_set("base_hydrophytes:kelp", {
 					{-2/16, 0.5, -2/16, 2/16, 3.5, 2/16},
 			},
 		},
-		sounds = earth.node_sound_sand_defaults({
+		sounds = sounds.get_defaults("earth_sounds:sand", {
 			dig = {name = "base_sounds_dig_snappy", gain = 0.2},
 			dug = {name = "base_earth_grass_footstep", gain = 0.25},
 		}),

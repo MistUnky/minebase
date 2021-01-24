@@ -1,0 +1,3 @@
+# textdomain: screwdrivers
+Screwdriver=
+(left-click rotates face, right-click rotates axis)=

@@ -34,7 +34,7 @@ minetest.register_node("steel_bars:block", {
 	sunlight_propagates = true,
 	is_ground_content = false,
 	groups = {cracky = 1},
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 })
 
 minetest.register_craft({

@@ -45,7 +45,7 @@ earth.register_nodes_with("base_earth:dirt", {
 	base_node = {
 		description = S("Dirt"),
 		groups = {crumbly = 3, soil = 1},
-		sounds = earth.node_sound_dirt_defaults(),
+		sounds = sounds.get_defaults("earth_sounds:dirt"),
 	}, {
 		with = "grass",
 		description = S("Dirt with Grass"),
@@ -85,7 +85,7 @@ earth.register_nodes_with("base_earth:dry_dirt", {
 	base_node = {
 		description = S("Dry Dirt"),
 		groups = {crumbly = 3, soil = 1},
-		sounds = earth.node_sound_dirt_defaults(),
+		sounds = sounds.get_defaults("earth_sounds:dirt"),
 		deco = {
 			place_on = {"base_earth:dry_dirt_with_dry_grass"},
 			noise_params = {
@@ -109,7 +109,7 @@ earth.register_nodes_with("base_earth:permafrost", {
 	base_node = {
 		description = S("Permafrost"),
 		groups = {cracky = 3},
-		sounds = earth.node_sound_dirt_defaults(),
+		sounds = sounds.get_defaults("earth_sounds:dirt"),
 	}, {
 		with = "stones",
 		description = S("Permafrost with Stones"),
@@ -117,7 +117,7 @@ earth.register_nodes_with("base_earth:permafrost", {
 			"base_earth_permafrost.png", {name = "base_earth_permafrost.png" 
 			.. "^base_earth_stones_side.png", tileable_vertical = false}},
 		groups = {cracky = 3},
-		sounds = earth.node_sound_gravel_defaults(),
+		sounds = sounds.get_defaults("earth_sounds:gravel"),
 	} 
 })
 
@@ -125,7 +125,7 @@ minetest.register_node("base_earth:gravel", {
 	description = S("Gravel"),
 	tiles = {"base_earth_gravel.png"},
 	groups = {crumbly = 2, falling_node = 1},
-	sounds = earth.node_sound_gravel_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:gravel"),
 	drop = {
 		max_items = 1,
 		items = {

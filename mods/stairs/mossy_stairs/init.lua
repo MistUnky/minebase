@@ -17,7 +17,7 @@ stairs.register_all("mossy_stairs:stone_cobble", {
 	steps_description = S("Mossy Cobblestone Steps"),
 	steps_half_description = S("Mossy Cobblestone Steps Half"),
 	steps_slab_description = S("Mossy Cobblestone Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 

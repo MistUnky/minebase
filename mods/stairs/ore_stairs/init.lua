@@ -17,7 +17,7 @@ stairs.register_all("ore_stairs:steel_block", {
 	steps_description = S("Steel Block Steps"),
 	steps_half_description = S("Steel Block Steps Half"),
 	steps_slab_description = S("Steel Block Steps Slab"),
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	worldaligntex = true
 })
 
@@ -35,7 +35,7 @@ stairs.register_all("ore_stairs:tin_block", {
 	steps_description = S("Tin Block Steps"),
 	steps_half_description = S("Tin Block Steps Half"),
 	steps_slab_description = S("Tin Block Steps Slab"),
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	worldaligntex = true
 })
 
@@ -53,7 +53,7 @@ stairs.register_all("ore_stairs:copper_block", {
 	steps_description = S("Copper Block Steps"),
 	steps_half_description = S("Copper Block Steps Half"),
 	steps_slab_description = S("Copper Block Steps Slab"),
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	worldaligntex = true
 })
 
@@ -71,7 +71,7 @@ stairs.register_all("ore_stairs:bronze_block", {
 	steps_description = S("Bronze Block Steps"),
 	steps_half_description = S("Bronze Block Steps Half"),
 	steps_slab_description = S("Bronze Block Steps Slab"),
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	worldaligntex = true
 })
 
@@ -89,6 +89,6 @@ stairs.register_all("ore_stairs:gold_block", {
 	steps_description = S("Gold Block Steps"),
 	steps_half_description = S("Gold Block Steps Half"),
 	steps_slab_description = S("Gold Block Steps Slab"),
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	worldaligntex = true
 })

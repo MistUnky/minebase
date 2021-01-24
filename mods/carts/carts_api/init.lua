@@ -247,7 +247,7 @@ function carts:register_rail(name, def)
 			type = "fixed",
 			fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 		},
-		sounds = def.sounds or ores.node_sound_metal_defaults()
+		sounds = def.sounds or sounds.get_defaults("ore_sounds:metal"),
 	})
 
 	if def.recipe then

@@ -17,6 +17,6 @@ stairs.register_all("clay_stairs:brick", {
 	material = "clay:brick_block",
 	groups = {cracky = 3},
 	tiles = {"clay_brick_block.png"},
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = false
 })

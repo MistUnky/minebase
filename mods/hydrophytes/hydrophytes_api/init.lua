@@ -81,7 +81,7 @@ function hydrophytes.register_phyte(name, def)
 		},
 		node_dig_prediction = def.node_dig_prediction or def.root,
 		node_placement_prediction = def.node_placement_prediction or "",
-		sounds = def.sounds or earth.node_sound_stone_defaults({
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone", {
 			dig = {name = "base_sounds_dig_snappy", gain = 0.2},
 			dug = {name = "base_earth_grass_footstep", gain = 0.25},
 		}),
@@ -104,7 +104,7 @@ function hydrophytes.register_coral(name, def)
 		tiles = def.tiles or {txt .. ".png"},
 		groups = def.groups or {cracky = 3},
 		drop = def.drop,
-		sounds = def.sounds or earth.node_sound_stone_defaults(),
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
 	})
 end
 

@@ -23,7 +23,7 @@ minetest.register_node("base_trees:apple", {
 	groups = {fleshy = 3, dig_immediate = 3, flammable = 2,
 		leafdecay = 3, leafdecay_drop = 1, food_apple = 1},
 	on_use = minetest.item_eat(2),
-	sounds = trees.node_sound_leaves_defaults(),
+	sounds = sounds.get_defaults("tree_sounds:leaves"),
 
 	after_place_node = function(pos, placer, itemstack)
 		minetest.set_node(pos, {name = "base_trees:apple", param2 = 1})

@@ -20,7 +20,7 @@ local function register_furnace(name, def)
 		is_ground_content = false,
 		drop = def.drop,
 		light_source = def.light_source,
-		sounds = def.sounds or earth.node_sound_stone_defaults(),
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone"),
 
 		on_construct = def.on_construct or furnaces.on_construct,
 		can_dig = def.can_dig or furnaces.can_dig,

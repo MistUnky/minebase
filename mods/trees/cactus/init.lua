@@ -125,7 +125,7 @@ minetest.register_node("cactus:cactus", {
 		"cactus_side.png"},
 	paramtype2 = "facedir",
 	groups = {choppy = 3},
-	sounds = trees.node_sound_wood_defaults(),
+	sounds = sounds.get_defaults("tree_sounds:wood"),
 	on_place = minetest.rotate_node,
 })
 
@@ -146,7 +146,7 @@ minetest.register_node("cactus:large_seedling", {
 		}
 	},
 	groups = {choppy = 3, dig_immediate = 3, attached_node = 1},
-	sounds = trees.node_sound_wood_defaults(),
+	sounds = sounds.get_defaults("tree_sounds:wood"),
 
 	on_place = function(itemstack, placer, pointed_thing)
 		itemstack = trees.sapling_on_place(itemstack, placer, pointed_thing,

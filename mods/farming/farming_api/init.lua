@@ -311,7 +311,7 @@ farming.register_plant = function(name, def)
 			fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
 		},
 		fertility = def.fertility,
-		sounds = earth.node_sound_dirt_defaults({
+		sounds = sounds.get_defaults("earth_sounds:dirt", {
 			dig = {name = "", gain = 0},
 			dug = {name = "base_earth_grass_footstep", gain = 0.2},
 			place = {name = "base_sounds_place_node", gain = 0.25},
@@ -382,7 +382,7 @@ farming.register_plant = function(name, def)
 				fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
 			},
 			groups = nodegroups,
-			sounds = trees.node_sound_leaves_defaults(),
+			sounds = sounds.get_defaults("tree_sounds:leaves"),
 			next_plant = next_plant,
 			on_timer = farming.grow_plant,
 			minlight = def.minlight,

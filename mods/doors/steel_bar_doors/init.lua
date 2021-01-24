@@ -9,7 +9,7 @@ doors.register("steel_bar_doors:door", {
 	inventory_image = "steel_bar_doors_door_item.png",
 	protected = true,
 	groups = {node = 1, cracky = 1, level = 2},
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	sound_open = "steel_bar_doors_door_open",
 	sound_close = "steel_bar_doors_door_close",
 	recipe = {
@@ -27,7 +27,7 @@ doors.register_trapdoor("steel_bar_doors:trapdoor", {
 	tile_side = "steel_bar_doors_trapdoor_side.png",
 	protected = true,
 	groups = {node = 1, cracky = 1, level = 2, door = 1},
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	sound_open = "steel_bar_doors_door_open",
 	sound_close = "steel_bar_doors_door_close",
 })

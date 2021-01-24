@@ -12,7 +12,7 @@ function earth.register_stone(name, def)
 		description = def.description or txt,
 		tiles = def.tiles or {txt .. ".png"},
 		groups = def.groups or {cracky = 3},
-		sounds = def.sounds or earth.node_sound_stone_defaults()
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
 	})
 end
 
@@ -25,7 +25,7 @@ function earth.register_brick(name, def)
 		tiles = def.tiles or {txt .. "_brick.png"},
 		is_ground_content = def.is_ground_content or false,
 		groups = def.groups or {cracky = 2},
-		sounds = def.sounds or earth.node_sound_stone_defaults()
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
 	})
 end
 
@@ -36,7 +36,7 @@ function earth.register_block(name, def)
 		tiles = def.tiles or {txt .. "_block.png"},
 		is_ground_content = def.is_ground_content or false,
 		groups = def.groups or {cracky = 2},
-		sounds = def.sounds or earth.node_sound_stone_defaults()
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
 	})
 end
 
@@ -47,7 +47,7 @@ function earth.register_cobble(name, def)
 		tiles = def.tiles or {txt .. "_cobble.png"},
 		is_ground_content = def.is_ground_content or false,
 		groups = def.groups or {cracky = 3},
-		sounds = def.sounds or earth.node_sound_stone_defaults()
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
 	})
 end
 
@@ -86,7 +86,7 @@ function earth.register_sand(name, def)
 		description = def.description or txt,
 		tiles = def.tiles or {txt .. ".png"},
 		groups = def.groups or {crumbly = 3, falling_node = 1, sand = 1},
-		sounds = def.sounds or earth.node_sound_sand_defaults(),
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:sand")
 	})
 end
 
@@ -153,7 +153,7 @@ function earth.register_node_with(name, def)
 			tileable_vertical = false}},
 		groups = def.groups or {crumbly = 3, soil = 1, spreading_dirt_type = 1},
 		drop = def.drop or name,
-		sounds = def.sounds or earth.node_sound_dirt_defaults({
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:dirt", {
 			footstep = {name = "earth_grass_footstep", gain = def.gain or 0.4},
 		})
 	})
@@ -200,57 +200,5 @@ function earth.register_nodes_with(name, def)
 			earth.register_deco(name, de.deco)
 		end
 	end
-end
-
---
--- Sounds
---
-
-function earth.node_sound_stone_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "base_sounds_hard_footstep", gain = 0.3}
-	table.dug = table.dug or
-			{name = "base_sounds_hard_footstep", gain = 1.0}
-	base.node_sound_defaults(table)
-	return table
-end
-
-function earth.node_sound_dirt_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "earth_api_dirt_footstep", gain = 0.4}
-	table.dug = table.dug or
-			{name = "earth_api_dirt_footstep", gain = 1.0}
-	table.place = table.place or
-			{name = "base_sounds_place_node", gain = 1.0}
-	base.node_sound_defaults(table)
-	return table
-end
-
-function earth.node_sound_sand_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "earth_api_sand_footstep", gain = 0.05}
-	table.dug = table.dug or
-			{name = "earth_api_sand_footstep", gain = 0.15}
-	table.place = table.place or
-			{name = "base_sounds_place_node", gain = 1.0}
-	base.node_sound_defaults(table)
-	return table
-end
-
-function earth.node_sound_gravel_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name = "earth_api_gravel_footstep", gain = 0.1}
-	table.dig = table.dig or
-			{name = "earth_api_gravel_dig", gain = 0.35}
-	table.dug = table.dug or
-			{name = "earth_api_gravel_dug", gain = 1.0}
-	table.place = table.place or
-			{name = "base_sounds_place_node", gain = 1.0}
-	base.node_sound_defaults(table)
-	return table
 end
 

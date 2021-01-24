@@ -1,9 +1,12 @@
 -- base_fire/init.lua
 
+-- Load support for Minebase translation.
+local S = minetest.get_translator("base_fire")
+
 fire.register_node("base_fire:flame", {
 	description = S("Fire"),
 	groups = {igniter = 2, dig_immediate = 3, fire = 1, 
-		not_in_creative_inventory = 1}
+		not_in_creative_inventory = 1},
 	spreading = true,
 	on_timer = function(pos)
 		if not minetest.find_node_near(pos, 1, {"group:flammable"}) then
@@ -19,7 +22,8 @@ fire.register_node("base_fire:flame", {
 })
 
 fire.register_node("base_fire:permanent", {
-	description = S("Permanent Fire")
+	description = S("Permanent Fire"),
+	inventory_image = "base_fire_flame.png",
 	tiles = {{
 		name = "base_fire_flame_animated.png",
 		animation = {
@@ -34,7 +38,7 @@ fire.register_node("base_fire:permanent", {
 -- Flint and Steel
 minetest.register_tool("base_fire:flint_and_steel", {
 	description = S("Flint and Steel"),
-	inventory_image = "fire_flint_steel.png",
+	inventory_image = "base_fire_flint_steel.png",
 	sound = {breaks = "tools_api_tool_breaks"},
 
 	on_use = function(itemstack, user, pointed_thing)

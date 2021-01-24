@@ -17,7 +17,7 @@ stairs.register_all("liquid_stairs:obsidian", {
 	steps_description = S("Obsidian Steps"),
 	steps_half_description = S("Obsidian Steps Half"),
 	steps_slab_description = S("Obsidian Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -35,7 +35,7 @@ stairs.register_all("liquid_stairs:obsidian_brick", {
 	steps_description = S("Obsidian Brick Steps"),
 	steps_half_description = S("Obsidian Brick Steps Half"),
 	steps_slab_description = S("Obsidian Brick Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = false
 })
 
@@ -53,7 +53,7 @@ stairs.register_all("liquid_stairs:obsidian_block", {
 	steps_description = S("Obsidian Block Steps"),
 	steps_half_description = S("Obsidian Block Steps Half"),
 	steps_slab_description = S("Obsidian Block Steps Slab"),
-	sounds = earth.node_sound_stone_defaults(),
+	sounds = sounds.get_defaults("earth_sounds:stone"),
 	worldaligntex = true
 })
 
@@ -71,7 +71,7 @@ stairs.register_all("liquid_stairs:ice", {
 	steps_description = S("Ice Steps"),
 	steps_half_description = S("Ice Steps Half"),
 	steps_slab_description = S("Ice Steps Slab"),
-	sounds = liquids.node_sound_ice_defaults(),
+	sounds = sounds.get_defaults("liquid_sounds:ice"),
 	worldaligntex = true
 })
 
@@ -89,7 +89,7 @@ stairs.register_all("liquid_stairs:snowblock", {
 	steps_description = S("Snow Block Steps"),
 	steps_half_description = S("Snow Block Steps Half"),
 	steps_slab_description = S("Snow Block Steps Slab"),
-	sounds = liquids.node_sound_snow_defaults(),
+	sounds = sounds.get_defaults("liquid_sounds:snow"),
 	worldaligntex = true
 })
 

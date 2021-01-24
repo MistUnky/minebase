@@ -54,7 +54,7 @@ minetest.register_craftitem("binoculars:binoculars", {
 	inventory_image = "binoculars_binoculars.png",
 	stack_max = 1,
 
-	on_use = function(itemstack, user, pointed_thing)
+	on_use = function(_, user)
 		binoculars.update_player_property(user)
 	end,
 })

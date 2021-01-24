@@ -238,7 +238,7 @@ trees.register_bush("base_bushes:dry", {
 		walkable = false,
 		buildable_to = true,
 		groups = {snappy = 3, flammable = 3, attached_node = 1},
-		sounds = trees.node_sound_leaves_defaults(),
+		sounds = sounds.get_defaults("tree_sounds:leaves"),
 		selection_box = {
 			type = "fixed",
 			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, 4 / 16, 6 / 16},

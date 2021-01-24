@@ -97,7 +97,7 @@ minetest.register_node("base_liquids:snow", {
 		},
 	},
 	groups = {crumbly = 3, falling_node = 1, snowy = 1},
-	sounds = liquids.node_sound_snow_defaults(),
+	sounds = sounds.get_defaults("liquid_sounds:snow"),
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
@@ -111,7 +111,7 @@ minetest.register_node("base_liquids:cloud", {
 	description = S("Cloud"),
 	tiles = {"base_liquids_cloud.png"},
 	is_ground_content = false,
-	sounds = base.node_sound_defaults(),
+	sounds = sounds.get_defaults("default"),
 	groups = {dig_immediate = 3},
 })
 
@@ -144,7 +144,7 @@ minetest.register_node("base_liquids:snow_block", {
 	description = S("Snow Block"),
 	tiles = {"base_liquids_snow.png"},
 	groups = {crumbly = 3, cools_lava = 1, snowy = 1},
-	sounds = liquids.node_sound_snow_defaults(),
+	sounds = sounds.get_defaults("liquid_sounds:snow"),
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
@@ -162,7 +162,7 @@ minetest.register_node("base_liquids:cave_ice", {
 	groups = {cracky = 3, cools_lava = 1, slippery = 3,
 		not_in_creative_inventory = 1},
 	drop = "base_liquids:ice",
-	sounds = liquids.node_sound_ice_defaults(),
+	sounds = sounds.get_defaults("liquid_sounds:ice"),
 })
 
 -- 'is ground content = false' to avoid tunnels in sea ice or ice rivers
@@ -172,7 +172,7 @@ minetest.register_node("base_liquids:ice", {
 	is_ground_content = false,
 	paramtype = "light",
 	groups = {cracky = 3, cools_lava = 1, slippery = 3},
-	sounds = liquids.node_sound_ice_defaults(),
+	sounds = sounds.get_defaults("liquid_sounds:ice"),
 })
 
 minetest.register_node("base_liquids:dirt_with_snow", {
@@ -181,7 +181,7 @@ minetest.register_node("base_liquids:dirt_with_snow", {
 	{name = "base_earth_dirt.png^base_liquids_snow_side.png",
 		tileable_vertical = false}},
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1, snowy = 1},
-	sounds = earth.node_sound_dirt_defaults({
+	sounds = sounds.get_defaults("earth_sounds:dirt", {
 		footstep = {name = "liquids_api_snow_footstep", gain = 0.2},
 	})
 })

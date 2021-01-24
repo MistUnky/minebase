@@ -175,7 +175,7 @@ minetest.register_node("base_grasses:papyrus", {
 		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, 0.5, 6 / 16},
 	},
 	groups = {snappy = 3, flammable = 2},
-	sounds = trees.node_sound_leaves_defaults(),
+	sounds = sounds.get_defaults("tree_sounds:leaves"),
 
 	after_dig_node = function(pos, node, metadata, digger)
 		grasses.dig_up(pos, node, digger)

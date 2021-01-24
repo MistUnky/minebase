@@ -5,7 +5,7 @@ local S = minetest.get_translator("base_signs")
 
 signs.register_sign("base_signs:wood", {
 	description = S("Wooden Sign"),
-	sounds = trees.node_sound_wood_defaults(),
+	sounds = sounds.get_defaults("tree_sounds:wood"),
 	groups = {choppy = 2, attached_node = 1, flammable = 2, 
 		oddly_breakable_by_hand = 3},
 	material = "group:wood",
@@ -14,7 +14,7 @@ signs.register_sign("base_signs:wood", {
 
 signs.register_sign("base_signs:steel", {
 	description = S("Steel Sign"), 
-	sounds = ores.node_sound_metal_defaults(),
+	sounds = sounds.get_defaults("ore_sounds:metal"),
 	groups = {cracky = 2, attached_node = 1},
 	material = "base_ores:steel_ingot"
 })

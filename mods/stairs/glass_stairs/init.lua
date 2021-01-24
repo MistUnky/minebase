@@ -6,7 +6,7 @@ local S = minetest.get_translator("glass_stairs")
 stairs.register_glass_all("glass_stairs:common_glass", {
 	material = "base_glass:common_glass",
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
-	sounds = glass.node_sound_glass_defaults(),
+	sounds = sounds.get_defaults("glass_sounds:glass"),
 	worldaligntex = false,
 	stair_description = S("Glass Stair"),
 	slab_description = S("Glass Slab"),
@@ -28,7 +28,7 @@ stairs.register_glass_all("glass_stairs:common_glass", {
 stairs.register_glass_all("glass_stairs:obsidian_glass", {
 	material = "base_glass:obsidian_glass",
 	groups = {cracky = 3},
-	sounds = glass.node_sound_glass_defaults(),
+	sounds = sounds.get_defaults("glass_sounds:glass"),
 	worldaligntex = false,
 	stair_description = S("Obsidian Glass Stair"),
 	slab_description = S("Obsidian Glass Slab"),
