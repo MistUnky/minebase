@@ -2,6 +2,8 @@ Minebase mod: fancy_beds
 ========================
 See license.txt for license information.
 
+This mod registers a detailed bed using nodeboxes. 
+
 Authors of source code
 ----------------------
 Originally by BlockMen (MIT)

@@ -2,6 +2,9 @@ Minebase mod: Boats
 ========================
 See license.txt for license information.
 
+This mod adds a usable boat to the game.
+
+
 Authors of source code
 ----------------------
 Originally by PilzAdam (MIT)

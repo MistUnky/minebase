@@ -2,6 +2,8 @@ Minebase mod: Binoculars
 ========================
 See license.txt for license information.
 
+Binoculars allow the usage of the zoom feature.
+
 Authors of source code
 ----------------------
 paramat (MIT)

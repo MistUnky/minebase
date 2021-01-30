@@ -3,7 +3,7 @@ Minebase mod: Base API
 See license.txt for license information.  
   
 This mod provides registry functions for recurring combinations of craft
-recipes. They all receive two name strings.  
+recipes. 
 
 base.register_craft14(one, four)  
 

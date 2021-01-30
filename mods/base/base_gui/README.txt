@@ -2,9 +2,8 @@ Minebase mod: Base GUI
 ======================
 See license.txt for license information.
 
-
 This mods sets the hotbar textures and the formspec prepend for every joining 
-player.
+player. It also provides base textures for the gui.
 
 base.get_hotbar_bg(x,y)
 	It returns an overlay for the inventory slots that represent the
@@ -26,12 +25,7 @@ celeron55, Perttu Ahola <celeron55@gmail.com> (CC BY-SA 3.0)
 
 Textures
 --------
-paramat (CC BY-SA 3.0):
-  base_gui_hotbar.png
-  base_gui_hotbar_selected.png
-
 BlockMen (CC BY-SA 3.0):
-  base_gui_formbg.png
   base_gui_arrow_bg.png
   base_gui_arrow_fg.png
   base_gui_hb_bg.png
@@ -39,4 +33,18 @@ BlockMen (CC BY-SA 3.0):
 An0n3m0us (CC BY-SA 3.0):
   base_gui_heart.png -- Derived from a texture by KevDoy (CC BY-SA 3.0)
   base_gui_bubble.png -- Derived from a texture by BlockMen (CC BY-SA 3.0)
+
+LibraSubtilis (GPLv2; all based on images by The Battle for Wesnoth Project):
+  base_gui_formbg.png
+  	based on:
+  	lite_opaque-background.png
+	lite_opaque-border-top.png
+	lite_opaque-border-topright.png
+  base_gui_hotbar.png and base_gui_hotbar_selected.png
+ 	based on:
+ 	lite_translucent-background.png
+	lite_translucent-border-top.png
+	lite_translucent-border-topright.png
+  base_gui_arrow_bg.png -- based on: arrows_blank_right_30.png
+  base_gui_arrof_fg.png -- based on: arrows_right_30-pressed.png
 

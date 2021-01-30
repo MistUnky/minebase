@@ -2,6 +2,9 @@ Minebase mod: beds_api
 =======================
 See license.txt for license information.
 
+This mod provides an api that allows to register beds that allow to skip the 
+night.
+
 Authors of source code
 ----------------------
 Originally by BlockMen (MIT)

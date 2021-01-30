@@ -1,22 +1,24 @@
 License of media (textures and sounds)
 --------------------------------------
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
+Copyright (C) 2021 LibraSubtilis
 See README.txt in each mod directory for information about other authors.
 
-Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-http://creativecommons.org/licenses/by-sa/3.0/
+Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+    https://creativecommons.org/licenses/by-sa/4.0/
 
 License of menu/header.png
 Copyright (C) 2015 paramat CC BY-SA 3.0
-Copyright (C) 2020 LibraSubtilis CC BY-SA 3.0 (based on paramats Minetest Game header)
+Copyright (C) 2020 LibraSubtilis CC BY-SA 4.0 (based on paramats Minetest Game header)
 
 License of menu/icon.png
-Copyright (C) 2020 LibraSubtilis CC BY-SA 3.0 (based on paramats Minetest Game header)
+Copyright (C) 2020 LibraSubtilis CC BY-SA 4.0 (based on paramats Minetest Game header)
 
 
 License of source code
 ----------------------
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
+Copyright (C) 2021 LibraSubtilis
 See README.txt in each mod directory for information about other authors.
 
                   GNU LESSER GENERAL PUBLIC LICENSE

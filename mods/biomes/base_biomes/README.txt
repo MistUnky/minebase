@@ -2,6 +2,8 @@ Minebase mod: Base Biomes
 ==========================
 See license.txt for license information.
 
+Base biomes registers a set of biomes using Biomes API.
+
 Authors of source code
 ----------------------
 Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)

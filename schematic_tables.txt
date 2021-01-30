@@ -30,11 +30,11 @@ local _ = {name = "air", prob = 0}
 
 -- Mapgen Apple tree
 
-local M = {name = "default:leaves", prob = 255}
-local N = {name = "default:leaves", prob = 223}
-local F = {name = "default:apple", prob = 63}
-local Y = {name = "default:tree", prob = 255, force_place = true}
-local T = {name = "default:tree", prob = 255}
+local M = {name = "base_trees:apple_leaves", prob = 255}
+local N = {name = "base_trees:apple_leaves", prob = 223}
+local F = {name = "base_trees:apple", prob = 63}
+local Y = {name = "base_trees:apple_tree", prob = 255, force_place = true}
+local T = {name = "base_trees:apple_tree", prob = 255}
 
 mts_save("apple_tree", {
 	size = {x = 7, y = 8, z = 7},
@@ -184,13 +184,13 @@ mts_save("apple_tree_from_sapling", {
 
 -- Mapgen Jungle tree
 
-local L = {name = "default:jungleleaves", prob = 255}
-local N = {name = "default:jungleleaves", prob = 223}
-local M = {name = "default:jungleleaves", prob = 191}
-local B = {name = "default:jungletree", prob = 255, force_place = true}
-local Y = {name = "default:jungletree", prob = 191, force_place = true}
-local U = {name = "default:jungletree", prob = 127, force_place = true}
-local I = {name = "default:jungletree", prob = 255}
+local L = {name = "base_trees:jungle_leaves", prob = 255}
+local N = {name = "base_trees:jungle_leaves", prob = 223}
+local M = {name = "base_trees:jungle_leaves", prob = 191}
+local B = {name = "base_trees:jungle_tree", prob = 255, force_place = true}
+local Y = {name = "base_trees:jungle_tree", prob = 191, force_place = true}
+local U = {name = "base_trees:jungle_tree", prob = 127, force_place = true}
+local I = {name = "base_trees:jungle_tree", prob = 255}
 
 mts_save("jungle_tree", {
 	size = {x = 5, y = 17, z = 5},
@@ -297,10 +297,10 @@ mts_save("jungle_tree", {
 
 -- Jungle tree from sapling
 
-local B = {name = "default:jungletree", prob = 255}
-local C = {name = "default:jungletree", prob = 255, force_place = true}
-local Y = {name = "default:jungletree", prob = 191}
-local U = {name = "default:jungletree", prob = 127}
+local B = {name = "base_trees:jungle_tree", prob = 255}
+local C = {name = "base_trees:jungle_tree", prob = 255, force_place = true}
+local Y = {name = "base_trees:jungle_tree", prob = 191}
+local U = {name = "base_trees:jungle_tree", prob = 127}
 
 mts_save("jungle_tree_from_sapling", {
 	size = {x = 5, y = 17, z = 5},
@@ -407,11 +407,11 @@ mts_save("jungle_tree_from_sapling", {
 
 -- Mapgen Pine tree
 
-local L = {name = "default:pine_needles", prob = 255}
-local M = {name = "default:pine_needles", prob = 223}
-local N = {name = "default:pine_needles", prob = 191}
-local T = {name = "default:pine_tree", prob = 255, force_place = true}
-local B = {name = "default:pine_tree", prob = 255}
+local L = {name = "base_trees:pine_needles", prob = 255}
+local M = {name = "base_trees:pine_needles", prob = 223}
+local N = {name = "base_trees:pine_needles", prob = 191}
+local T = {name = "base_trees:pine_tree", prob = 255, force_place = true}
+local B = {name = "base_trees:pine_tree", prob = 255}
 
 mts_save("pine_tree", {
 	size = {x = 5, y = 16, z = 5},
@@ -514,8 +514,8 @@ mts_save("pine_tree", {
 
 -- Pine tree from sapling
 
-local T = {name = "default:pine_tree", prob = 255}
-local U = {name = "default:pine_tree", prob = 255, force_place = true}
+local T = {name = "base_trees:pine_tree", prob = 255}
+local U = {name = "base_trees:pine_tree", prob = 255, force_place = true}
 
 mts_save("pine_tree_from_sapling", {
 	size = {x = 5, y = 16, z = 5},
@@ -618,10 +618,10 @@ mts_save("pine_tree_from_sapling", {
 
 -- Snowy pine tree from sapling
 
-local T = {name = "default:pine_tree", prob = 255}
-local U = {name = "default:pine_tree", prob = 255, force_place = true}
-local L = {name = "default:pine_needles", prob = 255}
-local S = {name = "default:snow", prob = 255}
+local T = {name = "base_trees:pine_tree", prob = 255}
+local U = {name = "base_trees:pine_tree", prob = 255, force_place = true}
+local L = {name = "base_trees:pine_needles", prob = 255}
+local S = {name = "base_liquids:snow", prob = 255}
 
 mts_save("snowy_pine_tree_from_sapling", {
 	size = {x = 5, y = 16, z = 5},
@@ -723,9 +723,9 @@ mts_save("snowy_pine_tree_from_sapling", {
 
 -- Mapgen Acacia tree
 
-local L = {name = "default:acacia_leaves", prob = 255}
-local M = {name = "default:acacia_leaves", prob = 223}
-local T = {name = "default:acacia_tree", prob = 255, force_place = true}
+local L = {name = "base_trees:acacia_leaves", prob = 255}
+local M = {name = "base_trees:acacia_leaves", prob = 223}
+local T = {name = "base_trees:acacia_tree", prob = 255, force_place = true}
 
 mts_save("acacia_tree", {
 	size = {x = 9, y = 9, z = 9},
@@ -830,8 +830,8 @@ mts_save("acacia_tree", {
 
 -- Acacia tree from sapling
 
-local T = {name = "default:acacia_tree", prob = 255}
-local U = {name = "default:acacia_tree", prob = 255, force_place = true}
+local T = {name = "base_trees:acacia_tree", prob = 255}
+local U = {name = "base_trees:acacia_tree", prob = 255, force_place = true}
 
 mts_save("acacia_tree_from_sapling", {
 	size = {x = 9, y = 9, z = 9},
@@ -937,11 +937,11 @@ mts_save("acacia_tree_from_sapling", {
 
 -- Mapgen Aspen tree
 
-local T = {name = "default:aspen_tree", prob = 255, force_place = true}
-local B = {name = "default:aspen_tree", prob = 255}
-local L = {name = "default:aspen_leaves", prob = 255}
-local M = {name = "default:aspen_leaves", prob = 223}
-local N = {name = "default:aspen_leaves", prob = 127}
+local T = {name = "base_trees:aspen_tree", prob = 255, force_place = true}
+local B = {name = "base_trees:aspen_tree", prob = 255}
+local L = {name = "base_trees:aspen_leaves", prob = 255}
+local M = {name = "base_trees:aspen_leaves", prob = 223}
+local N = {name = "base_trees:aspen_leaves", prob = 127}
 
 mts_save("aspen_tree", {
 	size = {x = 5, y = 14, z = 5},
@@ -1123,11 +1123,11 @@ mts_save("aspen_tree_from_sapling", {
 
 -- Mapgen emergent jungle tree
 
-local L = {name = "default:jungleleaves", prob = 255}
-local N = {name = "default:jungleleaves", prob = 223}
-local M = {name = "default:jungleleaves", prob = 127}
-local B = {name = "default:jungletree", prob = 255, force_place = true}
-local U = {name = "default:jungletree", prob = 127, force_place = true}
+local L = {name = "base_trees:jungle_leaves", prob = 255}
+local N = {name = "base_trees:jungle_leaves", prob = 223}
+local M = {name = "base_trees:jungle_leaves", prob = 127}
+local B = {name = "base_trees:jungle_tree", prob = 255, force_place = true}
+local U = {name = "base_trees:jungle_tree", prob = 127, force_place = true}
 
 mts_save("emergent_jungle_tree", {
 	size = {x = 7, y = 37, z = 7},
@@ -1417,12 +1417,12 @@ mts_save("emergent_jungle_tree", {
 
 -- Emergent jungle tree from sapling
 
-local L = {name = "default:jungleleaves", prob = 255}
-local N = {name = "default:jungleleaves", prob = 223}
-local M = {name = "default:jungleleaves", prob = 127}
-local S = {name = "default:jungletree", prob = 255, force_place = true}
-local B = {name = "default:jungletree", prob = 255}
-local U = {name = "default:jungletree", prob = 127}
+local L = {name = "base_trees:jungle_leaves", prob = 255}
+local N = {name = "base_trees:jungle_leaves", prob = 223}
+local M = {name = "base_trees:jungle_leaves", prob = 127}
+local S = {name = "base_trees:jungle_tree", prob = 255, force_place = true}
+local B = {name = "base_trees:jungle_tree", prob = 255}
+local U = {name = "base_trees:jungle_tree", prob = 127}
 
 mts_save("emergent_jungle_tree_from_sapling", {
 	size = {x = 7, y = 37, z = 7},
@@ -1712,12 +1712,12 @@ mts_save("emergent_jungle_tree_from_sapling", {
 
 -- Mapgen small pine tree
 
-local L = {name = "default:pine_needles", prob = 255}
-local M = {name = "default:pine_needles", prob = 223}
-local N = {name = "default:pine_needles", prob = 191}
-local T = {name = "default:pine_tree", prob = 255, force_place = true}
-local B = {name = "default:pine_tree", prob = 255}
-local S = {name = "default:snow", prob = 255}
+local L = {name = "base_trees:pine_needles", prob = 255}
+local M = {name = "base_trees:pine_needles", prob = 223}
+local N = {name = "base_trees:pine_needles", prob = 191}
+local T = {name = "base_trees:pine_tree", prob = 255, force_place = true}
+local B = {name = "base_trees:pine_tree", prob = 255}
+local S = {name = "base_liquids:snow", prob = 255}
 
 mts_save("small_pine_tree", {
 	size = {x = 5, y = 12, z = 5},
@@ -1960,12 +1960,12 @@ mts_save("snowy_small_pine_tree_from_sapling", {
 mts_save("apple_log", {
 	size = {x = 4, y = 2, z = 1},
 	data = {
-		{name = "default:tree", param2 = 12, prob = 127},
-		{name = "default:tree", param2 = 12},
-		{name = "default:tree", param2 = 12},
-		{name = "default:tree", param2 = 12},
+		{name = "base_trees:apple_tree", param2 = 12, prob = 127},
+		{name = "base_trees:apple_tree", param2 = 12},
+		{name = "base_trees:apple_tree", param2 = 12},
+		{name = "base_trees:apple_tree", param2 = 12},
 		{name = "air", prob = 0},
-		{name = "flowers:mushroom_brown", prob = 63},
+		{name = "base_flowers:brown", prob = 63},
 		{name = "air", prob = 0},
 		{name = "air", prob = 0},
 	},
@@ -1977,14 +1977,14 @@ mts_save("apple_log", {
 mts_save("jungle_log", {
 	size = {x = 5, y = 2, z = 1},
 	data = {
-		{name = "default:jungletree", param2 = 12, prob = 127},
-		{name = "default:jungletree", param2 = 12},
-		{name = "default:jungletree", param2 = 12},
-		{name = "default:jungletree", param2 = 12},
-		{name = "default:jungletree", param2 = 12, prob = 127},
+		{name = "base_trees:jungle_tree", param2 = 12, prob = 127},
+		{name = "base_trees:jungle_tree", param2 = 12},
+		{name = "base_trees:jungle_tree", param2 = 12},
+		{name = "base_trees:jungle_tree", param2 = 12},
+		{name = "base_trees:jungle_tree", param2 = 12, prob = 127},
 		{name = "air", prob = 0},
 		{name = "air", prob = 0},
-		{name = "flowers:mushroom_brown", prob = 127},
+		{name = "base_flowers:brown", prob = 127},
 		{name = "air", prob = 0},
 		{name = "air", prob = 0},
 	},
@@ -1996,14 +1996,14 @@ mts_save("jungle_log", {
 mts_save("pine_log", {
 	size = {x = 5, y = 2, z = 1},
 	data = {
-		{name = "default:pine_tree", param2 = 12, prob = 127},
-		{name = "default:pine_tree", param2 = 12},
-		{name = "default:pine_tree", param2 = 12},
-		{name = "default:pine_tree", param2 = 12},
-		{name = "default:pine_tree", param2 = 12, prob = 127},
+		{name = "base_trees:pine_tree", param2 = 12, prob = 127},
+		{name = "base_trees:pine_tree", param2 = 12},
+		{name = "base_trees:pine_tree", param2 = 12},
+		{name = "base_trees:pine_tree", param2 = 12},
+		{name = "base_trees:pine_tree", param2 = 12, prob = 127},
 		{name = "air", prob = 0},
 		{name = "air", prob = 0},
-		{name = "flowers:mushroom_red", prob = 63},
+		{name = "base_flowers:red", prob = 63},
 		{name = "air", prob = 0},
 		{name = "air", prob = 0},
 	},
@@ -2015,11 +2015,11 @@ mts_save("pine_log", {
 mts_save("acacia_log", {
 	size = {x = 5, y = 1, z = 1},
 	data = {
-		{name = "default:acacia_tree", param2 = 12, prob = 127},
-		{name = "default:acacia_tree", param2 = 12},
-		{name = "default:acacia_tree", param2 = 12},
-		{name = "default:acacia_tree", param2 = 12},
-		{name = "default:acacia_tree", param2 = 12, prob = 127},
+		{name = "base_trees:acacia_tree", param2 = 12, prob = 127},
+		{name = "base_trees:acacia_tree", param2 = 12},
+		{name = "base_trees:acacia_tree", param2 = 12},
+		{name = "base_trees:acacia_tree", param2 = 12},
+		{name = "base_trees:acacia_tree", param2 = 12, prob = 127},
 	},
 })
 
@@ -2029,14 +2029,14 @@ mts_save("acacia_log", {
 mts_save("aspen_log", {
 	size = {x = 5, y = 2, z = 1},
 	data = {
-		{name = "default:aspen_tree", param2 = 12, prob = 127},
-		{name = "default:aspen_tree", param2 = 12},
-		{name = "default:aspen_tree", param2 = 12},
-		{name = "default:aspen_tree", param2 = 12},
-		{name = "default:aspen_tree", param2 = 12, prob = 127},
+		{name = "base_trees:aspen_tree", param2 = 12, prob = 127},
+		{name = "base_trees:aspen_tree", param2 = 12},
+		{name = "base_trees:aspen_tree", param2 = 12},
+		{name = "base_trees:aspen_tree", param2 = 12},
+		{name = "base_trees:aspen_tree", param2 = 12, prob = 127},
 		{name = "air", prob = 0},
-		{name = "flowers:mushroom_red", prob = 63},
-		{name = "flowers:mushroom_brown", prob = 63},
+		{name = "base_flowers:red", prob = 63},
+		{name = "base_flowers:brown", prob = 63},
 		{name = "air", prob = 0},
 		{name = "air", prob = 0},
 	},
@@ -2045,9 +2045,9 @@ mts_save("aspen_log", {
 
 -- Large cactus
 
-local C = {name = "default:cactus", prob = 255, param2 = 20}
-local R = {name = "default:cactus", prob = 255, param2 = 20, force_place = true}
-local E = {name = "default:cactus", prob = 127, param2 = 20}
+local C = {name = "cactus:cactus", prob = 255, param2 = 20}
+local R = {name = "cactus:cactus", prob = 255, param2 = 20, force_place = true}
+local E = {name = "cactus:cactus", prob = 127, param2 = 20}
 
 mts_save("large_cactus", {
 	size = {x = 5, y = 7, z = 5},
@@ -2103,13 +2103,13 @@ mts_save("large_cactus", {
 mts_save("papyrus_on_dirt", {
 	size = {x = 1, y = 7, z = 1},
 	data = {
-		{name = "default:dirt", prob = 255, force_place = true},
-		{name = "default:dirt", prob = 255, force_place = true},
-		{name = "default:papyrus", prob = 255},
-		{name = "default:papyrus", prob = 255},
-		{name = "default:papyrus", prob = 255},
-		{name = "default:papyrus", prob = 255},
-		{name = "default:papyrus", prob = 255},
+		{name = "base_earth:dirt", prob = 255, force_place = true},
+		{name = "base_earth:dirt", prob = 255, force_place = true},
+		{name = "base_grasses:papyrus", prob = 255},
+		{name = "base_grasses:papyrus", prob = 255},
+		{name = "base_grasses:papyrus", prob = 255},
+		{name = "base_grasses:papyrus", prob = 255},
+		{name = "base_grasses:papyrus", prob = 255},
 	},
 	yslice_prob = {
 		{ypos = 2, prob = 127},
@@ -2120,13 +2120,13 @@ mts_save("papyrus_on_dirt", {
 mts_save("papyrus_on_dry_dirt", {
 	size = {x = 1, y = 7, z = 1},
 	data = {
-		{name = "default:dry_dirt", prob = 255, force_place = true},
-		{name = "default:dry_dirt", prob = 255, force_place = true},
-		{name = "default:papyrus", prob = 255},
-		{name = "default:papyrus", prob = 255},
-		{name = "default:papyrus", prob = 255},
-		{name = "default:papyrus", prob = 255},
-		{name = "default:papyrus", prob = 255},
+		{name = "base_earth:dry_dirt", prob = 255, force_place = true},
+		{name = "base_earth:dry_dirt", prob = 255, force_place = true},
+		{name = "base_grasses:papyrus", prob = 255},
+		{name = "base_grasses:papyrus", prob = 255},
+		{name = "base_grasses:papyrus", prob = 255},
+		{name = "base_grasses:papyrus", prob = 255},
+		{name = "base_grasses:papyrus", prob = 255},
 	},
 	yslice_prob = {
 		{ypos = 2, prob = 127},
@@ -2137,10 +2137,10 @@ mts_save("papyrus_on_dry_dirt", {
 
 -- Bush
 
-local L = {name = "default:bush_leaves", prob = 255}
-local M = {name = "default:bush_leaves", prob = 191}
-local N = {name = "default:bush_leaves", prob = 127}
-local S = {name = "default:bush_stem", prob = 255, force_place = true}
+local L = {name = "base_bushes:bush_leaves", prob = 255}
+local M = {name = "base_bushes:bush_leaves", prob = 191}
+local N = {name = "base_bushes:bush_leaves", prob = 127}
+local S = {name = "base_bushes:bush_stem", prob = 255, force_place = true}
 
 mts_save("bush", {
 	size = {x = 3, y = 3, z = 3},
@@ -2162,9 +2162,9 @@ mts_save("bush", {
 
 -- Blueberry bush
 
-local L = {name = "default:blueberry_bush_leaves_with_berries", prob = 255, force_place = true}
-local M = {name = "default:blueberry_bush_leaves_with_berries", prob = 223}
-local N = {name = "default:blueberry_bush_leaves_with_berries", prob = 95}
+local L = {name = "base_bushes:blueberry_bush_leaves_with_berries", prob = 255, force_place = true}
+local M = {name = "base_bushes:blueberry_bush_leaves_with_berries", prob = 223}
+local N = {name = "base_bushes:blueberry_bush_leaves_with_berries", prob = 95}
 
 mts_save("blueberry_bush", {
 	size = {x = 3, y = 1, z = 3},
@@ -2180,10 +2180,10 @@ mts_save("blueberry_bush", {
 
 -- Acacia bush
 
-local L = {name = "default:acacia_bush_leaves", prob = 255}
-local M = {name = "default:acacia_bush_leaves", prob = 191}
-local N = {name = "default:acacia_bush_leaves", prob = 127}
-local S = {name = "default:acacia_bush_stem", prob = 255, force_place = true}
+local L = {name = "base_bushes:acacia_bush_leaves", prob = 255}
+local M = {name = "base_bushes:acacia_bush_leaves", prob = 191}
+local N = {name = "base_bushes:acacia_bush_leaves", prob = 127}
+local S = {name = "base_bushes:acacia_bush_stem", prob = 255, force_place = true}
 
 mts_save("acacia_bush", {
 	size = {x = 3, y = 3, z = 3},
@@ -2205,10 +2205,10 @@ mts_save("acacia_bush", {
 
 -- Pine bush
 
-local L = {name = "default:pine_bush_needles", prob = 255}
-local M = {name = "default:pine_bush_needles", prob = 191}
-local N = {name = "default:pine_bush_needles", prob = 127}
-local S = {name = "default:pine_bush_stem", prob = 255, force_place = true}
+local L = {name = "base_bushes:pine_bush_needles", prob = 255}
+local M = {name = "base_bushes:pine_bush_needles", prob = 191}
+local N = {name = "base_bushes:pine_bush_needles", prob = 127}
+local S = {name = "base_bushes:pine_bush_stem", prob = 255, force_place = true}
 
 mts_save("pine_bush", {
 	size = {x = 3, y = 3, z = 3},

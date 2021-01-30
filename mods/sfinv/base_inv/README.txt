@@ -11,5 +11,6 @@ rubenwardy (MIT)
 
 Authors of media
 ----------------
-paramat (CC BY-SA 3.0):
-  sfinv_crafting_arrow.png - derived from a texture by BlockMen (CC BY-SA 3.0)
+LibraSubtilis (GPLv2; all based on images by The Battle for Wesnoth Project):
+  base_inv_crafting_arrow.png -- based on: arrows_blank_right_30.png
+

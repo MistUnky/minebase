@@ -2,6 +2,8 @@ Minebase mod: Base Books
 ========================
 See license.txt for license information.
 
+This mods adds a simple type of book using the Books API. It also adds paper.
+
 Authors of source code
 ----------------------
 Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)

@@ -15,14 +15,16 @@ local tmp = {
 		"desert_sandstone_brick", "desert_sandstone_block",
 		"silver_sandstone", "silver_sandstone_brick", "silver_sandstone_block",
 	},
-	glass_stairs = {"glass","obsidian_glass"},
+	glass_stairs = {glass = "common_glass","obsidian_glass"},
 	liquid_stairs = {
 		obsidianbrick = "obsidian_brick", "obsidian", "obsidian_block", "ice", 
 		"snowblock",
 	},
 	mossy_stairs = {mossycobble = "stone_cobble"},
 	ore_stairs = { 
-		"steelblock", "tinblock", "copperblock", "bronzeblock", "goldblock"
+		steelblock = "steel_block", tinblock = "tin_block", 
+		copperblock = "copper_block", bronzeblock = "bronze_block", 
+		goldblock = "gold_block"
 	},
 	tree_stairs = {
 		wood = "apple_wood", junglewood = "jungle_wood", "pine_wood", "acacia_wood", 

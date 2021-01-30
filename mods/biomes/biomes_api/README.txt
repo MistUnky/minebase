@@ -2,6 +2,8 @@ Minebase mod: Biomes API
 ==========================
 See license.txt for license information.
 
+An API that provides registry functions for biomes.
+
 Authors of source code
 ----------------------
 Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)
