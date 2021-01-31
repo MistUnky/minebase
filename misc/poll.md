@@ -1,15 +1,16 @@
 Poll
-====
+----
 
 Every user with at least ten Posts is allowed to vote once for every mod. This 
 means you should only vote for those mods you want to be included. I am going 
 to keep track of the votes in "minebase/misc/poll.csv". In order to vote use + 
-followed by the mod name.
+followed by the mod name. You can vote for unlisted mods.
 + Modname
 
 I am going to add votes from every reply once and they are final. If you edit 
 the reply afterwards, I am not going to change the recorded votes. I also 
-won't change them on request. 
+won't change them on request. You are able to vote for different mods in 
+different replies.
 These rules are important because they make it easy to organize this long-term
 poll. 
 

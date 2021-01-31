@@ -1,0 +1,74 @@
+Minebase is a game for the Minetest Engine. It is a fork of Minetest Game and 
+thus shares many features with it, but much of the code was refactored to 
+address the discontent with it. This implies that many mods made for Minetest
+Game won't work in this game. You have to check the dependencies of the mods to
+be sure. If a mod depends on default or another mod that has been removed or 
+changed significantly, you will get error messages.  
+Similar to Minetest Game, this game is a base for modding, mods like 
+"More Trees" or "Minetest Game Plus" are not going to be added. In contrast to 
+the development of Minetest Game, I am willing to add mods with new features, 
+if the community wants them to be added. After all, you are able to remove and 
+replace mods.  
+Regarding mods, quality is more important than quantity. In case you like to mod 
+and want to contribute to this project, use the appropriate tools on Gitlab.
+
+The API as a whole should not be considered stable because some mods have not 
+been refactored yet: 
+- Binoculars
+- Boats
+- Screwdrivers
+- TNT
+- Vessels
+
+[b]Contributing[/b]
+In case you want to contribute to this game, the code should be structured 
+similar to the modpacks already included. The modpack should at least 
+consist of two mods, one that provides an API and a second mod using it.
+Registry functions that directly or indirectly rely on one of the 
+minetest.register_\* functions, should expect two arguments, the name and a 
+definition as a table.
+If you spot bugs or want to improve the code otherwise, feel free to open 
+issues.
+
+[b]Installation[/b]
+Unzip the archive, rename the folder to minebase and place it in a games folder. 
+A more extensive explanation can be found [here](https://wiki.minetest.net/Games#Installing_games).
+
+The Minetest engine can be found at [GitHub](https://github.com/minetest/minetest).
+
+[b]Compatibility[/b]
+It is possible to convert a Minetest Game world to a Minebase world, but I 
+didn't write a script to convert a Minebase world back. That is the reason why
+you should create a backup before converting your world. Keep in mind that some 
+mods made for Minetest Game, won't run with Minebase.
+This game does not support v6 and legacy.lua was dropped.
+
+[b]Poll[/b]
+Every user with at least ten Posts is allowed to vote once for every mod. This 
+means you should only vote for those mods you want to be included. I am going 
+to keep track of the votes in "minebase/misc/poll.csv". In order to vote use + 
+followed by the mod name. You can vote for unlisted mods.
++ Modname
+
+I am going to add votes from every reply once and they are final. If you edit 
+the reply afterwards, I am not going to change the recorded votes. I also 
+won't change them on request. You are able to vote for different mods in 
+different replies.
+These rules are important because they make it easy to organize this long-term
+poll. 
+
+Not every vote counts the same in this poll. The significance of your vote 
+depends on the amount of posts you have created at the time I record it. The 
+following assignments show the thresholds.
+
+Posts	→ Significance
+10	→ 1
+100	→ 2
+1000	→ 3
+10000	→ 4
+100000	→ 5
+...
+
+The amount of posts represent the time you have spent talking about Minetest.
+I want those who have been around longer and saw the development of Minetest 
+to have more influence on the outcome.

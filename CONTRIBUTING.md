@@ -7,4 +7,6 @@ consist of two mods, one that provides an API and a second mod using it.
 Registry functions that directly or indirectly rely on one of the 
 minetest.register_\* functions, should except two arguments, the name and a 
 definition as a table.
+If you spot bugs or want to improve the code otherwise, feel free to open 
+issues.
 

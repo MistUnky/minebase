@@ -14,6 +14,12 @@ Copyright (C) 2020 LibraSubtilis CC BY-SA 4.0 (based on paramats Minetest Game h
 License of menu/icon.png
 Copyright (C) 2020 LibraSubtilis CC BY-SA 4.0 (based on paramats Minetest Game header)
 
+License of menu/overlay.png
+Copyright LibraSubtilis (GPLv2; based on images by The Battle for Wesnoth Project):
+  	thick_opaque-background.png
+	thick_opaque-border-top.png
+	thick_opaque-border-topright.png
+
 
 License of source code
 ----------------------

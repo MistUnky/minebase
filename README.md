@@ -7,29 +7,21 @@ address the discontent with it. This implies that many mods made for Minetest
 Game won't work in this game. You have to check the dependencies of the mods to
 be sure. If a mod depends on default or another mod that has been removed or 
 changed significantly, you will get error messages.  
-Similar to Minetest Game, this game is a base for modding, mods like More Trees 
-or Minetest Game Plus are not going to be added. In contrast to the development 
-of Minetest Game, I am willing to add mods with new features, if the community 
-wants them to be added. After all, you are able to remove and replace mods.  
-Regarding mods quality is more important than quantity. 
-In case you like to mod yourself and want to contribute to this project, use the
-appropriate tools on Gitlab.
+Similar to Minetest Game, this game is a base for modding, mods like 
+"More Trees" or "Minetest Game Plus" are not going to be added. In contrast to 
+the development of Minetest Game, I am willing to add mods with new features, 
+if the community wants them to be added. After all, you are able to remove and 
+replace mods.  
+Regarding mods quality is more important than quantity. In case you like to mod 
+and want to contribute to this project, use the appropriate tools on Gitlab.
 
 The API as a whole should not be considered stable because some mods have not 
 been refactored yet: 
 - Binoculars
 - Boats
-- Creative
-- Dye
-- Killme
-- Maps
 - Screwdrivers
-- Sethome
-- Spawn
 - TNT
 - Vessels
-- Weather
-- Wool
 
 Contributing
 ------------
@@ -38,7 +30,7 @@ In case you want to contribute to this game, the code should be structured
 similar to the modpacks already included. The modpack should at least 
 consist of two mods, one that provides an API and a second mod using it.
 Registry functions that directly or indirectly rely on one of the 
-minetest.register_\* functions, should except two arguments, the name and a 
+minetest.register_\* functions, should expect two arguments, the name and a 
 definition as a table.
 If you spot bugs or want to improve the code otherwise, feel free to open 
 issues.
@@ -54,10 +46,10 @@ The Minetest engine can be found at [GitHub](https://github.com/minetest/minetes
 Compatibility
 -------------
 
-It is possible to convert a minetest game world to a minebase world, but I 
-didn't wrote a script to convert a minebase world back. That is the reason why
+It is possible to convert a Minetest Game world to a Minebase world, but I 
+didn't write a script to convert a Minebase world back. That is the reason why
 you should create a backup before converting your world. Keep in mind that some 
-mods made for minetest game, won't run with minebase.
+mods made for Minetest Game, won't run with Minebase.
 This game does not support v6 and legacy.lua was dropped.
 
 Versioning 
@@ -65,12 +57,13 @@ Versioning
 
 This project uses a modified version of [SemVer](https://semver.org/) for 
 version numbers. In addition to a major, minor and patch number there is a 
-year number. On every birthday this number is incremented and all other numbers 
+age number. On every birthday this number is incremented and all other numbers 
 are reset to 0 (Age.Major.Minor.Patch).
 The birthday is the day of my first commit to this repository on Nov 1 2020. It
 was a Sunday at 12:27:53 to be exact.
 
-Licensing
+Links
 ---------
 
-See `LICENSE.txt`
+- [LICENSE.txt](./LICENSE.txt)
+- [poll.md](./misc/poll.md)
