@@ -123,20 +123,20 @@ minetest.register_craftitem("base_protection:skeleton_key", {
 	inventory_image = "base_protection_key_skeleton.png",
 	on_use = function(itemstack, user, pointed_thing)
 		if pointed_thing.type ~= "node" then
-			return true
+			return itemstack
 		end
 
 		local pos = pointed_thing.under
 		local node = minetest.get_node(pos)
 
 		if not node then
-			return true
+			return itemstack
 		end
 
 		local node_reg = minetest.registered_nodes[node.name]
 		local on_skeleton_key_use = node_reg and node_reg.on_skeleton_key_use
 		if not on_skeleton_key_use then
-			return true
+			return itemstack
 		end
 		
 		-- make a new key secret in case the node callback needs it
