@@ -51,7 +51,7 @@ pterygota.register_deco("fireflies:firefly_hidden_high", {
 	decoration = "fireflies:firefly_hidden",
 })
 
-if minetest.get_modpath("farming") then
+if minetest.get_modpath("farming_api") then
 	-- bug net
 	minetest.register_tool("fireflies:bug_net", {
 		description = S("Bug Net"),

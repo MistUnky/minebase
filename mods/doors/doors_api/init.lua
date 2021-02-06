@@ -165,7 +165,7 @@ function doors.door_toggle(pos, node, clicker)
 
 	replace_old_owner_information(pos)
 
-	if clicker and not base.can_interact_with_node(clicker, pos) then
+	if clicker and not protection.can_interact_with_node(clicker, pos) then
 		return false
 	end
 
@@ -225,7 +225,7 @@ end
 
 local function can_dig_door(pos, digger)
 	replace_old_owner_information(pos)
-	return base.can_interact_with_node(digger, pos)
+	return protection.can_interact_with_node(digger, pos)
 end
 
 function doors.register(name, def)
@@ -495,7 +495,7 @@ function doors.trapdoor_toggle(pos, node, clicker)
 
 	replace_old_owner_information(pos)
 
-	if clicker and not base.can_interact_with_node(clicker, pos) then
+	if clicker and not protection.can_interact_with_node(clicker, pos) then
 		return false
 	end
 

@@ -15,7 +15,7 @@ function flowers.register_decoration(name, def)
 		decoration = def.decoration or name,
 		param2 = def.param2 or 0,
 		param2_max = def.param2_max or 3,
-		place_offset_y = def.place_offset_y or 1,
+		place_offset_y = def.place_offset_y or 0,
 	})
 end
 

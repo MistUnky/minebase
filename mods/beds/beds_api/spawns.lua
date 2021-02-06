@@ -14,24 +14,26 @@ end
 function beds.read_spawns()
 	local spawns = beds.spawn
 	local input = io.open(file, "r")
-	if input and not bkwd then
-		repeat
-			local x = input:read("*n")
-			if x == nil then
-				break
-			end
-			local y = input:read("*n")
-			local z = input:read("*n")
-			local name = input:read("*l")
-			spawns[name:sub(2)] = {x = x, y = y, z = z}
-		until input:read(0) == nil
-		io.close(input)
-	elseif input and bkwd then
-		beds.spawn = minetest.deserialize(input:read("*all"))
-		input:close()
-		beds.save_spawns()
-		os.rename(file, file .. ".backup")
-		file = org_file
+	if input then
+		if not bkwd then
+			repeat
+				local x = input:read("*n")
+				if x == nil then
+					break
+				end
+				local y = input:read("*n")
+				local z = input:read("*n")
+				local name = input:read("*l")
+				spawns[name:sub(2)] = {x = x, y = y, z = z}
+			until input:read(0) == nil
+			io.close(input)
+		else
+			beds.spawn = minetest.deserialize(input:read("*all"))
+			input:close()
+			beds.save_spawns()
+			os.rename(file, file .. ".backup")
+			file = org_file
+		end
 	end
 end
 

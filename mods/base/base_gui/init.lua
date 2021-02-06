@@ -1,19 +1,36 @@
 -- base_gui/init.lua
 
--- GUI related stuff
-minetest.register_on_joinplayer(function(player)
-	-- Set formspec prepend
-	local formspec = [[
-			bgcolor[#080808BB;true]
-			listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF] ]]
-	local name = player:get_player_name()
-	local info = minetest.get_player_information(name)
-	if info.formspec_version > 1 then
+base.listcolors = {
+	slot_bg_normal = "#032B44",
+	slot_bg_hover = "#004E6C", 
+	slot_border = "#A9945E", 
+	tooltip_bgcolor = "#88C7F0", 
+	tooltip_fontcolor = "#FFFFFF"
+}
+
+function base.create_listcolors(lc)
+	return "bgcolor[#080808BB;true]\z
+		listcolors[" .. lc.slot_bg_normal .. ";" .. lc.slot_bg_hover .. ";" 
+		.. lc.slot_border .. ";" .. lc.tooltip_bgcolor .. ";" 
+		.. lc.tooltip_fontcolor .. "]"
+end
+
+base.listcolorsString = base.create_listcolors(base.listcolors)
+function base.create_prepend(player, lc)
+	local formspec = lc and base.create_listcolors(lc) or base.listcolorsString
+
+	if minetest.get_player_information(player:get_player_name())
+		.formspec_version > 1 then
 		formspec = formspec .. "background9[5,5;1,1;base_gui_formbg.png;true;10]"
 	else
 		formspec = formspec .. "background[5,5;1,1;base_gui_formbg.png;true]"
 	end
-	player:set_formspec_prepend(formspec)
+	return formspec
+end
+
+minetest.register_on_joinplayer(function(player)
+	-- Set formspec prepend
+	player:set_formspec_prepend(base.create_prepend(player))
 
 	-- Set hotbar textures
 	player:hud_set_hotbar_image("base_gui_hotbar.png")
@@ -23,7 +40,7 @@ end)
 function base.get_hotbar_bg(x,y)
 	local out = ""
 	for i=0,7,1 do
-		out = out .."image["..x+i..","..y..";1,1;base_gui_hb_bg.png]"
+		out = out .. "image[" .. x + i .. "," .. y .. ";1,1;base_gui_hb_bg.png]"
 	end
 	return out
 end

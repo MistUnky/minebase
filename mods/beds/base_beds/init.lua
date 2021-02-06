@@ -7,24 +7,22 @@ local S = minetest.get_translator("base_beds")
 
 beds.register_bed("base_beds:bed", {
 	description = S("Simple Bed"),
-	inventory_image = "base_beds_inventory.png",
-	wield_image = "base_beds_inventory.png",
 	tiles = {
 		bottom = {
-			"base_beds_top_bottom.png^[transformR90",
-			"base_beds_under.png",
-			"base_beds_side_bottom_r.png",
-			"base_beds_side_bottom_r.png^[transformfx",
-			"base_beds_transparent.png",
-			"base_beds_side_bottom.png"
+			"base_beds_bed_top_bottom.png^[transformR90",
+			"base_beds_bed_under.png",
+			"base_beds_bed_side_bottom_r.png",
+			"base_beds_bed_side_bottom_r.png^[transformfx",
+			"base_beds_bed_transparent.png",
+			"base_beds_bed_side_bottom.png"
 		},
 		top = {
-			"base_beds_top_top.png^[transformR90",
-			"base_beds_under.png",
-			"base_beds_side_top_r.png",
-			"base_beds_side_top_r.png^[transformfx",
-			"base_beds_side_top.png",
-			"base_beds_transparent.png",
+			"base_beds_bed_top_top.png^[transformR90",
+			"base_beds_bed_under.png",
+			"base_beds_bed_side_top_r.png",
+			"base_beds_bed_side_top_r.png^[transformfx",
+			"base_beds_bed_side_top.png",
+			"base_beds_bed_transparent.png",
 		}
 	},
 	nodebox = {

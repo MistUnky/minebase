@@ -1,0 +1,60 @@
+m	manipulating
+ic	independently calculating
+dc	dependently calculating
+
+base/__builtin/init.lua
+	set_item,	m,
+	burn_up,	m,
+	on_step,	m,
+
+base/base_api/init.lua
+	.register_craft14,		m
+	.register_craft44,		m
+	.register_craft19,		m
+	.register_craft99,		m
+	.get_inventory_drops,		m
+
+base/base_gui/init.lua
+	.create_listcolors,		ic
+	.create_prepend,		dc
+	on_joinplayer,			m
+	.get_hotbar_bg,			ic
+
+base/base_protection/init.lua
+	.generate_secret		dc
+	.create_key			m
+	.correct_key			dc/m
+	.can_interact_with_node		dc/m
+	"key" on_place,			m
+	"skeleton_key" on_use,		m
+
+beds/beds_api/api.lua
+	.get_other_pos,			dc
+	.destruct_bed,			m
+	on_rightclick,			m
+	on_place,			m
+	on_rotate,			m
+	can_dig,			dc
+	top_can_dig,			dc
+
+beds/beds_api/functions.lua 
+	get_look_yaw,			dc
+	is_night_skip_enabled,		m
+	check_in_beds,			dc
+	lay_down,			m
+	get_player_in_bed_count,	dc
+	update_formspecs,		m
+	.kick_players,			m
+	.skip_night,			m
+	.on_rightclick,			m
+	.can_dig,			dc
+	on_respawnplayer,		dc
+	on_leaveplayer,			m
+	on_dieplayer,			m
+	on_player_receive_fields,	m
+
+beds/beds_api/spawn.lua
+	.read_spawns,			m
+	.save_spawns,			m
+	.set_spawns,			m
+	.remove_spawns_at,		m

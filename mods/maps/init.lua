@@ -4,6 +4,7 @@
 
 maps = {}
 
+minetest.register_alias("map:mapping_kit", "maps:mapping_kit")
 
 -- Load support for Minebase translation.
 local S = minetest.get_translator("maps")

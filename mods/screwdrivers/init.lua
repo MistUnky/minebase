@@ -5,6 +5,7 @@ screwdrivers = {}
 -- Load support for Minebase translation.
 local S = minetest.get_translator("screwdrivers")
 
+minetest.register_alias("screwdriver:screwdriver", "screwdrivers:screwdriver")
 
 screwdrivers.ROTATE_FACE = 1
 screwdrivers.ROTATE_AXIS = 2

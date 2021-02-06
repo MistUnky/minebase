@@ -2,6 +2,82 @@
 
 local S = minetest.get_translator("base_protection")
 
+protection = {}
+
+function protection.generate_secret()
+	local random = math.random
+	return string.format("%04x%04x%04x%04x",
+		random(2^16) - 1, random(2^16) - 1,
+		random(2^16) - 1, random(2^16) - 1)
+end
+
+function protection.create_key(itemstack, user, name, secret)
+	local inv = minetest.get_inventory({type="player", 
+		name=user:get_player_name()})
+
+	-- update original itemstack
+	itemstack:take_item()
+
+	-- finish and return the new key
+	local new_stack = ItemStack("base_protection:key")
+	local meta = new_stack:get_meta()
+	meta:set_string("secret", secret)
+	meta:set_string("description", S("Key to @1's @2", user:get_player_name(),
+		minetest.registered_nodes[name].description))
+
+	if itemstack:get_count() == 0 then
+		itemstack = new_stack
+	else
+		if inv:add_item("main", new_stack):get_count() > 0 then
+			minetest.add_item(user:get_pos(), new_stack)
+		end -- else: added to inventory successfully
+	end
+	return itemstack
+end
+
+function protection.correct_key(item, secret)
+	if minetest.get_item_group(item:get_name(), "key") == 1 then
+		local key_meta = item:get_meta()
+
+		if key_meta:get_string("secret") == "" then
+			local key_oldmeta = item:get_metadata()
+			if key_oldmeta == "" or not minetest.parse_json(key_oldmeta) then
+				return false
+			end
+
+			key_meta:set_string("secret", minetest.parse_json(key_oldmeta).secret)
+			item:set_metadata("")
+		end
+
+		return secret == key_meta:get_string("secret")
+	end
+end
+
+function protection.can_interact_with_node(player, pos)
+	if player and player:is_player() then
+		if minetest.check_player_privs(player, "protection_bypass") then
+			return true
+		end
+	else
+		return false
+	end
+
+	local meta = minetest.get_meta(pos)
+	local owner = meta:get_string("owner")
+
+	if not owner or owner == "" or owner == player:get_player_name() then
+		return true
+	end
+
+	-- Is player wielding the right key?
+	if protection.correct_key(player:get_wielded_item(), 
+		meta:get_string("key_lock_secret")) then
+		return true
+	end
+
+	return false
+end
+
 minetest.register_tool("base_protection:key", {
 	description = S("Key"),
 	inventory_image = "base_protection_key.png",
@@ -47,53 +123,27 @@ minetest.register_craftitem("base_protection:skeleton_key", {
 	inventory_image = "base_protection_key_skeleton.png",
 	on_use = function(itemstack, user, pointed_thing)
 		if pointed_thing.type ~= "node" then
-			return itemstack
+			return true
 		end
 
 		local pos = pointed_thing.under
 		local node = minetest.get_node(pos)
 
 		if not node then
-			return itemstack
+			return true
 		end
 
 		local node_reg = minetest.registered_nodes[node.name]
 		local on_skeleton_key_use = node_reg and node_reg.on_skeleton_key_use
 		if not on_skeleton_key_use then
-			return itemstack
+			return true
 		end
-
+		
 		-- make a new key secret in case the node callback needs it
-		local random = math.random
-		local newsecret = string.format(
-			"%04x%04x%04x%04x",
-			random(2^16) - 1, random(2^16) - 1,
-			random(2^16) - 1, random(2^16) - 1)
-
-		local secret, _, _ = on_skeleton_key_use(pos, user, newsecret)
+		local secret = on_skeleton_key_use(pos, user, protection.generate_secret())
 
 		if secret then
-			local inv = minetest.get_inventory({type="player", name=user:get_player_name()})
-
-			-- update original itemstack
-			itemstack:take_item()
-
-			-- finish and return the new key
-			local new_stack = ItemStack("base_protection:key")
-			local meta = new_stack:get_meta()
-			meta:set_string("secret", secret)
-			meta:set_string("description", S("Key to @1's @2", user:get_player_name(),
-				minetest.registered_nodes[node.name].description))
-
-			if itemstack:get_count() == 0 then
-				itemstack = new_stack
-			else
-				if inv:add_item("main", new_stack):get_count() > 0 then
-					minetest.add_item(user:get_pos(), new_stack)
-				end -- else: added to inventory successfully
-			end
-
-			return itemstack
+			return protection.create_key(itemstack, user, node.name, secret)
 		end
 	end
 })
@@ -124,45 +174,4 @@ minetest.register_craft({
 })
 
 
---
--- NOTICE: This method is not an official part of the API yet.
--- This method may change in future.
---
-
-function base.can_interact_with_node(player, pos)
-	if player and player:is_player() then
-		if minetest.check_player_privs(player, "protection_bypass") then
-			return true
-		end
-	else
-		return false
-	end
-
-	local meta = minetest.get_meta(pos)
-	local owner = meta:get_string("owner")
-
-	if not owner or owner == "" or owner == player:get_player_name() then
-		return true
-	end
-
-	-- Is player wielding the right key?
-	local item = player:get_wielded_item()
-	if minetest.get_item_group(item:get_name(), "key") == 1 then
-		local key_meta = item:get_meta()
-
-		if key_meta:get_string("secret") == "" then
-			local key_oldmeta = item:get_metadata()
-			if key_oldmeta == "" or not minetest.parse_json(key_oldmeta) then
-				return false
-			end
-
-			key_meta:set_string("secret", minetest.parse_json(key_oldmeta).secret)
-			item:set_metadata("")
-		end
-
-		return meta:get_string("key_lock_secret") == key_meta:get_string("secret")
-	end
-
-	return false
-end
 
