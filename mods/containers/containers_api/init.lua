@@ -46,7 +46,7 @@ function containers.create_formspec(inventory1, def)
 				"8,3;8]",
 			"listring[", inventory1, ";", def.list1 or "main", "]",
 			"listring[current_player;main]",
-			base.get_hotbar_bg(def.x2 or 0, def.y2 or 4.85),
+			formspecs.get_hotbar_bg(def.x2 or 0, def.y2 or 4.85),
 			def.overlay or ""
 		})
 	else
@@ -57,7 +57,7 @@ function containers.create_formspec(inventory1, def)
 			list[current_player;main;0,6.08;8,3;8]\z
 			listring[", inventory1, ";main]\z
 			listring[current_player;main]",
-			base.get_hotbar_bg(0, 4.85)
+			formspecs.get_hotbar_bg(0, 4.85)
 		})
 	end
 end
@@ -206,12 +206,12 @@ end
 function containers.protected.can_dig(pos, player)
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	return minetest.get_meta(pos):get_inventory():is_empty(node_def.formspec_def
-		and node_def.formspec_def.list1 or "main") and protection.can_interact_with_node(
+		and node_def.formspec_def.list1 or "main") and permissions.can_interact_with_node(
 		player, pos)
 end
 
 function containers.protected.on_rightclick(pos, node, clicker, itemstack)
-	if not protection.can_interact_with_node(clicker, pos) then
+	if not permissions.can_interact_with_node(clicker, pos) then
 		return itemstack
 	end
 	local node_def = minetest.registered_nodes[node.name]
@@ -233,7 +233,7 @@ function containers.protected.on_blast() end
 
 function containers.protected.allow_metadata_inventory_move(pos, _, _, _ , _, 
 	count, player)
-	if not protection.can_interact_with_node(player, pos) then
+	if not permissions.can_interact_with_node(player, pos) then
 		return 0
 	end
 	return count
@@ -241,7 +241,7 @@ end
 
 function containers.protected.allow_metadata_inventory_put(pos, _, _, stack, 
 	player)
-	if protection.can_interact_with_node(player, pos) then
+	if permissions.can_interact_with_node(player, pos) then
 		local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 		if node_def.allowed_item_group then
 			if minetest.get_item_group(stack:get_name(), node_def.allowed_item_group) 
@@ -257,7 +257,7 @@ end
 
 function containers.protected.allow_metadata_inventory_take(pos, _, _, stack, 
 	player)
-	if not protection.can_interact_with_node(player, pos) then
+	if not permissions.can_interact_with_node(player, pos) then
 		return 0
 	end
 	return stack:get_count()

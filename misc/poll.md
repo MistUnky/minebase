@@ -19,11 +19,11 @@ depends on the amount of posts you have created at the time I record it. The
 following table shows the thresholds.
 
 Posts	| Significance
---------|--------------
-    10	| 1
-   100	| 2
-  1000	| 3
- 10000	| 4
+-------:|-------------:
+10	| 1
+100	| 2
+1000	| 3
+10000	| 4
 100000	| 5
 ...	| ...
 

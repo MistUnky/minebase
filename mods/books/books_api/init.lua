@@ -3,31 +3,37 @@
 -- Load support for Minebase translation.
 local S = minetest.get_translator("base_books")
 
-books = {}
-books.form = {}
+books = {form = {}}
 
+function books.get_lines(text)
+	local lines = {}
+	for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
+		lines[#lines+1] = str
+	end
+	return lines
+end
+
+--TODO
 local lpp = 14 -- Lines per book's page
+function books.page_content(data)
+	local lines = books.get_lines(data.text)
+	return table.concat(lines, "\n", ((lpp * data.page) - lpp) + 1, 
+		math.min(lpp * data.page, #lines)) .. "\n"
+end
+
 function books.create_formspec(player_name, data)
 	local title, text, owner = "", "", player_name
-	local page, page_max, lines, string = 1, 1, {}, ""
+	local page, page_max, string = 1, 1, ""
 
 	if data.owner then
 		title = data.title
 		text = data.text
 		owner = data.owner
 
-		for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
-			lines[#lines+1] = str
-		end
-
 		if data.page then
 			page = data.page
 			page_max = data.page_max
-
-			for i = ((lpp * page) - lpp) + 1, lpp * page do
-				if not lines[i] then break end
-				string = string .. lines[i] .. "\n"
-			end
+			string = books.page_content(data)
 		end
 	end
 

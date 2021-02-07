@@ -17,11 +17,8 @@ and want to contribute to this project, use the appropriate tools on Gitlab.
 
 The API as a whole should not be considered stable because some mods have not 
 been refactored yet: 
-- Binoculars
 - Boats
-- Screwdrivers
 - TNT
-- Vessels
 
 Installation
 ------------

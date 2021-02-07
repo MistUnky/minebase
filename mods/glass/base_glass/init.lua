@@ -14,3 +14,14 @@ glass.register_glass("base_glass:obsidian", {
 	input = "base_liquids:obsidian_shard"
 })
 
+minetest.register_craftitem("base_glass:glass_fragments", {
+	description = S("Glass Fragments"),
+	inventory_image = "base_glass_glass_fragments.png",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "base_glass:common",
+	recipe = "base_glass:glass_fragments",
+})
+
