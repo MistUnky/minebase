@@ -140,6 +140,7 @@ function beds.register_bed(name, def)
 		wield_image = def.wield_image or txt .. "_inventory.png",
 		drawtype = "nodebox",
 		tiles = def.tiles.bottom,
+		use_texture_alpha = "clip",
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -166,6 +167,7 @@ function beds.register_bed(name, def)
 	minetest.register_node(name .. "_top", {
 		drawtype = "nodebox",
 		tiles = def.tiles.top,
+		use_texture_alpha = "clip",
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,

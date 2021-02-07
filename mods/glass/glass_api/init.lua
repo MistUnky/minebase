@@ -9,6 +9,7 @@ function glass.register_glass(name, def)
 		description = def.description or txt,
 		drawtype = def.drawtype or "glasslike_framed_optional",
 		tiles = def.tiles or {txt .. "_glass.png", txt .. "_glass_detail.png"},
+		use_texture_alpha = "clip", -- only needed for stairs API
 		paramtype = "light",
 		paramtype2 = def.paramtype2 or "glasslikeliquidlevel",
 		sunlight_propagates = true,

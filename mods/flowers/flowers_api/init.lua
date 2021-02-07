@@ -199,6 +199,7 @@ function flowers.register_waterlily(name, def)
 		tiles = def.tiles,
 		inventory_image = def.tiles[1],
 		wield_image = def.tiles[1],
+		use_texture_alpha = "clip",
 		liquids_pointable = true,
 		walkable = false,
 		buildable_to = true,

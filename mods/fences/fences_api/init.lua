@@ -155,6 +155,7 @@ function fences.register_mesepost(name, def)
 		paramtype = "light",
 		tiles = def.tiles or {def.texture, def.texture, texture_dark, texture_dark, 
 			texture, texture},
+		use_texture_alpha = "opaque",
 		light_source = def.light_source or fences.LIGHT_MAX,
 		sunlight_propagates = true,
 		is_ground_content = false,

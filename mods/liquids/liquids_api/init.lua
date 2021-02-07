@@ -39,7 +39,7 @@ function liquids.register_liquid_node(name, def)
 		waving = def.waving,
 		tiles = def.tiles or tiles,
 		special_tiles = def.special_tiles or special_tiles,
-		alpha = def.alpha or 176,
+		use_texture_alpha = def.use_texture_alpha or "blend",
 		paramtype = "light",
 		walkable = false,
 		pointable = false,

@@ -83,11 +83,13 @@ function stairs.register_stair(name, def)
 	local groups = table.copy(def.groups)
 	groups.stair = 1
 	name = name .. "_stair"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.stair_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -183,11 +185,13 @@ function stairs.register_slab(name, def)
 	local groups = table.copy(def.groups)
 	groups.slab = 1
 	name = name .. "_slab"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.slab_description,
 		drawtype = "nodebox",
 		tiles = slab_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -227,11 +231,13 @@ function stairs.register_inner_stair(name, def)
 	local groups = table.copy(def.groups)
 	groups.stair = 1
 	name = name  .. "_inner_stair"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.inner_stair_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -267,11 +273,13 @@ function stairs.register_outer_stair(name, def)
 	local groups = table.copy(def.groups)
 	groups.stair = 1
 	name = name .. "_outer_stair"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.outer_stair_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -312,11 +320,13 @@ function stairs.register_step(name, def)
 	local groups = table.copy(def.groups)
 	groups.slab = 1
 	name = name .. "_step"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.step_description,
 		drawtype = "nodebox",
 		tiles = slab_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -340,11 +350,13 @@ function stairs.register_outer_step(name, def)
 	local groups = table.copy(def.groups)
 	groups.slab = 1
 	name = name .. "_outer_step"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.outer_step_description,
 		drawtype = "nodebox",
 		tiles = slab_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -368,11 +380,13 @@ function stairs.register_inner_step(name, def)
 	local groups = table.copy(def.groups)
 	groups.slab = 1
 	name = name .. "_inner_step"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.inner_step_description,
 		drawtype = "nodebox",
 		tiles = slab_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -399,11 +413,13 @@ function stairs.register_steps(name, def)
 	local groups = table.copy(def.groups)
 	groups.stair = 1
 	name = name .. "_steps"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.steps_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -429,11 +445,13 @@ function stairs.register_steps_half(name, def)
 	local groups = table.copy(def.groups)
 	groups.stair = 1
 	name = name .. "_steps_half"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.steps_half_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -460,11 +478,13 @@ function stairs.register_steps_slab(name, def)
 	local groups = table.copy(def.groups)
 	groups.stair = 1
 	name = name  .. "_steps_slab"
+	local mat_def = minetest.registered_nodes[material]
 
 	minetest.register_node(name, {
 		description = def.description or def.steps_slab_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
+		use_texture_alpha = mat_def and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
