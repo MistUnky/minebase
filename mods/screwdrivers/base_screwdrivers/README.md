@@ -13,4 +13,7 @@ License of media (textures)
 ```txt
 Created by Gambit (CC BY-SA 3.0):
   base_screwdrivers_screwdriver.png
+
+Created by LibraSubtilis (CC BY-SA 4.0):
+  base_screwdrivers_exzet.png	-- based on base_screwdrivers_screwdriver.png
 ```

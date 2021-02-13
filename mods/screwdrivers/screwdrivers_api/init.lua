@@ -1,5 +1,9 @@
 -- screwdrivers/init.lua
 
+--Values range 0 - 23
+--facedir / 4 = axis direction:
+--0 = y+,   1 = z+,   2 = z-,   3 = x+,   4 = x-,   5 = y-
+--facedir modulo 4 = rotation around that axis
 screwdrivers = {ROTATE_FACE = 1, ROTATE_AXIS = 2}
 
 -- Load support for Minebase translation.
@@ -21,21 +25,21 @@ end
 screwdrivers.rotate = {}
 
 local facedir_tbl = {
-	[screwdrivers.ROTATE_FACE] = {
-		[0] = 1, [1] = 2, [2] = 3, [3] = 0,
-		[4] = 5, [5] = 6, [6] = 7, [7] = 4,
-		[8] = 9, [9] = 10, [10] = 11, [11] = 8,
-		[12] = 13, [13] = 14, [14] = 15, [15] = 12,
-		[16] = 17, [17] = 18, [18] = 19, [19] = 16,
-		[20] = 21, [21] = 22, [22] = 23, [23] = 20,
+	[screwdrivers.ROTATE_FACE] = { [0] = 
+		 1,   2,   3,   0,
+		 5,   6,   7,   4,
+		 9,  10,  11,   8,
+		13,  14,  15,  12,
+		17,  18,  19,  16,
+		21,  22,  23,  20,
 	},
-	[screwdrivers.ROTATE_AXIS] = {
-		[0] = 4, [1] = 4, [2] = 4, [3] = 4,
-		[4] = 8, [5] = 8, [6] = 8, [7] = 8,
-		[8] = 12, [9] = 12, [10] = 12, [11] = 12,
-		[12] = 16, [13] = 16, [14] = 16, [15] = 16,
-		[16] = 20, [17] = 20, [18] = 20, [19] = 20,
-		[20] = 0, [21] = 0, [22] = 0, [23] = 0,
+	[screwdrivers.ROTATE_AXIS] = { [0] = 
+		 4,  4,  4,  4,
+		 8,  8,  8,  8,
+		12, 12, 12, 12,
+		16, 16, 16, 16,
+		20, 20, 20, 20,
+		 0,  0,  0,  0,
 	},
 }
 
@@ -49,8 +53,8 @@ end
 screwdrivers.rotate.colorfacedir = screwdrivers.rotate.facedir
 
 local wallmounted_tbl = {
-	[screwdrivers.ROTATE_FACE] = {[2] = 5, [3] = 4, [4] = 2, [5] = 3, [1] = 0, [0] = 1},
-	[screwdrivers.ROTATE_AXIS] = {[2] = 5, [3] = 4, [4] = 2, [5] = 1, [1] = 0, [0] = 3}
+	[screwdrivers.ROTATE_FACE] = {[0] = 1, 0, 5,  4,  2,  3},
+	[screwdrivers.ROTATE_AXIS] = {[0] = 3, 0, 5,  4,  2,  1}
 }
 
 function screwdrivers.rotate.wallmounted(pos, node, mode)
@@ -135,46 +139,106 @@ function screwdrivers.handler(itemstack, user, pointed_thing, mode, uses)
 	return itemstack
 end
 
---[[
-local radians = 6.283185
-local new = {
-	w = {[0] = 7, 4, 5, 6,
-		21, 22, 23, 20,
-		 3, 0, 1, 2
-	}
+local xz = {
+	{ [0] = 
+		 4,  5,  6,  7,
+		22, 23, 20, 21,
+		 0,  1,  2,  3,
+		13, 14, 15, 12,
+		19, 16, 17, 18,
+		10, 11,  8,  9
+	},
+	{ [0] = 
+		12, 13, 14, 15,
+		 7,  4,  5,  6,
+		 9, 10, 11,  8,
+		20, 21, 22, 23,
+		 0,  1,  2,  3,
+		16, 17, 18, 19
+	},
+	{ [0] = 
+		 8,  9, 10, 11,
+		 0,  1,  2,  3,
+		22, 23, 20, 21,
+		15, 12, 13, 14,
+		17, 18, 19, 16,
+		 6,  7,  4,  5,
+	},
+	{ [0] = 
+		16, 17, 18, 19,
+		 5,  6,  7,  4,
+		11,  8,  9, 10,
+		 0,  1,  2,  3,
+		20, 21, 22, 23,
+		12, 13, 14, 15,
+	},
 }
-function screwdrivers.abc(itemstack, user, pointed_thing, button)
+
+local function xzParam2(user, button, param2)
+	local yaw = user:get_look_horizontal()
+	local rotation = param2 % 32
+	if user:get_player_control().aux1 then
+		yaw = (yaw + 3.141593) % 6.283185
+	end
+
+	if button == 1 then
+		if yaw < 1.570796 then
+			param2 = param2 - rotation + xz[1][rotation]
+		elseif yaw < 3.141593 then
+			param2 = param2 - rotation + xz[4][rotation]
+		elseif yaw < 4.712389 then
+			param2 = param2 - rotation + xz[3][rotation]
+		else
+			param2 = param2 - rotation + xz[2][rotation]
+		end
+	else
+		if yaw < 1.570796 then
+			param2 = param2 - rotation + xz[4][rotation]
+		elseif yaw < 3.141593 then
+			param2 = param2 - rotation + xz[3][rotation]
+		elseif yaw < 4.712389 then
+			param2 = param2 - rotation + xz[2][rotation]
+		else
+			param2 = param2 - rotation + xz[1][rotation]
+		end
+	end
+
+	return param2
+end
+
+function screwdrivers.exzet(itemstack, user, pointed_thing, button)
 	if pointed_thing.type ~= "node" then
 		return
 	end
 
 	local pos = pointed_thing.under
-	local node = minetest.get_node(pos)
-	local new_param2 
-	local yaw = user:get_look_horizontal()
+	local player_name = user and user:get_player_name() or ""
 
-		--index 0 bis 24
-	if button == 1 then
-		local rotation = node.param2 % 32
-		print(rotation)
-		local dir = yaw >= 0 and yaw < 3.141593 and "w" or "e"
-		if dir == "w" then
-			new_param2 = node.param2 - rotation + facedir_tbl[1][new.w[rotation] or 0]
-		else
-			new_param2 = node.param2 - rotation + 11
-			--TODO
-		end
-	else
-		local dir = yaw >= 1.570796 and yaw < 4.712389 and "s" or "n"
-		if dir == "s" then
-		else
-		end
+	if minetest.is_protected(pos, player_name) then
+		minetest.record_protection_violation(pos, player_name)
+		return
 	end
-	print(yaw, dir)
-	node.param2 = new_param2
+
+	local node = minetest.get_node(pos)
+	local ndef = minetest.registered_nodes[node.name]
+	if not ndef then
+		return itemstack
+	end
+
+	if ndef.on_rotate then
+		return itemstack
+	end
+
+	node.param2 = xzParam2(user, button, node.param2)
 	minetest.swap_node(pos, node)
+	minetest.check_for_falling(pos)
+
+	if not minetest.is_creative_enabled(player_name) then
+		itemstack:add_wear(65535 / ((uses or 200) - 1))
+	end
+
+	return itemstack
 end
---]]
 
 function screwdrivers.register_screwdriver(name, def)
 	local txt = name:gsub(":", "_")

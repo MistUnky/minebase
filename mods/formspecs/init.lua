@@ -4,7 +4,7 @@ formspecs = {listcolors = {
 	slot_bg_normal = "#032B44",
 	slot_bg_hover = "#004E6C", 
 	slot_border = "#A9945E", 
-	tooltip_bgcolor = "#88C7F0", 
+	tooltip_bgcolor = "#577F99", 
 	tooltip_fontcolor = "#FFFFFF"
 }}
 

@@ -3,7 +3,6 @@
 -- Load support for Minebase translation.
 local S = minetest.get_translator("base_screwdrivers")
 
--- Screwdriver
 screwdrivers.register_screwdriver("base_screwdrivers:screwdriver", {
 	description = S("Screwdriver") .. "\n" .. S("(left-click rotates face, right\z
 		-click rotates axis)"),
@@ -23,20 +22,20 @@ screwdrivers.register_screwdriver("base_screwdrivers:screwdriver", {
 	}
 })
 
-
---[[TODO
-screwdrivers.register_screwdriver("base_screwdrivers:abc", {
-	description = S("abc") .. "\n" .. S("(left-click , right\z
-		-click )"),
+screwdrivers.register_screwdriver("base_screwdrivers:exzet", {
+	description = S("Exzet") .. "\n" .. S("(left-click push from left, right-click \z
+		push from right\n Aux + left-click pull to left, Aux + right-click pull \z
+		to right)"),
 	on_use = function(itemstack, user, pointed_thing)
-		print("use")
-		screwdrivers.abc(itemstack, user, pointed_thing, 1)
+		screwdrivers.exzet(itemstack, user, pointed_thing, 1)
 		return itemstack
 	end,
 	on_place = function(itemstack, user, pointed_thing)
-		print("place")
-		screwdrivers.abc(itemstack, user, pointed_thing, 2)
+		screwdrivers.exzet(itemstack, user, pointed_thing, 2)
 		return itemstack
 	end,
+	recipe = {
+		{"base_ores:gold_ingot"},
+		{"group:stick"}
+	}
 })
---]]
