@@ -13,7 +13,6 @@ function books.get_lines(text)
 	return lines
 end
 
---TODO
 local lpp = 14 -- Lines per book's page
 function books.page_content(data)
 	local lines = books.get_lines(data.text)

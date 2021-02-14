@@ -1,18 +1,33 @@
 -- formspecs/init.lua
 
 formspecs = {listcolors = {
-	slot_bg_normal = "#032B44",
-	slot_bg_hover = "#004E6C", 
-	slot_border = "#A9945E", 
-	tooltip_bgcolor = "#577F99", 
-	tooltip_fontcolor = "#FFFFFF"
-}}
+		slot_bg_normal = "#032B44",
+		slot_bg_hover = "#004E6C", 
+		slot_border = "#A9945E", 
+		tooltip_bgcolor = "#577F99", 
+		tooltip_fontcolor = "#FFFFFF"
+	},
+	rect_buttons = {
+		bgimg = "style_type[image_button;bgimg=formspecs_button_background.png]",
+		bgimg_hovered = "style_type[image_button:hovered;bgimg=formspecs_button_background_hovered.png]",
+		bgimg_pressed = "style_type[image_button:pressed;bgimg=formspecs_button_background_pressed.png]"
+	}
+}
 
 function formspecs.create_listcolors(lc)
 	return "bgcolor[#080808BB;true]\z
 		listcolors[" .. lc.slot_bg_normal .. ";" .. lc.slot_bg_hover .. ";" 
 		.. lc.slot_border .. ";" .. lc.tooltip_bgcolor .. ";" 
 		.. lc.tooltip_fontcolor .. "]"
+end
+
+function formspecs.create_rect_button_style(style)
+	local out = ""
+	style = style or formspecs.rect_buttons
+	for _, val in pairs(style) do
+		out = out .. val
+	end
+	return out
 end
 
 formspecs.listcolorsString = formspecs.create_listcolors(formspecs.listcolors)

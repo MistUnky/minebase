@@ -15,9 +15,7 @@ replace mods.
 Regarding mods quality is more important than quantity. In case you like to mod 
 and want to contribute to this project, use the appropriate tools on Gitlab.
 
-The API as a whole should not be considered stable because some mods have not 
-been refactored yet: 
-- Boats (WIP)
+The API is mostly stable, but I am refining the code right now.
 
 Installation
 ------------

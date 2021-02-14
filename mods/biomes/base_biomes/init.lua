@@ -40,6 +40,7 @@ biomes.register_biome_set("base_biomes:icesheet", {
 
 biomes.register_biome("base_biomes:tundra_highland", {
 	node_dust = "base_liquids:snow",
+	node_top = "base_earth:permafrost_with_stones",
 	node_riverbed = "base_earth:gravel",
 	y_min = 47,
 	heat_point = 0,

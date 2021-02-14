@@ -13,16 +13,12 @@ function biomes.define_default(def)
 	biomes.stone_cobble_stair = def.stone_cobble_stair 
 end
 
---
--- Biomes
---
-
 function biomes.register_biome(name, def)
 	minetest.register_biome({
 		name = name,
 		node_dust = def.node_dust,
 		node_top = def.node_top,
-		depth_top = 1,
+		depth_top = def.depth_top or 1,
 		node_filler = def.node_filler,
 		depth_filler = def.depth_filler or 3,
 		node_stone = def.node_stone,
@@ -64,7 +60,7 @@ function biomes.register_biome_set(name, def)
 		def.ocean.heat_point = def.ocean.heat_point or def.surface.heat_point
 		def.ocean.humidity_point = def.ocean.humidity_point or def.surface
 			.humidity_point
-		biomes.register_ocean(name, def)
+		biomes.register_ocean(name, def.ocean)
 	end
 
 	if def.under then
@@ -74,10 +70,6 @@ function biomes.register_biome_set(name, def)
 		biomes.register_under(name, def.under)
 	end
 end
-
---
--- Ores
---
 
 function biomes.register_stratum(name, def)
 	minetest.register_ore({

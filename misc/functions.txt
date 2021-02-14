@@ -3,104 +3,101 @@ dc	dependently calculating
 ic	independently calculating
 m	manipulating
 mc	manipulating and calculating
-
+r	reading from filesystem
+w	writing to filesystem
 
 ## __builtin -------------------------------------------------------------------
 __builtin/init.lua
-item
-	.set_item,			m,
-	.burn_up,			m,
-	.on_step,			m,
+  item
+    .set_item,				m,
+    .burn_up,				m,
+    .on_step,				m,
 
 ## Base ------------------------------------------------------------------------
 base/init.lua
-base
-	.register_craft14,		m
-	.register_craft44,		m
-	.register_craft19,		m
-	.register_craft99,		m
-	.get_inventory_drops,		m
+  base
+    .register_craft14,			m
+    .register_craft44,			m
+    .register_craft19,			m
+    .register_craft99,			m
+    .get_inventory_drops,		m
 
 ## Beds ------------------------------------------------------------------------
 beds/beds_api/api.lua
-local
-	on_rightclick,			mc
-	can_dig,			dc
-	top_can_dig,			dc
-beds
-	.get_other_pos,			dc
-	.destruct_bed,			m
-	.on_place,			mc
-	.on_rotate,			mc
+  local
+    on_rightclick,			mc
+    can_dig,				dc
+    top_can_dig,			dc
+  beds
+    .get_other_pos,			dc
+    .destruct_bed,			m
+    .on_place,				mc
+    .on_rotate,				mc
+    .register_bed,			m
 
 beds/beds_api/functions.lua 
-local
-	get_look_yaw,			dc
-	is_night_skip_enabled,		dc
-	check_in_beds,			dc
-	lay_down,			m
-	get_player_in_bed_count,	dc
-	update_formspecs,		m
-beds
-	.kick_players,			m
-	.skip_night,			m
-	.on_rightclick,			m
-	.can_dig,			dc
-callbacks
-	on_respawnplayer,		mc
-	on_leaveplayer,			m
-	on_dieplayer,			m
-	on_player_receive_fields,	m
+  local
+    get_look_yaw,			dc
+    is_night_skip_enabled,		dc
+    update_formspecs,			m
+  beds
+    .check_in_beds,			dc
+    .lay_down,				m
+    .get_player_in_bed_count,		dc
+    .kick_players,			m
+    .skip_night,			m
+    .on_rightclick,			m
+    .can_dig,				dc
+  callbacks
+    on_respawnplayer,			mc
+    on_leaveplayer,			m
+    on_dieplayer,			m
+    on_player_receive_fields,		m
 
 beds/beds_api/spawn.lua
-beds
-	.read_spawns,			m
-	.save_spawns,			m
-	.set_spawns,			m
-	.remove_spawns_at,		m
-
-
-## Binoculars ------------------------------------------------------------------
+  beds
+    .read_spawns,			m rw
+    .save_spawns,			m w
+    .set_spawns,			m
+    .remove_spawns_at,			m
 
 ## Biomes ----------------------------------------------------------------------
-biomes
-	.define_default,		m
-	.register_biome,		m
-	.register_ocean,		m
-	.register_under,		m
-	.register_biome_set,		m
-	.register_stratum,		m
-
-## Boats -----------------------------------------------------------------------
+  biomes
+    .define_default,			m
+    .register_biome,			m
+    .register_ocean,			m
+    .register_under,			m
+    .register_biome_set,		m
+    .register_stratum,			m
 
 ## Books -----------------------------------------------------------------------
-books
-	.get_lines,			ic
-	.page_content,			dc
-	.create_formspec,
+  books
+    .get_lines,				ic
+    .page_content,			dc
+    .create_formspec,
 
 
 ## Formspecs -------------------------------------------------------------------
 formspecs/init.lua
-formspecs
-	.create_listcolors,		ic
-	.create_prepend,		dc
-	.get_hotbar_bg,			ic
-callbacks
-	on_joinplayer,			m
+  formspecs
+    .create_listcolors,			ic
+    .create_prepend,			dc
+    .get_hotbar_bg,			ic
+  callbacks
+    on_joinplayer,			m
 
 
 ## Permissions -----------------------------------------------------------------
 permissions/base_permissions/init.lua
-"key"
-	on_place,			mc
-"skeleton_key" 
-	on_use,				mc
+  "key"
+    on_place,				mc
+  "skeleton_key" 
+    on_use,				mc
 
 permissions/permissions_api/init.lua
-permissions
-	.generate_secret,		dc
-	.create_key,			mc
-	.correct_key,			dc/m
-	.can_interact_with_node,	dc/m
+  permissions
+    .generate_secret,			dc
+    .create_key,			mc
+    .correct_key,			dc/m
+    .can_interact_with_node,		dc/m
 

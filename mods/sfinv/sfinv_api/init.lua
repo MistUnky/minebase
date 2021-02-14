@@ -3,7 +3,7 @@ sfinv = {
 	pages_unordered = {},
 	contexts = {},
 	enabled = true,
-	homepage = ""
+	homepage = "",
 }
 
 function sfinv.register_page(name, def)

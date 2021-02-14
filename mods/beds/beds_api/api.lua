@@ -35,8 +35,8 @@ function beds.on_place(itemstack, placer, pointed_thing)
 	local node = minetest.get_node(under)
 	local udef = minetest.registered_nodes[node.name]
 	if udef and udef.on_rightclick and
-			not (placer and placer:is_player() and
-			placer:get_player_control().sneak) then
+		not (placer and placer:is_player() and
+		placer:get_player_control().sneak) then
 		return udef.on_rightclick(under, node, placer, itemstack,
 			pointed_thing) or itemstack
 	end
@@ -156,11 +156,11 @@ function beds.register_bed(name, def)
 			type = "fixed",
 			fixed = def.selectionbox,
 		},
-		on_place = beds.on_place,
-		on_destruct = beds.destruct_bed,
-		on_rightclick = on_rightclick,
-		on_rotate = beds.on_rotate,
-		can_dig = can_dig,
+		on_place = def.on_place or beds.on_place,
+		on_destruct = def.on_destruct or beds.destruct_bed,
+		on_rightclick = def.on_rightclick or on_rightclick,
+		on_rotate = def.on_rotate or beds.on_rotate,
+		can_dig = def.can_dig or can_dig,
 		base_name = name
 	})
 
@@ -173,21 +173,23 @@ function beds.register_bed(name, def)
 		is_ground_content = false,
 		pointable = false,
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2,
-				not_in_creative_inventory = 1},
+			not_in_creative_inventory = 1},
 		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		drop = name .. "_bottom",
 		node_box = {
 			type = "fixed",
 			fixed = def.nodebox.top,
 		},
-		on_destruct = beds.destruct_bed,
-		can_dig = top_can_dig,
+		on_destruct = def.on_destruct or beds.destruct_bed,
+		can_dig = def.top_can_dig or top_can_dig,
 	})
 
 	minetest.register_alias(name, name .. "_bottom")
 
-	minetest.register_craft({
-		output = name,
-		recipe = def.recipe
-	})
+	if def.recipe then
+		minetest.register_craft({
+			output = name,
+			recipe = def.recipe
+		})
+	end
 end

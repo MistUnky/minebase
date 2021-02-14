@@ -153,10 +153,11 @@ function creative.register_tab(name, def)
 			local pagemax = math.ceil(inv.size / (4*8))
 			local esc = minetest.formspec_escape
 			return sfinv.make_formspec(player, context,
-				"label[5.8,4.15;" .. minetest.colorize("#FFFF00", tostring(pagenum)) .. " / " .. tostring(pagemax) .. "]" ..
+				"label[5.8,4.15;" .. minetest.colorize("#FFFF00", tostring(pagenum)) 
+					.. " / " .. tostring(pagemax) .. "]" 
+					.. formspecs.create_rect_button_style() ..
 				[[
 					image[4.08,4.2;0.8,0.8;creative_trash_icon.png]
-					listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]
 					list[detached:creative_trash;main;4.02,4.1;1,1;]
 					listring[]
 					image_button[5,4.05;0.8,0.8;creative_prev_icon.png;creative_prev;]

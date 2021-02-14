@@ -10,7 +10,7 @@ local S = beds.get_translator
 
 -- Helper functions
 
-local function get_look_yaw(pos)
+function beds.get_look_yaw(pos)
 	local rotation = minetest.get_node(pos).param2
 	if rotation > 3 then
 		rotation = rotation % 4 -- Mask colorfacedir values
@@ -34,7 +34,7 @@ local function is_night_skip_enabled()
 	return enable_night_skip
 end
 
-local function check_in_beds(players)
+function beds.check_in_beds(players)
 	local in_bed = beds.player
 	if not players then
 		players = minetest.get_connected_players()
@@ -50,7 +50,7 @@ local function check_in_beds(players)
 	return #players > 0
 end
 
-local function lay_down(player, pos, bed_pos, state, skip)
+function beds.lay_down(player, pos, bed_pos, state, skip)
 	local name = player:get_player_name()
 	local hud_flags = player:hud_get_flags()
 
@@ -107,7 +107,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -13, z = 0}, {x = 0, y = 0, z = 0})
-		local yaw, param2 = get_look_yaw(bed_pos)
+		local yaw, param2 = beds.get_look_yaw(bed_pos)
 		player:set_look_horizontal(yaw)
 		local dir = minetest.facedir_to_dir(param2)
 		-- p.y is just above the nodebox height of the 'Simple Bed' (the highest bed),
@@ -127,9 +127,9 @@ local function lay_down(player, pos, bed_pos, state, skip)
 	player:hud_set_flags(hud_flags)
 end
 
-local function get_player_in_bed_count()
+function beds.get_player_in_bed_count()
 	local c = 0
-	for _, _ in pairs(beds.player) do
+	for _ in pairs(beds.player) do
 		c = c + 1
 	end
 	return c
@@ -137,7 +137,7 @@ end
 
 local function update_formspecs(finished)
 	local ges = #minetest.get_connected_players()
-	local player_in_bed = get_player_in_bed_count()
+	local player_in_bed = beds.get_player_in_bed_count()
 	local is_majority = (ges / 2) < player_in_bed
 
 	local form_n
@@ -158,18 +158,17 @@ local function update_formspecs(finished)
 	end
 end
 
-
 -- Public functions
 
 function beds.kick_players()
-	for name, _ in pairs(beds.player) do
+	for name in pairs(beds.player) do
 		local player = minetest.get_player_by_name(name)
-		lay_down(player, nil, nil, false)
+		beds.lay_down(player, nil, nil, false)
 	end
 end
 
 function beds.skip_night()
-	minetest.set_timeofday(0.23)
+	return minetest.set_timeofday(0.23)
 end
 
 function beds.on_rightclick(pos, player)
@@ -179,7 +178,7 @@ function beds.on_rightclick(pos, player)
 
 	if tod > 0.2 and tod < 0.805 then
 		if beds.player[name] then
-			lay_down(player, nil, nil, false)
+			beds.lay_down(player, nil, nil, false)
 		end
 		minetest.chat_send_player(name, S("You can only sleep at night."))
 		return
@@ -187,10 +186,10 @@ function beds.on_rightclick(pos, player)
 
 	-- move to bed
 	if not beds.player[name] then
-		lay_down(player, ppos, pos)
+		beds.lay_down(player, ppos, pos)
 		beds.set_spawns() -- save respawn positions when entering bed
 	else
-		lay_down(player, nil, nil, false)
+		beds.lay_down(player, nil, nil, false)
 	end
 
 	if not is_sp then
@@ -198,7 +197,7 @@ function beds.on_rightclick(pos, player)
 	end
 
 	-- skip the night and let all players stand up
-	if check_in_beds() then
+	if beds.check_in_beds() then
 		minetest.after(2, function()
 			if not is_sp then
 				update_formspecs(is_night_skip_enabled())
@@ -237,9 +236,9 @@ end
 
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
-	lay_down(player, nil, nil, false, true)
+	beds.lay_down(player, nil, nil, false, true)
 	beds.player[name] = nil
-	if check_in_beds() then
+	if beds.check_in_beds() then
 		minetest.after(2, function()
 			update_formspecs(is_night_skip_enabled())
 			if is_night_skip_enabled() then
@@ -254,10 +253,10 @@ minetest.register_on_dieplayer(function(player)
 	local name = player:get_player_name()
 	local in_bed = beds.player
 	local pos = player:get_pos()
-	local yaw = get_look_yaw(pos)
+	local yaw = beds.get_look_yaw(pos)
 
 	if in_bed[name] then
-		lay_down(player, nil, pos, false)
+		beds.lay_down(player, nil, pos, false)
 		player:set_look_horizontal(yaw)
 		player:set_pos(pos)
 	end
@@ -269,12 +268,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	-- Because "Force night skip" button is a button_exit, it will set fields.quit
-	-- and lay_down call will change value of player_in_bed, so it must be taken
+	-- and beds.lay_down call will change value of player_in_bed, so it must be taken
 	-- earlier.
-	local last_player_in_bed = get_player_in_bed_count()
+	local last_player_in_bed = beds.get_player_in_bed_count()
 
 	if fields.quit or fields.leave then
-		lay_down(player, nil, nil, false)
+		beds.lay_down(player, nil, nil, false)
 		update_formspecs(false)
 	end
 

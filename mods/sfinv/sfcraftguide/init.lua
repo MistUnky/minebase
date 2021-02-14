@@ -268,21 +268,22 @@ local function get_formspec(player)
 	local data = player_data[name]
 	data.pagemax = math.max(1, math.ceil(#data.items / 32))
 
-	local fs = {}
-	table.insert(fs,
-		"style_type[item_image_button;padding=2]"..
-		"field[0.3,4.2;2.8,1.2;filter;;"..esc(data.filter).."]"..
-		"label[5.8,4.15;"..minetest.colorize("yellow", data.pagenum).." / "..
-			data.pagemax.."]"..
-		"image_button[2.63,4.05;0.8,0.8;sfcraftguide_search_icon.png;search;]"..
-		"image_button[3.25,4.05;0.8,0.8;sfcraftguide_clear_icon.png;clear;]"..
-		"image_button[5,4.05;0.8,0.8;sfcraftguide_prev_icon.png;prev;]"..
-		"image_button[7.25,4.05;0.8,0.8;sfcraftguide_next_icon.png;next;]"..
-		"tooltip[search;"..esc(S("Search")).."]"..
-		"tooltip[clear;"..esc(S("Reset")).."]"..
-		"tooltip[prev;"..esc(S("Previous page")).."]"..
-		"tooltip[next;"..esc(S("Next page")).."]"..
-		"field_close_on_enter[filter;false]")
+	local fs = {
+		"style_type[item_image_button;padding=2]",
+		"field[0.3,4.2;2.8,1.2;filter;;", esc(data.filter), "]",
+		"label[5.8,4.15;", minetest.colorize("yellow", data.pagenum), " / ",
+			data.pagemax, "]", 
+		formspecs.create_rect_button_style(),
+		"image_button[2.63,4.05;0.8,0.8;sfcraftguide_search_icon.png;search;]",
+		"image_button[3.25,4.05;0.8,0.8;sfcraftguide_clear_icon.png;clear;]",
+		"image_button[5,4.05;0.8,0.8;sfcraftguide_prev_icon.png;prev;]",
+		"image_button[7.25,4.05;0.8,0.8;sfcraftguide_next_icon.png;next;]",
+		"tooltip[search;", esc(S("Search")), "]",
+		"tooltip[clear;", esc(S("Reset")), "]",
+		"tooltip[prev;", esc(S("Previous page")), "]",
+		"tooltip[next;", esc(S("Next page")), "]",
+		"field_close_on_enter[filter;false]"
+	}
 
 	if #data.items == 0 then
 		table.insert(fs, "label[3,2;"..esc(S("No items to show.")).."]")

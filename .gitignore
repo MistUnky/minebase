@@ -21,3 +21,4 @@
 # Idea IDE
 .idea/*
 gitignore
+sync.sh
