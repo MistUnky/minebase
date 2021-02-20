@@ -89,7 +89,7 @@ if minetest.get_modpath("farming_api") then
 	})
 end
 
-if minetest.get_modpath("vessels") and minetest.get_modpath("glass_api") then
+if minetest.get_modpath("base_vessels") and minetest.get_modpath("glass_api") then
 	-- firefly in a bottle
 	pterygota.register_visible("fireflies:firefly_bottle", {
 		description = S("Firefly in a Bottle"),

@@ -152,9 +152,6 @@ function trees.sapling_on_place(itemstack, placer, pointed_thing)
 		return itemstack
 	end
 
-	minetest.log("action", player_name .. " places node "
-			.. sapling_name .. " at " .. minetest.pos_to_string(pos))
-
 	local take_item = not minetest.is_creative_enabled(player_name)
 	local newnode = {name = sapling_name}
 	local ndef = minetest.registered_nodes[sapling_name]

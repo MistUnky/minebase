@@ -9,9 +9,9 @@ w	writing to filesystem
 ## __builtin -------------------------------------------------------------------
 __builtin/init.lua
   item
-    .set_item,				m,
-    .burn_up,				m,
-    .on_step,				m,
+    .set_item,				m
+    .burn_up,				m
+    .on_step,				m
 
 ## Base ------------------------------------------------------------------------
 base/init.lua
@@ -24,22 +24,18 @@ base/init.lua
 
 ## Beds ------------------------------------------------------------------------
 beds/beds_api/api.lua
-  local
-    on_rightclick,			mc
-    can_dig,				dc
-    top_can_dig,			dc
   beds
     .get_other_pos,			dc
     .destruct_bed,			m
     .on_place,				mc
     .on_rotate,				mc
     .register_bed,			m
+  local
+    on_rightclick,			mc
+    can_dig,				dc
+    top_can_dig,			dc
 
 beds/beds_api/functions.lua 
-  local
-    get_look_yaw,			dc
-    is_night_skip_enabled,		dc
-    update_formspecs,			m
   beds
     .check_in_beds,			dc
     .lay_down,				m
@@ -48,6 +44,10 @@ beds/beds_api/functions.lua
     .skip_night,			m
     .on_rightclick,			m
     .can_dig,				dc
+  local
+    get_look_yaw,			dc
+    is_night_skip_enabled,		dc
+    update_formspecs,			m
   callbacks
     on_respawnplayer,			mc
     on_leaveplayer,			m
@@ -62,6 +62,7 @@ beds/beds_api/spawn.lua
     .remove_spawns_at,			m
 
 ## Biomes ----------------------------------------------------------------------
+biomes/biomes_api/init.lua
   biomes
     .define_default,			m
     .register_biome,			m
@@ -71,11 +72,113 @@ beds/beds_api/spawn.lua
     .register_stratum,			m
 
 ## Books -----------------------------------------------------------------------
+books/books_api/init.lua
   books
     .get_lines,				ic
     .page_content,			dc
-    .create_formspec,
+    .create_formspec,			ic
+    .on_use,				mc
+    .turn_page,				ic
+    .register_craft_metadata_copy,	m
+      on_craft,				m
+    .register_book,			m
+    .register_book_set,			m
+  callbacks
+    on_player_receive_fields,		m
 
+## Buckets ---------------------------------------------------------------------
+buckets/buckets_api/init.lua
+  buckets
+    .on_place,				mc
+    .on_use,				m
+    .register_liquid,			m
+  local
+    check_protection,			mc
+
+## Carts -----------------------------------------------------------------------
+carts/carts_api/init.lua
+  carts
+    .get_sign,				ic
+    .manage_attachement,		m
+    .velocity_to_dir,			ic
+    .is_rail,				dc
+    .check_front_up_down,		dc
+    .get_rail_direction,		dc
+    .pathfinder,			dc
+    .get_rail_groups,			dc
+    .rail_sound,			m
+    .register_rail,			m
+    .rail_on_step,			m
+    .on_step,				m
+    .on_rightclick,			m
+    .get_staticdata,			ic
+    .on_detach_child,			m
+    .on_punch,				m
+    .craftitem_on_place,		m
+    .register_rail,			m
+    .register_entity,			m
+    .register_craftitem,		m
+    .register_cart,			m
+  local
+    get_railparams,			dc
+    rail_on_step_event,			-
+    determineYaw,			ic
+
+
+## Containers ------------------------------------------------------------------
+  containers
+    .create_formspec,			ic
+    .lid_obstructed,			dc
+    .close,				mc
+    .on_metadata_inventory_move,	m
+    .on_metadata_inventory_put,		m
+    .on_metadata_inventory_take,	m
+    .register_container,		m
+    .unprotected
+      .on_construct,			m
+      .can_dig,				dc
+      .on_rightclick,			m
+      .on_blast,			mc
+      .allow_metadata_inventory_put,	dc
+    .protected
+      .on_construct,			m
+      .after_place_node,		m
+      .can_dig,				dc
+      .on_rightclick,			m
+      .on_blast,			ic
+      .allow_metadata_inventory_move,	mc
+      .allow_metadata_inventory_put,	mc
+      .allow_metadata_inventory_take,	mc
+      .on_key_use,			m
+      .on_skeleton_key_use,		m
+  open
+    .can_dig,				ic
+    .on_blast,				ic
+  local
+    create_overlay,			ic
+    determine_opening_pos,		ic
+    register_container,			m
+    register_container_opened,		m
+  callbacks
+    on_player_receive_fields,		mc
+    on_leaveplayer,			m
+
+containers/bones/init.lua
+  local 
+    is_owner,				dc
+    may_replace,			dc
+    drop,				m
+    move_items,				m
+    bones_time,				m
+  callbacks
+    on_punch,				m
+    on_timer,				m
+    on_dieplayer,			m
+
+containers/shelves/init.lua
+  local
+    update_bookshelf,			m
+    update_vessels_shelf,		m
 
 ## Formspecs -------------------------------------------------------------------
 formspecs/init.lua
@@ -98,6 +201,6 @@ permissions/permissions_api/init.lua
   permissions
     .generate_secret,			dc
     .create_key,			mc
-    .correct_key,			dc/m
-    .can_interact_with_node,		dc/m
+    .correct_key,			mc
+    .can_interact_with_node,		mc
 

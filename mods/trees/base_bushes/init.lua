@@ -25,8 +25,6 @@ trees.register_bush("base_bushes:apple", {
 		maxp = {x = 1, y = 1, z = 1},
 		max_interval = 2,
 		grow_sapling = function(pos)
-			minetest.log("action", "A bush sapling grows into a bush at "..
-				minetest.pos_to_string(pos))
 			local path = base_bushes_path .. "/schematics/base_bushes_apple.mts"
 			minetest.place_schematic({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
 				path, "0", nil, false)
@@ -72,8 +70,6 @@ trees.register_bush("base_bushes:acacia", {
 		maxp = {x = 1, y = 1, z = 1},
 		max_interval = 2,
 		grow_sapling = function(pos)
-			minetest.log("action", "An acacia bush sapling grows into a bush at "..
-				minetest.pos_to_string(pos))
 			local path = base_bushes_path .. "/schematics/base_bushes_acacia.mts"
 			minetest.place_schematic({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
 				path, "0", nil, false)
@@ -124,8 +120,6 @@ trees.register_bush("base_bushes:pine", {
 		maxp = {x = 1, y = 1, z = 1},
 		max_interval = 2,
 		grow_sapling = function(pos)
-			minetest.log("action", "A pine bush sapling grows into a bush at "..
-				minetest.pos_to_string(pos))
 			local path = base_bushes_path .. "/schematics/base_bushes_pine.mts"
 			minetest.place_schematic({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1},
 				path, "0", nil, false)
@@ -182,8 +176,6 @@ trees.register_bush("base_bushes:blueberry", {
 		maxp = {x = 1, y = 1, z = 1},
 		max_interval = 2,
 		grow_sapling = function(pos)
-			minetest.log("action", "A blueberry bush sapling grows into a bush at "..
-				minetest.pos_to_string(pos))
 			local path = base_bushes_path .. "/schematics/base_bushes_blueberry.mts"
 			minetest.place_schematic({x = pos.x - 1, y = pos.y, z = pos.z - 1},
 				path, "0", nil, false)

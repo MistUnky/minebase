@@ -51,11 +51,6 @@ function creative.init_creative_inventory(player)
 		end,
 		on_move = function(inv, from_list, from_index, to_list, to_index, count, player2)
 		end,
-		on_take = function(inv, listname, index, stack, player2)
-			if stack and stack:get_count() > 0 then
-				minetest.log("action", player_name .. " takes " .. stack:get_name().. " from creative inventory")
-			end
-		end,
 	}, player_name)
 
 	return player_inventory[player_name]
@@ -153,17 +148,16 @@ function creative.register_tab(name, def)
 			local pagemax = math.ceil(inv.size / (4*8))
 			local esc = minetest.formspec_escape
 			return sfinv.make_formspec(player, context,
-				"label[5.8,4.15;" .. minetest.colorize("#FFFF00", tostring(pagenum)) 
+				"label[6.2,4.15;" .. minetest.colorize("#FFFF00", tostring(pagenum)) 
 					.. " / " .. tostring(pagemax) .. "]" 
 					.. formspecs.create_rect_button_style() ..
 				[[
-					image[4.08,4.2;0.8,0.8;creative_trash_icon.png]
-					list[detached:creative_trash;main;4.02,4.1;1,1;]
+					list[detached:creative_trash;main;4.3,4.1;1,1;]
 					listring[]
-					image_button[5,4.05;0.8,0.8;creative_prev_icon.png;creative_prev;]
-					image_button[7.2,4.05;0.8,0.8;creative_next_icon.png;creative_next;]
-					image_button[2.63,4.05;0.8,0.8;creative_search_icon.png;creative_search;]
-					image_button[3.25,4.05;0.8,0.8;creative_clear_icon.png;creative_clear;]
+					image_button[5.3,4.05;0.9,0.9;formspecs_prev_icon.png;creative_prev;]
+					image_button[7.1,4.05;0.9,0.9;formspecs_next_icon.png;creative_next;]
+					image_button[2.63,4.05;0.9,0.9;formspecs_search_icon.png;creative_search;]
+					image_button[3.39,4.05;0.9,0.9;formspecs_clear_icon.png;creative_clear;]
 				]] ..
 				"tooltip[creative_search;" .. esc(S("Search")) .. "]" ..
 				"tooltip[creative_clear;" .. esc(S("Reset")) .. "]" ..

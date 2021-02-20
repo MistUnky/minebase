@@ -43,16 +43,17 @@ function books.create_formspec(player_name, data)
 			textarea[0.5,1.5;7.5,7;text;", esc(S("Contents:")), ";", esc(text), "]\z
 			button_exit[2.5,7.5;3,1;save;", esc(S("Save")), "]"})
 	else
-		return table.concat({"size[8,8]\z
-			label[0.5,0.5;", esc(S("by @1", owner)), "]\z
+		return table.concat({"size[8,8]",
+			formspecs.create_rect_button_style(),
+			"label[0.5,0.5;", esc(S("by @1", owner)), "]\z
 			tablecolumns[color;text]\z
 			tableoptions[background=#00000000;highlight=#00000000;border=false]\z
 			table[0.4,0;7,0.5;title;#FFFF00,", esc(title), "]\z
 			textarea[0.5,1.5;7.5,7;;",
 				minetest.formspec_escape(string ~= "" and string or text), ";]\z
-			button[2.4,7.6;0.8,0.8;book_prev;<]\z
+			image_button[2.3,7.6;0.9,0.9;formspecs_prev_icon.png;book_prev;]\z
 			label[3.2,7.7;", esc(S("Page @1 of @2", page, page_max)), "]\z
-			button[4.9,7.6;0.8,0.8;book_next;>]"})
+			image_button[4.9,7.6;0.9,0.9;formspecs_next_icon.png;book_next;]"})
 	end
 end
 
@@ -72,6 +73,14 @@ function books.on_use(itemstack, user)
 	name = name:sub(-8) == "_written" and name:sub(1, -9) or name
 	minetest.show_formspec(player_name, name, formspec)
 	return itemstack
+end
+
+function books.turn_page(to_right, page_no, page_max)
+	if to_right then
+		return page_no < page_max and page_no + 1 or 1
+	else
+		return page_no > 1 and page_no - 1 or page_max
+	end
 end
 
 local max_text_size = 10000
@@ -132,20 +141,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			return
 		end
 
-		data.page = tonumber(data.page)
-		data.page_max = tonumber(data.page_max)
-
-		if fields.book_next then
-			data.page = data.page + 1
-			if data.page > data.page_max then
-				data.page = 1
-			end
-		else
-			data.page = data.page - 1
-			if data.page == 0 then
-				data.page = data.page_max
-			end
-		end
+		data.page = books.turn_page(fields.book_next, tonumber(data.page), 
+			tonumber(data.page_max))
 
 		stack:get_meta():from_table({fields = data})
 		stack = books.on_use(stack, player)
@@ -162,7 +159,8 @@ function books.register_craft_metadata_copy(ingredient, result)
 		recipe = {ingredient, result}
 	})
 
-	minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+	minetest.register_on_craft(function(itemstack, player, old_craft_grid, 
+		craft_inv)
 		if itemstack:get_name() ~= result then
 			return
 		end

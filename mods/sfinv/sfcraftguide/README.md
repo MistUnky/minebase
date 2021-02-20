@@ -14,10 +14,4 @@ Neuromancer (CC BY-SA 3.0):
 
 Wuzzy (CC BY-SA 3.0):
   sfcraftguide_shapeless.png
-
-LibraSubtilis (GPLv2; all based on images by The Battle for Wesnoth Project):  
-  sfcraftguide_clear_icon.png -- based on: close_25-active.png
-  sfcraftguide_prev_icon.png -- based on: play_30_active.png
-  sfcraftguide_next_icon.png -- based on: play_30_active.png
-  sfcraftguide_search_icon.png -- based on: zoomdefault_30-active.png
 ```

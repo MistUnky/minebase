@@ -44,5 +44,9 @@ LibraSubtilis (GPLv2; all based on images by The Battle for Wesnoth Project):
   formspecs_button_background.png -- based on: button_square_60.png
   formspecs_button_background_hovered.png -- based on: button_square_60-active.png
   formspecs_button_background_pressed.png -- based on: button_square_60-active-pressed.png
+  formspecs_clear_icon.png -- based on: close_25-active.png
+  formspecs_prev_icon.png -- based on: play_30_active.png
+  formspecs_next_icon.png -- based on: play_30_active.png
+  formspecs_search_icon.png -- based on: zoomdefault_30-active.png
 ```
 

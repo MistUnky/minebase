@@ -29,8 +29,6 @@ trees.register_tree("base_trees:apple", {
 		minp = {x = -3, y = 1, z = -3},
 		maxp = {x = 3, y = 6, z = 3},
 		grow_sapling = function(pos)
-			minetest.log("action", "A sapling grows into a tree at "..
-				minetest.pos_to_string(pos))
 			local path = base_trees_path .. "/schematics/apple_tree_from_sapling.mts"
 			minetest.place_schematic({x = pos.x - 3, y = pos.y - 1, z = pos.z - 3},
 				path, "random", nil, false)
@@ -87,8 +85,6 @@ trees.register_tree("base_trees:acacia", {
 		maxp = {x = 4, y = 7, z = 4},
 		burntime = 6,
 		grow_sapling = function(pos)
-			minetest.log("action", "An acacia sapling grows into a tree at "..
-				minetest.pos_to_string(pos))
 			local path = base_trees_path .. "/schematics/acacia_tree_from_sapling.mts"
 			minetest.place_schematic({x = pos.x - 4, y = pos.y - 1, z = pos.z - 4},
 				path, "random", nil, false)
@@ -147,8 +143,6 @@ trees.register_tree("base_trees:aspen", {
 		maxp = {x = 2, y = 12, z = 2},
 		burntime = 4,
 		grow_sapling = function(pos)
-			minetest.log("action", "An aspen sapling grows into a tree at "..
-				minetest.pos_to_string(pos))
 			local path = base_trees_path .. "/schematics/aspen_tree_from_sapling.mts"
 			minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 				path, "0", nil, false)
@@ -204,8 +198,6 @@ trees.register_tree("base_trees:jungle", {
 		maxp = {x = 2, y = 15, z = 2},
 		burntime = 6,
 		grow_sapling = function(pos)
-			minetest.log("action", "A jungle sapling grows into a tree at "..
-				minetest.pos_to_string(pos))
 			local path = base_trees_path .. "/schematics/jungle_tree_from_sapling.mts"
 			minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 				path, "random", nil, false)
@@ -247,8 +239,6 @@ trees.register_tree("base_trees:pine", {
 			sapling = 1},
 		burntime = 5,
 		grow_sapling = function(pos)
-			minetest.log("action", "A pine sapling grows into a tree at "..
-				minetest.pos_to_string(pos))
 			local path
 			if minetest.find_node_near(pos, 1, {"group:snowy"}) then
 				if math.random() > 0.5 then

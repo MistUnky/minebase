@@ -48,8 +48,6 @@ function signs.register_sign(name, def)
 				minetest.chat_send_player(player_name, S("Text too long"))
 				return
 			end
-			minetest.log("action", player_name .. " wrote \"" .. text ..
-				"\" to the sign at " .. minetest.pos_to_string(pos))
 			local meta = minetest.get_meta(pos)
 			meta:set_string("text", text)
 

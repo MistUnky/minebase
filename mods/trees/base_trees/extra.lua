@@ -69,8 +69,6 @@ trees.register_sapling("base_trees:emergent_jungle", {
 	description = S("Emergent Jungle Tree Sapling"),
 	burntime = 7,
 	grow_sapling = function(pos)
-		minetest.log("action", "An emergent jungle sapling grows into a tree at "..
-			minetest.pos_to_string(pos))
 		local path = base_trees_path ..
 			"/schematics/base_trees_emergent_jungle_from_sapling.mts"
 		minetest.place_schematic({x = pos.x - 3, y = pos.y - 5, z = pos.z - 3},

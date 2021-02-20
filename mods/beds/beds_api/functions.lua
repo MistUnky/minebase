@@ -96,11 +96,13 @@ function beds.lay_down(player, pos, bed_pos, state, skip)
 			end
 		end
 
+		--[[This doesn't always work because the method returns nil.
 		-- Check if player is moving
 		if vector.length(player:get_velocity()) > 0.001 then
 			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
 			return false
 		end
+		]]
 
 		if beds.player[name] then
 			-- player already in bed, do nothing

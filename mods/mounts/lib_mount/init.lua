@@ -176,8 +176,7 @@ local aux_timer = 0
 function lib_mount.drive(entity, dtime, is_mob, moving_anim, stand_anim, 
 	jump_height, can_fly, can_go_down, can_go_up, enable_crash)
 	-- Sanity checks
-	local ent_def = minetest.registered_entities[entity.object:get_properties()
-		.infotext]
+	local ent_def = minetest.registered_entities[entity._name]
 
 	can_fly = can_fly or ent_def.can_fly
 	can_go_down = can_go_down or ent_def.can_go_down
@@ -510,7 +509,7 @@ end
 
 function lib_mount.register_entity(name, def)
 	minetest.register_entity(name, {
-		infotext = def.infotext or name, 
+		infotext = def.infotext, 
 		physical = true,
 		collisionbox = def.collisionbox,
 		visual = def.visual or "mesh",
@@ -557,7 +556,8 @@ function lib_mount.register_entity(name, def)
 		on_activate = def.on_activate or lib_mount.on_activate,
 		get_staticdata = def.get_staticdata or lib_mount.get_staticdata,
 		on_punch = def.on_punch or lib_mount.on_punch,
-		on_step = def.on_step or lib_mount.on_step
+		on_step = def.on_step or lib_mount.on_step,
+		_name = name
 	})
 end
 

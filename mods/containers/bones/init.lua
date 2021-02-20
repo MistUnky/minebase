@@ -115,7 +115,7 @@ local function may_replace(pos, player)
 	return node_definition.buildable_to
 end
 
-local drop = function(pos, itemstack)
+local function drop(pos, itemstack)
 	local obj = minetest.add_item(pos, itemstack:take_item(itemstack:get_count()))
 	if obj then
 		obj:set_velocity({
@@ -129,9 +129,44 @@ end
 local player_inventory_lists = { "main", "craft" }
 bones.player_inventory_lists = player_inventory_lists
 
+local function move_items(pos, inv, player_inv)
+	for _, list_name in ipairs(player_inventory_lists) do
+		for i = 1, player_inv:get_size(list_name) do
+			local stack = player_inv:get_stack(list_name, i)
+			if inv:room_for_item("main", stack) then
+				inv:add_item("main", stack)
+			else -- no space left
+				drop(pos, stack)
+			end
+		end
+		player_inv:set_list(list_name, {})
+	end
+end
+
+local function bones_time(pos, meta, player_name)
+	meta:set_string("formspec", containers.create_formspec("context"))
+	meta:set_string("owner", "dead " .. player_name)
+
+	if share_bones_time ~= 0 then
+		meta:set_string("infotext", S("@1's fresh bones", player_name))
+
+		if share_bones_time_early == 0 or 
+			not minetest.is_protected(pos, player_name) then
+			meta:set_int("time", 0)
+		else
+			meta:set_int("time", (share_bones_time - share_bones_time_early))
+		end
+
+		minetest.get_node_timer(pos):start(10)
+	else
+		meta:set_string("infotext", S("@1's bones", player_name))
+	end
+end
+
 minetest.register_on_dieplayer(function(player)
 	local bones_mode = minetest.settings:get("bones_mode") or "bones"
-	if bones_mode ~= "bones" and bones_mode ~= "drop" and bones_mode ~= "keep" then
+	if bones_mode ~= "bones" and bones_mode ~= "drop" and bones_mode ~= "keep" 
+		then
 		bones_mode = "bones"
 	end
 
@@ -143,8 +178,6 @@ minetest.register_on_dieplayer(function(player)
 
 	-- return if keep inventory set or in creative mode
 	if bones_mode == "keep" or minetest.is_creative_enabled(player_name) then
-		minetest.log("action", player_name .. " dies at " .. pos_string ..
-			". No bones placed")
 		if bones_position_message then
 			minetest.chat_send_player(player_name, S("@1 died at @2.", player_name, 
 				pos_string))
@@ -194,34 +227,6 @@ minetest.register_on_dieplayer(function(player)
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
 	inv:set_size("main", 8 * 4)
-
-	for _, list_name in ipairs(player_inventory_lists) do
-		for i = 1, player_inv:get_size(list_name) do
-			local stack = player_inv:get_stack(list_name, i)
-			if inv:room_for_item("main", stack) then
-				inv:add_item("main", stack)
-			else -- no space left
-				drop(pos, stack)
-			end
-		end
-		player_inv:set_list(list_name, {})
-	end
-
-	meta:set_string("formspec", containers.create_formspec("context"))
-	meta:set_string("owner", "dead " .. player_name)
-
-	if share_bones_time ~= 0 then
-		meta:set_string("infotext", S("@1's fresh bones", player_name))
-
-		if share_bones_time_early == 0 or 
-			not minetest.is_protected(pos, player_name) then
-			meta:set_int("time", 0)
-		else
-			meta:set_int("time", (share_bones_time - share_bones_time_early))
-		end
-
-		minetest.get_node_timer(pos):start(10)
-	else
-		meta:set_string("infotext", S("@1's bones", player_name))
-	end
+	move_items(pos, inv, player_inv)
+	bones_time(pos, meta, player_name)
 end)

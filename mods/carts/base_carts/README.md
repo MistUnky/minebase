@@ -5,8 +5,6 @@ See [license.txt](./license.txt) for license information.
 Base Cart, based almost entirely on the mod `boost_cart`[1], which itself is 
 based on (and fully compatible with) the carts mod[2].
 
-The model was originally designed by stujones11 [3] (CC-0).
-
 Cart textures are based on original work from PixelBOX by Gambit (permissive 
 license).
 

@@ -26,7 +26,7 @@ end)
 minetest.register_on_leaveplayer(function(player)
 	local pn = player:get_player_name()
 	if containers.open_containers[pn] then
-		containers.close(pn)
+		return containers.close(pn)
 	end
 end)
 
@@ -206,8 +206,8 @@ end
 function containers.protected.can_dig(pos, player)
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	return minetest.get_meta(pos):get_inventory():is_empty(node_def.formspec_def
-		and node_def.formspec_def.list1 or "main") and permissions.can_interact_with_node(
-		player, pos)
+		and node_def.formspec_def.list1 or "main") and permissions
+			.can_interact_with_node(player, pos)
 end
 
 function containers.protected.on_rightclick(pos, node, clicker, itemstack)
@@ -312,8 +312,6 @@ function containers.protected.on_skeleton_key_use(pos, player, newsecret)
 end
 
 function containers.on_metadata_inventory_move(pos, _, _, _, _, _, player)
-	minetest.log("action", player:get_player_name() ..
-		" moves stuff in container at " .. minetest.pos_to_string(pos))
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	if node_def.update then
 		node_def.update(pos)
@@ -321,9 +319,6 @@ function containers.on_metadata_inventory_move(pos, _, _, _, _, _, player)
 end
 
 function containers.on_metadata_inventory_put(pos, _, _, stack, player)
-	minetest.log("action", player:get_player_name() ..
-		" moves " .. stack:get_name() ..
-		" to container at " .. minetest.pos_to_string(pos))
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	if node_def.update then
 		node_def.update(pos)
@@ -331,9 +326,6 @@ function containers.on_metadata_inventory_put(pos, _, _, stack, player)
 end
 
 function containers.on_metadata_inventory_take(pos, _, _, stack, player)
-	minetest.log("action", player:get_player_name() ..
-		" takes " .. stack:get_name() ..
-		" from container at " .. minetest.pos_to_string(pos))
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	if node_def.update then
 		node_def.update(pos)

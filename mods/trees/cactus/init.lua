@@ -194,8 +194,6 @@ minetest.register_node("cactus:large_seedling", {
 			return
 		end
 
-		minetest.log("action", "A large cactus seedling grows into a large" ..
-			"cactus at ".. minetest.pos_to_string(pos))
 		grow_large_cactus(pos)
 	end,
 })
