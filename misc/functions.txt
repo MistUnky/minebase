@@ -124,7 +124,6 @@ carts/carts_api/init.lua
     rail_on_step_event,			-
     determineYaw,			ic
 
-
 ## Containers ------------------------------------------------------------------
   containers
     .create_formspec,			ic
@@ -179,6 +178,84 @@ containers/shelves/init.lua
   local
     update_bookshelf,			m
     update_vessels_shelf,		m
+
+## Creative --------------------------------------------------------------------
+creative/init.lua
+  minetest
+    .handle_node_drops,			m
+  creative
+    .is_enabled,			dc
+    .is_enabled_for,			dc
+  local
+    update_sfinv,			m
+  callbacks
+    on_placenode,			dc
+
+creative/inventory.lua
+  creative
+    .init_creative_inventory,		dc
+    .match,				dc
+    .description,			dc
+    .update_creative_inventory,		m
+    .register_tab,			m
+  detached
+    .allow_move,			dc
+    .allow_put,				ic
+    .allow_take,			dc
+    .on_move,				ic
+  tab
+    .is_in_nav,			-
+    .get,				m
+    .on_player_receive_fields,		m
+  sfinv
+    .get_homepage_name,			dc
+  local
+    init_creative_cache,		m
+  detached_inventory "creative_trash"
+    allow_put,				ic
+    on_put,				m
+  callbacks
+    on_mods_loaded,			m
+
+## Doors -----------------------------------------------------------------------
+  doors_get
+    .door_open,				mc
+    .door_close,			mc
+    .door_toggle,			mc
+    .door_state,			dc
+    .trapdoor_open,			mc
+    .trapdoor_close,			mc
+    .trapdoor_toggle,			mc
+    .trapdoor_state,			dc
+  doors
+    .door_toggle,			mc
+    .trapdoor_toggle,			mc
+    .get,				dc
+    .register,				
+    .on_place,				mc
+    .on_rightclick,			m
+    .after_dig_node,			m
+    .on_rotate,				ic
+    .protected_on_blast,		ic
+    .on_key_use,			m
+    .on_skeleton_key_use,		m
+    .on_blast,				m
+    .on_destruct,			m
+    .register_craftitem,		m
+    .register_door,			m
+    .register,				m
+    .trapdoor_toggle,			m
+    .trapdoor_on_rightclick,		m
+    .trapdoor_after_place_node,		m
+    .trapdoor_on_blast,			m
+    .register_trapdoor,			m
+  local
+    replace_old_owner_information,	m
+    on_place_node,			-
+    can_dig_door,			dc
+    register_trapdoor,			m
+
+## Dungeon Loot ----------------------------------------------------------------
 
 ## Formspecs -------------------------------------------------------------------
 formspecs/init.lua

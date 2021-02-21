@@ -3,19 +3,19 @@
 -- Load support for Minebase translation.
 local S = minetest.get_translator("base_doors")
 
-doors.register("base_doors:wood", {
-		tiles = {{ name = "base_doors_wood.png", backface_culling = true }},
-		description = S("Wooden Door"),
-		inventory_image = "base_doors_item_wood.png",
-		groups = {node = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-		recipe = {
-			{"group:wood", "group:wood"},
-			{"group:wood", "group:wood"},
-			{"group:wood", "group:wood"},
-		}
+doors.register_door("base_doors:wood", {
+	tiles = {{ name = "base_doors_wood.png", backface_culling = true }},
+	description = S("Wooden Door"),
+	inventory_image = "base_doors_item_wood.png",
+	groups = {node = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	recipe = {
+		{"group:wood", "group:wood"},
+		{"group:wood", "group:wood"},
+		{"group:wood", "group:wood"},
+	}
 })
 
-doors.register("base_doors:steel", {
+doors.register_door("base_doors:steel", {
 		tiles = {{name = "base_doors_steel.png", backface_culling = true}},
 		description = S("Steel Door"),
 		inventory_image = "base_doors_item_steel.png",
@@ -31,7 +31,7 @@ doors.register("base_doors:steel", {
 		}
 })
 
-doors.register("base_doors:glass", {
+doors.register_door("base_doors:glass", {
 		tiles = {"base_doors_glass.png"},
 		description = S("Glass Door"),
 		inventory_image = "base_doors_item_glass.png",
@@ -46,7 +46,7 @@ doors.register("base_doors:glass", {
 		}
 })
 
-doors.register("base_doors:obsidian_glass", {
+doors.register_door("base_doors:obsidian_glass", {
 		tiles = {"base_doors_obsidian_glass.png"},
 		description = S("Obsidian Glass Door"),
 		inventory_image = "base_doors_item_obsidian_glass.png",

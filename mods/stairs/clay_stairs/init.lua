@@ -6,8 +6,8 @@ local S = minetest.get_translator("clay_stairs")
 stairs.register_all("clay_stairs:brick", {
 	stair_description = S("Brick Stair"),
 	slab_description = S("Brick Slab"),
-	inner_description = S("Inner Brick Stair"),
-	outer_description = S("Outer Brick Stair"),
+	inner_stair_description = S("Inner Brick Stair"),
+	outer_stair_description = S("Outer Brick Stair"),
 	inner_step_description = S("Inner Brick Step"),
 	outer_step_description = S("Outer Brick Step"),
 	step_description = S("Brick Step"),

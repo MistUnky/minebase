@@ -98,8 +98,9 @@ end)
 local player_set_animation = players.set_animation
 local player_attached = players.player_attached
 
--- Prevent knockback for attached players
 local old_calculate_knockback = minetest.calculate_knockback
+
+-- Prevent knockback for attached players
 function minetest.calculate_knockback(player, ...)
 	if player_attached[player:get_player_name()] then
 		return 0

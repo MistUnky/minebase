@@ -132,7 +132,7 @@ function screwdrivers.handler(itemstack, user, pointed_thing, mode, uses)
 		minetest.check_for_falling(pos)
 	end
 
-	if not minetest.is_creative_enabled(player_name) then
+	if not creative.is_enabled(player_name) then
 		itemstack:add_wear(65535 / ((uses or 200) - 1))
 	end
 
@@ -233,7 +233,7 @@ function screwdrivers.exzet(itemstack, user, pointed_thing, button)
 	minetest.swap_node(pos, node)
 	minetest.check_for_falling(pos)
 
-	if not minetest.is_creative_enabled(player_name) then
+	if not creative.is_enabled(player_name) then
 		itemstack:add_wear(65535 / ((uses or 200) - 1))
 	end
 

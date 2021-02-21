@@ -171,7 +171,7 @@ function stairs.on_place_slab(itemstack, placer, pointed_thing)
 
 		-- else attempt to place node with proper param2
 		minetest.item_place_node(ItemStack(wield_item), placer, pointed_thing, p2)
-		if not minetest.is_creative_enabled(player_name) then
+		if not creative.is_enabled(player_name) then
 			itemstack:take_item()
 		end
 		return itemstack

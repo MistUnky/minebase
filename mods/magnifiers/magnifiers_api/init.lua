@@ -5,7 +5,7 @@ local S = minetest.get_translator("magnifiers_api")
 magnifiers = {registered = {}}
 
 function magnifiers.update_fov(player, new_zoom_fov)
-	if minetest.is_creative_enabled(player:get_player_name()) then
+	if creative.is_enabled(player:get_player_name()) then
 		new_zoom_fov = new_zoom_fov + 5
 	end
 

@@ -27,25 +27,22 @@ minetest.register_privilege("creative", {
 	on_revoke = update_sfinv,
 })
 
--- Override the engine's creative mode function
-local old_is_creative_enabled = minetest.is_creative_enabled
-
-function minetest.is_creative_enabled(name)
+function creative.is_enabled(name)
 	if name == "" then
-		return old_is_creative_enabled(name)
+		return minetest.is_creative_enabled(name)
 	end
 	return minetest.check_player_privs(name, {creative = true}) or
-		old_is_creative_enabled(name)
+		minetest.is_creative_enabled(name)
 end
 
 -- For backwards compatibility:
 function creative.is_enabled_for(name)
-	return minetest.is_creative_enabled(name)
+	return creative.is_enabled(name)
 end
 
 dofile(minetest.get_modpath("creative") .. "/inventory.lua")
 
-if minetest.is_creative_enabled("") then
+if creative.is_enabled("") then
 	-- Dig time is modified according to difference (leveldiff) between tool
 	-- 'maxlevel' and node 'level'. Digtime is divided by the larger of
 	-- leveldiff and 1.
@@ -77,17 +74,19 @@ if minetest.is_creative_enabled("") then
 end
 
 -- Unlimited node placement
-minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack)
+minetest.register_on_placenode(function(pos, newnode, placer, oldnode, 
+	itemstack)
 	if placer and placer:is_player() then
-		return minetest.is_creative_enabled(placer:get_player_name())
+		return creative.is_enabled(placer:get_player_name())
 	end
 end)
 
--- Don't pick up if the item is already in the inventory
 local old_handle_node_drops = minetest.handle_node_drops
+
+-- Don't pick up if the item is already in the inventory
 function minetest.handle_node_drops(pos, drops, digger)
 	if not digger or not digger:is_player() or
-		not minetest.is_creative_enabled(digger:get_player_name()) then
+		not creative.is_enabled(digger:get_player_name()) then
 		return old_handle_node_drops(pos, drops, digger)
 	end
 	local inv = digger:get_inventory()

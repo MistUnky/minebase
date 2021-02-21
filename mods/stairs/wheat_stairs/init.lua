@@ -6,8 +6,8 @@ local S = minetest.get_translator("wheat_stairs")
 stairs.register_all("wheat_stairs:straw", {
 	stair_description = S("Straw Stair"),
 	slab_description = S("Straw Slab"), 
-	inner_description = S("Inner Straw Stair"),
-	outer_description = S("Outer Straw Stair"),
+	inner_stair_description = S("Inner Straw Stair"),
+	outer_stair_description = S("Outer Straw Stair"),
 	step_description = S("Straw Step"),
 	inner_step_description = S("Inner Straw Step"),
 	outer_step_description = S("Outer Straw Step"),

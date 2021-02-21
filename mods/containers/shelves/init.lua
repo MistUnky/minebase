@@ -40,7 +40,6 @@ containers.register_container("shelves:book", {
 		burntime = 30,
 		formspec_def = {
 			list1 = "books",
-			slot_image = "shelves_book_slot.png"
 		},
 		update = update_bookshelf
 	}
@@ -79,7 +78,6 @@ containers.register_container("shelves:vessels", {
 		burntime = 30,
 		formspec_def = {
 			list1 = "vessels",
-			slot_image = "shelves_vessel_slot.png"
 		},
 		update = update_vessels_shelf
 	}

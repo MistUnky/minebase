@@ -148,9 +148,11 @@ function earth.register_node_with(name, def)
 	local txt_with = string.sub(name, 1, name:find(":") - 1) .. "_" .. def.with
 	minetest.register_node(name .. "_with_" .. def.with, {
 		description = def.description or txt .. "_with_" .. def.with,
-		tiles = def.tiles or {txt_with .. ".png", txt .. ".png",
-		{name = txt .. ".png^" .. txt_with .. "_side.png",
-			tileable_vertical = false}},
+		tiles = def.tiles or {
+			txt_with .. ".png", txt .. ".png",
+			{name = txt .. ".png^" .. txt_with .. "_side.png", 
+				tileable_vertical = false}
+		},
 		groups = def.groups or {crumbly = 3, soil = 1, spreading_dirt_type = 1},
 		drop = def.drop or name,
 		sounds = def.sounds or sounds.get_defaults("earth_sounds:dirt", {

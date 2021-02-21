@@ -1,7 +1,3 @@
 # textdomain: doors_api
 Hidden Door Segment=Спрятанная Часть Двери
 Owned by @1=Владелец: @1
-You do not own this locked door.=Вы не владелец этой заблокированной двери.
-a locked door=заблокированная дверь
-You do not own this trapdoor.=Вы не владелец этого люка.
-a locked trapdoor=заблокированный люк

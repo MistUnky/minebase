@@ -69,12 +69,12 @@ function buckets.on_place(itemstack, user, pointed_thing)
 	local def = itemstack:get_definition()
 	if check_protection(lpos, user
 			and user:get_player_name()
-			or "", "place " .. def.source) then
+			or "", "place " .. def._source) then
 		return
 	end
 
-	minetest.set_node(lpos, {name = def.source})
-	return ItemStack(def.empty)
+	minetest.set_node(lpos, {name = def._source})
+	return ItemStack(def._empty)
 end
 
 function buckets.on_use(itemstack, user, pointed_thing)
@@ -165,8 +165,8 @@ function buckets.register_liquid(name, def)
 			liquids_pointable = true,
 			groups = def.groups,
 			on_place = def.on_place or buckets.on_place,
-			empty = def.empty or "buckets_api:bucket_empty",
-			source = def.source
+			_empty = def.empty or "buckets_api:bucket_empty",
+			_source = def.source
 		})
 	end
 end

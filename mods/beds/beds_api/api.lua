@@ -77,12 +77,12 @@ function beds.on_place(itemstack, placer, pointed_thing)
 	end
 
 	local itemstack_def = itemstack:get_definition()
-	minetest.set_node(pos, {name = itemstack_def.base_name .. "_bottom", 
+	minetest.set_node(pos, {name = itemstack_def._base_name .. "_bottom", 
 		param2 = dir})
-	minetest.set_node(botpos, {name = itemstack_def.base_name .. "_top", 
+	minetest.set_node(botpos, {name = itemstack_def._base_name .. "_top", 
 		param2 = dir})
 
-	if not minetest.is_creative_enabled(player_name) then
+	if not creative.is_enabled(player_name) then
 		itemstack:take_item()
 	end
 	return itemstack
@@ -118,7 +118,7 @@ function beds.on_rotate(pos, node, user, _, new_param2)
 	minetest.set_node(p, {name = "air"})
 	minetest.set_node(pos, node)
 	node_def = minetest.registered_nodes[node.name]
-	minetest.set_node(newp, {name = node_def.base_name .. "_top", 
+	minetest.set_node(newp, {name = node_def._base_name .. "_top", 
 		param2 = new_param2})
 	return true
 end
@@ -161,7 +161,7 @@ function beds.register_bed(name, def)
 		on_rightclick = def.on_rightclick or on_rightclick,
 		on_rotate = def.on_rotate or beds.on_rotate,
 		can_dig = def.can_dig or can_dig,
-		base_name = name
+		_base_name = name
 	})
 
 	minetest.register_node(name .. "_top", {
