@@ -47,7 +47,7 @@ function hydrophytes.on_place(itemstack, placer, pointed_thing, root, max)
 
 	minetest.set_node(pos_under, {name = itemstack:get_name(), param2 = height * 16})
 
-	if not creative.is_enabled(player_name) then
+	if not minetest.is_creative_enabled(player_name) then
 		itemstack:take_item()
 	end
 

@@ -199,7 +199,7 @@ function flowers.register_waterlily(name, def)
 		tiles = def.tiles,
 		inventory_image = def.tiles[1],
 		wield_image = def.tiles[1],
-		--use_texture_alpha = "clip",
+		use_texture_alpha = "clip",
 		liquids_pointable = true,
 		walkable = false,
 		buildable_to = true,
@@ -233,7 +233,7 @@ function flowers.register_waterlily(name, def)
 					minetest.set_node(pos, {name = name ..
 						(def.waving == 3 and "_waving" or ""),
 						param2 = math.random(0, 3)})
-					if not creative.is_enabled(player_name) then
+					if not minetest.is_creative_enabled(player_name) then
 						itemstack:take_item()
 					end
 				else

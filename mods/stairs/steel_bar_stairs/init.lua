@@ -7,6 +7,7 @@ stairs.register_glass_all("steel_bar_stairs:block", {
 	material = "steel_bars:bar",
 	groups = {cracky = 1, oddly_breakable_by_hand = 3},
 	sounds = sounds.get_defaults("ore_sounds:metal"),
+	use_texture_alpha = "clip",
 	worldaligntex = false,
 	stair_description = S("Steel Bar Stair"),
 	slab_description = S("Steel Bar Slab"),

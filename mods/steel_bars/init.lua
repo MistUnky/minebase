@@ -32,6 +32,7 @@ minetest.register_node("steel_bars:block", {
 	tiles = {"steel_bars_bars.png"},
 	paramtype = "light",
 	sunlight_propagates = true,
+	use_texture_alpha = "clip",
 	is_ground_content = false,
 	groups = {cracky = 1},
 	sounds = sounds.get_defaults("ore_sounds:metal"),

@@ -27,13 +27,17 @@ minetest.register_privilege("creative", {
 	on_revoke = update_sfinv,
 })
 
+creative.old_is_creative_enabled = minetest.is_creative_enabled
+
 function creative.is_enabled(name)
 	if name == "" then
-		return minetest.is_creative_enabled(name)
+		return creative.old_is_creative_enabled(name)
 	end
 	return minetest.check_player_privs(name, {creative = true}) or
-		minetest.is_creative_enabled(name)
+		creative.old_is_creative_enabled(name)
 end
+
+minetest.is_creative_enabled = creative.is_enabled
 
 -- For backwards compatibility:
 function creative.is_enabled_for(name)

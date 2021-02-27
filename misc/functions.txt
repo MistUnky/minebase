@@ -184,6 +184,7 @@ creative/init.lua
   minetest
     .handle_node_drops,			m
   creative
+    .old_is_creative_enabled		-
     .is_enabled,			dc
     .is_enabled_for,			dc
   local
@@ -218,6 +219,7 @@ creative/inventory.lua
     on_mods_loaded,			m
 
 ## Doors -----------------------------------------------------------------------
+doors/doors_api/init.lua
   doors_get
     .door_open,				mc
     .door_close,			mc
@@ -256,6 +258,17 @@ creative/inventory.lua
     register_trapdoor,			m
 
 ## Dungeon Loot ----------------------------------------------------------------
+dungeon_loot/dungeon_loot_api/init.lua
+  dungeon_loot
+    .register,				m
+    .get_loot,				dc
+
+dungeon_loot/dungeon_loot_api/mapgen/init.lua
+  local 
+    noise3d_integer,			dc
+    is_wall,				ic
+    find_walls,				dc
+
 
 ## Formspecs -------------------------------------------------------------------
 formspecs/init.lua

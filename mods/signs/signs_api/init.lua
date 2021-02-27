@@ -19,7 +19,7 @@ function signs.register_sign(name, def)
 		sunlight_propagates = true,
 		is_ground_content = false,
 		walkable = false,
-		--use_texture_alpha = "opaque",
+		use_texture_alpha = "opaque",
 		node_box = def.node_box or {
 			type = "wallmounted",
 			wall_top    = {-0.4375, 0.4375, -0.3125, 0.4375, 0.5, 0.3125},

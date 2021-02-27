@@ -72,7 +72,7 @@ if minetest.get_modpath("farming_api") then
 					minetest.add_item(pointed_thing.under, node_name.." 1")
 				end
 			end
-			if not creative.is_enabled(player_name) then
+			if not minetest.is_creative_enabled(player_name) then
 				itemstack:add_wear(256)
 				return itemstack
 			end

@@ -3,12 +3,12 @@
 local loot = {}
 
 if minetest.global_exists("wheat") then
-	table.insert({name = "wheat:wheat", chance = 0.5, count = {2, 5}})
+	table.insert({name = "wheat:wheat", part = 50, count = {2, 5}})
 end
 
 if minetest.global_exists("dungeon_loot") then
-	table.insert(loot, {name = "cotton:string", chance = 0.5, count = {1, 8}})
-	table.insert(loot, {name = "cotton:seed_cotton", chance = 0.4, count = {1, 4},
+	table.insert(loot, {name = "cotton:string", part = 50, count = {1, 8}})
+	table.insert(loot, {name = "cotton:seed_cotton", part = 40, count = {1, 4},
 			types = {"normal"}})
 end
 

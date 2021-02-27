@@ -89,7 +89,8 @@ function stairs.register_stair(name, def)
 		description = def.description or def.stair_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -171,7 +172,7 @@ function stairs.on_place_slab(itemstack, placer, pointed_thing)
 
 		-- else attempt to place node with proper param2
 		minetest.item_place_node(ItemStack(wield_item), placer, pointed_thing, p2)
-		if not creative.is_enabled(player_name) then
+		if not mintest.is_creative_enabled(player_name) then
 			itemstack:take_item()
 		end
 		return itemstack
@@ -191,7 +192,8 @@ function stairs.register_slab(name, def)
 		description = def.description or def.slab_description,
 		drawtype = "nodebox",
 		tiles = slab_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -237,7 +239,8 @@ function stairs.register_inner_stair(name, def)
 		description = def.description or def.inner_stair_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -279,7 +282,8 @@ function stairs.register_outer_stair(name, def)
 		description = def.description or def.outer_stair_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -326,7 +330,8 @@ function stairs.register_step(name, def)
 		description = def.description or def.step_description,
 		drawtype = "nodebox",
 		tiles = slab_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -356,7 +361,8 @@ function stairs.register_outer_step(name, def)
 		description = def.description or def.outer_step_description,
 		drawtype = "nodebox",
 		tiles = slab_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -386,7 +392,8 @@ function stairs.register_inner_step(name, def)
 		description = def.description or def.inner_step_description,
 		drawtype = "nodebox",
 		tiles = slab_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -419,7 +426,8 @@ function stairs.register_steps(name, def)
 		description = def.description or def.steps_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -451,7 +459,8 @@ function stairs.register_steps_half(name, def)
 		description = def.description or def.steps_half_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -484,7 +493,8 @@ function stairs.register_steps_slab(name, def)
 		description = def.description or def.steps_slab_description,
 		drawtype = "nodebox",
 		tiles = stair_images,
-		--use_texture_alpha = mat_def and mat_def.use_texture_alpha,
+		use_texture_alpha = def.use_texture_alpha or mat_def 
+			and mat_def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -661,6 +671,7 @@ end
 
 function stairs.register_glass_all(name, def)
 	stairs.register_glass_stair_and_slab(name, def)
+	def.use_texture_alpha = "clip"
 	stairs.register_glass_step_nodes(name, def)
 end
 

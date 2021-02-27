@@ -10,7 +10,7 @@ function biomes.define_default(def)
 	biomes.mossy_stone_cobble = def.mossy_stone_cobble
 	biomes.water = def.water
 	biomes.lava = def.lava
-	biomes.stone_cobble_stair = def.stone_cobble_stair 
+	biomes.stone_cobble_stair
 end
 
 function biomes.register_biome(name, def)

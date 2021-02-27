@@ -300,7 +300,7 @@ function doors.on_place(itemstack, placer, pointed_thing)
 		meta:set_string("infotext", def.description .. "\n" .. S("Owned by @1", pn))
 	end
 
-	if not creative.is_enabled(pn) then
+	if not minetest.is_creative_enabled(pn) then
 		itemstack:take_item()
 	end
 
@@ -396,7 +396,7 @@ local function register_door(name, def)
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
-		--use_texture_alpha = "clip",
+		use_texture_alpha = "clip",
 		walkable = true,
 		is_ground_content = false,
 		buildable_to = false,
@@ -502,7 +502,7 @@ function doors.trapdoor_after_place_node(pos, placer, itemstack)
 	meta:set_string("owner", pn)
 	meta:set_string("infotext", def.description .. "\n" .. S("Owned by @1", pn))
 
-	return creative.is_enabled(pn)
+	return minetest.is_creative_enabled(pn)
 end
 
 function doors.trapdoor_on_blast(pos)
@@ -522,7 +522,7 @@ local function register_trapdoor(name, def)
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
-		--use_texture_alpha = "clip",
+		use_texture_alpha = "clip",
 		walkable = true,
 		is_ground_content = false,
 		buildable_to = false,

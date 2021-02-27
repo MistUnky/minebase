@@ -37,7 +37,7 @@ local function register_torch(name, def)
 			animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, 
 				length = 3.3}
 		}},
-		--use_texture_alpha = "clip",
+		use_texture_alpha = "clip",
 		paramtype = "light",
 		paramtype2 = "wallmounted",
 		sunlight_propagates = true,

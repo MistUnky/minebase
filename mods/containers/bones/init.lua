@@ -177,7 +177,7 @@ minetest.register_on_dieplayer(function(player)
 	local pos_string = minetest.pos_to_string(pos)
 
 	-- return if keep inventory set or in creative mode
-	if bones_mode == "keep" or creative.is_enabled(player_name) then
+	if bones_mode == "keep" or minetest.is_creative_enabled(player_name) then
 		if bones_position_message then
 			minetest.chat_send_player(player_name, S("@1 died at @2.", player_name, 
 				pos_string))
