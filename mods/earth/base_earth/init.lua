@@ -142,6 +142,11 @@ minetest.register_craftitem("base_earth:flint", {
 
 earth.register_ore("base_earth:gravel", {seed = 766})
 
+earth.dirt_seeding_nodes = {
+	["base_liquids:snow"] = "base_liquids:dirt_with_snow",
+	["grass"] = "base_earth:dirt_with_grass",
+	["dry_grass"] = "base_earth:dirt_with_dry_grass"
+}
 
 minetest.register_abm({
 	label = "Grass spread",
@@ -166,20 +171,21 @@ minetest.register_abm({
 		-- Look for spreading dirt-type neighbours
 		local p2 = minetest.find_node_near(pos, 1, "group:spreading_dirt_type")
 		if p2 then
-			local n3 = minetest.get_node(p2)
-			minetest.set_node(pos, {name = n3.name})
+			local n2 = minetest.get_node(p2)
+			minetest.set_node(pos, {name = n2.name})
 			return
 		end
 
 		-- Else, any seeding nodes on top?
 		local name = minetest.get_node(above).name
-		-- Snow check is cheapest, so comes first
-		if name == "base_liquids:snow" then
-			minetest.set_node(pos, {name = "base_liquids:dirt_with_snow"})
-		elseif minetest.get_item_group(name, "grass") ~= 0 then
-			minetest.set_node(pos, {name = "base_earth:dirt_with_grass"})
-		elseif minetest.get_item_group(name, "dry_grass") ~= 0 then
-			minetest.set_node(pos, {name = "base_earth:dirt_with_dry_grass"})
+		for seed, new in pairs(earth.dirt_seeding_nodes) do
+			if seed:find(":") then
+				if name == seed then
+					return minetest.set_node(pos, {name = new})
+				end
+			elseif minetest.get_item_group(name, seed) ~= 0 then
+				return minetest.set_node(pos, {name = new})
+			end
 		end
 	end
 })

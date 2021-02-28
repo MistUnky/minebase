@@ -6,10 +6,8 @@ local S = minetest.get_translator("cotton")
 farming.register_plant("cotton:cotton", {
 	description = S("Cotton Seed"),
 	harvest_description = S("Cotton"),
-	inventory_image = "cotton_seed.png",
 	steps = 8,
 	minlight = 13,
-	maxlight = farming.LIGHT_MAX,
 	fertility = {"base_biomes:grassland", "base_biomes:desert"},
 	groups = {flammable = 4},
 })

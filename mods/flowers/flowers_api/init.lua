@@ -116,9 +116,7 @@ minetest.register_abm({
 	nodenames = {"group:flora"},
 	interval = 13,
 	chance = 300,
-	action = function(...)
-		flowers.flower_spread(...)
-	end,
+	action = flowers.flower_spread
 })
 
 function flowers.register_mushroom(name, def)
@@ -185,10 +183,37 @@ minetest.register_abm({
 	nodenames = {"flowers:mushroom_brown", "flowers:mushroom_red"},
 	interval = 11,
 	chance = 150,
-	action = function(...)
-		flowers.mushroom_spread(...)
-	end,
+	action = flowers.mushroom_spread
 })
+
+function flowers.on_place_waterlily(itemstack, placer, pointed_thing)
+	local pos = pointed_thing.above
+	local node = minetest.get_node(pointed_thing.under)
+	local def = minetest.registered_nodes[node.name]
+
+	if def and def.on_rightclick then
+		return def.on_rightclick(pointed_thing.under, node, placer, itemstack,
+				pointed_thing)
+	end
+
+	if def and def.liquidtype == "source" and
+			minetest.get_item_group(node.name, "water") > 0 then
+		local player_name = placer and placer:get_player_name() or ""
+		if not minetest.is_protected(pos, player_name) then
+			minetest.set_node(pos, {name = itemstack:get_name() ..
+				(def.waving == 3 and "_waving" or ""),
+				param2 = math.random(0, 3)})
+			if not minetest.is_creative_enabled(player_name) then
+				itemstack:take_item()
+			end
+		else
+			minetest.chat_send_player(player_name, "Node is protected")
+			minetest.record_protection_violation(pos, player_name)
+		end
+	end
+
+	return itemstack
+end
 
 function flowers.register_waterlily(name, def)
 	local water_lily = {
@@ -215,35 +240,7 @@ function flowers.register_waterlily(name, def)
 			type = "fixed",
 			fixed = def.box_size
 		},
-
-		on_place = function(itemstack, placer, pointed_thing)
-			local pos = pointed_thing.above
-			local node = minetest.get_node(pointed_thing.under)
-			local def = minetest.registered_nodes[node.name]
-
-			if def and def.on_rightclick then
-				return def.on_rightclick(pointed_thing.under, node, placer, itemstack,
-						pointed_thing)
-			end
-
-			if def and def.liquidtype == "source" and
-					minetest.get_item_group(node.name, "water") > 0 then
-				local player_name = placer and placer:get_player_name() or ""
-				if not minetest.is_protected(pos, player_name) then
-					minetest.set_node(pos, {name = name ..
-						(def.waving == 3 and "_waving" or ""),
-						param2 = math.random(0, 3)})
-					if not minetest.is_creative_enabled(player_name) then
-						itemstack:take_item()
-					end
-				else
-					minetest.chat_send_player(player_name, "Node is protected")
-					minetest.record_protection_violation(pos, player_name)
-				end
-			end
-
-			return itemstack
-		end
+		on_place = def.on_place or flowers.on_place_waterlily
 	}
 
 	local water_lily_waving = table.copy(water_lily)

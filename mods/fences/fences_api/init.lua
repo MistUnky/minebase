@@ -5,7 +5,6 @@ fences = {LIGHT_MAX = 14}
 fences.coll_extra = minetest.settings:get_bool("enable_fence_tall") 
 	and 3/8 or 0
 
-
 function fences.register_post(name, def)
 	local name = name .. "_post"
 	local txt = name:gsub(":", "_")

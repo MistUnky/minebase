@@ -1,15 +1,19 @@
+-- rand/init.lua
 
-rand = {}
-math.randomseed(minetest.get_mapgen_setting("seed"))
+rand = {pr = PcgRandom(minetest.get_mapgen_setting("seed"))}
 
 function rand.dy(y)
-	return math.random(y)
+	return rand.pr:next(1, y)
+end
+
+function rand.az(a, z)
+	return rand.pr:next(a, z)
 end
 
 function rand.xdy(x, y)
 	local out = 0
 	for i = 1, x do
-		out = out + math.random(y)
+		out = out + rand.dy(y)
 	end
 	return out
 end
@@ -24,11 +28,11 @@ function rand.seq(a, z)
 		table.insert(seq, i)
 	end
 	return function()
-		return #seq > 0 and table.remove(seq, math.random(#seq)) or nil
+		return #seq > 0 and table.remove(seq, rand.dy(#seq)) or nil
 	end
 end
 
-function rand.pick(parts, vals, count, max)
+function rand.pick(parts, vals, count)
 	count = count or 1
 	if #parts < 1 or #vals < 1 then 
 		return 
@@ -36,29 +40,22 @@ function rand.pick(parts, vals, count, max)
 		return vals
 	end
 
-	local sum
-	if not max then
-		sum = parts[1]
-		for i = 2, #parts do
-			sum = sum + parts[i]
-		end
-		max = sum
-	end
-
-	local random = {}
-	for i = 1, count do
-		table.insert(random, math.random(max))
-	end
-
-	sum = parts[1]
-	local out = {}
-	local last = 1
+	local sum = parts[1]
+	local thresholds = {0, parts[1]}
 	for i = 2, #parts do
 		sum = sum + parts[i]
-		for j = last, #random do
-			if random[j] <= sum then
-				table.insert(out, vals[j])
-				last = last + 1
+		table.insert(thresholds, sum)
+	end
+	local max = sum
+
+	local random 
+	local out = {}
+	for i = 1, count do
+		random = rand.dy(max)
+		for j = 2, #thresholds do
+			if random > thresholds[j - 1] and random <= thresholds[j] then
+				table.insert(out, vals[j - 1])
+				break
 			end
 		end
 	end

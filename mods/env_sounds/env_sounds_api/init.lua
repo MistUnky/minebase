@@ -63,13 +63,11 @@ function env_sounds.update_sound(player)
 end
 
 -- Update sound when player joins
-
 minetest.register_on_joinplayer(function(player)
 	env_sounds.update_sound(player)
 end)
 
 -- Cyclic sound update
-
 function env_sounds.cyclic_update()
 	for _, player in pairs(minetest.get_connected_players()) do
 		env_sounds.update_sound(player)

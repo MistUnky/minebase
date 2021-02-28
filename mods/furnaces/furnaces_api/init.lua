@@ -42,6 +42,7 @@ local function register_furnace(name, def)
 		allow_metadata_inventory_take = def.allow_metadata_inventory_take 
 			or furnaces.allow_metadata_inventory_take,
 
+		infotext = def.infotext or txt .. (def.sub or ""),
 		sunlight_propagates = def.sunlight_propagates,
 		walkable = def.walkable or true,
 		damage_per_second = def.damage_per_second,
@@ -57,9 +58,8 @@ local function register_furnace(name, def)
 		on_punch = def.on_punch,
 		on_dig = def.on_dig,
 
-		infotext = def.infotext or txt .. (def.sub or ""),
-		active = name .. "_active",
-		inactive = name
+		_active = name .. "_active",
+		_inactive = name
 	})
 
 	if def.recipe then
@@ -99,7 +99,6 @@ function furnaces.register_furnace(name, def)
 		register_furnace(name, active)
 	end
 end
-
 
 function furnaces.get_active_formspec(fuel_percent, item_percent)
 	return table.concat({"size[8,8.5]\z
@@ -211,7 +210,7 @@ function furnaces.on_blast(pos)
 	base.get_inventory_drops(pos, "fuel", drops)
 	base.get_inventory_drops(pos, "dst", drops)
 	drops[#drops+1] = minetest.registered_nodes[minetest.get_node(pos).name]
-		.inactive
+		._inactive
 	minetest.remove_node(pos)
 	return drops
 end
@@ -367,7 +366,7 @@ function furnaces.node_timer(pos, elapsed)
 		local fuel_percent = 100 - math.floor(fuel_time / fuel_totaltime * 100)
 		fuel_state = S("@1%", fuel_percent)
 		formspec = furnaces.get_active_formspec(fuel_percent, item_percent)
-		furnaces.swap_node(pos, node_def.active)
+		furnaces.swap_node(pos, node_def._active)
 		-- make sure timer restarts automatically
 		result = true
 
@@ -381,7 +380,7 @@ function furnaces.node_timer(pos, elapsed)
 			fuel_state = S("@1%", 0)
 		end
 		formspec = furnaces.inactive_formspec
-		furnaces.swap_node(pos, node_def.inactive)
+		furnaces.swap_node(pos, node_def._inactive)
 		-- stop timer on the inactive furnace
 		minetest.get_node_timer(pos):stop()
 		meta:set_int("timer_elapsed", 0)

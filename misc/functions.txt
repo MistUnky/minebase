@@ -264,21 +264,140 @@ dungeon_loot/dungeon_loot_api/init.lua
     .get_loot,				dc
 
 dungeon_loot/dungeon_loot_api/mapgen/init.lua
+  dungeon_loot
+    .find_walls,			dc
+    .populate_chest,			m
+    .filter_rooms,			dc
   local 
-    noise3d_integer,			dc
     is_wall,				ic
-    find_walls,				dc
+  callbacks
+    on_generated,			m
 
+## Dye -------------------------------------------------------------------------
+
+## Earth -----------------------------------------------------------------------
+earth/base_earth/init.lua
+  abm ("Grass spread"),			m
+  abm ("Grass covered"),		m
+
+earth/earth_api/init.lua
+ earth
+   .define_defaults,			m
+   .register_stone,			m
+   .register_brick,			m
+   .register_block,			m
+   .register_cobble,			m
+   .register_stone_nodes,		m
+   .register_sand,			m
+   .register_ore,			m
+   .register_sand_nodes,		m
+   .register_node_with,			m
+   .register_deco,			m
+   .register_nodes_with,		m
+
+earth/mossy/init.lua
+  mossy
+    .replace,				m
+    .register_growth,			m
+
+## Env Sounds ------------------------------------------------------------------
+  env_sounds
+    .register_sound,			m
+    .update_sound,			m
+    .cyclic_update,			m
+  callbacks
+    on_Joinplayer,			m
+
+## Farming ---------------------------------------------------------------------
+farming/base_soil/init.lua
+  abm ("Farming Soil"),			m
+
+farming/farming_api/init.lua
+  farming
+    .hoe_on_use,			m
+    .register_hoe,			m
+    .tick,				m
+    .place_seed,			m
+    .register_plant,			m
+    .grow_plant,			m
+    .on_place_seed,			m
+    .register_seed,			m
+    .register_harvest,			m
+    .register_plant_steps,		m
+    .register_plant,			m
+  local
+    lbm_nodes_fu,			m
+
+## Fences ----------------------------------------------------------------------
+fences/fences_api/init.lua
+  fences
+    .register_post,			m
+    .register_rail,			m
+    .register_mesepost,			m
+    .register_gate,			m
+    .register_fence,			m
+  local
+    register_gate,			m
+
+## Fire ------------------------------------------------------------------------
+fire/base_fire/init.lua
+  fire
+    .flame_on_timer,			m
+    .on_use_lighter,			m
+  callbacks
+    "base_fireflame"
+      on_construct,			m
+    "base_ores:coal_block"
+      after_destruct,			m
+      on_ignite,			m
+
+fire/fire_api/init.lua
+  fire
+    .flood_flame,			mc
+    .remove_flammable,			m
+    .register_node,			m
+    .update_sounds_around,		-
+  abm ("Ignite flame"),			m
+
+## Flowers ---------------------------------------------------------------------
+flowers/flowers_api/init.lua
+  flowers
+    .register_decoration,		m
+    .register_flower,			m
+    .flower_spread,			m
+    .register_mushroom,			m
+    .mushroom_spread,			m
+    .on_place_waterlily,		m
+    .register_waterlily,		m
 
 ## Formspecs -------------------------------------------------------------------
 formspecs/init.lua
   formspecs
-    .create_listcolors,			ic
+    .create_listcolors,			dc
+    .create_rect_button_style,		dc
     .create_prepend,			dc
     .get_hotbar_bg,			ic
   callbacks
     on_joinplayer,			m
 
+## Furnaces --------------------------------------------------------------------
+furnaces/furnaces_api/init.lua
+  furnaces
+    .register_furnace,			m
+    .get_active_formspec,		ic
+    .can_dig,				dc
+    .allow_metadata_inventory_put,	mc
+    .allow_metadata_inventory_move,	mc
+    .allow_metadata_inventory_take,	dc
+    .on_construct,			m
+    .on_metadata_inventory_move,	m
+    .on_metadata_inventory_put,		m
+    .on_metadata_inventory,		m
+    .on_blast,				m
+    .swap_node,				m
+    .node_timer,
+  local 
+    register_furnace,			m
 
 ## Permissions -----------------------------------------------------------------
 permissions/base_permissions/init.lua

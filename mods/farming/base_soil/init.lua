@@ -167,7 +167,8 @@ minetest.register_abm({
 		local nn_def = minetest.registered_nodes[nn.name] or nil
 		pos.y = pos.y - 1
 
-		if nn_def and nn_def.walkable and minetest.get_item_group(nn.name, "plant") == 0 then
+		if nn_def and nn_def.walkable and minetest.get_item_group(nn.name, "plant") 
+			== 0 then
 			minetest.set_node(pos, {name = base})
 			return
 		end
@@ -185,7 +186,8 @@ minetest.register_abm({
 				-- turn it back into base if it is already dry
 				if wet_lvl == 0 then
 					-- only turn it back if there is no plant/seed on top of it
-					if minetest.get_item_group(nn.name, "plant") == 0 and minetest.get_item_group(nn.name, "seed") == 0 then
+					if minetest.get_item_group(nn.name, "plant") == 0 
+						and minetest.get_item_group(nn.name, "seed") == 0 then
 						minetest.set_node(pos, {name = base})
 					end
 

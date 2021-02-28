@@ -17,7 +17,7 @@ minetest.register_alias("farming:desert_sand_soil_wet", "base_soil:desert_sand_w
 
 minetest.register_alias("farming:bread", "wheat:bread")
 minetest.register_alias("farming:flour", "wheat:flour")
-minetest.register_alias("farming:seed_wheat", "wheat:seed_wheat")
+minetest.register_alias("farming:seed_wheat", "wheat:wheat_seed")
 minetest.register_alias("farming:straw", "wheat:straw")
 minetest.register_alias("farming:wheat", "wheat:wheat")
 minetest.register_alias("farming:wheat_1", "wheat:wheat_1")
@@ -31,7 +31,7 @@ minetest.register_alias("farming:wheat_8", "wheat:wheat_8")
 
 minetest.register_alias("farming:string","cotton:string")
 minetest.register_alias("farming:cotton_wild", "cotton:wild")
-minetest.register_alias("farming:seed_cotton", "cotton:seed_cotton")
+minetest.register_alias("farming:seed_cotton", "cotton:cotton_seed")
 minetest.register_alias("farming:cotton", "cotton:cotton")
 minetest.register_alias("farming:cotton_1", "cotton:cotton_1")
 minetest.register_alias("farming:cotton_2", "cotton:cotton_2")

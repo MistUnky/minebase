@@ -1,15 +1,11 @@
 minetest.set_gen_notify({dungeon = true, temple = true})
 
-local function noise3d_integer(noise, pos)
-	return math.abs(math.floor(noise:get_3d(pos) * 0x7fffffff))
-end
-
 local function is_wall(node)
 	return node.name ~= "air" and node.name ~= "ignore"
 end
 
 local dirs = {{x=1, z=0}, {x=-1, z=0}, {x=0, z=1}, {x=0, z=-1}}
-local function find_walls(cpos)
+function dungeon_loot.find_walls(cpos)
 	local get_node = minetest.get_node
 
 	local ret = {}
@@ -60,7 +56,7 @@ local function find_walls(cpos)
 	}
 end
 
-local function populate_chest(pos, prand, dungeontype)
+function dungeon_loot.populate_chest(pos, dungeontype)
 	local item_list, parts = dungeon_loot.get_loot(pos.y, dungeontype)
 	item_list = rand.pick(parts, item_list, rand.dy(math.min(#item_list, 
 		dungeon_loot.STACKS_PER_CHEST_MAX)))
@@ -70,7 +66,7 @@ local function populate_chest(pos, prand, dungeontype)
 		local itemdef = minetest.registered_items[loot.name]
 		local amount = 1
 		if loot.count then
-			amount = prand:next(loot.count[1], loot.count[2])
+			amount = rand.az(loot.count[1], loot.count[2])
 		end
 
 		if itemdef.stack_max == 1 then
@@ -89,6 +85,20 @@ local function populate_chest(pos, prand, dungeontype)
 	end
 end
 
+function dungeon_loot.filter_rooms(poslist)
+	local rooms = {}
+	-- process at most 8 rooms to keep runtime of this predictable
+	local num_process = math.min(#poslist, 8)
+	for i = 1, num_process do
+		local room = dungeon_loot.find_walls(poslist[i])
+		-- skip small rooms and everything that doesn't at least have 3 walls
+		if math.min(room.size.x, room.size.z) >= 4 and #room.walls >= 3 then
+			table.insert(rooms, room)
+		end
+	end
+	return rooms
+end
+
 minetest.register_on_generated(function(minp, maxp, blockseed)
 	local gennotify = minetest.get_mapgen_object("gennotify")
 	local poslist = gennotify["dungeon"] or {}
@@ -96,29 +106,16 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		table.insert(poslist, entry)
 	end
 	if #poslist == 0 then return end
-
-	local noise = minetest.get_perlin(10115, 4, 0.5, 1)
-	local prand = PcgRandom(noise3d_integer(noise, poslist[1]))
-
-	local rooms = {}
-	-- process at most 8 rooms to keep runtime of this predictable
-	local num_process = math.min(#poslist, 8)
-	for i = 1, num_process do
-		local room = find_walls(poslist[i])
-		-- skip small rooms and everything that doesn't at least have 3 walls
-		if math.min(room.size.x, room.size.z) >= 4 and #room.walls >= 3 then
-			table.insert(rooms, room)
-		end
-	end
-
-	local num_chests = math.min(#rooms, prand:next(dungeon_loot.CHESTS_MIN, 
+	
+	local rooms = dungeon_loot.filter_rooms(poslist)
+	local num_chests = math.min(#rooms, rand.az(dungeon_loot.CHESTS_MIN, 
 		dungeon_loot.CHESTS_MAX))
 
 	local room
 	for i = 1, num_chests do
-		room = rooms[prand:next(1, #rooms)] 
+		room = rooms[rand.dy(#rooms)] 
 		-- choose place somewhere in front of any of the walls
-		local wall = room.walls[prand:next(1, #room.walls)]
+		local wall = room.walls[rand.dy(#room.walls)]
 		local v, vi -- vector / axis that runs alongside the wall
 		if wall.facing.x ~= 0 then
 			v, vi = {x=0, y=0, z=1}, "z"
@@ -126,14 +123,14 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 			v, vi = {x=1, y=0, z=0}, "x"
 		end
 		local chestpos = vector.add(wall.pos, wall.facing)
-		local off = prand:next(-room.size[vi]/2 + 1, room.size[vi]/2 - 1)
+		local off = rand.az(-room.size[vi]/2 + 1, room.size[vi]/2 - 1)
 		chestpos = vector.add(chestpos, vector.multiply(v, off))
 
 		if minetest.get_node(chestpos).name == "air" then
 			-- make it face inwards to the room
 			local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
 			minetest.add_node(chestpos, {name = "chests:common", param2 = facedir})
-			populate_chest(chestpos, PcgRandom(noise3d_integer(noise, chestpos)), room.type)
+			dungeon_loot.populate_chest(chestpos, room.type)
 		end
 	end
 end)

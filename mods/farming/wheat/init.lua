@@ -7,11 +7,9 @@ farming.register_plant("wheat:wheat", {
 	description = S("Wheat Seed"),
 	harvest_description = S("Wheat"),
 	paramtype2 = "meshoptions",
-	inventory_image = "wheat_seed.png",
 	steps = 8,
 	minlight = 13,
-	maxlight = farming.LIGHT_MAX,
-	fertility = {"grassland"},
+	fertility = {"base_biomes:grassland"},
 	groups = {food_wheat = 1, flammable = 4},
 	place_param2 = 3,
 })
