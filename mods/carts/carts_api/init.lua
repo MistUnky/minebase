@@ -521,8 +521,8 @@ function carts.on_punch(self, puncher, time_from_last_punch, tool_capabilities,
 		self._punched = true
 		return
 	end
-	-- Player digs cart by sneak-punch
-	if puncher:get_player_control().sneak then
+	-- Player digs cart by aux1-punch
+	if puncher:get_player_control().aux1 then
 		if self.sound_handle then
 			minetest.sound_stop(self.sound_handle)
 		end

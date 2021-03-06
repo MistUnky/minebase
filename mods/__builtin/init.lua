@@ -64,7 +64,7 @@ local item = {
 					--  otherwise there'll be a chance based on its igniter value
 					local burn_chance = self.flammable
 						* minetest.get_item_group(node.name, "igniter")
-					if burn_chance > 0 and math.random(0, burn_chance) ~= 0 then
+					if burn_chance > 0 and rand.az(0, burn_chance) ~= 0 then
 						self:burn_up()
 					end
 				end

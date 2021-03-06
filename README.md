@@ -31,10 +31,10 @@ Compatibility
 It is possible to convert a Minetest Game world to a Minebase world, but I 
 didn't write a script to convert a Minebase world back. That is the reason why
 you should create a backup before converting your world. Keep in mind that some 
-mods made for Minetest Game, won't run with Minebase.
-This game does not support v6.
-legacy.lua was dropped. 
-TNT was removed because I want the theme of this game to be more medieval.
+mods made for Minetest Game, won't run with Minebase.  
+This game does not support v6.  
+legacy.lua was dropped.  
+TNT was removed because I want the theme of this game to be more medieval.  
 
 Contributing
 ------------

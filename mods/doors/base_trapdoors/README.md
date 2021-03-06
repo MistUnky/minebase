@@ -11,7 +11,7 @@ Added Steel trapdoor.
 Re-implemented most of the door algorithms, added meshes, UV wrapped texture.
 
 Various Minetest developers and contributors (MIT)
-
+LibraSubtilis (MIT)
 
 Authors of media (textures)
 ---------------------------

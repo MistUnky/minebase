@@ -5,7 +5,7 @@ local S = minetest.get_translator("permissions_api")
 permissions = {}
 
 function permissions.generate_secret()
-	local random = math.random
+	local random = rand.dy
 	return string.format("%04x%04x%04x%04x",
 		random(2^16) - 1, random(2^16) - 1,
 		random(2^16) - 1, random(2^16) - 1)

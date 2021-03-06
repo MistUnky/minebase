@@ -169,7 +169,7 @@ minetest.register_node("cactus:large_seedling", {
 		-- Large cactus contains on average 14 cactus nodes.
 		-- 14 * 199.2 = 2788.8s.
 		-- Set random range to average to 2789s.
-		minetest.get_node_timer(pos):start(math.random(1859, 3719))
+		minetest.get_node_timer(pos):start(rand.az(1859, 3719))
 	end,
 
 	on_timer = function(pos)

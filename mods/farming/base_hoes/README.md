@@ -7,6 +7,7 @@ Authors of source code
 Originally by PilzAdam (MIT)  
 webdesigner97 (MIT)  
 Various Minetest developers and contributors (MIT)
+LibraSubtilis (MIT)
 
 Authors of media (textures)
 ---------------------------

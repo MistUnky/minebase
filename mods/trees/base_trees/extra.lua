@@ -32,7 +32,7 @@ minetest.register_node("base_trees:apple", {
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
 		if oldnode.param2 == 0 then
 			minetest.set_node(pos, {name = "base_trees:apple_mark"})
-			minetest.get_node_timer(pos):start(math.random(300, 1500))
+			minetest.get_node_timer(pos):start(rand.az(300, 1500))
 		end
 	end,
 })

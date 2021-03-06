@@ -23,7 +23,8 @@ function magnifiers.update_player_property(itemstack, player)
 		for _, registered_name in ipairs(magnifiers.registered) do
 			if name == registered_name then
 				minetest.after(4.7, magnifiers.update_player_property, nil, player)
-				return magnifiers.update_fov(player, itemstack:get_definition().zoom_fov)
+				return magnifiers.update_fov(player, itemstack:get_definition()
+					.zoom_fov)
 			end
 		end
 	end

@@ -10,3 +10,4 @@ Only works if dungeons are actually enabled in mapgen flags.
 Authors of source code
 ----------------------
 Originally by sfan5 (MIT)
+LibraSubtilis (MIT)

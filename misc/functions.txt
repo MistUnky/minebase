@@ -399,6 +399,97 @@ furnaces/furnaces_api/init.lua
   local 
     register_furnace,			m
 
+## Glass -----------------------------------------------------------------------
+glass/glass_api/init.lua
+  glass
+    .register_glass			m
+
+## Grasses ---------------------------------------------------------------------
+grasses/base_grasses/init.lua
+  local
+    register_grass_decoration,		m
+    register_dry_grass_decoration,	m
+    register_fern_decoration,		m
+    grow_papyrus,			m
+  callbacks
+    after_dig_node,			m
+
+grasses/grasses_api/init.lua
+  grasses
+    .on_place,				m
+    .register_grass,			m
+    .register_decoration,		m
+    .register_grass_set,		m
+    .dig_up,				m
+
+## Hydrophytes -----------------------------------------------------------------
+hydrophytes/hydrophytes_api/init.lua
+  hydrophytes
+    .on_place,				m
+    .after_destruct,			m
+    .register_phyte,			m
+    .register_coral,			m
+    .register_decoration,		m
+    .register_phyte_set,		m
+
+## Initial Stuff ---------------------------------------------------------------
+initial_stuff/initial_stuff_api/init.lua
+  initial_stuff
+    .give,				m
+    .add,				m
+    .clear,				m
+    .add_from_csv,			m
+
+## Killme ----------------------------------------------------------------------
+killme/init.lua
+  command "killme",			m
+
+## Ladders ---------------------------------------------------------------------
+ladders/ladders_api/init.lua
+  ladders
+    .register_ladder,			m
+
+## Torches ---------------------------------------------------------------------
+lights/torches/init.lua
+  callback
+    on_place,				m
+
+lights/lights_api/init.lua
+  lights
+    .on_flood,				m
+    .register_torch_floor,		m
+    .register_torch_wall,		m
+    .register_torch_ceiling,		m
+    .register_torch,			m
+  local
+    register_torch,			m
+
+## Liquids ---------------------------------------------------------------------
+liquids/base_liquids/init.lua
+  local
+    cool_lava,				m
+  callback
+    on_construct "base_liquids:snow,	m
+    on_construct "base_liquids:snow_block"	m
+
+liquids/liquids_api/init.lua
+  liquids
+    .register_liquid_node,		m
+    .register_liquid,			m
+
+## Magnifiers ------------------------------------------------------------------
+magnifiers/magnifiers_api/init.lua
+  magnifiers
+    .update_fov,			m
+    .update_player_property,		m
+    .register_magnifier,		m
+  callbacks
+    on_joinplayer,			m
+
+## Maps ------------------------------------------------------------------------
+
+
+
 ## Permissions -----------------------------------------------------------------
 permissions/base_permissions/init.lua
   "key"

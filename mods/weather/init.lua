@@ -70,7 +70,7 @@ local function rangelim(value, lower, upper)
 end
 
 local os_time_0 = os.time()
-local t_offset = math.random(0, 300000)
+local t_offset = rand.az(0, 300000)
 
 local function update_clouds()
 	-- Time in seconds.

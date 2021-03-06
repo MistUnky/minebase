@@ -26,14 +26,6 @@ function initial_stuff.add_from_csv(str)
 	end
 end
 
-function initial_stuff.set_list(list)
-	initial_stuff.items = list
-end
-
-function initial_stuff.get_list()
-	return initial_stuff.items
-end
-
 if minetest.settings:get_bool("initial_stuff") then
 	minetest.register_on_newplayer(initial_stuff.give)
 end

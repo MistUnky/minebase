@@ -19,7 +19,7 @@ fire.register_node("base_fire:flame", {
 	spreading = true,
 	on_timer = fire.flame_on_timer, 
 	on_construct = function(pos)
-		minetest.get_node_timer(pos):start(math.random(30, 60))
+		minetest.get_node_timer(pos):start(rand.az(30, 60))
 	end
 })
 

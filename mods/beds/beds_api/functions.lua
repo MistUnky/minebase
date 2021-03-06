@@ -80,7 +80,7 @@ function beds.lay_down(player, pos, bed_pos, state, skip)
 			gravity = physics_override.gravity
 		})
 		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
-		player:set_look_horizontal(math.random(1, 180) / 100)
+		player:set_look_horizontal(rand.az(1, 180) / 100)
 		players.player_attached[name] = false
 		hud_flags.wielditem = true
 		players.set_animation(player, "stand" , 30)

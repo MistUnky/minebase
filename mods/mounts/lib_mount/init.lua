@@ -241,7 +241,8 @@ function lib_mount.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 				entity.object:set_yaw(entity.object:get_yaw()-get_sign(entity.v)*math.rad(1+dtime)*entity.turn_spd)
 			end
 		else
-			entity.object:set_yaw(entity.driver:get_look_yaw() - rot_steer)
+			entity.object:set_yaw(entity.driver:get_look_horizontal() - rot_steer 
+				+ 1.570796)
 		end
 		if ctrl.jump then
 			if jump_height > 0 and velo.y == 0 then
@@ -385,8 +386,8 @@ function lib_mount.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 				-- `entity.drop_on_destory` is table which stores all the items that will be dropped on destroy.
 				-- It will drop one of those items, from `1` to the length, or the end of the table.
 
-				local i = math.random(1, #entity.drop_on_destroy)
-				local j = math.random(2, #entity.drop_on_destroy)
+				local i = rand.az(1, #entity.drop_on_destroy)
+				local j = rand.az(2, #entity.drop_on_destroy)
 
 				minetest.add_item(pos, entity.drop_on_destroy[i])
 				if i ~= j then

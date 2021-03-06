@@ -83,7 +83,7 @@ biomes.register_biome("base_biomes:tundra_beach", {
 biomes.register_biome_set("base_biomes:taiga", {
 	surface = {
 		node_dust = "base_liquids:snow",
-		node_top = "base_earth:dirt_with_snow",
+		node_top = "base_liquids:dirt_with_snow",
 		node_filler = "base_earth:dirt",
 		y_min = 4,
 		heat_point = 25,
@@ -101,7 +101,7 @@ biomes.register_biome_set("base_biomes:taiga", {
 biomes.register_biome_set("base_biomes:snowy_grassland", {
 	surface = {
 		node_dust = "base_liquids:snow",
-		node_top = "base_earth:dirt_with_snow",
+		node_top = "base_liquids:dirt_with_snow",
 		node_filler = "base_earth:dirt",
 		depth_filler = 1,
 		y_min = 4,

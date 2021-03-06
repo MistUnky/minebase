@@ -2,25 +2,27 @@
 
 hydrophytes = {}
 
-function hydrophytes.on_place(itemstack, placer, pointed_thing, root, max)
+function hydrophytes.on_place(itemstack, placer, pointed_thing)
 	if pointed_thing.type ~= "node" or not placer then
 		return itemstack
 	end
 
+	local def = itemstack:get_definition()
 	local pos_under = pointed_thing.under
 	local node_under = minetest.get_node(pos_under)
 	local def_under = minetest.registered_nodes[node_under.name]
 
-	if def_under and def_under.on_rightclick and not placer:get_player_control().sneak then
+	if def_under and def_under.on_rightclick 
+		and not placer:get_player_control().sneak then
 		return def_under.on_rightclick(pos_under, node_under, placer, itemstack, 
 			pointed_thing) or itemstack
 	end
 
-	if node_under.name ~= root then
+	if node_under.name ~= def._root then
 		return itemstack
 	end
 	
-	local height = max and math.random(max[1], max[2]) or 1
+	local height = def._max and rand.az(def._max[1], def._max[2]) or 1
 	local pos_top = {x = pos_under.x, y = pos_under.y + height, z = pos_under.z}
 	local node_top = minetest.get_node(pos_top)
 	local def_top = minetest.registered_nodes[node_top.name]
@@ -45,7 +47,8 @@ function hydrophytes.on_place(itemstack, placer, pointed_thing, root, max)
 		end
 	end
 
-	minetest.set_node(pos_under, {name = itemstack:get_name(), param2 = height * 16})
+	minetest.set_node(pos_under, {name = itemstack:get_name(), param2 = height 
+		* 16})
 
 	if not minetest.is_creative_enabled(player_name) then
 		itemstack:take_item()
@@ -54,8 +57,8 @@ function hydrophytes.on_place(itemstack, placer, pointed_thing, root, max)
 	return itemstack
 end
 
-function hydrophytes.after_destruct(pos, _, root)
-	minetest.set_node(pos, {name = root})
+function hydrophytes.after_destruct(pos, oldnode)
+	minetest.set_node(pos, {name = minetest.registered_nodes[oldnode.name]._root})
 end
 
 function hydrophytes.register_phyte(name, def)
@@ -71,6 +74,7 @@ function hydrophytes.register_phyte(name, def)
 		special_tiles = def.special_tiles or {{name = txt .. ".png", 
 			tileable_vertical = true}},
 		inventory_image = def.inventory_image or txt .. ".png",
+		wield_image = def.wield_image or txt .. ".png",
 		groups = def.groups or {snappy = 3},
 		selection_box = def.selection_box or {
 			type = "fixed",
@@ -85,15 +89,10 @@ function hydrophytes.register_phyte(name, def)
 			dig = {name = "base_sounds_dig_snappy", gain = 0.2},
 			dug = {name = "base_earth_grass_footstep", gain = 0.25},
 		}),
-
-		on_place = def.on_place or function(itemstack, placer, pointed_thing)
-			return hydrophytes.on_place(itemstack, placer, pointed_thing, 
-				def.root, def.max)
-		end,
-
-		after_destruct = def.after_destruct or function(pos)
-			return hydrophytes.after_destruct(pos, nil, def.root)
-		end,
+		on_place = def.on_place or hydrophytes.on_place,
+		after_destruct = def.after_destruct or hydrophytes.after_destruct,
+		_root = def.root,
+		_max = def.max
 	})
 end
 

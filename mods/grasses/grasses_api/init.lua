@@ -2,11 +2,12 @@
 
 grasses = {}
 
-grasses.on_place = function(name, max, itemstack, placer, pointed_thing)
+function grasses.on_place(itemstack, placer, pointed_thing)
 	-- place a random grass node
-	local stack = ItemStack(name .. "_" .. math.random(1, max))
+	local def = itemstack:get_definition()
+	local stack = ItemStack(def._base_name .. "_" .. rand.az(1, def._max))
 	local ret = minetest.item_place(stack, placer, pointed_thing)
-	return ItemStack(name .. "_1 " .. itemstack:get_count() - 
+	return ItemStack(def._base_name .. "_1 " .. itemstack:get_count() - 
 		(1 - ret:get_count()))
 end
 
@@ -33,7 +34,9 @@ function grasses.register_grass(name, def)
 			type = "fixed",
 			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, def.height or -5, 6 / 16},
 		},
-		on_place = def.on_place
+		on_place = def.on_place,
+		_base_name = def.base_name,
+		_max = def.max
 	})
 	if def.burntime then
 		minetest.register_craft({
@@ -64,10 +67,9 @@ end
 function grasses.register_grass_set(name, def)
 	def.first.i = 1
 	def.first.burntime = def.first.burntime or 2
-	def.first.on_place = def.first.on_place or function(itemstack, placer, 
-		pointed_thing)
-			return grasses.on_place(name, def.max, itemstack, placer, pointed_thing)
-	end
+	def.first.on_place = def.first.on_place or grasses.on_place
+	def.first.max = def.max
+	def.first.base_name = name
 	grasses.register_grass(name, def.first)
 	def.other.description = def.other.description or def.first.description
 	def.other.height = def.other.height or def.first.height

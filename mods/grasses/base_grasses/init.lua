@@ -177,7 +177,7 @@ minetest.register_node("base_grasses:papyrus", {
 	groups = {snappy = 3, flammable = 2},
 	sounds = sounds.get_defaults("tree_sounds:leaves"),
 
-	after_dig_node = function(pos, node, metadata, digger)
+	after_dig_node = function(pos, node, _, digger)
 		grasses.dig_up(pos, node, digger)
 	end,
 })
@@ -235,9 +235,7 @@ minetest.register_abm({
 	},
 	interval = 14,
 	chance = 71,
-	action = function(...)
-		grow_papyrus(...)
-	end
+	action = grow_papyrus
 })
 
 local modpath = minetest.get_modpath("base_grasses")

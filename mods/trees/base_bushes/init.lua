@@ -2,7 +2,6 @@
 
 -- Load support for Minebase translation.
 local S = minetest.get_translator("base_bushes")
-local random = math.random
 local base_bushes_path = minetest.get_modpath("base_bushes")
 
 -- apple bush
@@ -207,7 +206,7 @@ trees.register_leaves("base_bushes:blueberry_bush_with_berries", { description =
 	node_dig_prediction = "base_bushes:blueberry_bush_leaves",
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
 		minetest.set_node(pos, {name = "base_bushes:blueberry_bush_leaves"})
-		minetest.get_node_timer(pos):start(math.random(300, 1500))
+		minetest.get_node_timer(pos):start(rand.az(300, 1500))
 	end,
 })
 

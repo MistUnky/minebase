@@ -2,7 +2,6 @@
 
 -- Load support for Minebase translation.
 local S = minetest.get_translator("base_trees")
-local random = math.random
 local base_trees_path = minetest.get_modpath("base_trees")
 
 dofile(base_trees_path .. "/extra.lua")
@@ -241,7 +240,7 @@ trees.register_tree("base_trees:pine", {
 		grow_sapling = function(pos)
 			local path
 			if minetest.find_node_near(pos, 1, {"group:snowy"}) then
-				if math.random() > 0.5 then
+				if rand.dy(2) == 2 then
 					path = base_trees_path ..
 						"/schematics/snowy_pine_tree_from_sapling.mts"
 				else
@@ -251,7 +250,7 @@ trees.register_tree("base_trees:pine", {
 				minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 					path, "random", nil, false)
 			else
-				if math.random() > 0.5 then
+				if rand.dy(2) == 2 then
 					path = base_trees_path ..
 						"/schematics/pine_tree_from_sapling.mts"
 				else
@@ -330,7 +329,7 @@ minetest.register_lbm({
 			"base_trees:pine_sapling", "base_trees:acacia_sapling",
 			"base_trees:aspen_sapling"},
 	action = function(pos)
-		minetest.get_node_timer(pos):start(math.random(300, 1500))
+		minetest.get_node_timer(pos):start(rand.az(300, 1500))
 	end
 })
 

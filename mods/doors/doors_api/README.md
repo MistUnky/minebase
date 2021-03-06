@@ -14,6 +14,7 @@ Added doors API to facilitate coding mods accessing and operating doors.
 Added Fence Gate model, code, and sounds. 
 
 Various Minetest developers and contributors (MIT)
+LibraSubtilis (MIT)
 
 
 Authors of media (textures)

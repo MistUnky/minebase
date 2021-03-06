@@ -230,9 +230,7 @@ if minetest.settings:get_bool("enable_lavacooling") ~= false then
 		interval = 2,
 		chance = 2,
 		catch_up = false,
-		action = function(...)
-			cool_lava(...)
-		end,
+		action = cool_lava
 	})
 end
 

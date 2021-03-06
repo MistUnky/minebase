@@ -352,7 +352,7 @@ function doors.on_skeleton_key_use(pos, player, newsecret)
 		meta:set_string("key_lock_secret", secret)
 	end
 
-	return secret, S("Owned by @1"), owner
+	return secret, S("Owned by @1", owner), owner
 end
 
 function doors.on_blast(pos)
