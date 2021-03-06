@@ -86,7 +86,7 @@ minetest.register_node("base_soil:dirt_wet", {
 })
 
 minetest.register_node("base_soil:dry_dirt", {
-	description = S("Savanna Soil"),
+	description = S("Dry Soil"),
 	tiles = {"base_earth_dry_dirt.png^base_soil_dirt.png", "base_earth_dry_dirt.png"},
 	drop = "base_earth:dry_dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=2, grassland = 1, field = 1},
@@ -99,7 +99,7 @@ minetest.register_node("base_soil:dry_dirt", {
 })
 
 minetest.register_node("base_soil:dry_dirt_wet", {
-	description = S("Wet Savanna Soil"),
+	description = S("Wet Dry Soil"),
 	tiles = {"base_earth_dry_dirt.png^base_soil_dirt_wet.png", "base_earth_dry_dirt.png^base_soil_dirt_wet_side.png"},
 	drop = "base_earth:dry_dirt",
 	groups = {crumbly=3, not_in_creative_inventory=1, soil=3, wet = 1, grassland = 1, field = 1},

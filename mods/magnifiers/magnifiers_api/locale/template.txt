@@ -1,2 +1,2 @@
-# textdomain: magnifier_api
+# textdomain: magnifiers_api
 Use with 'Zoom' key=

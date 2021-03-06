@@ -1,2 +1,3 @@
-# textdomain: permissions_api
-Key to @1's @2=
+# textdomain: base_permissions
+Key=
+Skeleton Key=

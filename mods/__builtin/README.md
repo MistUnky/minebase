@@ -15,6 +15,6 @@ Authors of media (textures)
 ```txt
 Ferk (CC0 1.0):
   __builtin_item_smoke.png
-LibraSubtilis (CC BY-SA 3.0):
+LibraSubtilis (CC BY 3.0):
   crack_anylength.png  
 ```

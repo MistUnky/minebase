@@ -24,7 +24,7 @@ screwdrivers.register_screwdriver("base_screwdrivers:screwdriver", {
 
 screwdrivers.register_screwdriver("base_screwdrivers:exzet", {
 	description = S("Exzet") .. "\n" .. S("(left-click push from left, right-click \z
-		push from right\n Aux + left-click pull to left, Aux + right-click pull \z
+		push from right\n aux + left-click pull to left, aux + right-click pull \z
 		to right)"),
 	on_use = function(itemstack, user, pointed_thing)
 		screwdrivers.exzet(itemstack, user, pointed_thing, 1)

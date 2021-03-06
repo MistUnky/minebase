@@ -23,4 +23,3 @@ Bronze Sword=
 Steel Sword=
 Mese Sword=
 Diamond Sword=
-Key=

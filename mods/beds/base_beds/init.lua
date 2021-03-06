@@ -1,7 +1,7 @@
 -- base_beds/init.lua
 
 -- support for Minebase translation.
-local S = minetest.get_translator("base_beds")
+local S = minetest.get_translator("beds")
 
 -- Simple shaped bed
 

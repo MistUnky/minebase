@@ -24,6 +24,7 @@ minetest.register_node("trash:trash", {
 	tiles = {"trash_trash_top.png", "trash_trash_bottom.png", 
 		"trash_trash_side.png", "trash_trash_side.png", "trash_trash_side.png",
 		"trash_trash_side.png"},
+	on_rightclick = trash.on_rightclick
 })
 
 minetest.register_craft({

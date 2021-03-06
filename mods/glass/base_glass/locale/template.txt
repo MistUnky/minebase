@@ -1,4 +1,4 @@
-# textdomain: glass
+# textdomain: base_glass
 Glass=
 Obsidian Glass=
 Glass Fragments=
