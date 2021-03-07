@@ -1,5 +1,7 @@
 -- carts_api/init.lua
 
+local S = minetest.get_translator("carts_api")
+
 carts = {}
 carts.railparams = {}
 
@@ -650,6 +652,8 @@ function carts.register_entity(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_entity(name, {
 		initial_properties = {
+			infotext = S("left-click push, right-click mount") .. "\n" 
+				.. S("aux + left-click to pick up"),
 			physical = false, -- otherwise going uphill breaks
 			collisionbox = def.collisionbox or {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
 			visual = def.visual or "mesh",

@@ -5,7 +5,7 @@ local S = minetest.get_translator("base_carts")
 
 carts.register_cart("base_carts:cart", {
 	craftitem = {
-		description = S("Cart") .. "\n" .. S("(Sneak+Click to pick up)"),
+		description = S("Cart") .. "\n" .. S("aux + left-click to pick up"),
 		recipe = {
 			{"base_ores:steel_ingot", "", "base_ores:steel_ingot"},
 			{"base_ores:steel_ingot", "base_ores:steel_ingot", 

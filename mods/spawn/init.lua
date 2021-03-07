@@ -120,7 +120,6 @@ local function search()
 	return false
 end
 
-
 -- On new player spawn and player respawn
 
 -- Search for spawn position once per server session. If successful, store

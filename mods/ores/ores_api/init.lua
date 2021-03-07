@@ -1,8 +1,8 @@
 -- ores_api/init.lua
 
 ores = {}
-ores.percentage_of_ore = tonumber(minetest.settings
-	:get("spiritus_api_spawn_percentage")) or 100
+local scarcity_modifier = 100 / tonumber(minetest.settings
+	:get("ore_percentage")) or 1
 
 minetest.clear_registered_ores()
 
@@ -50,7 +50,8 @@ function ores.register_ore(name, def)
 		ore_type = def.ore_type or "scatter",
 		ore = def.ore or name .. "_mineral",
 		wherein = def.wherein or "base_earth:stone",
-		clust_scarcity = def.clust_scarcity or 15 * 15 * 15,
+		clust_scarcity = math.floor((def.clust_scarcity or 15 * 15 * 15) 
+			* scarcity_modifier), 
 		clust_num_ores = def.clust_num_ores or 7,
 		clust_size = def.clust_size or 3,
 		y_max = def.y_max or 31000,
@@ -69,11 +70,11 @@ end
 
 -- The calculations are similar to those in tools_api.
 local function calc_ore_values(ore)
-	local y = ore.x >= -2 and ore.x + 9 or 7
-	ore.clust_scarcity = ore.clust_scarcity or -360/y + 54
+	local y = ore.x >= - 2 and ore.x + 9 or 7
+	ore.clust_scarcity = ore.clust_scarcity or - 360 / y + 54
 	ore.clust_num_ores = ore.clust_num_ores or 3
 	ore.clust_size = ore.clust_size or 2
-	ore.y_max = ore.y_max or 40960/(9+y) - 6144
+	ore.y_max = ore.y_max or 40960 / (9 + y) - 6144
 end
 
 function ores.register_scatter_ores(name, def)
@@ -116,7 +117,7 @@ function ores.register_metal(name, def)
 		ores.register_block(name, def.block)
 	end
 	
-  if def.blob_ores then
+	if def.blob_ores then
 		ores.register_blob_ores(name, def.blob_ores)
 	end
 
@@ -168,7 +169,7 @@ function ores.register_crystal(name, def)
 		ores.register_block(name, def.block)
 	end
 
-  if def.blob_ores then
+	if def.blob_ores then
 		ores.register_blob_ores(name, def.blob_ores)
 	end
 

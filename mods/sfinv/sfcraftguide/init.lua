@@ -2,6 +2,7 @@
 
 local S = minetest.get_translator("sfcraftguide")
 local esc = minetest.formspec_escape
+local sfcraftguide = {}
 
 local player_data = {}
 local init_items = {}
@@ -12,8 +13,9 @@ local group_stereotypes = {
 	dye = "dye:white",
 	wool = "wool:white",
 	coal = "base_ores:coal_lump",
-	vessel = "vessels:glass_bottle",
-	flower = "flowers:dandelion_yellow"
+	vessel = "base_vessels:glass_bottle",
+	flower = "base_flowers:dandelion_yellow",
+	wood = "base_trees:apple_wood"
 }
 
 local group_names = {
@@ -59,14 +61,14 @@ local function table_replace(t, val, new)
 	end
 end
 
-local function extract_groups(str)
+function sfcraftguide.extract_groups(str)
 	if str:sub(1, 6) == "group:" then
 		return str:sub(7):split()
 	end
 	return nil
 end
 
-local function item_has_groups(item_groups, groups)
+function sfcraftguide.item_has_groups(item_groups, groups)
 	for _, group in ipairs(groups) do
 		if not item_groups[group] then
 			return false
@@ -75,26 +77,22 @@ local function item_has_groups(item_groups, groups)
 	return true
 end
 
-local function groups_to_item(groups)
+function sfcraftguide.groups_to_item(groups)
 	if #groups == 1 then
 		local group = groups[1]
 		if group_stereotypes[group] then
 			return group_stereotypes[group]
-		elseif minetest.registered_items["default:"..group] then
-			return "default:"..group
 		end
 	end
-
 	for name, def in pairs(minetest.registered_items) do
-		if item_has_groups(def.groups, groups) then
+		if sfcraftguide.item_has_groups(def.groups, groups) then
 			return name
 		end
 	end
-
 	return ":unknown"
 end
 
-local function get_craftable_recipes(output)
+function sfcraftguide.get_craftable_recipes(output)
 	local recipes = minetest.get_all_craft_recipes(output)
 	if not recipes then
 		return nil
@@ -102,9 +100,9 @@ local function get_craftable_recipes(output)
 
 	for i = #recipes, 1, -1 do
 		for _, item in pairs(recipes[i].items) do
-			local groups = extract_groups(item)
+			local groups = sfcraftguide.extract_groups(item)
 			if groups then
-				item = groups_to_item(groups)
+				item = sfcraftguide.groups_to_item(groups)
 			end
 			if not minetest.registered_items[item] then
 				table.remove(recipes, i)
@@ -118,7 +116,7 @@ local function get_craftable_recipes(output)
 	end
 end
 
-local function show_item(def)
+function sfcraftguide.show_item(def)
 	return def.groups.not_in_craft_guide ~= 1 and def.description ~= ""
 end
 
@@ -126,11 +124,11 @@ local function cache_usages(recipe)
 	local added = {}
 	for _, item in pairs(recipe.items) do
 		if not added[item] then
-			local groups = extract_groups(item)
+			local groups = sfcraftguide.extract_groups(item)
 			if groups then
 				for name, def in pairs(minetest.registered_items) do
-					if not added[name] and show_item(def)
-							and item_has_groups(def.groups, groups) then
+					if not added[name] and sfcraftguide.show_item(def)
+							and sfcraftguide.item_has_groups(def.groups, groups) then
 						local usage = table.copy(recipe)
 						table_replace(usage.items, item, name)
 						usages_cache[name] = usages_cache[name] or {}
@@ -138,7 +136,7 @@ local function cache_usages(recipe)
 						added[name] = true
 					end
 				end
-			elseif show_item(minetest.registered_items[item]) then
+			elseif sfcraftguide.show_item(minetest.registered_items[item]) then
 				usages_cache[item] = usages_cache[item] or {}
 				table.insert(usages_cache[item], recipe)
 			end
@@ -149,8 +147,8 @@ end
 
 minetest.register_on_mods_loaded(function()
 	for name, def in pairs(minetest.registered_items) do
-		if show_item(def) then
-			local recipes = get_craftable_recipes(name)
+		if sfcraftguide.show_item(def) then
+			local recipes = sfcraftguide.get_craftable_recipes(name)
 			if recipes then
 				recipes_cache[name] = recipes
 				for _, recipe in ipairs(recipes) do
@@ -171,11 +169,11 @@ local function coords(i, cols)
 	return i % cols, math.floor(i / cols)
 end
 
-local function is_fuel(item)
+function sfcraftguide.is_fuel(item)
 	return minetest.get_craft_result({method="fuel", items={item}}).time > 0
 end
 
-local function item_button_fs(fs, x, y, item, element_name, groups)
+function sfcraftguide.item_button_fs(fs, x, y, item, element_name, groups)
 	table.insert(fs, ("item_image_button[%s,%s;1.05,1.05;%s;%s;%s]")
 		:format(x, y, item, element_name, groups and "\n"..esc(S("G")) or ""))
 
@@ -191,7 +189,7 @@ local function item_button_fs(fs, x, y, item, element_name, groups)
 			groupstr = table.concat(groupstr, ", ")
 			tooltip = S("Any item belonging to the group(s): @1", groupstr)
 		end
-	elseif is_fuel(item) then
+	elseif sfcraftguide.is_fuel(item) then
 		local itemdef = minetest.registered_items[item:match("%S*")]
 		local desc = itemdef and itemdef.description or S("Unknown Item")
 		tooltip = desc.."\n"..minetest.colorize("orange", S("Fuel"))
@@ -201,7 +199,7 @@ local function item_button_fs(fs, x, y, item, element_name, groups)
 	end
 end
 
-local function recipe_fs(fs, data)
+function sfcraftguide.recipe_fs(fs, data)
 	local recipe = data.recipes[data.rnum]
 	local width = recipe.width
 	local cooktime, shapeless
@@ -244,11 +242,11 @@ local function recipe_fs(fs, data)
 	for i, item in pairs(recipe.items) do
 		local x, y = coords(i - 1, width)
 
-		local groups = extract_groups(item)
+		local groups = sfcraftguide.extract_groups(item)
 		if groups then
-			item = groups_to_item(groups)
+			item = sfcraftguide.groups_to_item(groups)
 		end
-		item_button_fs(fs, base_x + x, base_y + y, item, item, groups)
+		sfcraftguide.item_button_fs(fs, base_x + x, base_y + y, item, item, groups)
 	end
 
 	if shapeless or recipe.method == "cooking" then
@@ -260,10 +258,10 @@ local function recipe_fs(fs, data)
 	end
 	table.insert(fs, "image[3,1;1,1;base_inv_crafting_arrow.png]")
 
-	item_button_fs(fs, 4, 1, recipe.output, recipe.output:match("%S*"))
+	sfcraftguide.item_button_fs(fs, 4, 1, recipe.output, recipe.output:match("%S*"))
 end
 
-local function get_formspec(player)
+function sfcraftguide.get_formspec(player)
 	local name = player:get_player_name()
 	local data = player_data[name]
 	data.pagemax = math.max(1, math.ceil(#data.items / 32))
@@ -295,13 +293,13 @@ local function get_formspec(player)
 				break
 			end
 			local x, y = coords(i % 32, 8)
-			item_button_fs(fs, x, y, item, item)
+			sfcraftguide.item_button_fs(fs, x, y, item, item)
 		end
 	end
 
 	table.insert(fs, "container[0,5.6]")
 	if data.recipes then
-		recipe_fs(fs, data)
+		sfcraftguide.recipe_fs(fs, data)
 	elseif data.prev_item then
 		table.insert(fs, ("label[2,1;%s]"):format(esc(data.show_usages
 			and S("No usages.").."\n"..S("Click again to show recipes.")
@@ -316,7 +314,7 @@ local function imatch(str, filter)
 	return str:lower():find(filter, 1, true) ~= nil
 end
 
-local function execute_search(data)
+function sfcraftguide.execute_search(data)
 	local filter = data.filter
 	if filter == "" then
 		data.items = init_items
@@ -326,7 +324,8 @@ local function execute_search(data)
 
 	for _, item in ipairs(init_items) do
 		local def = minetest.registered_items[item]
-		local desc = def and minetest.get_translated_string(data.lang_code, def.description)
+		local desc = def and minetest.get_translated_string(data.lang_code, 
+			def.description)
 
 		if imatch(item, filter) or desc and imatch(desc, filter) then
 			table.insert(data.items, item)
@@ -334,7 +333,7 @@ local function execute_search(data)
 	end
 end
 
-local function on_receive_fields(player, fields)
+function sfcraftguide.on_receive_fields(player, fields)
 	local name = player:get_player_name()
 	local data = player_data[name]
 
@@ -353,7 +352,7 @@ local function on_receive_fields(player, fields)
 		end
 		data.filter = new
 		data.pagenum = 1
-		execute_search(data)
+		sfcraftguide.execute_search(data)
 		return true
 
 	elseif fields.prev or fields.next then
@@ -425,10 +424,11 @@ end)
 sfinv.register_page("sfcraftguide:craftguide", {
 	title = esc(S("Recipes")),
 	get = function(self, player, context)
-		return sfinv.make_formspec(player, context, get_formspec(player))
+		return sfinv.make_formspec(player, context, sfcraftguide
+			.get_formspec(player))
 	end,
 	on_player_receive_fields = function(self, player, context, fields)
-		if on_receive_fields(player, fields) then
+		if sfcraftguide.on_receive_fields(player, fields) then
 			sfinv.set_player_inventory_formspec(player)
 		end
 	end

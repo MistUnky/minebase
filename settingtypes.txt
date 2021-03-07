@@ -13,6 +13,9 @@ creative_mode (Creative mode) bool false
 #    'permanent_flame' nodes are unaffected.
 enable_fire (Fire) bool true
 
+#    Enable the extended player model.
+extended_model (extended model) bool false
+
 #    Enable flame sound.
 flame_sound (Flame sound) bool true
 
@@ -35,12 +38,9 @@ enable_bed_night_skip (Skip night when sleeping) bool true
 #    If enabled, fences and walls cannot be jumped over.
 enable_fence_tall (Tall fences and walls) bool false
 
-#    When TNT explodes, it destroys nearby nodes and damages nearby players.
-#    This setting is disabled by default on servers.
-enable_tnt (TNT) bool true
-
-#    The radius in which nodes will be destroyed by a TNT explosion.
-tnt_radius (TNT radius) int 3 0
+#    Sets the generated quantity of ore to a percentage of the registered 
+#    quantity.
+ore_percentage (ore percentage) int 100
 
 #    Sets the behaviour of the inventory items when a player dies.
 #    bones: Store items in a bone node but drop items if inside protected area.

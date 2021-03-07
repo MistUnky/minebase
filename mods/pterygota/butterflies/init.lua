@@ -14,7 +14,7 @@ for i in ipairs (butter_list) do
 	local desc = butter_list[i][2]
 
 	pterygota.register_pterygota("butterflies:butterfly_" .. butter_list[i][1], {
-		visible = {description = desc},
+		visible = {description = desc, pointable = true},
 		hidden = {description = desc}
 	})
 end

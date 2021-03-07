@@ -23,12 +23,6 @@ lib_mount.register_mount("boats:boat", {
 		driver_attach_at = {x=0.5,y=1,z=-3},
 		driver_eye_offset = {x=0, y=0, z=0},
 		number_of_passengers = 0,
-		passenger_attach_at = {x=0,y=0,z=0},
-		passenger_eye_offset = {x=0, y=0, z=0},
-		passenger2_attach_at = {x=0,y=0,z=0},
-		passenger2_eye_offset = {x=0, y=0, z=0},
-		passenger3_attach_at = {x=0,y=0,z=0},
-		passenger3_eye_offset = {x=0, y=0, z=0}
 	},
 	craftitem = {
 		description = S("Boat"),

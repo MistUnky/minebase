@@ -1,9 +1,18 @@
 -- base_players/init.lua
 
+local model, texture
+if minetest.settings:get("extended_model") == "true" then
+	model = "base_players_model_extended.b3d" 
+	texture = "base_players_sam_extended.png"
+else
+	model = "base_players_model.b3d"
+	texture = "base_players_sam.png"
+end
+
 -- Default player appearance
-players.register_model("base_players_model_extended.b3d", {
+players.register_model(model, {
 	animation_speed = 30,
-	textures = {"base_players_sam.png"},
+	textures = {texture},
 	animations = {
 		-- Standard animations.
 		stand     = {x = 0,   y = 79},
@@ -21,8 +30,7 @@ players.register_model("base_players_model_extended.b3d", {
 -- Update appearance when the player joins
 minetest.register_on_joinplayer(function(player)
 	players.player_attached[player:get_player_name()] = false
-	players.set_model(player, "base_players_model_extended.b3d", 
-		{"base_players_sam.png"})
+	players.set_model(player, model, {texture})
 	player:set_local_animation(
 		{x = 0,   y = 79},
 		{x = 168, y = 187},

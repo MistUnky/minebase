@@ -13,7 +13,7 @@ end
 function rand.xdy(x, y)
 	local out = 0
 	for i = 1, x do
-		out = out + rand.dy(y)
+		out = out + rand.pr:next(1, y)
 	end
 	return out
 end
@@ -28,7 +28,7 @@ function rand.seq(a, z)
 		table.insert(seq, i)
 	end
 	return function()
-		return #seq > 0 and table.remove(seq, rand.dy(#seq)) or nil
+		return #seq > 0 and table.remove(seq, rand.pr:next(1, #seq)) or nil
 	end
 end
 

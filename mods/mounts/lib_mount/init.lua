@@ -29,17 +29,37 @@ local function get_sign(i)
 	end
 end
 
-local function get_velocity(v, yaw, y)
+local function get_v(v)
+	return math.sqrt(v.x ^ 2 + v.z ^ 2)
+end
+
+-------------------------------------------------------------------------------
+
+minetest.register_on_leaveplayer(function(player)
+	lib_mount.force_detach(player)
+end)
+
+minetest.register_on_shutdown(function()
+	local players = minetest.get_connected_players()
+	for i = 1,#players do
+		lib_mount.force_detach(players[i])
+	end
+end)
+
+minetest.register_on_dieplayer(function(player)
+	lib_mount.force_detach(player)
+	return true
+end)
+
+-------------------------------------------------------------------------------
+
+function lib_mount.get_velocity(v, yaw, y)
 	local x = -math.sin(yaw) * v
 	local z =  math.cos(yaw) * v
 	return {x = x, y = y, z = z}
 end
 
-local function get_v(v)
-	return math.sqrt(v.x ^ 2 + v.z ^ 2)
-end
-
-local function force_detach(player)
+function lib_mount.force_detach(player)
 	local attached_to = player:get_attach()
 	if attached_to then
 		local entity = attached_to:get_luaentity()
@@ -61,25 +81,9 @@ local function force_detach(player)
 	end
 end
 
--------------------------------------------------------------------------------
-
-minetest.register_on_leaveplayer(function(player)
-	force_detach(player)
-end)
-
-minetest.register_on_shutdown(function()
-    local players = minetest.get_connected_players()
-	for i = 1,#players do
-		force_detach(players[i])
-	end
-end)
-
-minetest.register_on_dieplayer(function(player)
-	force_detach(player)
-	return true
-end)
-
--------------------------------------------------------------------------------
+local function after_attach(player)
+	players.set_animation(player, "sit", 30)
+end
 
 function lib_mount.attach(entity, player, is_passenger, passenger_number)
 	local attach_at, eye_offset = {}, {}
@@ -150,28 +154,32 @@ function lib_mount.attach(entity, player, is_passenger, passenger_number)
 		entity.driver = player
 	end
 
-	force_detach(player)
+	lib_mount.force_detach(player)
 
 	player:set_attach(entity.object, "", attach_at, entity.player_rotation)
 	players.player_attached[player:get_player_name()] = true
 	player:set_eye_offset(eye_offset, {x=0, y=0, z=0})
-	minetest.after(0.2, function()
-		players.set_animation(player, "sit", 30)
-	end)
+	minetest.after(0.2, after_attach, player)
 	player:set_look_horizontal(entity.object:get_yaw() - rot_view)
 end
 
+local function after_detach(player, pos)
+	player:set_pos(pos)
+end
+
 function lib_mount.detach(player, offset)
-	force_detach(player)
+	lib_mount.force_detach(player)
 	players.set_animation(player, "stand", 30)
 	local pos = player:get_pos()
 	pos = {x = pos.x + offset.x, y = pos.y + 0.2 + offset.y, z = pos.z + offset.z}
-	minetest.after(0.1, function()
-		player:set_pos(pos)
-	end)
+	minetest.after(0.1, after_detach, player, pos)
 end
 
 local aux_timer = 0
+
+local function after_crash(entity)
+	entity.object:remove()
+end
 
 function lib_mount.drive(entity, dtime, is_mob, moving_anim, stand_anim, 
 	jump_height, can_fly, can_go_down, can_go_up, enable_crash)
@@ -337,7 +345,7 @@ function lib_mount.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 		--new_acce.y = 1
 	end
 
-	new_velo = get_velocity(v, entity.object:get_yaw() - rot_view, velo.y)
+	new_velo = lib_mount.get_velocity(v, entity.object:get_yaw() - rot_view, velo.y)
 	new_acce.y = new_acce.y + acce_y
 
 	entity.object:set_velocity(new_velo)
@@ -396,9 +404,7 @@ function lib_mount.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 
 				entity.removed = true
 				-- delay remove to ensure player is detached
-				minetest.after(0.1, function()
-					entity.object:remove()
-				end)
+				minetest.after(0.1, after_crash, entity)
 			end
 		end
 	end
@@ -489,6 +495,10 @@ function lib_mount.get_staticdata(self)
 	return core.serialize(data)
 end
 
+local function after_punch(self)
+	self.object:remove()
+end
+
 function lib_mount.on_punch(self, puncher)
 	if not puncher or not puncher:is_player() or self.removed or self.driver then
 		return
@@ -497,9 +507,7 @@ function lib_mount.on_punch(self, puncher)
 	if self.owner == punchername or minetest.get_player_privs(punchername).protection_bypass then
 		self.removed = true
 		-- delay remove to ensure player is detached
-		minetest.after(0.1, function()
-		self.object:remove()
-	end)
+		minetest.after(0.1, after_punch, self)
 		puncher:get_inventory():add_item("main", self.name)
 	end
 end

@@ -1,5 +1,0 @@
-
-#    Sets the generated quantity of ore to a percentage of the registered 
-#    quantity.
-percentage_of_ore (percentage of the normal ore quantity) int 100
-

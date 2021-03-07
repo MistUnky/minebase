@@ -1,5 +1,8 @@
 -- pterygota_api/init.lua
 
+-- Load support for Minebase translation.
+local S = minetest.get_translator("pterygota_api")
+
 pterygota = {threshold = 11, decos = {}}
 
 function pterygota.on_place(itemstack, placer, pointed_thing)
@@ -9,7 +12,6 @@ function pterygota.on_place(itemstack, placer, pointed_thing)
 	if not minetest.is_protected(pos, player_name) and
 			not minetest.is_protected(pointed_thing.under, player_name) and
 			minetest.get_node(pos).name == "air" then
-
 		minetest.set_node(pos, {name = itemstack:get_name()})
 		minetest.get_node_timer(pos):start(1)
 		itemstack:take_item()
@@ -20,7 +22,7 @@ end
 function pterygota.on_timer_dark(pos)
 	if minetest.get_node_light(pos) <= pterygota.threshold then
 		minetest.set_node(pos, {name = minetest.registered_nodes
-			[minetest.get_node(pos).name].swap})
+			[minetest.get_node(pos).name]._swap})
 	end
 	minetest.get_node_timer(pos):start(30)
 end
@@ -28,7 +30,7 @@ end
 function pterygota.on_timer_bright(pos)
 	if minetest.get_node_light(pos) > pterygota.threshold then
 		minetest.set_node(pos, {name = minetest.registered_nodes
-			[minetest.get_node(pos).name].swap})
+			[minetest.get_node(pos).name]._swap})
 	end
 	minetest.get_node_timer(pos):start(30)
 end
@@ -78,13 +80,12 @@ function pterygota.register_visible(name, def)
 		groups = def.groups or {catchable = 1},
 		selection_box = def.selection_box or {
 			type = "fixed",
-			fixed = {-0.1, -0.1, -0.1, 0.1, 0.1, 0.1},
+			fixed = {-0.01, -0.1, -0.01, 0.01, 0.1, 0.01},
 		},
 		light_source = def.light_source,
 		floodable = true,
 		on_place = def.on_place or pterygota.on_place,
-		on_timer = def.on_timer or pterygota.on_timer_dark,
-		swap = name .. "_hidden",
+		on_timer = def.on_timer or def.hidden and pterygota.on_timer_dark,
 		sounds = def.sounds,
 		drop = def.drop,
 		on_secondary_use = def.on_secondary_use,
@@ -94,7 +95,8 @@ function pterygota.register_visible(name, def)
 		on_flood = def.on_flood,
 		on_rightclick = def.on_rightclick,
 		on_dig = def.on_dig,
-		on_punch = def.on_punch
+		on_punch = def.on_punch,
+		_swap = def.hidden and name .. "_hidden" or nil
 	})
 
 	if def.deco then
@@ -120,7 +122,7 @@ function pterygota.register_hidden(name, def)
 		floodable = true,
 		on_place = def.on_place or pterygota.on_place,
 		on_timer = def.on_timer or pterygota.on_timer_bright,
-		swap = name,
+		_swap = name,
 		on_flood = def.on_flood,
 	})
 
@@ -130,11 +132,11 @@ function pterygota.register_hidden(name, def)
 end
 
 function pterygota.register_pterygota(name, def)
-	pterygota.register_visible(name, def.visible)
-
 	if def.hidden then
 		pterygota.register_hidden(name, def.hidden)
+		def.visible.hidden = true
 	end
+	pterygota.register_visible(name, def.visible)
 end
 
 -- start nodetimers
@@ -148,3 +150,43 @@ minetest.register_on_generated(function()
 		end
 	end
 end)
+
+function pterygota.catch(itemstack, player, pointed_thing)
+	local player_name = player and player:get_player_name() or ""
+	if not pointed_thing or pointed_thing.type ~= "node" or
+			minetest.is_protected(pointed_thing.under, player_name) then
+		return
+	end
+	local node_name = minetest.get_node(pointed_thing.under).name
+	local inv = player:get_inventory()
+	if minetest.get_item_group(node_name, "catchable") == 1 then
+		minetest.set_node(pointed_thing.under, {name = "air"})
+		local stack = ItemStack(node_name.." 1")
+		local leftover = inv:add_item("main", stack)
+		if leftover:get_count() > 0 then
+			minetest.add_item(pointed_thing.under, node_name.." 1")
+		end
+	end
+	if not minetest.is_creative_enabled(player_name) then
+		itemstack:add_wear(256)
+		return itemstack
+	end
+end
+
+-- bug net
+minetest.register_tool("pterygota_api:bug_net", {
+	description = S("Bug Net"),
+	inventory_image = "pterygota_api_bugnet.png",
+	on_use = pterygota.catch
+})
+
+if minetest.get_modpath("farming_api") then
+	minetest.register_craft( {
+		output = "pterygota_api:bug_net",
+		recipe = {
+			{"farming:string", "farming:string"},
+			{"farming:string", "farming:string"},
+			{"group:stick", ""}
+		}
+	})
+end

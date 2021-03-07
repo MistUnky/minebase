@@ -212,3 +212,8 @@ minetest.register_abm({
 	end
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = "base_earth:gravel",
+	recipe = {"base_earth:stone_cobble"}
+})

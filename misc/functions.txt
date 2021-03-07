@@ -487,8 +487,66 @@ magnifiers/magnifiers_api/init.lua
     on_joinplayer,			m
 
 ## Maps ------------------------------------------------------------------------
+maps/init.lua
+  maps
+    .update_hud_flags,			m
+  local
+    cyclic_update,			m
+  callbacks
+    on_joinplayer,			m
+    on_use,				m
 
-
+## Mounts ----------------------------------------------------------------------
+mounts/lib_mount/init.lua
+  lib_mount
+    .get_velocity,			ic
+    .force_detach,			m
+    .attach,				m
+    .detach,				m
+    .drive,				m
+    .on_rightclick,			m
+    .on_activate,			m
+    .get_staticdata,			ic
+    .on_punch,				m
+    .on_step,				m
+    .register_entity,			m
+    .on_place,				m
+    .register_craftitem,		m
+    .register_mount,			m
+    .on_step,				m
+    .register_entity,			m
+    .on_place,				m
+    .register_craftitem,		m
+    .register_mount,			m
+  local
+    node_is,				dc
+    get_sign,				ic
+    get_v,				ic
+    after_attach,			m
+    after_detach,			m
+    after_crash,			m
+    after_punch,			m
+  callbacks
+    on_leaveplayer,			m
+    on_shutdown,			m
+    on_dieplayer,			m
+    
+## Ores ------------------------------------------------------------------------
+ores/ores_api/init.lua
+  ores
+    .register_lump,			m
+    .register_ingot,			m
+    .register_mineral,			m
+    .register_block,			m
+    .register_ore,			m
+    .register_blob_ores,		m
+    .register_scatter_ores,		m
+    .register_metal,			m
+    .register_crystal_item,		m
+    .register_fragment,			m
+    .register_crystal,			m
+  local
+    calc_ore_values,			ic
 
 ## Permissions -----------------------------------------------------------------
 permissions/base_permissions/init.lua
@@ -504,3 +562,147 @@ permissions/permissions_api/init.lua
     .correct_key,			mc
     .can_interact_with_node,		mc
 
+## Players ---------------------------------------------------------------------
+players/base_players/init.lua
+  callbacks
+    on_joinplayer,			m
+
+players/players_api/init.lua
+  players
+    .register_model,			m
+    .get_animation,			m
+    .set_model,				m
+    .set_textures,			m
+    .set_animation,			m
+    .calculate_knockback,		dc
+ callbacks
+   on_leaveplayer,			m
+   globalstep,				m
+
+## Pterygota -------------------------------------------------------------------
+pterygota/fireflies/init.lua
+  callbacks
+    on_rightclick,			m
+
+pterygota/pterygota_api/init.lua
+  pterygota
+    .on_place,				mc
+    .on_timer_dark,			m
+    .on_timer_bright,			m
+    .register_deco,			m
+    .register_visible,			m
+    .register_hidden,			m
+    .register_pterygota,		m
+    .catch,				mc
+  callbacks
+    on_generated,			m
+
+## Rand ------------------------------------------------------------------------
+rand/init.lua
+  rand
+    .dy,				dc
+    .az,				dc
+    .xdy,				dc
+    .seq,				dc
+    .pick,				dc
+
+## Screwdrivers ----------------------------------------------------------------
+screwdrivers/base_screwdrivers/init.lua
+  callbacks
+    on_use "Screwdriver",		mc
+    on_place "Screwdriver",		mc
+    on_place "Exzet",			mc
+    on_use "Exzet",			mc
+
+screwdrivers/screwdrivers_api/init.lua
+  screwdrivers
+    .check_attached_node,		dc
+    .handler,				mc
+    .exzet,				mc
+    .register_screwdriver,		m
+    .rotate
+      .facedir,				dc
+      .wallmounted,			dc
+  local
+    xzParam2,				dc
+
+## Sethome ---------------------------------------------------------------------
+sethome/init.lua
+  sethome
+    .set,				mc
+    .get,				dc
+    .go,				mc
+  command "home",			mc
+  command "sethome",			mc
+
+## sfInv -----------------------------------------------------------------------
+sfinv/base_inv/init.lua
+  callback
+    get,				dc
+
+sfinv/sfcraftguide/init.lua
+  sfcraftguide
+    .extract_groups,			ic
+    .item_has_groups,			ic
+    .groups_to_item,			dc
+    .get_craftable_recipes,		dc
+    .show_item,				ic
+    .is_fuel,				dc
+    .item_button_fs,			dc
+    .recipe_fs,				dc
+    .get_formspecs,			dc
+    .execute_search,			dc
+    .on_receive_fields,			dc
+  local
+    table_replace,			ic
+    cache_usages,			m
+    coords,				ic
+    imatch,				ic
+  callbacks
+    on_mods_loaded,			m
+    on_joinplayer,			m
+    on_leaveplayer,			m
+    page "sfcraftguide:craftguide"
+      get,				dc
+      on_player_receive_fields,		dc
+
+sfinv/sfinv_api/init.lua
+  sfinv
+    .register_page,			m
+    .override_page,			m
+    .get_nav_fs,			ic
+    .make_formspec,			dc
+    .get_formspec,			dc
+    .get_or_create_context,		mc
+    .set_context,			m
+    .set_player_inventory_formspec,	m
+    .set_page,				m
+    .get_page,				dc
+  callbacks
+    on_joinplayer,			m
+    on_leaveplayer,			m
+    on_player_receive_fields,		m
+
+## Signs -----------------------------------------------------------------------
+signs/signs_api/init.lua
+  signs
+    .on_construct,			m
+    .on_receive_fields,			m
+    .register_sign,			m
+
+## Sounds ----------------------------------------------------------------------
+sounds/sounds_api/init.lua
+  sounds
+    .register_defaults,			m
+    .get_defaults,			m
+
+## Spawn -----------------------------------------------------------------------
+spawn/init.lua 
+  local
+    next_pos,				mc
+    search,				mc
+    on_spawn,				mc
+  callbacks
+    on_respawnplayer,			mc
+
+## -----------------------------------------------------------------------------

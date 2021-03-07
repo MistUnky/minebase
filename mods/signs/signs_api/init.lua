@@ -1,9 +1,37 @@
 -- signs_api/init.lua
 
 -- Load support for Minebase translation.
-local S = minetest.get_translator("base_signs")
+local S = minetest.get_translator("signs_api")
 
 signs = {}
+
+function signs.on_construct(pos)
+	minetest.get_meta(pos):set_string("formspec", "field[text;;${text}]")
+end
+
+function signs.on_receive_fields(pos, formname, fields, sender)
+	local player_name = sender:get_player_name()
+	if minetest.is_protected(pos, player_name) then
+		minetest.record_protection_violation(pos, player_name)
+		return
+	end
+	local text = fields.text
+	if not text then
+		return
+	end
+	if string.len(text) > 512 then
+		minetest.chat_send_player(player_name, S("Text too long"))
+		return
+	end
+	local meta = minetest.get_meta(pos)
+	meta:set_string("text", text)
+
+	if #text > 0 then
+		meta:set_string("infotext", S('"@1"', text))
+	else
+		meta:set_string("infotext", '')
+	end
+end
 
 function signs.register_sign(name, def)
 	local txt = name:gsub(":", "_")
@@ -29,34 +57,8 @@ function signs.register_sign(name, def)
 		legacy_wallmounted = true,
 		groups = def.groups or {attached_node = 1, oddly_breakable_by_hand = 3},
 		sounds = def.sounds,
-
-		on_construct = function(pos)
-			local meta = minetest.get_meta(pos)
-			meta:set_string("formspec", "field[text;;${text}]")
-		end,
-		on_receive_fields = function(pos, formname, fields, sender)
-			local player_name = sender:get_player_name()
-			if minetest.is_protected(pos, player_name) then
-				minetest.record_protection_violation(pos, player_name)
-				return
-			end
-			local text = fields.text
-			if not text then
-				return
-			end
-			if string.len(text) > 512 then
-				minetest.chat_send_player(player_name, S("Text too long"))
-				return
-			end
-			local meta = minetest.get_meta(pos)
-			meta:set_string("text", text)
-
-			if #text > 0 then
-				meta:set_string("infotext", S('"@1"', text))
-			else
-				meta:set_string("infotext", '')
-			end
-		end,
+		on_construct = signs.on_construct,
+		on_receive_fields = signs.on_receive_fields
 	})
 
 	if def.material then

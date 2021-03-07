@@ -174,13 +174,12 @@ local xz = {
 	},
 }
 
-local function xzParam2(user, button, param2)
+local function exzetParam2(user, button, param2)
 	local yaw = user:get_look_horizontal()
 	local rotation = param2 % 32
 	if user:get_player_control().aux1 then
 		yaw = (yaw + 3.141593) % 6.283185
 	end
-
 	if button == 1 then
 		if yaw < 1.570796 then
 			param2 = param2 - rotation + xz[1][rotation]
@@ -202,7 +201,6 @@ local function xzParam2(user, button, param2)
 			param2 = param2 - rotation + xz[1][rotation]
 		end
 	end
-
 	return param2
 end
 
@@ -229,7 +227,7 @@ function screwdrivers.exzet(itemstack, user, pointed_thing, button)
 		return itemstack
 	end
 
-	node.param2 = xzParam2(user, button, node.param2)
+	node.param2 = exzetParam2(user, button, node.param2)
 	minetest.swap_node(pos, node)
 	minetest.check_for_falling(pos)
 

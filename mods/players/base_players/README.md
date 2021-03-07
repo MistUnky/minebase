@@ -15,8 +15,11 @@ Authors of media (textures, models)
 Textures
 --------
 ```txt
+Jordach (CC BY-SA 3.0):
+  base_players_sam.png
+
 LibraSubtilis (CC BY-SA 3.0):
-  base_players_sam.png 			(based on character.png by Jordach)
+  base_players_sam_extended.png 	(based on base_players_sam.png)
   base_players_uv.png
   base_players_uv_extended.png
 ```

@@ -1,3 +1,3 @@
 # textdomain: base_carts
 Cart=Вагонетка
-(Sneak+Click to pick up)=(Пригнитесь и кликните по вагонетке, чтобы забрать)
+aux + left-click to pick up=
