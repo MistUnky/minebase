@@ -74,7 +74,6 @@ function stairs.on_place_stair(itemstack, placer, pointed_thing)
 	if pointed_thing.type ~= "node" then
 		return itemstack
 	end
-
 	return stairs.rotate_and_place(itemstack, placer, pointed_thing)
 end
 
@@ -134,9 +133,7 @@ local function adapt_slab_images(tiles, worldaligntex)
 	local out = {}
 	for i, tile in ipairs(tiles) do
 		if type(tile) == "string" then
-			out[i] = {
-				name = tile,
-			}
+			out[i] = {name = tile}
 			if worldaligntex then
 				out[i].align_style = "world"
 			end
@@ -155,7 +152,7 @@ function stairs.on_place_slab(itemstack, placer, pointed_thing)
 	local wield_item = itemstack:get_name()
 	local player_name = placer and placer:get_player_name() or ""
 
-	if under and under.name:find("^stairs:slab_") then
+	if under and (under.name:find("_slab$") or under.name:find("_steps?$")) then
 		-- place slab using under node orientation
 		local dir = minetest.dir_to_facedir(vector.subtract(
 			pointed_thing.above, pointed_thing.under), true)
@@ -172,7 +169,7 @@ function stairs.on_place_slab(itemstack, placer, pointed_thing)
 
 		-- else attempt to place node with proper param2
 		minetest.item_place_node(ItemStack(wield_item), placer, pointed_thing, p2)
-		if not mintest.is_creative_enabled(player_name) then
+		if not minetest.is_creative_enabled(player_name) then
 			itemstack:take_item()
 		end
 		return itemstack
@@ -344,7 +341,6 @@ function stairs.register_step(name, def)
 		on_place = def.on_place or stairs.on_place_slab,
 	})
 
-
 	if def.material then
 		stairs.register_fuel(name, def.material, 0.25)
 	end
@@ -440,7 +436,7 @@ function stairs.register_steps(name, def)
 				{-0.5,  0.0,  0.0, 0.5, 0.5, 0.5},
 			}
 		},
-		on_place = def.on_place or stairs.on_place_stair,
+		on_place = def.on_place or stairs.on_place_slab,
 	})
 
 	if def.material then
@@ -475,7 +471,6 @@ function stairs.register_steps_half(name, def)
 		},
 		on_place = def.on_place or stairs.on_place_stair,
 	})
-
 
 	if def.material then
 		stairs.register_fuel(name, def.material, 0.25)
@@ -516,15 +511,6 @@ function stairs.register_steps_slab(name, def)
 	end
 end
 
-local function half(part, result)
-	minetest.register_craft({
-		output = result,
-		recipe = {
-			{part, part, part},
-		},
-	})
-end
-
 local function steps_craft(part, result)
 	minetest.register_craft({
 		output = result,
@@ -535,79 +521,52 @@ local function steps_craft(part, result)
 	})
 end
 
-local function side_by_side(one, two, result)
-	if not result then
-		result = two
-		two = one
-	end
-	minetest.register_craft({
-		output = result,
-		recipe = {
-			{one, two},
-		},
-	})
-end
-
-local function stacked(one, two, result)
-	if not result then
-		result = two
-		two = one
-	end
-	minetest.register_craft({
-		output = result,
-		recipe = {
-			{one},
-			{two}
-		},
-	})
-end
-
 function stairs.register_step_crafts(name, def)
 	local step = name .. "_step"
 	local steps_half = name .. "_steps_half"
 	local outer_step = name .. "_outer_step"
 	local inner_step = name .. "_inner_step"
 
-	half(steps_half, outer_step .. " 6")
-	side_by_side(outer_step, step)
+	base.horizontal_half(steps_half, outer_step .. " 6")
+	base.side_by_side(outer_step, step)
 
 	if def.outer_stair_description then
-		half(name .. "_outer_stair", outer_step .. " 15")
+		base.horizontal_half(name .. "_outer_stair", outer_step .. " 15")
 	end
 	if def.slab_description then
 		local slab = name .. "_slab"
-		side_by_side(step, slab)
-		side_by_side(outer_step, inner_step, slab)
-		side_by_side(slab, steps_half, name .. "_steps_slab")
+		base.side_by_side(step, slab)
+		base.side_by_side(outer_step, inner_step, slab)
+		base.side_by_side(slab, steps_half, name .. "_steps_slab")
 
 		if def.stair_description then
-			stacked(step, slab, name .. "_stair")
+			base.stacked(step, slab, name .. "_stair")
 		end
 		if def.outer_stair_description then
-			stacked(outer_step, slab, name .. "_outer_stair")
+			base.stacked(outer_step, slab, name .. "_outer_stair")
 		end
 		if def.inner_stair_description then
-			stacked(inner_step, slab, name .. "_inner_stair")
+			base.stacked(inner_step, slab, name .. "_inner_stair")
 		end
 	end
 	local steps = name .. "_steps"
 	steps_craft(step, steps)
 
-	side_by_side(outer_step, step, inner_step)
-	stacked(inner_step, name .. "_stair")
+	base.side_by_side(outer_step, step, inner_step)
+	base.stacked(inner_step, name .. "_stair")
 	if def.inner_stair_description then
-		half(name .. "_inner_stair", inner_step .. " 7")
+		base.horizontal_half(name .. "_inner_stair", inner_step .. " 7")
 	end
 
-	half(steps, step .. " 6")
+	base.horizontal_half(steps, step .. " 6")
 	if def.stair_description then
-		half(name .. "_stair", step .. " 9")
+		base.horizontal_half(name .. "_stair", step .. " 9")
 	end
 
 	steps_craft(outer_step, steps_half)
-	side_by_side(steps_half, steps_half, steps)
+	base.side_by_side(steps_half, steps_half, steps)
 
-	half(name .. "_steps_slab", inner_step .. " 6")
+	base.horizontal_half(name .. "_steps_slab", inner_step .. " 6")
 end
 
 function stairs.register_step_nodes(name, def)

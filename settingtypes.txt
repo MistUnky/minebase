@@ -39,7 +39,7 @@ enable_bed_night_skip (Skip night when sleeping) bool true
 enable_fence_tall (Tall fences and walls) bool false
 
 #    Sets the generated quantity of ore to a percentage of the registered 
-#    quantity.
+#    quantity. This only affects ores like iron, coal and diamonds.
 ore_percentage (ore percentage) int 100
 
 #    Sets the behaviour of the inventory items when a player dies.

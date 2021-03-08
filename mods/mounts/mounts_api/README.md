@@ -1,5 +1,5 @@
-Minebase mod: Lib Mount
-=======================
+Minebase mod: Mounts API
+========================
 
 An API framework for mounting objects.
 

@@ -1,10 +1,12 @@
 -- xpanes_api/init.lua
 
+xpanes = {}
+
 local function is_pane(pos)
 	return minetest.get_item_group(minetest.get_node(pos).name, "pane") > 0
 end
 
-local function connects_dir(pos, name, dir)
+function xpanes.connects_dir(pos, name, dir)
 	local aside = vector.add(pos, minetest.facedir_to_dir(dir))
 	if is_pane(aside) then
 		return true
@@ -23,7 +25,7 @@ local function connects_dir(pos, name, dir)
 	return false
 end
 
-local function swap(pos, node, name, param2)
+function xpanes.swap(pos, node, name, param2)
 	if node.name == name and node.param2 == param2 then
 		return
 	end
@@ -31,7 +33,7 @@ local function swap(pos, node, name, param2)
 	minetest.swap_node(pos, {name = name, param2 = param2})
 end
 
-local function update_pane(pos)
+function xpanes.update_pane(pos)
 	if not is_pane(pos) then
 		return
 	end
@@ -45,7 +47,7 @@ local function update_pane(pos)
 	local c = {}
 	local count = 0
 	for dir = 0, 3 do
-		c[dir] = connects_dir(pos, name, dir)
+		c[dir] = xpanes.connects_dir(pos, name, dir)
 		if c[dir] then
 			any = dir
 			count = count + 1
@@ -53,38 +55,37 @@ local function update_pane(pos)
 	end
 
 	if count == 0 then
-		swap(pos, node, name .. "_flat", any)
+		xpanes.swap(pos, node, name .. "_flat", any)
 	elseif count == 1 then
-		swap(pos, node, name .. "_flat", (any + 1) % 4)
+		xpanes.swap(pos, node, name .. "_flat", (any + 1) % 4)
 	elseif count == 2 then
 		if (c[0] and c[2]) or (c[1] and c[3]) then
-			swap(pos, node, name .. "_flat", (any + 1) % 4)
+			xpanes.swap(pos, node, name .. "_flat", (any + 1) % 4)
 		else
-			swap(pos, node, name, 0)
+			xpanes.swap(pos, node, name, 0)
 		end
 	else
-		swap(pos, node, name, 0)
+		xpanes.swap(pos, node, name, 0)
 	end
 end
 
 minetest.register_on_placenode(function(pos, node)
 	if minetest.get_item_group(node, "pane") then
-		update_pane(pos)
+		xpanes.update_pane(pos)
 	end
 	for i = 0, 3 do
 		local dir = minetest.facedir_to_dir(i)
-		update_pane(vector.add(pos, dir))
+		xpanes.update_pane(vector.add(pos, dir))
 	end
 end)
 
-minetest.register_on_dignode(function(pos)
+function xpanes.update_pane_dirs(pos)
 	for i = 0, 3 do
-		local dir = minetest.facedir_to_dir(i)
-		update_pane(vector.add(pos, dir))
+		xpanes.update_pane(vector.add(pos, minetest.facedir_to_dir(i)))
 	end
-end)
+end
+minetest.register_on_dignode(xpanes.update_pane_dirs)
 
-xpanes = {}
 function xpanes.register_pane(name, def)
 	for i = 1, 15 do
 		minetest.register_alias(name .. "_" .. i, name .. "_flat")
@@ -150,7 +151,8 @@ function xpanes.register_pane(name, def)
 			connect_back = {{-1/32, -1/2, 1/32, 1/32, 1/2, 1/2}},
 			connect_right = {{1/32, -1/2, -1/32, 1/2, 1/2, 1/32}},
 		},
-		connects_to = {"group:pane", "group:stone", "group:glass", "group:wood", "group:tree"},
+		connects_to = {"group:pane", "group:stone", "group:glass", "group:wood", 
+			"group:tree"},
 	})
 
 	minetest.register_craft({
@@ -163,11 +165,8 @@ minetest.register_lbm({
 	name = "xpanes_api:gen2",
 	nodenames = {"group:pane"},
 	action = function(pos, node)
-		update_pane(pos)
-		for i = 0, 3 do
-			local dir = minetest.facedir_to_dir(i)
-			update_pane(vector.add(pos, dir))
-		end
+		xpanes.update_pane(pos)
+		xpanes.update_pane_dirs(pos)
 	end
 })
 

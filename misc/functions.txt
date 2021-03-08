@@ -21,6 +21,9 @@ base/init.lua
     .register_craft19,			m
     .register_craft99,			m
     .get_inventory_drops,		m
+    .horizontal_half,			m
+    .side_by_side,			m
+    .stacked,				m
 
 ## Beds ------------------------------------------------------------------------
 beds/beds_api/api.lua
@@ -705,4 +708,140 @@ spawn/init.lua
   callbacks
     on_respawnplayer,			mc
 
-## -----------------------------------------------------------------------------
+## Stairs ----------------------------------------------------------------------
+stairs/stairs_api/init.lua
+  stairs
+    .rotate_and_place,			mc
+    .register_fuel,			m
+    .on_place_stair,			mc
+    .register_stair,			m
+    .on_place_slab,			mc
+    .register_slab,			m
+    .register_inner_stair,		m
+    .register_outer_stair,		m
+    .register_stair_and_slab,		m
+    .register_step,			m
+    .register_outer_step,		m
+    .register_inner_step,		m
+    .register_steps,			m
+    .register_steps_half,		m
+    .register_steps_slab,		m
+    .register_step_crafts,		m
+    .register_step_nodes,		m
+    .register_all,			m
+    .register_glass_stair_and_slab,	m
+    .register_glass_step_nodes,		m
+    .register_glass_all,		m
+  local
+    adapt_stair_images,			ic
+    adapt_slab_images,			ic
+    steps_craft,			m
+
+## Steel Bars ------------------------------------------------------------------
+
+## Tools -----------------------------------------------------------------------
+tools/tools_api/init.lua
+  tools
+    .register_pick,			m
+    .register_shovel,			m
+    .register_axe,			m
+    .register_sword,			m
+    .register_set,			m
+  local
+    set_capabilities,			ic
+    calc_capabilities,			ic
+
+## Trash -----------------------------------------------------------------------
+trash/init.lua
+  trash
+    .on_rightclick,			m
+
+## Trees -----------------------------------------------------------------------
+trees/base_bushes/init.lua
+  callbacks
+    grow_sapling "apple",		m
+    grow_sapling "acacia",		m
+    grow_sapling "pine",		m
+    on_timer "blueberry",		m
+    grow_sapling "blueberry",		m
+    after_dig_node "berries",		m
+
+trees/base_trees/extra.lua
+  callbacks
+    after_place_node "apple",		m
+    after_dig_node "apple",		m
+    on_timer "apple_mark",		m
+    grow_sapling "emergent_jungle",	m
+
+trees/cactus/init.lua
+  local
+    grow_cactus,			m
+    grow_large_cactus,			m
+  callbacks
+    on_place "large_seedling",		mc
+    on_construct "large_seedling",	m
+    on_timer "large_seedling",		m
+
+trees/base_trees/init.lua
+  callbacks
+    grow_sapling "apple",		m
+    grow_sapling "acacia",		m
+    grow_sapling "aspen",		m
+    grow_sapling "jungle",		m
+    grow_sapling "pine",		m
+    lbm "saplings_to_node_timer",	m
+
+trees/trees_api/init.lua
+  trees
+    .after_place_leaves,		m
+    .leafdecay_on_timer,		m
+    .leafdecay_after_destruct,		m
+    .can_grow,				dc
+    .sapling_on_place,			m
+    .register_tree_node,		m
+    .register_wood,			m
+    .register_leaves,			m
+    .register_sapling,			m
+    .register_tree_decoration,		m
+    .register_tree,			m
+    .register_bush_stem,		m
+    .register_bush_decoration,		m
+    .register_bush,			m
+  local
+    on_construct_sapling,		m
+    sapling_on_timer,			m
+
+## Vessels ---------------------------------------------------------------------
+vessels/vessels_api/init.lua
+  vessels
+    .register_bottle,			m
+    .register_glass,			m
+
+## Walls -----------------------------------------------------------------------
+walls/walls_api/init.lua
+  .register_wall,			m
+
+## Weather -----------------------------------------------------------------------------
+weather/init.lua
+  local
+    rangelim,				ic
+    update_clouds,			m
+    cyclic_update,			m
+  callbacks
+    on_joinplayer,			m
+
+## Wool ------------------------------------------------------------------------
+
+## xPanes ----------------------------------------------------------------------
+xpanes/xpanes_api/init.lua
+  xpanes
+    .connects_dir,			dc
+    .swap,				m
+    .update_pane,			m
+    .register_pane,			m
+  local
+    is_pane,				dc
+  callbacks
+    on_placenode,			m
+    on_dignode,				m
+  lbm "gen2",				m

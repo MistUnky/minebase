@@ -83,3 +83,38 @@ function base.get_inventory_drops(pos, list, drops)
 	end
 end
 
+function base.horizontal_half(part, result)
+	minetest.register_craft({
+		output = result,
+		recipe = {
+			{part, part, part},
+		},
+	})
+end
+
+function base.side_by_side(one, two, result)
+	if not result then
+		result = two
+		two = one
+	end
+	minetest.register_craft({
+		output = result,
+		recipe = {
+			{one, two},
+		},
+	})
+end
+
+function base.stacked(one, two, result)
+	if not result then
+		result = two
+		two = one
+	end
+	minetest.register_craft({
+		output = result,
+		recipe = {
+			{one},
+			{two}
+		},
+	})
+end

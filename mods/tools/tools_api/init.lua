@@ -132,9 +132,9 @@ end
 
 local function calc_capabilities(x, def)
 	x = x >= -2 and x or -2
-	-- f(x) = a/(9+x)
 	local y = x + 9
 
+	def.pick.tool_capabilities = def.pick.tool_capabilities or {}
 	set_capabilities(def.pick.tool_capabilities, {
 		9 / y, 
 		3 + x, 
@@ -145,6 +145,7 @@ local function calc_capabilities(x, def)
 		{fleshy = 0.5 * y}
 	})
 
+	def.shovel.tool_capabilities = def.shovel.tool_capabilities or {}
 	set_capabilities(def.shovel.tool_capabilities, {
 		10 / y, 
 		3 + x, 
@@ -155,6 +156,7 @@ local function calc_capabilities(x, def)
 		{fleshy = 0.4 * y}
 	})
 	
+	def.axe.tool_capabilities = def.axe.tool_capabilities or {}
 	set_capabilities(def.axe.tool_capabilities, {
 		9 / y, 
 		1 + x, 
@@ -165,6 +167,7 @@ local function calc_capabilities(x, def)
 		{fleshy = 0.7 * y}
 	})
 
+	def.sword.tool_capabilities = def.sword.tool_capabilities or {}
 	set_capabilities(def.sword.tool_capabilities, {
 		7 / y,
 		1 + x,

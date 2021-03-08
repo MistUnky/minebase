@@ -68,9 +68,7 @@ minetest.register_abm({
 	neighbors = {"group:sand"},
 	interval = 12,
 	chance = 83,
-	action = function(...)
-		grow_cactus(...)
-	end
+	action = grow_cactus
 })
 
 --

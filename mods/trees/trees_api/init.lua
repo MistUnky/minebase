@@ -19,13 +19,8 @@ function trees.after_place_leaves(pos, placer, itemstack, pointed_thing)
 	end
 end
 
--- Required wrapper to allow customization of trees.after_place_leaves
-local function after_place_leaves(...)
-	return trees.after_place_leaves(...)
-end
-
-local function leafdecay_after_destruct(pos, oldnode)
-	local def = minetest.registered_nodes[oldnode.name].leafdecay
+function trees.leafdecay_after_destruct(pos, oldnode)
+	local def = minetest.registered_nodes[oldnode.name]._leafdecay
 	for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, def.radius),
 			vector.add(pos, def.radius), def.leaves)) do
 		local node = minetest.get_node(v)
@@ -39,8 +34,8 @@ end
 local movement_gravity = tonumber(minetest.settings:get("movement_gravity")) 
 	or 9.81
 
-local function leafdecay_on_timer(pos)
-	local def = minetest.registered_nodes[minetest.get_node(pos).name].leafdecay
+function trees.leafdecay_on_timer(pos)
+	local def = minetest.registered_nodes[minetest.get_node(pos).name]._leafdecay
 	if minetest.find_node_near(pos, def.radius, def.trunks) then
 		return false
 	end
@@ -105,9 +100,9 @@ end
 function trees.sapling_on_place(itemstack, placer, pointed_thing)
 	local sapling_name = itemstack:get_name()
 	local sdef = minetest.registered_nodes[sapling_name]
-	local minp_relative = sdef.minp
-	local maxp_relative = sdef.maxp
-	local interval	= sdef.max_interval
+	local minp_relative = sdef._minp
+	local maxp_relative = sdef._maxp
+	local interval	= sdef._max_interval
 
 	-- Position of sapling
 	local pos = pointed_thing.under
@@ -201,8 +196,8 @@ function trees.register_tree_node(name, def)
 		groups = def.groups,
 		sounds = sounds.get_defaults("tree_sounds:wood"),
 		on_place = minetest.rotate_node,
-		after_destruct = leafdecay_after_destruct,
-		leafdecay = not def.no_decay and {
+		after_destruct = trees.leafdecay_after_destruct,
+		_leafdecay = not def.no_decay and {
 			trunks = {name .. "_tree"},
 			leaves = def.decay_leaves or {name .. "_leaves"},
 			radius = def.decay_r or 3,
@@ -277,11 +272,11 @@ function trees.register_leaves(name, def)
 			}
 		},
 		sounds = sounds.get_defaults("tree_sounds:leaves"),
-		after_place_node = after_place_leaves,
-		on_timer = def.on_timer or leafdecay_on_timer,
+		after_place_node = trees.after_place_leaves,
+		on_timer = def.on_timer or trees.leafdecay_on_timer,
 		node_dig_prediction = def.node_dig_prediction,
 		after_dig_node = def.after_dig_node,
-		leafdecay = not def.no_decay and {
+		_leafdecay = not def.no_decay and {
 			trunks = {name .. trunk},
 			leaves = def.decay_leaves or {name .. "_leaves"},
 			radius = def.decay_r or 3,
@@ -321,9 +316,9 @@ function trees.register_sapling(name, def)
 		sounds = sounds.get_defaults("tree_sounds:leaves"),
 		on_construct = def.on_construct or on_construct_sapling,
 		on_place = trees.sapling_on_place,
-		minp = def.minp or {x = -2, y = 1, z = -2},
-		maxp = def.maxp or {x = 2, y = 14, z = 2},
-		max_interval = def.max_interval or 4
+		_minp = def.minp or {x = -2, y = 1, z = -2},
+		_maxp = def.maxp or {x = 2, y = 14, z = 2},
+		_max_interval = def.max_interval or 4
 	})
 
 	minetest.register_craft({
@@ -405,8 +400,8 @@ function trees.register_bush_stem(name, def)
 			type = "fixed",
 			fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16},
 		},
-		after_destruct = leafdecay_after_destruct,
-		leafdecay = not def.no_decay and {
+		after_destruct = trees.leafdecay_after_destruct,
+		_leafdecay = not def.no_decay and {
 			trunks = {name .. "_stem"},
 			leaves = def.decay_leaves or {name .. "_leaves"},
 			radius = def.decay_r or 3,

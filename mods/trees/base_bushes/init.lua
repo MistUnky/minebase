@@ -108,7 +108,7 @@ trees.register_bush("base_bushes:pine", {
 			max_items = 1,
 			items = {
 				{items = {"base_bushes:pine_bush_sapling"}, rarity = 5},
-				{items = {"base_bushes:pine_bush_needles"}}
+				{items = {"base_bushes:pine_bush_leaves"}}
 			}
 		}
 	},
@@ -161,7 +161,8 @@ trees.register_bush("base_bushes:blueberry", {
 			if minetest.get_node_light(pos) < 11 then
 				minetest.get_node_timer(pos):start(200)
 			else
-				minetest.set_node(pos, {name = "base_bushes:blueberry_bush_leaves_with_berries"})
+				minetest.set_node(pos, {name 
+					= "base_bushes:blueberry_bush_leaves_with_berries"})
 			end
 		end
 	},
