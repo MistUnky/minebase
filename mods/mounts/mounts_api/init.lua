@@ -35,19 +35,30 @@ end
 
 -------------------------------------------------------------------------------
 
-minetest.register_on_leaveplayer(function(player)
-	mounts.force_detach(player)
-end)
+local function detach_on(player)
+	local entity = mounts.passengers[player]
+	if entity then
+		local seat = mounts.attached(entity, player)
+		if seat then
+			entity._passengers[seat] = nil
+		end
+		mounts.passengers[player] = nil
+		players.player_attached[player:get_player_name()] = false
+		players.set_animation(player, "stand", 30, "force_detach")
+	end
+end
+
+minetest.register_on_leaveplayer(detach_on)
 
 minetest.register_on_shutdown(function()
 	local players = minetest.get_connected_players()
 	for i = 1, #players do
-		mounts.force_detach(players[i])
+		detach_on(players[i])
 	end
 end)
 
 minetest.register_on_dieplayer(function(player)
-	mounts.force_detach(player)
+	detach_on(player)
 	return true
 end)
 
@@ -80,7 +91,7 @@ function mounts.force_detach(player)
 		player:set_detach()
 		players.player_attached[player:get_player_name()] = false
 		player:set_eye_offset({x=0, y=0, z=0}, {x=0, y=0, z=0})
-		players.set_animation(player, "stand", 30)
+		players.set_animation(player, "stand", 30, "force_detach")
 	end
 end
 
@@ -109,7 +120,7 @@ function mounts.attach(entity, player, seat)
 	end
 
 	entity._passengers[seat] = player
-	mounts.passengers[player] = true
+	mounts.passengers[player] = entity
 
 	player:set_attach(entity.object, "", entity._attach_at[seat], 
 		entity._player_rotation)
@@ -134,7 +145,7 @@ end
 
 function mounts.detach_all(entity)
 	for seat, passenger in pairs(entity._passengers) do
-		mounts.detach(passenger, entity._detach_pos_offset[seat])
+		mounts.detach(passenger, entity._detach_offset[seat])
 	end
 end
 
@@ -202,10 +213,10 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 		if entity._mouselook then
 			if ctrl.left then
 				entity.object:set_yaw(entity.object:get_yaw() + get_sign(entity._v)
-					* math.rad(1 + dtime) * entity._turn_spd)
+					* math.rad(1 + dtime) * entity._turn_speed)
 			elseif ctrl.right then
 				entity.object:set_yaw(entity.object:get_yaw() - get_sign(entity._v)
-					* math.rad(1 + dtime) * entity._turn_spd)
+					* math.rad(1 + dtime) * entity._turn_speed)
 			end
 		else
 			entity.object:set_yaw(entity._passengers[1]:get_look_horizontal() 
@@ -319,7 +330,7 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 				entity.object:set_hp(entity.object:get_hp() - intensity)
 			else
 				for seat, passenger in pairs(entity._passengers) do
-					mounts.detach(passenger, entity._detach_pos_offset[seat])
+					mounts.detach(passenger, entity._detach_offset[seat])
 					passenger:set_velocity(new_velo)
 					passenger:set_hp(passenger:get_hp() - intensity)
 				end
@@ -361,7 +372,7 @@ function mounts.on_rightclick(entity, clicker)
 
 	local seat = mounts.attached(entity, clicker)
 	if seat then
-		mounts.detach(clicker, entity._detach_pos_offset[seat])
+		mounts.detach(clicker, entity._detach_offset[seat])
 	else
 		if entity._owner == clicker:get_player_name() then
 			mounts.attach(entity, clicker, 1)
@@ -412,6 +423,7 @@ function mounts.on_punch(entity, puncher)
 	if entity._owner == punchername or minetest.get_player_privs(punchername)
 		.protection_bypass then
 		entity._removed = true
+		mounts.detach_all(entity)
 		-- delay remove to ensure player is detached
 		minetest.after(0.1, after_punch, entity)
 		puncher:get_inventory():add_item("main", entity._name)
@@ -446,7 +458,7 @@ function mounts.register_entity(name, def)
 		_attach_at = def.attach_at or {{x = 0, y = 0, z = 0}},
 		_eye_offset = def.eye_offset or {{x = 0, y = 0, z = 0}},
 		_pos_offset = def.pos_offset or {{x = 0, y = 0, z = 0}},
-		_detach_pos_offset = def.detach_pos_offset or {{x = 0, y = 0, z = 0}},
+		_detach_offset = def.detach_offset or {{x = 0, y = 0, z = 0}},
 		_max_passengers = def.max_passengers or 1,
 		_enable_crash = def.enable_crash or true,
 		_max_speed_forward = def.max_speed_forward,

@@ -30,7 +30,7 @@ An0n3m0us (CC BY-SA 3.0):
   formspecs_heart.png -- Derived from a texture by KevDoy (CC BY-SA 3.0)  
   formspecs_bubble.png -- Derived from a texture by BlockMen (CC BY-SA 3.0)  
 
-LibraSubtilis (GPLv2; all based on images by The Battle for Wesnoth Project):  
+LibraSubtilis (GPLv2; all based on images by The Battle for Wesnoth Project)  
   formspecs_formbg.png is based on:  
     lite_opaque-background.png  
     lite_opaque-border-top.png  

@@ -4,7 +4,7 @@ t4b = {}
 
 function t4b.count(tab)
 	local count = 0
-	for fi in pairs(tab) do
+	for _ in pairs(tab) do
 		count = count + 1
 	end
 	return count

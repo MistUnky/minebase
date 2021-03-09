@@ -101,7 +101,7 @@ ores.register_metal("base_ores:coal", {
 	}
 })
 
-base.register_craft19("base_ores:coal_block", "base_ores:coal_lump")
+craft.register_craft19("base_ores:coal_block", "base_ores:coal_lump")
 
 minetest.register_craft({
 	type = "fuel",

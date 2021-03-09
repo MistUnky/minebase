@@ -138,7 +138,7 @@ minetest.register_decoration({
 	decoration = "base_liquids:snow",
 })
 
-base.register_craft19("base_liquids:snow_block", "base_liquids:snow")
+craft.register_craft19("base_liquids:snow_block", "base_liquids:snow")
 
 minetest.register_node("base_liquids:snow_block", {
 	description = S("Snow Block"),
@@ -205,7 +205,7 @@ minetest.register_craftitem("base_liquids:obsidian_shard", {
 	description = S("Obsidian Shard"),
 	inventory_image = "base_liquids_obsidian_shard.png",
 })
-base.register_craft19("base_liquids:obsidian", "base_liquids:obsidian_shard")
+craft.register_craft19("base_liquids:obsidian", "base_liquids:obsidian_shard")
 
 
 --

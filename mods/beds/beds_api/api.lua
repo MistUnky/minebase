@@ -152,7 +152,7 @@ function beds.register_bed(name, def)
 			type = "fixed",
 			fixed = def.nodebox.bottom,
 		},
-		selection_box = {
+		selection_box = def.selectionbox and {
 			type = "fixed",
 			fixed = def.selectionbox,
 		},

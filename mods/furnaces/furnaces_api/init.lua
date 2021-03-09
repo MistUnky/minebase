@@ -206,9 +206,9 @@ end
 
 function furnaces.on_blast(pos)
 	local drops = {}
-	base.get_inventory_drops(pos, "src", drops)
-	base.get_inventory_drops(pos, "fuel", drops)
-	base.get_inventory_drops(pos, "dst", drops)
+	inv_utils.get_inventory_drops(pos, "src", drops)
+	inv_utils.get_inventory_drops(pos, "fuel", drops)
+	inv_utils.get_inventory_drops(pos, "dst", drops)
 	drops[#drops+1] = minetest.registered_nodes[minetest.get_node(pos).name]
 		._inactive
 	minetest.remove_node(pos)

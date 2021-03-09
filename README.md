@@ -15,7 +15,7 @@ replace mods.
 Regarding mods quality is more important than quantity. In case you like to mod 
 and want to contribute to this project, use the appropriate tools on Gitlab.
 
-The API is mostly stable, but I am refining the code right now.
+The API is mostly stable. I am currently creating descriptions for the APIs.
 
 Installation
 ------------
@@ -62,4 +62,3 @@ Links
 ---------
 
 - [LICENSE.txt](./LICENSE.txt)
-- [poll.md](./misc/poll.md)

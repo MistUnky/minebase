@@ -151,7 +151,8 @@ function containers.unprotected.on_blast(pos)
 	local drops = {}
 	local name = minetest.get_node(pos).name
 	local node_def = minetest.registered_nodes[name]
-	base.get_inventory_drops(pos, node_def._formspec_def.list1 or "main", drops)
+	inv_utils.get_inventory_drops(pos, node_def._formspec_def.list1 or "main", 
+		drops)
 	drops[#drops+1] = name
 	minetest.remove_node(pos)
 	return drops
@@ -479,6 +480,7 @@ function containers.register_container(name, def)
 
 	if def.opened then
 		def.opened.tiles = def.opened.tiles or def.closed.tiles
+		def.opened.protected = def.opened.protected or def.closed.protected
 		register_container_opened(name, def.opened)
 	end
 	containers.form[name] = true

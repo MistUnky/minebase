@@ -13,18 +13,6 @@ __builtin/init.lua
     .burn_up,				m
     .on_step,				m
 
-## Base ------------------------------------------------------------------------
-base/init.lua
-  base
-    .register_craft14,			m
-    .register_craft44,			m
-    .register_craft19,			m
-    .register_craft99,			m
-    .get_inventory_drops,		m
-    .horizontal_half,			m
-    .side_by_side,			m
-    .stacked,				m
-
 ## Beds ------------------------------------------------------------------------
 beds/beds_api/api.lua
   beds
@@ -181,6 +169,21 @@ containers/shelves/init.lua
   local
     update_bookshelf,			m
     update_vessels_shelf,		m
+
+containers/trash/init.lua
+  callbacks
+    .on_player_receive_fields,		m
+
+## Craft ------------------------------------------------------------------------
+craft/init.lua
+  craft
+    .register_craft14,			m
+    .register_craft44,			m
+    .register_craft19,			m
+    .register_craft99,			m
+    .horizontal_half,			m
+    .side_by_side,			m
+    .stacked,				m
 
 ## Creative --------------------------------------------------------------------
 creative/init.lua
@@ -500,12 +503,14 @@ maps/init.lua
     on_use,				m
 
 ## Mounts ----------------------------------------------------------------------
-mounts/lib_mount/init.lua
-  lib_mount
+mounts/mounts_api/init.lua
+  mounts
     .get_velocity,			ic
+    .attached,				ic
     .force_detach,			m
     .attach,				m
     .detach,				m
+    .detach_all,			m
     .drive,				m
     .on_rightclick,			m
     .on_activate,			m
@@ -516,21 +521,16 @@ mounts/lib_mount/init.lua
     .on_place,				m
     .register_craftitem,		m
     .register_mount,			m
-    .on_step,				m
-    .register_entity,			m
-    .on_place,				m
-    .register_craftitem,		m
-    .register_mount,			m
   local
     node_is,				dc
     get_sign,				ic
     get_v,				ic
+    detach_on,				m
     after_attach,			m
     after_detach,			m
     after_crash,			m
     after_punch,			m
   callbacks
-    on_leaveplayer,			m
     on_shutdown,			m
     on_dieplayer,			m
     
@@ -686,6 +686,9 @@ sfinv/sfinv_api/init.lua
     on_leaveplayer,			m
     on_player_receive_fields,		m
 
+sfinv/inv_utils/init.lua
+    .get_inventory_drops,		m
+
 ## Signs -----------------------------------------------------------------------
 signs/signs_api/init.lua
   signs
@@ -750,11 +753,6 @@ tools/tools_api/init.lua
   local
     set_capabilities,			ic
     calc_capabilities,			ic
-
-## Trash -----------------------------------------------------------------------
-trash/init.lua
-  trash
-    .on_rightclick,			m
 
 ## Trees -----------------------------------------------------------------------
 trees/base_bushes/init.lua
@@ -821,7 +819,7 @@ vessels/vessels_api/init.lua
 walls/walls_api/init.lua
   .register_wall,			m
 
-## Weather -----------------------------------------------------------------------------
+## Weather ---------------------------------------------------------------------
 weather/init.lua
   local
     rangelim,				ic

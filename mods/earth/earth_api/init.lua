@@ -70,13 +70,13 @@ function earth.register_stone_nodes(name, def)
 	if def.brick then
 		def.brick.groups = def.brick.groups or {cracky = 2, stone = 1},
 		earth.register_brick(name, def.brick)
-		base.register_craft44(name .. "_brick", name)
+		craft.register_craft44(name .. "_brick", name)
 	end
 
 	if def.block then
 		def.block.groups = def.block.groups or {cracky = 2, stone = 1}
 		earth.register_block(name, def.block)
-		base.register_craft99(name .. "_block", name)
+		craft.register_craft99(name .. "_block", name)
 	end
 end
 
@@ -117,16 +117,16 @@ function earth.register_sand_nodes(name, def)
 	earth.register_sand(name, def.sand)
 
 	if def.stone then
-		base.register_craft14(namestone, name)
+		craft.register_craft14(namestone, name)
 		def.stone.groups = def.stone.groups or {cracky = 3, crumbly = 1},
 		earth.register_stone(namestone, def.stone)
 
 		if def.brick then
-			base.register_craft44(namestone .. "_brick 4", namestone)
+			craft.register_craft44(namestone .. "_brick 4", namestone)
 		end
 
 		if def.block then
-			base.register_craft99(namestone .. "_block", namestone)
+			craft.register_craft99(namestone .. "_block", namestone)
 		end
 	end
 

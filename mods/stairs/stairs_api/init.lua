@@ -527,46 +527,46 @@ function stairs.register_step_crafts(name, def)
 	local outer_step = name .. "_outer_step"
 	local inner_step = name .. "_inner_step"
 
-	base.horizontal_half(steps_half, outer_step .. " 6")
-	base.side_by_side(outer_step, step)
+	craft.horizontal_half(steps_half, outer_step .. " 6")
+	craft.side_by_side(outer_step, step)
 
 	if def.outer_stair_description then
-		base.horizontal_half(name .. "_outer_stair", outer_step .. " 15")
+		craft.horizontal_half(name .. "_outer_stair", outer_step .. " 15")
 	end
 	if def.slab_description then
 		local slab = name .. "_slab"
-		base.side_by_side(step, slab)
-		base.side_by_side(outer_step, inner_step, slab)
-		base.side_by_side(slab, steps_half, name .. "_steps_slab")
+		craft.side_by_side(step, slab)
+		craft.side_by_side(outer_step, inner_step, slab)
+		craft.side_by_side(slab, steps_half, name .. "_steps_slab")
 
 		if def.stair_description then
-			base.stacked(step, slab, name .. "_stair")
+			craft.stacked(step, slab, name .. "_stair")
 		end
 		if def.outer_stair_description then
-			base.stacked(outer_step, slab, name .. "_outer_stair")
+			craft.stacked(outer_step, slab, name .. "_outer_stair")
 		end
 		if def.inner_stair_description then
-			base.stacked(inner_step, slab, name .. "_inner_stair")
+			craft.stacked(inner_step, slab, name .. "_inner_stair")
 		end
 	end
 	local steps = name .. "_steps"
 	steps_craft(step, steps)
 
-	base.side_by_side(outer_step, step, inner_step)
-	base.stacked(inner_step, name .. "_stair")
+	craft.side_by_side(outer_step, step, inner_step)
+	craft.stacked(inner_step, name .. "_stair")
 	if def.inner_stair_description then
-		base.horizontal_half(name .. "_inner_stair", inner_step .. " 7")
+		craft.horizontal_half(name .. "_inner_stair", inner_step .. " 7")
 	end
 
-	base.horizontal_half(steps, step .. " 6")
+	craft.horizontal_half(steps, step .. " 6")
 	if def.stair_description then
-		base.horizontal_half(name .. "_stair", step .. " 9")
+		craft.horizontal_half(name .. "_stair", step .. " 9")
 	end
 
 	steps_craft(outer_step, steps_half)
-	base.side_by_side(steps_half, steps_half, steps)
+	craft.side_by_side(steps_half, steps_half, steps)
 
-	base.horizontal_half(name .. "_steps_slab", inner_step .. " 6")
+	craft.horizontal_half(name .. "_steps_slab", inner_step .. " 6")
 end
 
 function stairs.register_step_nodes(name, def)
