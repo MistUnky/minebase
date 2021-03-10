@@ -97,7 +97,7 @@ function screwdrivers.handler(itemstack, user, pointed_thing, mode, uses)
 	end
 	-- can we rotate this paramtype2?
 	local fn = screwdrivers.rotate[ndef.paramtype2]
-	if not fn and not ndef.on_rotate then
+	if not fn and not ndef._on_rotate then
 		return itemstack
 	end
 
@@ -110,9 +110,9 @@ function screwdrivers.handler(itemstack, user, pointed_thing, mode, uses)
 	end
 
 	-- Node provides a handler, so let the handler decide instead if the node can be rotated
-	if ndef.on_rotate then
+	if ndef._on_rotate then
 		-- Copy pos and node because callback can modify it
-		local result = ndef.on_rotate(vector.new(pos),
+		local result = ndef._on_rotate(vector.new(pos),
 				{name = node.name, param1 = node.param1, param2 = node.param2},
 				user, mode, new_param2)
 		if result == false then -- Disallow rotation
@@ -120,7 +120,7 @@ function screwdrivers.handler(itemstack, user, pointed_thing, mode, uses)
 		elseif result == true then
 			should_rotate = false
 		end
-	elseif ndef.on_rotate == false then
+	elseif ndef._on_rotate == false then
 		return itemstack
 	elseif ndef.can_dig and not ndef.can_dig(pos, user) then
 		return itemstack
@@ -223,7 +223,7 @@ function screwdrivers.exzet(itemstack, user, pointed_thing, button)
 		return itemstack
 	end
 
-	if ndef.on_rotate then
+	if ndef._on_rotate then
 		return itemstack
 	end
 

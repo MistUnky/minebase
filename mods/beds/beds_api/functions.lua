@@ -136,11 +136,7 @@ function beds.lay_down(player, pos, bed_pos, state, skip)
 end
 
 function beds.get_player_in_bed_count()
-	local c = 0
-	for _ in pairs(beds.player) do
-		c = c + 1
-	end
-	return c
+	return t4b.count(beds.player)
 end
 
 local function update_formspecs(finished)
@@ -165,8 +161,6 @@ local function update_formspecs(finished)
 		minetest.show_formspec(name, "beds_form", form_n)
 	end
 end
-
--- Public functions
 
 function beds.kick_players()
 	for name in pairs(beds.player) do
@@ -195,7 +189,7 @@ function beds.on_rightclick(pos, player)
 	-- move to bed
 	if not beds.player[name] then
 		beds.lay_down(player, ppos, pos)
-		beds.set_spawns() -- save respawn positions when entering bed
+		beds.set_spawn(name, pos)
 	else
 		beds.lay_down(player, nil, nil, false)
 	end

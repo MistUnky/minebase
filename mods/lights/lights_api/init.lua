@@ -51,7 +51,7 @@ local function register_torch(name, def)
 		floodable = true,
 		floor_version = def.sub and name,
 		on_flood = def.on_flood or lights.on_flood,
-		on_rotate = def.on_rotate or false,
+		_on_rotate = def.on_rotate or false,
 		on_place = def.on_place
 	})
 
@@ -137,7 +137,7 @@ function lights.register_light(name, def)
 		mesh = def.mesh,
 		selection_box = def.selection_box,
 		on_flood = def.on_flood,
-		on_rotate = def.on_rotate,
+		_on_rotate = def.on_rotate,
 		on_place = def.on_place
 	})
 	

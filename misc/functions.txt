@@ -8,7 +8,7 @@ w	writing to filesystem
 
 ## __builtin -------------------------------------------------------------------
 __builtin/init.lua
-  item
+  local item
     .set_item,				m
     .burn_up,				m
     .on_step,				m
@@ -47,10 +47,10 @@ beds/beds_api/functions.lua
 
 beds/beds_api/spawn.lua
   beds
-    .read_spawns,			m rw
-    .save_spawns,			m w
     .set_spawns,			m
     .remove_spawns_at,			m
+  local
+    read_spawns,			m
 
 ## Biomes ----------------------------------------------------------------------
 biomes/biomes_api/init.lua
@@ -455,7 +455,7 @@ ladders/ladders_api/init.lua
   ladders
     .register_ladder,			m
 
-## Torches ---------------------------------------------------------------------
+## Lights ----------------------------------------------------------------------
 lights/torches/init.lua
   callback
     on_place,				m
@@ -553,10 +553,9 @@ ores/ores_api/init.lua
 
 ## Permissions -----------------------------------------------------------------
 permissions/base_permissions/init.lua
-  "key"
-    on_place,				mc
-  "skeleton_key" 
-    on_use,				mc
+  callbacks
+    on_place "key",			mc
+    on_use "skeleton_key",		mc
 
 permissions/permissions_api/init.lua
   permissions
@@ -742,6 +741,11 @@ stairs/stairs_api/init.lua
 
 ## Steel Bars ------------------------------------------------------------------
 
+## T4b -------------------------------------------------------------------------
+t4b/init.lua
+  t4b
+    .count,				ic
+
 ## Tools -----------------------------------------------------------------------
 tools/tools_api/init.lua
   tools
@@ -817,7 +821,8 @@ vessels/vessels_api/init.lua
 
 ## Walls -----------------------------------------------------------------------
 walls/walls_api/init.lua
-  .register_wall,			m
+  walls
+    .register_wall,			m
 
 ## Weather ---------------------------------------------------------------------
 weather/init.lua

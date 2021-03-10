@@ -29,7 +29,7 @@ beds.register_bed("base_beds:bed", {
 		bottom = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
 		top = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
 	},
-	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.0625, 1.5},
+	selection_box = {-0.5, -0.5, -0.5, 0.5, 0.0625, 1.5},
 	recipe = {
 		{"wool:white", "wool:white", "wool:white"},
 		{"group:wood", "group:wood", "group:wood"}

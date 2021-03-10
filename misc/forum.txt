@@ -1,35 +1,26 @@
-Minebase is a game for the Minetest Engine. It is a fork of Minetest Game and 
-thus shares many features with it, but much of the code was refactored to 
-address the discontent with it. This implies that many mods made for Minetest
-Game won't work in this game. You have to check the dependencies of the mods to
-be sure. If a mod depends on default or another mod that has been removed or 
-changed significantly, you will get error messages.  
-Similar to Minetest Game, this game is a base for modding, mods like 
-"More Trees" or "Minetest Game Plus" are not going to be added. In contrast to 
-the development of Minetest Game, I am willing to add mods with new features, 
-if the community wants them to be added. After all, you are able to remove and 
-replace mods.  
-Regarding mods, quality is more important than quantity. In case you like to mod 
-and want to contribute to this project, use the appropriate tools on Gitlab.
+Minebase is a game for the Minetest Engine. It is a fork of Minetest Game and thus shares many features with it, but much of the code was refactored to address the discontent with it. This implies that many mods made for Minetest Game won't work in this game. You have to check the dependencies of the mods to be sure. If a mod depends on default or another mod that has been removed or changed significantly, you will get error messages.
+Similar to Minetest Game, this game is a base for modding. I am going to add mods with new features, but mods like "More Trees" or "Minetest Game Plus" are not going to be added. Regarding mods quality is more important than quantity. In case you like to mod and want to contribute to this project, use the appropriate tools on Gitlab.
 
-The API is mostly stable, but I am refining the code right now.
+The API is mostly stable. I am currently creating descriptions for the APIs.
 
+Links:
 [url=https://gitlab.com/LibraSubtilis/minebase/-/archive/master/minebase-master.zip]zip[/url]
 [url=https://gitlab.com/LibraSubtilis/minebase]Source[/url]
 
-
 [b]Installation[/b]
 Unzip the archive, rename the folder to minebase and place it in a games folder. 
-A more extensive explanation can be found [here](https://wiki.minetest.net/Games#Installing_games).
+A more extensive explanation can be found [url=https://wiki.minetest.net/Games#Installing_games]here[/url]
 
-The Minetest engine can be found at [GitHub](https://github.com/minetest/minetest).
+The Minetest engine can be found at [url=https://github.com/minetest/minetest]Github[/url]
 
 [b]Compatibility[/b]
-It is possible to convert a Minetest Game world to a Minebase world, but I 
+It is possible to convert a Minetest Game world to a Minebase world, but I
 didn't write a script to convert a Minebase world back. That is the reason why
-you should create a backup before converting your world. Keep in mind that some 
+you should create a backup before converting your world. Keep in mind that some
 mods made for Minetest Game, won't run with Minebase.
-This game does not support v6 and legacy.lua was dropped.
+This game does not support v6.
+legacy.lua was dropped.
+TNT was removed because I want the theme of this game to be more medieval.
 
 [b]Contributing[/b]
 In case you want to contribute to this game, the code should be structured 
@@ -40,4 +31,3 @@ minetest.register_\* functions, should expect two arguments, the name and a
 definition as a table.
 If you spot bugs or want to improve the code otherwise, feel free to open 
 issues.
-

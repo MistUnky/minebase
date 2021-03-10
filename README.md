@@ -7,11 +7,9 @@ address the discontent with it. This implies that many mods made for Minetest
 Game won't work in this game. You have to check the dependencies of the mods to
 be sure. If a mod depends on default or another mod that has been removed or 
 changed significantly, you will get error messages.  
-Similar to Minetest Game, this game is a base for modding, mods like 
-"More Trees" or "Minetest Game Plus" are not going to be added. In contrast to 
-the development of Minetest Game, I am willing to add mods with new features, 
-if the community wants them to be added. After all, you are able to remove and 
-replace mods.  
+Similar to Minetest Game, this game is a base for modding. I am going to add 
+mods with new features, but mods like "More Trees" or "Minetest Game Plus" are 
+not going to be added. 
 Regarding mods quality is more important than quantity. In case you like to mod 
 and want to contribute to this project, use the appropriate tools on Gitlab.
 

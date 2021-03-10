@@ -44,7 +44,7 @@ beds.register_bed("fancy_beds:bed", {
 			{-0.4375, -0.3125, -0.5, 0.4375, -0.0625, 0.4375},
 		}
 	},
-	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
+	selection_box = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
 	recipe = {
 		{"", "", "group:stick"},
 		{"wool:white", "wool:white", "wool:white"},

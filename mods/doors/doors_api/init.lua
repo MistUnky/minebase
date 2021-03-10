@@ -19,7 +19,7 @@ local function replace_old_owner_information(pos)
 	end
 end
 
-local doors_get = {}
+doors_get = {}
 function doors_get.door_open(self, player)
 	if self:state() then
 		return false
@@ -412,7 +412,7 @@ local function register_door(name, def)
 		node_dig_prediction = def.node_dig_prediction,
 		on_rightclick = def.on_rightclick or doors.on_rightclick,
 		after_dig_node = def.after_dig_node or doors.after_dig_node,
-		on_rotate = def.on_rotate or doors.on_rotate,
+		_on_rotate = def.on_rotate or doors.on_rotate,
 		on_destruct = def.on_destruct or doors.on_destruct,
 		can_dig = def.can_dig_door,
 		on_key_use = def.on_key_use,

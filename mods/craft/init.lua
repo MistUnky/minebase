@@ -101,8 +101,8 @@ function craft.stacked(one, two, result)
 	minetest.register_craft({
 		output = result,
 		recipe = {
-			{one},
-			{two}
+			{two},
+			{one}
 		},
 	})
 end

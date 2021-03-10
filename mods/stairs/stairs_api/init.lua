@@ -540,20 +540,19 @@ function stairs.register_step_crafts(name, def)
 		craft.side_by_side(slab, steps_half, name .. "_steps_slab")
 
 		if def.stair_description then
-			craft.stacked(step, slab, name .. "_stair")
+			craft.stacked(slab, step, name .. "_stair")
 		end
 		if def.outer_stair_description then
-			craft.stacked(outer_step, slab, name .. "_outer_stair")
+			craft.stacked(slab, outer_step, name .. "_outer_stair")
 		end
 		if def.inner_stair_description then
-			craft.stacked(inner_step, slab, name .. "_inner_stair")
+			craft.stacked(slab, inner_step, name .. "_inner_stair")
 		end
 	end
 	local steps = name .. "_steps"
 	steps_craft(step, steps)
 
 	craft.side_by_side(outer_step, step, inner_step)
-	craft.stacked(inner_step, name .. "_stair")
 	if def.inner_stair_description then
 		craft.horizontal_half(name .. "_inner_stair", inner_step .. " 7")
 	end
