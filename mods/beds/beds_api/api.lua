@@ -135,7 +135,7 @@ end
 function beds.register_bed(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name .. "_bottom", {
-		description = def.description or name:sub(":","_"),
+		description = def.description or txt,
 		short_description = def.short_description,
 		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 2, 
 			flammable = 3, bed = 1},
@@ -158,15 +158,24 @@ function beds.register_bed(name, def)
 		on_use = def.on_use,
 		after_use = def.after_use,
 		drawtype = "nodebox",
-		tiles = def.tiles.bottom,
+		tiles = def.tiles and def.tiles.bottom or {
+			txt .. "_top1.png",
+			txt .. "_under.png",
+			txt .. "_side1.png",
+			txt .. "_side1.png^[transformFX",
+			txt .. "_foot.png",
+			txt .. "_foot.png",
+		},
 		overlay_tiles = def.overlay_tiles and def.overlay_tiles.bottom or nil,
+		special_tiles = def.special_tiles and def.special_tiles.bottom or nil,
 		use_texture_alpha = "clip",
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
 		node_box = {
 			type = "fixed",
-			fixed = def.nodebox.bottom,
+			fixed = def.node_box and def.node_box.bottom 
+				or {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
 		},
 		selection_box = def.selection_box and {
 			type = "fixed",
@@ -191,15 +200,23 @@ function beds.register_bed(name, def)
 	})
 
 	minetest.register_node(name .. "_top", {
-		description = def.description or name:sub(":","_"),
+		description = def.description or txt,
 		short_description = def.short_description,
 		groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2,
 			not_in_creative_inventory = 1},
 		palette = def.palette,
 		color = def.color,
 		drawtype = "nodebox",
-		tiles = def.tiles.top,
-		overlay_tiles = def.overlay_tiles and def.overlay_tiles.bottom or nil,
+		tiles = def.tiles and def.tiles.top or {
+			txt .. "_top2.png",
+			txt .. "_under.png",
+			txt .. "_side2.png",
+			txt .. "_side2.png^[transformfx",
+			txt .. "_head.png",
+			txt .. "_head.png",
+		},
+		overlay_tiles = def.overlay_tiles and def.overlay_tiles.top or nil,
+		special_tiles = def.special_tiles and def.special_tiles.top or nil,
 		use_texture_alpha = "clip",
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -207,7 +224,8 @@ function beds.register_bed(name, def)
 		pointable = false,
 		node_box = {
 			type = "fixed",
-			fixed = def.nodebox.bottom,
+			fixed = def.node_box and def.node_box.top 
+				or {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
 		},
 		selection_box = def.selection_box and {
 			type = "fixed",

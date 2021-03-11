@@ -159,12 +159,25 @@ function buckets.register_liquid(name, def)
 
 	if name then
 		minetest.register_craftitem(name, {
-			description = def.description,
-			inventory_image = def.inventory_image or txt .. ".png",
-			stack_max = 1,
-			liquids_pointable = true,
+			description = def.description or txt,
+			short_desciption = def.short_desciption,
 			groups = def.groups,
+			inventory_image = def.inventory_image or txt .. ".png",
+			inventory_overlay = def.inventory_overlay,
+			wield_image = def.wield_image,
+			wield_overlay = def.wield_overlay,
+			palette = def.palette,
+			color = def.color, 
+			wield_scale = def.wield_scale,
+			stack_max = 1,
+			range = def.range,
+			liquids_pointable = true,
+			light_source = def.light_source,
+			node_placement_prediction = def.node_placement_prediction,
+			sound = def.sound,
 			on_place = def.on_place or buckets.on_place,
+			on_secondary_use = def.on_secondary_use,
+			on_drop = def.on_drop,
 			_empty = def.empty or "buckets_api:bucket_empty",
 			_source = def.source
 		})

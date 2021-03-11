@@ -70,11 +70,10 @@ books/books_api/init.lua
     .create_formspec,			ic
     .on_use,				mc
     .turn_page,				ic
-    .register_craft_metadata_copy,	m
-      on_craft,				m
     .register_book,			m
     .register_book_set,			m
   callbacks
+    on_craft,				m
     on_player_receive_fields,		m
 
 ## Buckets ---------------------------------------------------------------------
@@ -181,6 +180,7 @@ craft/init.lua
     .register_craft44,			m
     .register_craft19,			m
     .register_craft99,			m
+    .register_craft_metadata_copy,	m
     .horizontal_half,			m
     .side_by_side,			m
     .stacked,				m

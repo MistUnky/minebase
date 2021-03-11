@@ -11,8 +11,8 @@ recipes.
 |	|	| four 	 	| four  |				
 ```lua
 craft.register_craft14(one, four)
-one     : Itemname
-four    : Itemname
+one     : Name
+four    : Name
 ```
 
 #### register_craft19
@@ -23,8 +23,8 @@ four    : Itemname
 | 	|	| nine	| nine	| nine	|
 ```lua
 craft.register_craft19(one, nine)
-one     : Itemname
-nine    : Itemname
+one     : Name
+nine    : Name
 ```
 
 #### register_craft44
@@ -34,8 +34,8 @@ nine    : Itemname
 | four1	| four1	| 	| four2	 	| four2 |				
 ```lua
 craft.register_craft44(four1, four2)
-four1   : Itemname
-four2   : Itemname
+four1   : Name
+four2   : Name
 ```
 
 #### register_craft99
@@ -46,8 +46,18 @@ four2   : Itemname
 | nine1	| nine1	| nine1	|	| nine2	| nine2	| nine2	|
 ```lua
 craft.register_craft99(nine1, nine2)`
-nine1   : Itemname
-nine2   : Itemname
+nine1   : Name
+nine2   : Name
+```
+
+#### register_craft_metadata_copy
+Registers a craft recipe that copies the metadata of one item to a new item of 
+type result. The original item used for crafting is preserved. The craft recipe 
+is shapeless.
+```lua
+function craft.register_craft_metadata_copy(ingredient, result)
+ingredient      : Name
+result          : Name
 ```
 
 #### horizontal_half
@@ -56,8 +66,8 @@ nine2   : Itemname
 | part	| part	| part	| &rarr;| result
 ```lua
 craft.horizontal_half(part, result)
-part    : Itemname
-result  : Itemname
+part    : Name
+result  : Name
 ```
 
 #### side_by_side
@@ -67,9 +77,9 @@ result  : Itemname
 
 ```lua
 craft.side_by_side(one, two[, result])
-one     : Itemname
-two     : Itemname
-result  : Itemname
+one     : Name
+two     : Name
+result  : Name
 ```
 If result is omitted, one is used twice and two becomes the result.
 
@@ -81,8 +91,9 @@ If result is omitted, one is used twice and two becomes the result.
 
 ```lua
 craft.stacked(one, two[, result])
-one     : Itemname
-two     : Itemname
-result  : Itemname
+one     : Name
+two     : Name
+result  : Name
 ```
 If result is omitted, one is used twice and two becomes the result.
+

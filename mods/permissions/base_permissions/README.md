@@ -2,7 +2,7 @@ Minebase mod: Base Permissions
 ==============================
 See [license.txt](./license.txt) for license information.
 
-This mod registeres keys, which allow players to interact with spezific nodes 
+This mod registers keys, which allow players to interact with spezific nodes 
 owned by other players. A key needs to be bound to a specific node by punching 
 that node with the key.
 

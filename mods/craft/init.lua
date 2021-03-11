@@ -107,3 +107,33 @@ function craft.stacked(one, two, result)
 	})
 end
 
+local metadata_copy = {}
+minetest.register_on_craft(function(itemstack, _, old_craft_grid, craft_inv)
+	local result = itemstack:get_name()
+	if not metadata_copy[result] then
+		return
+	end
+
+	local original
+	local index
+	for i = 1, #old_craft_grid do
+		if old_craft_grid[i]:get_name() == result then
+			original = old_craft_grid[i]
+			index = i
+		end
+	end
+	if not original then
+		return
+	end
+	itemstack:get_meta():from_table(original:get_meta():to_table())
+	craft_inv:set_stack("craft", index, original)
+end)
+
+function craft.register_craft_metadata_copy(ingredient, result)
+	metadata_copy[result] = true
+	minetest.register_craft({
+		type = "shapeless",
+		output = result,
+		recipe = {ingredient, result}
+	})
+end

@@ -46,14 +46,14 @@ function biomes.register_ocean(name, def)
 	def.node_top = def.node_top or biomes.sand
 	def.node_filler = def.node_filler or biomes.sand
 	def.vertical_blend = def.vertical_blend or 1
-	def.y_min = def.y_min or -255
+	def.y_min = def.y_min or not def.min_pos and -255
 	def.node_cave_liquid = def.node_cave_liquid or biomes.water
 	biomes.register_biome(name .. "_ocean", def)
 end
 
 function biomes.register_under(name, def)
-	def.y_max = def.y_max or -256
-	def.y_min = def.y_min or -31000
+	def.y_max = def.y_max or not def.max_pos and -256
+	def.y_min = def.y_min or not def.min_pos and -31000
 	def.node_cave_liquid = def.node_cave_liquid or {biomes.water, biomes.lava}
 	biomes.register_biome(name .. "_under", def)
 end
@@ -80,10 +80,15 @@ function biomes.register_stratum(name, def)
 	minetest.register_ore({
 		ore_type = "stratum",
 		ore = name,
+		ore_param2 = def.ore_param2,
 		wherein = def.wherein,
 		clust_scarcity = def.clust_scarcity or 1,
+		clust_num_ores = def.clust_num_ores,
+		clust_size = def.clust_size,
 		y_max = def.y_max or 43,
 		y_min = def.y_min or 7,
+		flags = def.flags,
+		noise_threshold = def.noise_threshold,
 		noise_params = def.noise_params or {
 			offset = def.offset or 25,
 			scale = def.scale or 16,
@@ -91,8 +96,9 @@ function biomes.register_stratum(name, def)
 			seed = def.seed or 90122,
 			octaves = def.octaves or 1,
 		},
-		stratum_thickness = def.stratum_thickness or 2,
 		biomes = def.biomes,
+		np_stratum_thickness = def.np_stratum_thickness,
+		stratum_thickness = def.stratum_thickness or 2,
 	})
 end
 

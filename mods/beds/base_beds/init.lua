@@ -7,28 +7,6 @@ local S = minetest.get_translator("beds")
 
 beds.register_bed("base_beds:bed", {
 	description = S("Simple Bed"),
-	tiles = {
-		bottom = {
-			"base_beds_bed_top_bottom.png^[transformR90",
-			"base_beds_bed_under.png",
-			"base_beds_bed_side_bottom_r.png",
-			"base_beds_bed_side_bottom_r.png^[transformfx",
-			"base_beds_bed_transparent.png",
-			"base_beds_bed_side_bottom.png"
-		},
-		top = {
-			"base_beds_bed_top_top.png^[transformR90",
-			"base_beds_bed_under.png",
-			"base_beds_bed_side_top_r.png",
-			"base_beds_bed_side_top_r.png^[transformfx",
-			"base_beds_bed_side_top.png",
-			"base_beds_bed_transparent.png",
-		}
-	},
-	nodebox = {
-		bottom = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
-		top = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
-	},
 	selection_box = {-0.5, -0.5, -0.5, 0.5, 0.0625, 1.5},
 	recipe = {
 		{"wool:white", "wool:white", "wool:white"},

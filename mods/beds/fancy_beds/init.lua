@@ -7,25 +7,7 @@ local S = minetest.get_translator("fancy_beds")
 
 beds.register_bed("fancy_beds:bed", {
 	description = S("Fancy Bed"),
-	tiles = {
-		bottom = {
-			"fancy_beds_bed_top1.png",
-			"fancy_beds_bed_under.png",
-			"fancy_beds_bed_side1.png",
-			"fancy_beds_bed_side1.png^[transformFX",
-			"fancy_beds_bed_foot.png",
-			"fancy_beds_bed_foot.png",
-		},
-		top = {
-			"fancy_beds_bed_top2.png",
-			"fancy_beds_bed_under.png",
-			"fancy_beds_bed_side2.png",
-			"fancy_beds_bed_side2.png^[transformFX",
-			"fancy_beds_bed_head.png",
-			"fancy_beds_bed_head.png",
-		}
-	},
-	nodebox = {
+	node_box = {
 		bottom = {
 			{-0.5, -0.5, -0.5, -0.375, -0.065, -0.4375},
 			{0.375, -0.5, -0.5, 0.5, -0.065, -0.4375},

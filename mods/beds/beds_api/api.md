@@ -100,44 +100,69 @@ player  : Player
 A function that registers a bed.
 ```lua
 function beds.register_bed(name, def)
-name    : Itemname
+name    : Name
 def     : Table
 
-beds.register_bed("mod:item", {
-	-- registeres nodes: "mod:item_bottom", "mod:item_top"
+beds.register_bed("mod:node", {
+	-- registers nodes: "mod:node_bottom", "mod:node_top"
 	-- essential 
-	tiles = {
-		bottom = {Texture, Texture, Texture, Texture, Texture, Texture},
-		top = {Texture, Texture, Texture, Texture, Texture, Texture}
-	},
-	node_box = {
-		bottom = Box OR {Box, Box, ...},
-		top = Box OR {Box, Box, ...}
-	},
 
 	-- optional
-	description = "mod_item"
-	short_description = ?,
+	description = "mod_node"
+	short_description = "",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, 
 		bed = 1},
-	inventory_image = "mod_item_inventory.png",
+	inventory_image = "mod_node_inventory.png",
 	inventory_overlay = nil,
-	wield_image = "mod_item_inventory.png",
+	wield_image = "mod_node_inventory.png",
 	wield_overlay = nil,
 	palette = nil,
 	color = nil,
-	wield_scale = 1,
-	range = ?,
+	wield_scale = {x = 1, y = 1, z = 1},
+	range = 4.0,
 	liquids_pointable = false,
 	node_placement_prediction = nil,
-	node_dig_prediction = nil,
-	sound = nil,
+	node_dig_prediction = "air",
+	sound = {
+		breaks = nil,
+		eat = nil
+	},
 	on_place = beds.on_place,
-	on_secondary_use = def.on_secondary_use,
-	on_drop = def.on_drop,
-	on_use = def.on_use,
-	after_use = def.after_use,
-	overlay_tiles = nil,
+	on_secondary_use = nil,
+	on_drop = minetest.item_drop,
+	on_use = nil,
+	after_use = nil,
+	-- Textures of node; +Y, -Y, +X, -X, +Z, -Z
+	tiles = {
+		bottom = {
+			"mod_node_top1.png",
+			"mod_node_under.png",
+			"mod_node_side1.png",
+			"mod_node_side1.png^[transformFX",
+			"mod_node_foot.png",
+			"mod_node_foot.png",
+		},
+		top = {
+			"mod_node_top2.png",
+			"mod_node_under.png",
+			"mod_node_side2.png",
+			"mod_node_side2.png^[transformFX",
+			"mod_node_head.png",
+			"mod_node_head.png",
+		},
+	},
+	overlay_tiles = {
+		bottom = nil,
+		top = nil
+	},
+	special_tiles = {
+		bottom = nil,
+		top = nil
+	},
+	node_box = {
+		bottom = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
+		top = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
+	},
 	selection_box = Box,
 	collision_box = Box,
 	sounds = sounds.get_defaults("tree_sounds:wood"),
@@ -145,29 +170,43 @@ beds.register_bed("mod:item", {
 	on_construct = nil,
 	on_destruct = beds.destruct_bed,
 	after_destruct = nil,
+	preserve_metadata = nil,
 	after_place_node = nil,
 	after_dig_node = nil,
-	can_dig = can_dig,
-	on_punch = nil,
-	on_rightclick = on_rightclick,
-	on_dig = nil,
+	can_dig = can_dig, -- local
+	on_punch = minetest.node_punch,
+	on_rightclick = on_rightclick, -- local
+	on_dig = minetest.node_dig,
 	on_timer = nil,
 	on_blast = nil,
 	on_rotate = beds.on_rotate,
-	_base_name = name
 	recipe = nil,
 
 	-- fixed
+	drop = "mod:node_bottom",
 	stack_max = 1,
+	light_source = 0,
+	tool_capabilities = nil,
 	drawtype = "nodebox",
+	visual_scale = 1,
 	use_texture_alpha = "clip",
+	post_effect_color = nil,
 	paramtype = "light",
 	paramtype2 = "facedir",
+	place_param2 = nil,
 	is_ground_content = false,
-
-	-- fixed (second node)
-	drop = "mod:item_bottom",
-	pointable = false,
+	sunlight_propagates = false,
+	walkable = true,
+	pointable = true,  -- false for second node
+	diggable = true,
+	climbable = false,
+	buildable_to = false,
+	floodable = false,
+	liquidtype = "none",
+	leveled = 0,
+	legacy_facedir_simple = false,
+	legacy_wallmounted = false,
+	waving = 0,
 })
 ```
 

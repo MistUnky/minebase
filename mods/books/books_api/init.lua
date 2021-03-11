@@ -152,51 +152,29 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	player:set_wielded_item(stack)
 end)
 
-function books.register_craft_metadata_copy(ingredient, result)
-	minetest.register_craft({
-		type = "shapeless",
-		output = result,
-		recipe = {ingredient, result}
-	})
-
-	minetest.register_on_craft(function(itemstack, player, old_craft_grid, 
-		craft_inv)
-		if itemstack:get_name() ~= result then
-			return
-		end
-
-		local original
-		local index
-		for i = 1, #old_craft_grid do
-			if old_craft_grid[i]:get_name() == result then
-				original = old_craft_grid[i]
-				index = i
-			end
-		end
-		if not original then
-			return
-		end
-		local copymeta = original:get_meta():to_table()
-		itemstack:get_meta():from_table(copymeta)
-		-- put the book with metadata back in the craft grid
-		craft_inv:set_stack("craft", index, original)
-	end)
-end
-
 function books.register_book(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_craftitem(name, {
 		description = def.description or txt,
-		inventory_image = def.inventory_image or txt .. ".png",
-		wield_image = def.wield_image or txt .. ".png",
+		short_description = def.short_description,
 		groups = def.groups or {book = 1, flammable = 3, 
 			not_in_creative_inventory = def.not_in_creative_inventory},
+		inventory_image = def.inventory_image or txt .. ".png",
+		inventory_overlay = def.inventory_overlay,
+		wield_image = def.wield_image or txt .. ".png",
+		wield_overlay = def.wield_overlay,
+		palette = def.palette,
+		color = def.color,
+		wield_scale = def.wield_scale,
 		stack_max = def.stack_max,
-		on_use = def.on_use or books.on_use,
+		range = def.range,
+		node_placement_prediction = def.node_placement_prediction,
+		sound = def.sound,
+		on_place = def.on_place,
 		on_secondary_use = def.on_secondary_use,
 		on_drop = def.on_drop,
+		on_use = def.on_use or books.on_use,
 		after_use = def.after_use,
-		on_place = def.on_place
 	})
 
 	if def.recipe then
@@ -224,6 +202,6 @@ function books.register_book_set(name, def)
 		def.written.stack_max = def.written.stack_max or 1
 		def.written.not_in_creative_inventory = 1
 		books.register_book(name .. "_written", def.written)
-		books.register_craft_metadata_copy(name, name .. "_written")
+		craft.register_craft_metadata_copy(name, name .. "_written")
 	end
 end
