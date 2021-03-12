@@ -75,6 +75,10 @@ books.register_book("mod:item", {
 	on_use = books.on_use,
 	after_use = nil,
 	not_in_creative_inventory = nil
+
+	-- fixed
+	liquids_pointable = false,
+	tool_capabilities = nil
 })
 ```
 #### register_book_set
@@ -94,7 +98,6 @@ books.register_book_set(name, {
 		stack_max = 1
 		not_in_creative_inventory = 1
 	}
-
 })
 ```
 

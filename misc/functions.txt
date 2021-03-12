@@ -89,7 +89,6 @@ buckets/buckets_api/init.lua
 carts/carts_api/init.lua
   carts
     .get_sign,				ic
-    .manage_attachement,		m
     .velocity_to_dir,			ic
     .is_rail,				dc
     .check_front_up_down,		dc
@@ -97,12 +96,10 @@ carts/carts_api/init.lua
     .pathfinder,			dc
     .get_rail_groups,			dc
     .rail_sound,			m
-    .register_rail,			m
     .rail_on_step,			m
     .on_step,				m
-    .on_rightclick,			m
+    .on_activate,			m
     .get_staticdata,			ic
-    .on_detach_child,			m
     .on_punch,				m
     .craftitem_on_place,		m
     .register_rail,			m
@@ -506,11 +503,6 @@ maps/init.lua
 mounts/mounts_api/init.lua
   mounts
     .get_velocity,			ic
-    .attached,				ic
-    .force_detach,			m
-    .attach,				m
-    .detach,				m
-    .detach_all,			m
     .drive,				m
     .on_rightclick,			m
     .on_activate,			m
@@ -525,14 +517,8 @@ mounts/mounts_api/init.lua
     node_is,				dc
     get_sign,				ic
     get_v,				ic
-    detach_on,				m
-    after_attach,			m
-    after_detach,			m
     after_crash,			m
     after_punch,			m
-  callbacks
-    on_shutdown,			m
-    on_dieplayer,			m
     
 ## Ores ------------------------------------------------------------------------
 ores/ores_api/init.lua
@@ -607,6 +593,26 @@ rand/init.lua
     .xdy,				dc
     .seq,				dc
     .pick,				dc
+
+## Seats -----------------------------------------------------------------------
+seats/init.lua
+  seats
+    .attached,				ic
+    .attach,				m
+    .detach,				m
+    .detach_all,			m
+    .force_detach,			m
+    .on_activate,			m
+    .on_rightclick,			m
+    .on_detach_child,			m
+  local
+    after_attach,			m
+    after_detach,			m
+    detach_on,				m
+  callbacks
+    on_leaveplayer,			m
+    on_shutdown,			m
+    on_dieplayer,			m
 
 ## Screwdrivers ----------------------------------------------------------------
 screwdrivers/base_screwdrivers/init.lua

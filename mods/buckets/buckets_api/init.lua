@@ -178,6 +178,8 @@ function buckets.register_liquid(name, def)
 			on_place = def.on_place or buckets.on_place,
 			on_secondary_use = def.on_secondary_use,
 			on_drop = def.on_drop,
+			on_use = def.on_use,
+			after_use = def.after_use,
 			_empty = def.empty or "buckets_api:bucket_empty",
 			_source = def.source
 		})

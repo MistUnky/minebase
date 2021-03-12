@@ -13,8 +13,8 @@ minetest.register_alias("carts:brakerail", "base_rails:brakerail")
 minetest.register_alias("carts:cart", "base_carts:cart")
 
 minetest.register_entity(":carts:cart", {
-	on_activate = function (self, staticdata)
-		minetest.add_entity(self.object:get_pos(), "base_carts:cart", staticdata)
-		self.object:remove()
+	on_activate = function (entity, staticdata)
+		minetest.add_entity(entity.object:get_pos(), "base_carts:cart", staticdata)
+		entity.object:remove()
 	end
 })

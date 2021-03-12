@@ -10,7 +10,11 @@ carts.register_cart("base_carts:cart", {
 			{"base_ores:steel_ingot", "", "base_ores:steel_ingot"},
 			{"base_ores:steel_ingot", "base_ores:steel_ingot", 
 				"base_ores:steel_ingot"},
-		}
+		},
+	},
+	entity = {
+		attach_at = {{x=0, y=-4.5, z=-2}},
+		eye_offset = {{x=0, y=-4, z=0}}
 	}
 })
 

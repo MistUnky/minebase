@@ -16,26 +16,6 @@ function carts.get_sign(z)
 	return z == 0 and 0 or z / math.abs(z)
 end
 
-function carts.manage_attachment(player, obj)
-	if not player then
-		return
-	end
-	local status = obj ~= nil
-	local player_name = player:get_player_name()
-	if players.player_attached[player_name] == status then
-		return
-	end
-	players.player_attached[player_name] = status
-
-	if status then
-		player:set_attach(obj, "", {x=0, y=-4.5, z=0}, {x=0, y=0, z=0})
-		player:set_eye_offset({x=0, y=-4, z=0},{x=0, y=-4, z=0})
-	else
-		player:set_detach()
-		player:set_eye_offset({x=0, y=0, z=0},{x=0, y=0, z=0})
-	end
-end
-
 function carts.velocity_to_dir(v)
 	if math.abs(v.x) > math.abs(v.z) then
 		return {x=carts.get_sign(v.x), y=carts.get_sign(v.y), z=0}
@@ -66,8 +46,8 @@ function carts.is_rail(pos, railtype)
 	return minetest.get_item_group(node, "connect_to_raillike") == railtype
 end
 
-function carts.check_front_up_down(pos, dir_, check_up, railtype)
-	local dir = vector.new(dir_)
+function carts.check_front_up_down(pos, dir, check_up, railtype)
+	dir = vector.new(dir)
 	local cur
 
 	-- Front
@@ -93,8 +73,8 @@ function carts.check_front_up_down(pos, dir_, check_up, railtype)
 	return nil
 end
 
-function carts.get_rail_direction(self, pos_, dir, ctrl, old_switch, railtype)
-	local pos = vector.round(pos_)
+function carts.get_rail_direction(entity, pos, dir, ctrl, old_switch, railtype)
+	pos = vector.round(pos)
 	local cur
 	local left_check, right_check = true, true
 
@@ -113,7 +93,7 @@ function carts.get_rail_direction(self, pos_, dir, ctrl, old_switch, railtype)
 
 	-- Normal, to disallow rail switching up- & downhill
 	if straight_priority then
-		cur = self.check_front_up_down(pos, dir, true, railtype)
+		cur = entity.check_front_up_down(pos, dir, true, railtype)
 		if cur then
 			return cur
 		end
@@ -126,24 +106,24 @@ function carts.get_rail_direction(self, pos_, dir, ctrl, old_switch, railtype)
 			right_check = false
 		end
 		if ctrl.left and left_check then
-			cur = self.check_front_up_down(pos, left, false, railtype)
+			cur = entity.check_front_up_down(pos, left, false, railtype)
 			if cur then
 				return cur, 1
 			end
 			left_check = false
 		end
 		if ctrl.right and right_check then
-			cur = self.check_front_up_down(pos, right, false, railtype)
+			cur = entity.check_front_up_down(pos, right, false, railtype)
 			if cur then
 				return cur, 2
 			end
-			right_check = true
+			right_check = false
 		end
 	end
 
 	-- Normal
 	if not straight_priority then
-		cur = self.check_front_up_down(pos, dir, true, railtype)
+		cur = entity.check_front_up_down(pos, dir, true, railtype)
 		if cur then
 			return cur
 		end
@@ -180,10 +160,9 @@ function carts.get_rail_direction(self, pos_, dir, ctrl, old_switch, railtype)
 	return {x=0, y=0, z=0}
 end
 
-function carts.pathfinder(self, pos_, old_pos, old_dir, distance, ctrl,
-		pf_switch, railtype)
-
-	local pos = vector.round(pos_)
+function carts.pathfinder(entity, pos, old_pos, old_dir, distance, ctrl,
+	pf_switch, railtype)
+	pos = vector.round(pos)
 	if vector.equals(old_pos, pos) then
 		return
 	end
@@ -193,7 +172,7 @@ function carts.pathfinder(self, pos_, old_pos, old_dir, distance, ctrl,
 	distance = math.min(carts.path_distance_max, math.floor(distance + 1))
 
 	for i = 1, distance do
-		pf_dir, pf_switch = carts.get_rail_direction(self, pf_pos, pf_dir, ctrl, 
+		pf_dir, pf_switch = carts.get_rail_direction(entity, pf_pos, pf_dir, ctrl, 
 			pf_switch or 0, railtype)
 
 		if vector.equals(pf_dir, {x=0, y=0, z=0}) then
@@ -221,26 +200,26 @@ function carts.get_rail_groups(groups)
 end
 
 -- sound refresh interval = 1.0sec
-function carts.rail_sound(self, dtime)
-	if not self.sound_ttl then
-		self.sound_ttl = 1.0
+function carts.rail_sound(entity, dtime)
+	if not entity.sound_ttl then
+		entity.sound_ttl = 1.0
 		return
-	elseif self.sound_ttl > 0 then
-		self.sound_ttl = self.sound_ttl - dtime
+	elseif entity.sound_ttl > 0 then
+		entity.sound_ttl = entity.sound_ttl - dtime
 		return
 	end
-	self.sound_ttl = 1.0
-	if self.sound_handle then
-		local handle = self.sound_handle
-		self.sound_handle = nil
+	entity.sound_ttl = 1.0
+	if entity.sound_handle then
+		local handle = entity.sound_handle
+		entity.sound_handle = nil
 		minetest.after(0.2, minetest.sound_stop, handle)
 	end
-	local vel = self.object:get_velocity()
+	local vel = entity.object:get_velocity()
 	local speed = vector.length(vel)
 	if speed > 0 then
-		self.sound_handle = minetest.sound_play(
+		entity.sound_handle = minetest.sound_play(
 			"carts_api_moving", {
-			object = self.object,
+			object = entity.object,
 			gain = (speed / carts.speed_max) / 2,
 			loop = true,
 		})
@@ -271,24 +250,24 @@ end
 
 local v3_len = vector.length
 local anims = {[-1] = {x = 1, y = 1}, [0] = {x = 0, y = 0}, {x = 2, y = 2}}
-function carts.rail_on_step(self, dtime)
-	local vel = self.object:get_velocity()
-	if self._punched then
-		vel = vector.add(vel, self._velocity)
-		self.object:set_velocity(vel)
-		self._old_dir.y = 0
+function carts.rail_on_step(entity, dtime)
+	local vel = entity.object:get_velocity()
+	if entity._punched then
+		vel = vector.add(vel, entity._velocity)
+		entity.object:set_velocity(vel)
+		entity._old_dir.y = 0
 	elseif vector.equals(vel, {x=0, y=0, z=0}) then
 		return
 	end
 
-	local pos = self.object:get_pos()
+	local pos = entity.object:get_pos()
 	local cart_dir = carts.velocity_to_dir(vel)
-	local same_dir = vector.equals(cart_dir, self._old_dir)
+	local same_dir = vector.equals(cart_dir, entity._old_dir)
 	local update = {}
 
-	if self._old_pos and not self._punched and same_dir then
+	if entity._old_pos and not entity._punched and same_dir then
 		local flo_pos = vector.round(pos)
-		local flo_old = vector.round(self._old_pos)
+		local flo_old = vector.round(entity._old_pos)
 		if vector.equals(flo_pos, flo_old) then
 			-- Do not check one node multiple times
 			return
@@ -298,23 +277,23 @@ function carts.rail_on_step(self, dtime)
 	local ctrl, player
 
 	-- Get player controls
-	if self._driver then
-		player = minetest.get_player_by_name(self._driver)
+	if entity._passengers[1] then
+		player = entity._passengers[1]
 		if player then
 			ctrl = player:get_player_control()
 		end
 	end
 
 	local stop_wiggle = false
-	if self._old_pos and same_dir then
+	if entity._old_pos and same_dir then
 		-- Detection for "skipping" nodes (perhaps use average dtime?)
 		-- It's sophisticated enough to take the acceleration in account
-		local acc = self.object:get_acceleration()
+		local acc = entity.object:get_acceleration()
 		local distance = dtime * (v3_len(vel) + 0.5 * dtime * v3_len(acc))
 
 		local new_pos, new_dir = carts:pathfinder(
-			pos, self._old_pos, self._old_dir, distance, ctrl,
-			self._old_switch, self._railtype
+			pos, entity._old_pos, entity._old_dir, distance, ctrl,
+			entity._old_switch, entity._railtype
 		)
 
 		if new_pos then
@@ -323,7 +302,7 @@ function carts.rail_on_step(self, dtime)
 			update.pos = true
 			cart_dir = new_dir
 		end
-	elseif self._old_pos and self._old_dir.y ~= 1 and not self._punched then
+	elseif entity._old_pos and entity._old_dir.y ~= 1 and not entity._punched then
 		-- Stop wiggle
 		stop_wiggle = true
 	end
@@ -333,17 +312,17 @@ function carts.rail_on_step(self, dtime)
 	-- dir:         New moving direction of the cart
 	-- switch_keys: Currently pressed L/R key, used to ignore the key on the next rail node
 	local dir, switch_keys = carts:get_rail_direction(
-		pos, cart_dir, ctrl, self._old_switch, self._railtype
+		pos, cart_dir, ctrl, entity._old_switch, entity._railtype
 	)
-	local dir_changed = not vector.equals(dir, self._old_dir)
+	local dir_changed = not vector.equals(dir, entity._old_dir)
 
 	local new_acc = {x=0, y=0, z=0}
 	if stop_wiggle or vector.equals(dir, {x=0, y=0, z=0}) then
 		vel = {x = 0, y = 0, z = 0}
 		local pos_r = vector.round(pos)
-		if not carts.is_rail(pos_r, self._railtype)
-				and self._old_pos then
-			pos = self._old_pos
+		if not carts.is_rail(pos_r, entity._railtype)
+				and entity._old_pos then
+			pos = entity._old_pos
 		elseif not stop_wiggle then
 			pos = pos_r
 		else
@@ -356,7 +335,7 @@ function carts.rail_on_step(self, dtime)
 		if dir_changed then
 			vel = vector.multiply(dir, math.abs(vel.x + vel.z))
 			update.vel = true
-			if dir.y ~= self._old_dir.y then
+			if dir.y ~= entity._old_dir.y then
 				pos = vector.round(pos)
 				update.pos = true
 			end
@@ -404,78 +383,61 @@ function carts.rail_on_step(self, dtime)
 		end
 	end
 
-	self.object:set_acceleration(new_acc)
-	self._old_pos = vector.round(pos)
+	entity.object:set_acceleration(new_acc)
+	entity._old_pos = vector.round(pos)
 	if not vector.equals(dir, {x=0, y=0, z=0}) and not stop_wiggle then
-		self._old_dir = vector.new(dir)
+		entity._old_dir = vector.new(dir)
 	end
-	self._old_switch = switch_keys
+	entity._old_switch = switch_keys
 
-	if self._punched then
+	if entity._punched then
 		-- Collect dropped items
 		for _, obj_ in pairs(minetest.get_objects_inside_radius(pos, 1)) do
 			local ent = obj_:get_luaentity()
 			-- Careful here: physical_state and disable_physics are item-internal APIs
 			if ent and ent.name == "__builtin:item" and ent.physical_state then
 				ent:disable_physics()
-				obj_:set_attach(self.object, "", {x=0, y=0, z=0}, {x=0, y=0, z=0})
-				self._attached_items[#self._attached_items + 1] = obj_
+				obj_:set_attach(entity.object, "", {x=0, y=0, z=0}, {x=0, y=0, z=0})
+				entity._attached_items[#entity._attached_items + 1] = obj_
 			end
 		end
-		self._punched = false
+		entity._punched = false
 		update.vel = true
 	end
 
 	railparams = railparams or get_railparams(pos)
 
 	if not (update.vel or update.pos) then
-		rail_on_step_event(railparams.on_step, self, dtime)
+		rail_on_step_event(railparams.on_step, entity, dtime)
 		return
 	end
 
-	self.object:set_yaw(determineYaw(self._old_dir))
-	self.object:set_animation(anims[dir.y], 1, 0)
+	entity.object:set_yaw(determineYaw(entity._old_dir))
+	entity.object:set_animation(anims[dir.y], 1, 0)
 
 	if update.vel then
-		self.object:set_velocity(vel)
+		entity.object:set_velocity(vel)
 	end
 	if update.pos then
 		if dir_changed then
-			self.object:set_pos(pos)
+			entity.object:set_pos(pos)
 		else
-			self.object:move_to(pos)
+			entity.object:move_to(pos)
 		end
 	end
 
 	-- call event handler
-	rail_on_step_event(railparams.on_step, self, dtime)
+	rail_on_step_event(railparams.on_step, entity, dtime)
 end
 
-function carts.on_step(self, dtime)
-	carts.rail_on_step(self, dtime)
-	carts.rail_sound(self, dtime)
+function carts.on_step(entity, dtime)
+	carts.rail_on_step(entity, dtime)
+	carts.rail_sound(entity, dtime)
 end
 
-function carts.on_rightclick(self, clicker)
-	if not clicker or not clicker:is_player() then
-		return
-	end
-	local player_name = clicker:get_player_name()
-	if self._driver and player_name == self._driver then
-		self._driver = nil
-		carts.manage_attachment(clicker, nil)
-	elseif not self._driver then
-		self._driver = player_name
-		carts.manage_attachment(clicker, self.object)
-
-		-- player_api does not update the animation
-		-- when the player is attached, reset to default animation
-		players.set_animation(clicker, "stand")
-	end
-end
-
-function carts.on_activate(self, staticdata, dtime_s)
-	self.object:set_armor_groups({immortal=1})
+function carts.on_activate(entity, staticdata, dtime_s)
+	entity.object:set_armor_groups({immortal=1})
+	seats.on_activate(entity)
 	if string.sub(staticdata, 1, string.len("return")) ~= "return" then
 		return
 	end
@@ -483,60 +445,48 @@ function carts.on_activate(self, staticdata, dtime_s)
 	if type(data) ~= "table" then
 		return
 	end
-	self._railtype = data._railtype
+	entity._railtype = data._railtype
 	if data._old_dir then
-		self._old_dir = data._old_dir
+		entity._old_dir = data._old_dir
 	end
+	entity._owner = data._owner
 end
 
-function carts.get_staticdata(self)
+function carts.get_staticdata(entity)
 	return minetest.serialize({
-		_railtype = self._railtype,
-		_old_dir = self._old_dir
+		_railtype = entity._railtype,
+		_old_dir = entity._old_dir,
+		_owner = entity._owner
 	})
 end
 
--- 0.5.x and later: When the driver leaves
-function carts.on_detach_child(self, child)
-	if child and child:get_player_name() == self._driver then
-		self._driver = nil
-		carts.manage_attachment(child, nil)
-	end
-end
-
-function carts.on_punch(self, puncher, time_from_last_punch, tool_capabilities, 
+function carts.on_punch(entity, puncher, time_from_last_punch, tool_capabilities, 
 	direction)
-	local pos = self.object:get_pos()
-	local vel = self.object:get_velocity()
-	if not self._railtype or vector.equals(vel, {x=0, y=0, z=0}) then
+	local pos = entity.object:get_pos()
+	local vel = entity.object:get_velocity()
+	if not entity._railtype or vector.equals(vel, {x=0, y=0, z=0}) then
 		local node = minetest.get_node(pos).name
-		self._railtype = minetest.get_item_group(node, "connect_to_raillike")
+		entity._railtype = minetest.get_item_group(node, "connect_to_raillike")
 	end
 	-- Punched by non-player
 	if not puncher or not puncher:is_player() then
-		local cart_dir = carts:get_rail_direction(pos, self._old_dir, nil, nil, 
-			self._railtype)
+		local cart_dir = carts:get_rail_direction(pos, entity._old_dir, nil, nil, 
+			entity._railtype)
 		if vector.equals(cart_dir, {x=0, y=0, z=0}) then
 			return
 		end
-		self._velocity = vector.multiply(cart_dir, 2)
-		self._punched = true
+		entity._velocity = vector.multiply(cart_dir, 2)
+		entity._punched = true
 		return
 	end
 	-- Player digs cart by aux1-punch
 	if puncher:get_player_control().aux1 then
-		if self.sound_handle then
-			minetest.sound_stop(self.sound_handle)
+		if entity.sound_handle then
+			minetest.sound_stop(entity.sound_handle)
 		end
-		-- Detach driver and items
-		if self._driver then
-			if self._old_pos then
-				self.object:set_pos(self._old_pos)
-			end
-			local player = minetest.get_player_by_name(self._driver)
-			carts.manage_attachment(player, nil)
-		end
-		for _, obj_ in ipairs(self._attached_items) do
+		-- Detach passengers and items
+		seats.detach_all(entity)
+		for _, obj_ in ipairs(entity._attached_items) do
 			if obj_ then
 				obj_:set_detach()
 			end
@@ -544,18 +494,18 @@ function carts.on_punch(self, puncher, time_from_last_punch, tool_capabilities,
 		-- Pick up cart
 		local inv = puncher:get_inventory()
 		if not minetest.is_creative_enabled(puncher:get_player_name())
-				or not inv:contains_item("main", self._name) then
-			local leftover = inv:add_item("main", self._name)
+				or not inv:contains_item("main", entity._name) then
+			local leftover = inv:add_item("main", entity._name)
 			-- If no room in inventory add a replacement cart to the world
 			if not leftover:is_empty() then
-				minetest.add_item(self.object:get_pos(), leftover)
+				minetest.add_item(entity.object:get_pos(), leftover)
 			end
 		end
-		self.object:remove()
+		entity.object:remove()
 		return
 	end
 	-- Player punches cart to alter velocity
-	if puncher:get_player_name() == self._driver then
+	if puncher:get_player_name() == entity._passengers[1] then
 		if math.abs(vel.x + vel.z) > carts.punch_speed_max then
 			return
 		end
@@ -564,7 +514,7 @@ function carts.on_punch(self, puncher, time_from_last_punch, tool_capabilities,
 	local punch_dir = carts.velocity_to_dir(puncher:get_look_dir())
 	punch_dir.y = 0
 	local cart_dir = carts:get_rail_direction(pos, punch_dir, nil, nil, 
-		self._railtype)
+		entity._railtype)
 	if vector.equals(cart_dir, {x=0, y=0, z=0}) then
 		return
 	end
@@ -577,9 +527,9 @@ function carts.on_punch(self, puncher, time_from_last_punch, tool_capabilities,
 		punch_interval)
 	local f = 2 * (time_from_last_punch / punch_interval)
 
-	self._velocity = vector.multiply(cart_dir, f)
-	self._old_dir = cart_dir
-	self._punched = true
+	entity._velocity = vector.multiply(cart_dir, f)
+	entity._old_dir = cart_dir
+	entity._punched = true
 end
 
 function carts.craftitem_on_place(itemstack, placer, pointed_thing)
@@ -596,13 +546,15 @@ function carts.craftitem_on_place(itemstack, placer, pointed_thing)
 	if not pointed_thing.type == "node" then
 		return
 	end
+	local entity
 	if carts.is_rail(pointed_thing.under) then
-		minetest.add_entity(pointed_thing.under, itemstack:get_name())
+		entity = minetest.add_entity(pointed_thing.under, itemstack:get_name())
 	elseif carts.is_rail(pointed_thing.above) then
-		minetest.add_entity(pointed_thing.above, itemstack:get_name())
+		entity = minetest.add_entity(pointed_thing.above, itemstack:get_name())
 	else
 		return
 	end
+	entity:get_luaentity()._owner = placer:get_player_name()
 
 	minetest.sound_play({name = "ores_api_place_node_metal", gain = 0.5},
 		{pos = pointed_thing.above}, true)
@@ -662,12 +614,16 @@ function carts.register_entity(name, def)
 			textures = def.textures or {txt .. ".png"},
 		},
 		on_step = def.on_step or carts.on_step, 
-		on_rightclick = def.on_rightclick or carts.on_rightclick,
+		on_rightclick = def.on_rightclick or seats.on_rightclick,
 		on_activate = def.on_activate or carts.on_activate,
 		get_staticdata = def.get_staticdata or carts.get_staticdata,
-		on_detach_child = def.on_detach_child or carts.on_detach_child,
+		on_detach_child = def.on_detach_child or seats.on_detach_child,
 		on_punch = def.on_punch or carts.on_punch,
-		_driver = nil,
+		_attach_at = def.attach_at or {{x = 0, y = 0, z = 0}},
+		_eye_offset = def.eye_offset or {{x = 0, y = 0, z = 0}},
+		_pos_offset = def.pos_offset or {{x = 0, y = 0, z = 0}},
+		_detach_offset = def.detach_offset or {{x = 0, y = 0, z = 0}},
+		_max_passengers = def.max_passengers or 1,
 		_punched = false, -- used to re-send velocity and position
 		_velocity = {x=0, y=0, z=0}, -- only used on punch
 		_old_dir = {x=1, y=0, z=0}, -- random value to start the cart on punch

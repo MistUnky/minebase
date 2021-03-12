@@ -1,6 +1,4 @@
-mounts = {
-	passengers = {}
-}
+mounts = {}
 
 local crash_threshold = 6.5		-- ignored if enable_crash is disabled
 
@@ -35,72 +33,13 @@ end
 
 -------------------------------------------------------------------------------
 
-local function detach_on(player)
-	local entity = mounts.passengers[player]
-	if entity then
-		local seat = mounts.attached(entity, player)
-		if seat then
-			entity._passengers[seat] = nil
-		end
-		mounts.passengers[player] = nil
-		players.player_attached[player:get_player_name()] = false
-		players.set_animation(player, "stand", 30, "force_detach")
-	end
-end
-
-minetest.register_on_leaveplayer(detach_on)
-
-minetest.register_on_shutdown(function()
-	local players = minetest.get_connected_players()
-	for i = 1, #players do
-		detach_on(players[i])
-	end
-end)
-
-minetest.register_on_dieplayer(function(player)
-	detach_on(player)
-	return true
-end)
-
--------------------------------------------------------------------------------
-
 function mounts.get_velocity(v, yaw, y)
 	local x = -math.sin(yaw) * v
 	local z =  math.cos(yaw) * v
 	return {x = x, y = y, z = z}
 end
 
-function mounts.attached(entity, player)
-	for i, passenger in pairs(entity._passengers) do
-		if player == passenger then
-			return i
-		end
-	end 
-	return nil
-end
-
-function mounts.force_detach(player)
-	local attached_to = player:get_attach()
-	if attached_to then
-		local entity = attached_to:get_luaentity()
-		local seat = mounts.attached(entity, player)
-		if seat then
-			entity._passengers[seat] = nil
-			mounts.passengers[player] = nil
-		end
-		player:set_detach()
-		players.player_attached[player:get_player_name()] = false
-		player:set_eye_offset({x=0, y=0, z=0}, {x=0, y=0, z=0})
-		players.set_animation(player, "stand", 30, "force_detach")
-	end
-end
-
-local function after_attach(player)
-	players.set_animation(player, "sit", 30)
-end
-
 function mounts.attach(entity, player, seat)
-	seat = seat or #entity._passengers + 1
 	if not entity._player_rotation then
 		entity._player_rotation = {x=0, y=0, z=0}
 	end
@@ -110,43 +49,8 @@ function mounts.attach(entity, player, seat)
 		rot_view = math.pi / 2
 	end
 
-	mounts.force_detach(player)
-
-	if not entity._attach_at[seat] then
-		entity._attach_at[seat] = {x=0, y=0, z=0}
-	end
-	if not entity._eye_offset[seat] then
-		entity._eye_offset[seat] = {x=0, y=0, z=0}
-	end
-
-	entity._passengers[seat] = player
-	mounts.passengers[player] = entity
-
-	player:set_attach(entity.object, "", entity._attach_at[seat], 
-		entity._player_rotation)
-	players.player_attached[player:get_player_name()] = true
-	player:set_eye_offset(entity._eye_offset[seat], {x=0, y=0, z=0})
-	minetest.after(0.2, after_attach, player)
+	seats.attach(entity, player, seat)
 	player:set_look_horizontal(entity.object:get_yaw() - rot_view)
-end
-
-local function after_detach(player, pos)
-	player:set_pos(pos)
-end
-
-local v000 = {x = 0, y = 0, z = 0}
-function mounts.detach(player, offset)
-	offset = offset or v000
-	mounts.force_detach(player)
-	local pos = player:get_pos()
-	pos = {x = pos.x + offset.x, y = pos.y + 0.2 + offset.y, z = pos.z + offset.z}
-	minetest.after(0.1, after_detach, player, pos)
-end
-
-function mounts.detach_all(entity)
-	for seat, passenger in pairs(entity._passengers) do
-		mounts.detach(passenger, entity._detach_offset[seat])
-	end
 end
 
 local aux_timer = 0
@@ -330,7 +234,7 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 				entity.object:set_hp(entity.object:get_hp() - intensity)
 			else
 				for seat, passenger in pairs(entity._passengers) do
-					mounts.detach(passenger, entity._detach_offset[seat])
+					seats.detach(passenger, entity._detach_offset[seat])
 					passenger:set_velocity(new_velo)
 					passenger:set_hp(passenger:get_hp() - intensity)
 				end
@@ -366,21 +270,7 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 end
 
 function mounts.on_rightclick(entity, clicker)
-	if not clicker or not clicker:is_player() then
-		return
-	end
-
-	local seat = mounts.attached(entity, clicker)
-	if seat then
-		mounts.detach(clicker, entity._detach_offset[seat])
-	else
-		if entity._owner == clicker:get_player_name() then
-			mounts.attach(entity, clicker, 1)
-		elseif entity._passengers[1] and t4b.count(entity._passengers) 
-			< entity._max_passengers then
-			mounts.attach(entity, clicker)
-		end
-	end
+	return seats.on_rightclick(entity, clicker, mounts.attach)
 end
 
 function mounts.on_activate(entity, staticdata, dtime_s)
@@ -392,9 +282,7 @@ function mounts.on_activate(entity, staticdata, dtime_s)
 			entity[key] = stat
 		end
 	end
-	if not entity._passengers then
-		entity._passengers = {}
-	end
+	seats.on_activate(entity)
 	print("owner: ", entity._owner)
 	entity._v2 = entity._v
 end
@@ -423,7 +311,7 @@ function mounts.on_punch(entity, puncher)
 	if entity._owner == punchername or minetest.get_player_privs(punchername)
 		.protection_bypass then
 		entity._removed = true
-		mounts.detach_all(entity)
+		seats.detach_all(entity)
 		-- delay remove to ensure player is detached
 		minetest.after(0.1, after_punch, entity)
 		puncher:get_inventory():add_item("main", entity._name)
@@ -449,6 +337,7 @@ function mounts.register_entity(name, def)
 		get_staticdata = def.get_staticdata or mounts.get_staticdata,
 		on_punch = def.on_punch or mounts.on_punch,
 		on_step = def.on_step or mounts.on_step,
+		on_detach_child = seats.on_detach_child,
 
 		_terrain_type = def.terrain_type,
 		_can_fly = def.can_fly,
@@ -484,8 +373,10 @@ function mounts.on_place(itemstack, placer, pointed_thing)
 	local name = itemstack:get_name()
 
 	local ent
-	if minetest.get_item_group(minetest.get_node(pointed_thing.under).name, "liquid") == 0 then
-		if def._terrain_type == 0 or def._terrain_type == 1 or def._terrain_type == 3 then
+	if minetest.get_item_group(minetest.get_node(pointed_thing.under).name, 
+		"liquid") == 0 then
+		if def._terrain_type == 0 or def._terrain_type == 1 
+			or def._terrain_type == 3 then
 			pointed_thing.above.y = pointed_thing.above.y + def._on_place_position_adj
 			ent = minetest.add_entity(pointed_thing.above, name)
 		else

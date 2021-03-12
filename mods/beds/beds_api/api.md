@@ -207,6 +207,7 @@ beds.register_bed("mod:node", {
 	legacy_facedir_simple = false,
 	legacy_wallmounted = false,
 	waving = 0,
+	on_receive_fields = nil,
 })
 ```
 

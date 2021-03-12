@@ -45,10 +45,13 @@ buckets.register_liquid("mod:item", {
 	sound = nil,
 	on_place = buckets.on_place,
 	on_secondary_use = nil,
-	on_drop = nil,
+	on_drop = minetest.item_drop,
+	on_use = nil,
+	after_use = nil,
 	empty = "buckets_api:bucket_empty",
 	
 	-- fixed
 	liquids_pointable = true,
+	tool_capabilities = nil
 })
 ```
