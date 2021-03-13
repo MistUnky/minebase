@@ -35,7 +35,7 @@ entity          : LuaEntity
 pos             : Position
 dir             : Vector
 ctrl            : PlayerControls
-old_switch      : Mixed ∈ {nil, 1, 2}
+old_switch      : Mixed ⊆ {nil, 1, 2}
 railtype        : GroupName
 return          : Vector
 ```
@@ -56,12 +56,12 @@ Takes a number and returns a number representing the sign.
 ```lua
 function carts.get_sign(z)
 z       : Number
-return  : x ∈ {-1, 0, 1}
+return  : Integer ⊆ {-1, 0, 1}
 ```
 
 #### get_staticdata
 Returns a string representing attributes of the entity. It is used by the engine 
-to save keep them over multiple instances. Every time the area is loaded a new
+to keep them over multiple instances. Every time the area is loaded a new
 instance is created.
 ```lua
 function carts.get_staticdata(entity)
@@ -80,13 +80,287 @@ return          : Boolean
 If railtype is provided, it also checks the type of the rail.
 
 #### on_activate
+Is called by the engine to initialise a new instance with new or saved values.
+```lua
+function carts.on_activate(entity, staticdata, dtime_s)
+entity          : LuaEntity
+staticdata      : Serialized
+dtime_s         : Seconds
+```
+
 #### on_punch
+Is called by the engine when a cart is punched. This pushes the cart away.
+```lua
+function carts.on_punch(entity, puncher, time_from_last_punch, 
+	tool_capabilities)
+entity                  : LuaEntity
+puncher                 : Player
+time_from_last_punch    : Seconds
+tool_capabilities       : ToolCapabilities
+```
+
 #### on_step
+Is called by the engine on every sever tick and updates the behavior and 
+properties of the cart.
+```lua
+function carts.on_step(entity, dtime)
+entity  : LuaEntity
+dtime   : Seconds
+```
+
 #### pathfinder
+Looks ahead to find the path of the rails and returns the new position and 
+direction. The player controls (left and right key) change the direction the 
+cart is directed at junctions.
+```lua
+function carts.pathfinder(entity, pos, old_pos, old_dir, distance, ctrl,
+	pf_switch, railtype)
+entity          : LuaEntity
+pos             : Position
+ols_pos         : Position
+old_dir         : Vector
+distance        : Meter
+ctrl            : PlayerControls
+pf_switch       : Mixed ⊆ {nil, 1, 2}
+railtype        : GroupName
+return          : Position, Vector
+```
+pf_switch is the same as old_switch in get_rail_direction.
+
 #### rail_on_step
+Updates the behavior and properties of the cart that are related to the rails.
+It also attaches items dropped into the cart to the cart once it starts moving.
+```lua
+function carts.rail_on_step(entity, dtime)
+entity  : LuaEntity
+dtime   : Seconds
+```
+
 #### rail_sound
+Updates the sound caused by the cart.
+```lua
+function carts.rail_sound(entity, dtime)
+entity  : LuaEntity
+dtime   : Seconds
+```
 #### register_cart
+Registers a cart entity. It also registers a craftitem, if it is provided.
+```lua
+function carts.register_cart(name, def)
+name    : Name
+def     : Table
+
+carts.register_cart("mod:entity", {
+	-- essential
+	
+	-- optional
+	entity = CartDef,
+	craftitem = nil
+})
+```
 #### register_craftitem
+Registers a craftitem for a cart entity.
+```lua
+function carts.register_craftitem(name, def)
+name    : Name
+def     : CartItem
+
+carts.register_craftitem("mod:item", {
+	-- essential
+
+	-- optional
+	description = txt,
+	short_description = "",
+	groups = nil,
+	inventory_image = minetest.inventorycube("mod_item_top.png", 
+		"mod_item_front.png", "mod_item_side.png"),
+	inventory_overlay = nil,
+	wield_image = "mod_item_front.png",
+	wield_overlay = nil,
+	palette = nil,
+	color = nil,
+	wield_scale = {x = 1, y = 1, z = 1},
+	stack_max = 100,
+	range = 4.0,
+	sound = nil,
+	on_place = carts.craftitem_on_place,
+	on_secondary_use = nil,
+	on_drop = minetest.item_drop,
+	on_use = nil,
+	after_use = nil,
+
+	-- fixed
+	liquids_pointable = false,
+	light_source = 0,
+	tool_capabilities = nil,
+	node_placement_prediction = nil,
+})
+```
+
 #### register_entity
+Registers a cart entity.
+```lua
+function carts.register_entity(name, def)
+name    : Name
+def     : CartDef
+
+carts.register_entity("mod:entity", {
+	-- essential initial_properties
+
+	-- optional initial_properties
+	collisionbox = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	visual_size = {x = 1, y = 1, z = 1},
+	mesh = "carts_api_cart.b3d",
+	textures = {"mod_entity.png"},
+	colors = nil,
+	use_texture_alpha = false,
+	backface_culling = true,
+	glow = 0,
+	infotext = S("left-click push, right-click mount") .. "\n" 
+		.. S("aux + left-click to pick up"),
+	static_save = true,
+	damage_texture_modifier = nil,
+	shaded = nil,
+	show_on_minimap = false,
+	
+	-- fixed initial_properties
+	physical = false, -- otherwise going uphill breaks
+	collide_with_objects = false,
+	pointable = true,
+	visual = "mesh",
+	spritediv = nil,
+	initial_sprite_basepos = nil,
+	is_visible = true,
+	makes_footstep_sound = false,
+	automatic_rotate = 0,
+	stepheight = 0,
+	automatic_face_movement_dir = 0.0,
+	automatic_face_movement_max_rotation_per_sec = -1,
+	nametag = "",
+	nametag_color = nil,
+	nametag_bgcolor = false,
+
+	-- essential callbacks and custom attributes
+
+	-- optional callbacks and custom attributes
+	on_activate = carts.on_activate,
+	on_deactivate = nil,
+	on_step = carts.on_step, 
+	on_punch = carts.on_punch,
+	on_death = nil,
+	on_rightclick = seats.on_rightclick,
+	on_attach_child = nil,
+	on_detach_child = seats.on_detach_child,
+	on_detach = nil,
+	get_staticdata = carts.get_staticdata,
+	attach_at = {{x = 0, y = 0, z = 0}},
+	eye_offset = {{x = 0, y = 0, z = 0}},
+	pos_offset = {{x = 0, y = 0, z = 0}},
+	detach_offset = {{x = 0, y = 0, z = 0}},
+	max_passengers = 1,
+	railtype = nil,
+	attached_items = {},
+
+	-- fixed custom attributes
+	punched = false, -- used to re-send velocity and position
+	velocity = {x=0, y=0, z=0}, -- only used on punch
+	old_dir = {x=1, y=0, z=0}, -- random value to start the cart on punch
+	old_pos = nil,
+	old_switch = 0,
+	name = "mod:entity"
+})
+
+```
 #### register_rail
+Registers a rail node.
+```lua
+function carts.register_rail(name, def)
+name    : Name
+def     : Table
+
+carts.register_rail("mod:node", {
+	-- essential
+
+	-- optional
+	description = "mod_node",
+	short_description = "",
+	groups = carts.get_rail_groups(def.groups),
+	inventory_image = "mod_node_straight.png",
+	inventory_overlay = nil,
+	wield_image = "mod_node_straight.png",
+	wield_overlay = nil,
+	palette = nil,
+	color = nil,
+	wield_scale = {x = 1, y = 1, z = 1},
+	stack_max = 100,
+	range = 4.0,
+	liquids_pointable = false,
+	light_source = 0,
+	node_placement_prediction = nil,
+	node_dig_prediction = "air",
+	sound = nil,
+	on_place = minetest.item_place,
+	on_secondary_use = nil,
+	on_drop = minetest.item_drop,
+	on_use = nil,
+	after_use = nil,
+	tiles = {
+		"mod_node_straight.png", "mod_node_curved.png",
+		"mod_node_t_junction.png", "mod_node_crossing.png"
+	},
+	overlay_tiles = nil,
+	special_tiles = nil,
+	use_texture_alpha = "opaque",
+	post_effect_color = nil,
+	paramtype = "light",
+	paramtype2 = "none",
+	walkable = false,
+	pointable = true, 
+	diggable = true,
+	damage_per_second = 0,
+	selection_box = {
+		type = "fixed",
+		fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
+	},
+	waving = 0,
+	sounds = sounds.get_defaults("ore_sounds:metal"),
+	drop = "",
+	on_construct = nil,
+	on_destruct = nil,
+	after_destruct = nil,
+	preserve_metadata = nil,
+	after_place_node = nil,
+	after_dig_node = nil,
+	can_dig = nil,
+	on_punch = minetest.node_punch,
+	on_rightclick = nil,
+	on_dig = minetest.node_dig,
+	on_timer = nil,
+	on_blast = nil,
+	recipe = nil,
+
+	-- fixed 
+	tool_capabilities = nil
+	drawtype = "raillike",
+	visual_scale = 1.0,
+	is_ground_content = false,
+	sunlight_propagates = true,
+	climbable = false, 
+	buildable_to = false, 
+	floodable = false,
+	liquidtype = "none",
+	leveled = 0,
+	node_box = nil,
+	collision_box = nil,
+	on_receive_fields = nil,
+})
+```
+
 #### velocity_to_dir
+Creates and returns a vector that points into the direction the card is moving.
+```lua
+function carts.velocity_to_dir(v)
+v       : Vector
+return  : Vector ⊆ {(1, 1, 0), (1, -1, 0), (-1, 1, 0), (-1, -1, 0), (0, 1, 1),
+        (0, 1, -1), (0, -1, 1), (0, -1, -1)}
+```

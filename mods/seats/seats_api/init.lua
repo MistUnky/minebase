@@ -1,4 +1,4 @@
--- seats/init.lua
+-- seats_api/init.lua
 
 seats = {passengers = {}}
 local v000 = {x = 0, y = 0, z = 0}

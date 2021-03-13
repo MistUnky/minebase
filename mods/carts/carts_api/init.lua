@@ -291,10 +291,8 @@ function carts.rail_on_step(entity, dtime)
 		local acc = entity.object:get_acceleration()
 		local distance = dtime * (v3_len(vel) + 0.5 * dtime * v3_len(acc))
 
-		local new_pos, new_dir = carts:pathfinder(
-			pos, entity._old_pos, entity._old_dir, distance, ctrl,
-			entity._old_switch, entity._railtype
-		)
+		local new_pos, new_dir = carts.pathfinder(carts, pos, entity._old_pos, 
+			entity._old_dir, distance, ctrl, entity._old_switch, entity._railtype)
 
 		if new_pos then
 			-- No rail found: set to the expected position
@@ -460,8 +458,8 @@ function carts.get_staticdata(entity)
 	})
 end
 
-function carts.on_punch(entity, puncher, time_from_last_punch, tool_capabilities, 
-	direction)
+function carts.on_punch(entity, puncher, time_from_last_punch, 
+	tool_capabilities)
 	local pos = entity.object:get_pos()
 	local vel = entity.object:get_velocity()
 	if not entity._railtype or vector.equals(vel, {x=0, y=0, z=0}) then
@@ -572,24 +570,64 @@ function carts.register_rail(name, def)
 
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name, {
-		description = def.description,
+		description = def.description or txt,
+		short_description = def.short_description,
+		groups = carts.get_rail_groups(def.groups),
+		inventory_image = def.inventory_image or txt .. "_straight.png",
+		inventory_overlay = def.inventory_overlay,
+		wield_image = def.wield_image or txt .. "_straight.png",
+		wield_overlay = def.wield_overlay,
+		palette = def.palette,
+		color = def.color,
+		wield_scale = def.wield_scale,
+		stack_max = def.stack_max,
+		range = def.range,
+		liquids_pointable = def.liquids_pointable,
+		light_source = def.light_source,
+		node_placement_prediction = def.node_placement_prediction,
+		node_dig_prediction = def.node_dig_prediction,
+		sound = def.sound,
+		on_place = def.on_place,
+		on_secondary_use = def.on_secondary_use,
+		on_drop = def.on_drop,
+		on_use = def.on_use,
+		after_use = def.after_use,
+		drawtype = "raillike",
 		tiles = def.tiles or {
 			txt .. "_straight.png", txt .. "_curved.png",
 			txt .. "_t_junction.png", txt .. "_crossing.png"
 		},
-		groups = carts.get_rail_groups(def.groups),
-		drawtype = "raillike",
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha or "opaque",
+		post_effect_color = def.post_effect_color,
 		paramtype = "light",
-		sunlight_propagates = true,
+		paramtype2 = def.paramtype,
 		is_ground_content = false,
+		sunlight_propagates = true,
 		walkable = def.walkable or false,
-		wield_image = def.wield_image or txt .. "_straight.png",
-		inventory_image = def.inventory_image or txt .. "_straight.png",
+		pointable = def.pointable, 
+		diggable = def.diggable,
+		damage_per_second = def.damage_per_second,
 		selection_box = def.selection_box or {
 			type = "fixed",
 			fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 		},
+		waving = def.waving,
 		sounds = def.sounds or sounds.get_defaults("ore_sounds:metal"),
+		drop = def.drop,
+		on_construct = def.on_construct,
+		on_destruct = def.on_destruct,
+		after_destruct = def.after_destruct,
+		preserve_metadata = def.preserve_metadata,
+		after_place_node = def.after_place_node,
+		after_dig_node = def.after_dig_node,
+		can_dig = def.can_dig,
+		on_punch = def.on_punch,
+		on_rightclick = def.on_rightclick,
+		on_dig = def.on_dig,
+		on_timer = def.on_timer,
+		on_blast = def.on_blast,
 	})
 
 	if def.recipe then
@@ -604,21 +642,40 @@ function carts.register_entity(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_entity(name, {
 		initial_properties = {
-			infotext = S("left-click push, right-click mount") .. "\n" 
-				.. S("aux + left-click to pick up"),
 			physical = false, -- otherwise going uphill breaks
+			collide_with_objects = false,
 			collisionbox = def.collisionbox or {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-			visual = def.visual or "mesh",
+			selectionbox = def.selection_box or {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+			pointable = true,
+			visual = "mesh",
+			visual_size = def.visual_size or {x = 1, y = 1, z = 1},
 			mesh = def.mesh or "carts_api_cart.b3d",
-			visual_size = def.visual_size or {x=1, y=1},
 			textures = def.textures or {txt .. ".png"},
+			colors = def.colors,
+			use_texture_alpha = def.use_texture_alpha,
+			is_visible = true,
+			makes_footstep_sound = false,
+			stepheight = 0,
+			backface_culling = def.backface_culling,
+			nametag = "",
+			glow = def.glow,
+			infotext = def.infotext or S("left-click push, right-click mount") .. "\n" 
+				.. S("aux + left-click to pick up"),
+			static_save = true,
+			damage_texture_modifier = def.damage_texture_modifier,
+			shaded = def.shaded,
+			show_on_minimap = def.show_on_minimap,
 		},
-		on_step = def.on_step or carts.on_step, 
-		on_rightclick = def.on_rightclick or seats.on_rightclick,
 		on_activate = def.on_activate or carts.on_activate,
-		get_staticdata = def.get_staticdata or carts.get_staticdata,
-		on_detach_child = def.on_detach_child or seats.on_detach_child,
+		on_deactivate = def.on_deactivate,
+		on_step = def.on_step or carts.on_step, 
 		on_punch = def.on_punch or carts.on_punch,
+		on_death = def.on_death,
+		on_rightclick = def.on_rightclick or seats.on_rightclick,
+		on_attach_child = def.on_attach_child,
+		on_detach_child = def.on_detach_child or seats.on_detach_child,
+		on_detach = def.on_detach,
+		get_staticdata = def.get_staticdata or carts.get_staticdata,
 		_attach_at = def.attach_at or {{x = 0, y = 0, z = 0}},
 		_eye_offset = def.eye_offset or {{x = 0, y = 0, z = 0}},
 		_pos_offset = def.pos_offset or {{x = 0, y = 0, z = 0}},
@@ -638,11 +695,25 @@ end
 function carts.register_craftitem(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_craftitem(name, {
-		description = def.description,
+		description = def.description or txt,
+		short_description = def.short_description,
+		groups = def.groups,
 		inventory_image = def.inventory_image or minetest.inventorycube(txt 
 			.. "_top.png", txt .. "_front.png", txt .. "_side.png"),
+		inventory_overlay = def.inventory_overlay,
 		wield_image = def.wield_image or txt .. "_front.png",
+		wield_overlay = def.wield_overlay,
+		palette = def.palette,
+		color = def.color,
+		wield_scale = def.wield_scale,
+		stack_max = def.stack_max,
+		range = def.range,
+		sound = def.sound,
 		on_place = def.on_place or carts.craftitem_on_place,
+		on_secondary_use = def.on_secondary_use,
+		on_drop = def.on_drop,
+		on_use = def.on_use,
+		after_use = def.after_use,
 	})
 
 	if def.recipe then

@@ -600,6 +600,7 @@ seats/init.lua
     .attached,				ic
     .attach,				m
     .detach,				m
+    .detach_on,				m
     .detach_all,			m
     .force_detach,			m
     .on_activate,			m

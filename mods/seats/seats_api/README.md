@@ -1,5 +1,5 @@
-Minebase mod: Seats
-===================
+Minebase mod: Seats API
+=======================
 
 Authors of source code
 ----------------------

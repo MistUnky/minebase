@@ -1,9 +1,9 @@
-Hints
------
+Glossary
+--------
 
 I provide links to explanations from the first edition of "Programming in Lua". 
 Keep in mind that some information might be outdated because the 
-[fourth](http://www.lua.org/pil/#4ed) edition has already been published.
+[fourth edition](http://www.lua.org/pil/#4ed) has already been published.
 
 OR  
 Is used to connect alternatives.
@@ -14,12 +14,17 @@ Is used to express possible repetition or the continuation of a pattern.
 [ ]  
 The enclosed Element or character sequence is optional.
 
-?
+?  
 Used to express an unknown value.
 
-∈  
-Used to express that the element on the left can be every element that is part 
-of the set on the right. 
+_  
+Is used as a name for variables and parameters that aren't used. If used 
+multiple times within a function, the value is overwritten, but that doesn't 
+matter.
+
+[⊆](https://en.wikipedia.org/wiki/Subset)
+Used to express that the values of a type on the left side have to be part of 
+the set on the right side.
 
 ### Types 
 [BiomeDef](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L7862)  
@@ -39,6 +44,16 @@ cetera.
 Byte  
 An Integer in the range of 0 to 255.
 
+CartDef  
+A table with keys used in a cart definition.
+
+CartItem  
+A table with keys used in the definition of a craftitem for cart entities.
+
+[Float](http://lua-users.org/wiki/NumbersTutorial)  
+A number with a fractional component. This component can be 0 because the type 
+structure still differs from an Integer.
+
 [Formspec](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L2052)  
 A string containing formspec definitions.
 
@@ -50,7 +65,7 @@ A name used in the groups attribute.
 
 Integer  
 A [number](http://lua-users.org/wiki/NumbersTutorial) value without a fractional 
-component.
+component. 
 
 [InvRef](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L5958)  
 A reference to an inventory of the Minetest Engine.
@@ -64,6 +79,13 @@ A string associated with a list of ItemStacks in an inventory.
 
 [LuaEntity](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L6205)  
 A table with methods used to control entities.
+
+Mixed
+At least two different types are allowed. The allowed types should be specified
+in the description.
+
+[Meter](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L1259)  
+The size of one node is considered 1 m³.
 
 [Name](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L262)  
 A string representing a registered item, node, entity, biome or something else. 
@@ -92,6 +114,9 @@ A table representing the pointed node, object or nothing.
 A table with numeric values assigned to the keys x, y and z. Keep in mind that the y axis is pointing upwards.  
 {x = 0, y = 0, z = 0}, {x = 10, y = -5, z = 0}
 
+Seconds  
+A float representing a duration in seconds.
+
 [Serialized](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L5684)  
 A string representing a value or object.
 
@@ -106,6 +131,10 @@ A lua table.
 [Texture](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L392)  
 A string containing the name of a texture.  
 "mod_item.png"
+
+[ToolCapabilities](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L1817)  
+A table representing the attributes of a tool for example digging groups, the 
+punch interval and damage.
 
 [Vector](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L3129)  
 A table with numeric values assigned to the keys x, y and z like Position. A 

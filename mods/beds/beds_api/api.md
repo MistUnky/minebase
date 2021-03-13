@@ -31,7 +31,7 @@ Returns the position of the other node of the bed.
 ```lua
 function beds.get_other_pos(pos, n)
 pos     : Position
-n       : Integer ∈ {1, 2}
+n       : Integer ⊆ {1, 2}
 return  : Position
 ```
 n represents one part of the bed. 1 is the bottom 2 is the top.
@@ -82,7 +82,7 @@ function beds.on_rotate(pos, node, user, _, new_param2)
 pos             : Position
 node            : Node
 user            : Player
-_               : (not used)
+_               : Mixed
 new_param2      : Byte
 return          : Boolean
 ```
