@@ -5,10 +5,11 @@ local S = minetest.get_translator("permissions_api")
 permissions = {}
 
 function permissions.generate_secret()
-	local random = rand.dy
-	return string.format("%04x%04x%04x%04x",
-		random(2^16) - 1, random(2^16) - 1,
-		random(2^16) - 1, random(2^16) - 1)
+	local secret = {}
+  for i = 1, 20 do 
+		table.insert(secret, string.char(rand.az(32, 126)))
+	end
+	return table.concat(secret, "")
 end
 
 function permissions.create_key(itemstack, user, name, secret)

@@ -50,6 +50,15 @@ A table with keys used in a cart definition.
 CartItem  
 A table with keys used in the definition of a craftitem for cart entities.
 
+CreativeInv  
+A table representing the creative inventory of a player.
+
+Drops  
+A table with Itemstacks.
+
+DropsT  
+A table with ItemStacks as tables.
+
 [Float](http://lua-users.org/wiki/NumbersTutorial)  
 A number with a fractional component. This component can be 0 because the type 
 structure still differs from an Integer.
@@ -72,6 +81,10 @@ A reference to an inventory of the Minetest Engine.
 
 [ItemStack](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L6019)  
 An object representing a stack of items. It occupies one slot in an inventory.
+
+LangCode  
+A string representing a language.
+"en", "fr"
 
 Listname  
 A string associated with a list of ItemStacks in an inventory.
@@ -117,6 +130,9 @@ A table with numeric values assigned to the keys x, y and z. Keep in mind that t
 Seconds  
 A float representing a duration in seconds.
 
+Secret  
+A string with a random sequence of printable ASCII characters. 
+
 [Serialized](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L5684)  
 A string representing a value or object.
 
@@ -139,4 +155,4 @@ punch interval and damage.
 [Vector](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L3129)  
 A table with numeric values assigned to the keys x, y and z like Position. A 
 vector doesn't represent a position, it represents a relative direction.
-{x = 0, y = 0, z = 0}, {x = 10, y = -5, z = 0}
+{x = 0, y = 0, z = 0}, {x = -4, y = 0, z = 20}

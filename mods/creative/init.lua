@@ -11,7 +11,7 @@ local function update_sfinv(name)
 		local player = minetest.get_player_by_name(name)
 		if player then
 			if sfinv.get_page(player):sub(1, 9) == "creative:" then
-				sfinv.set_page(player, sfinv.get_homepage_name(player))
+				sfinv.set_page(player, creative.get_homepage_name(player))
 			else
 				sfinv.set_player_inventory_formspec(player)
 			end
@@ -36,7 +36,6 @@ function creative.is_enabled(name)
 	return minetest.check_player_privs(name, {creative = true}) or
 		creative.old_is_creative_enabled(name)
 end
-
 minetest.is_creative_enabled = creative.is_enabled
 
 -- For backwards compatibility:
@@ -85,13 +84,13 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode,
 	end
 end)
 
-local old_handle_node_drops = minetest.handle_node_drops
+creative.old_handle_node_drops = minetest.handle_node_drops
 
 -- Don't pick up if the item is already in the inventory
-function minetest.handle_node_drops(pos, drops, digger)
+function creative.handle_node_drops(pos, drops, digger)
 	if not digger or not digger:is_player() or
 		not creative.is_enabled(digger:get_player_name()) then
-		return old_handle_node_drops(pos, drops, digger)
+		return creative.old_handle_node_drops(pos, drops, digger)
 	end
 	local inv = digger:get_inventory()
 	if inv then
@@ -102,3 +101,4 @@ function minetest.handle_node_drops(pos, drops, digger)
 		end
 	end
 end
+minetest.handle_node_drops = creative.handle_node_drops

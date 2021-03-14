@@ -308,14 +308,14 @@ function containers.on_metadata_inventory_move(pos, _, _, _, _, _, player)
 	end
 end
 
-function containers.on_metadata_inventory_put(pos, _, _, stack, player)
+function containers.on_metadata_inventory_put(pos, _, _, _, player)
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	if node_def._update then
 		node_def._update(pos)
 	end
 end
 
-function containers.on_metadata_inventory_take(pos, _, _, stack, player)
+function containers.on_metadata_inventory_take(pos, _, _, _, player)
 	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
 	if node_def._update then
 		node_def._update(pos)
@@ -340,23 +340,56 @@ local function register_container(name, def)
 
 	minetest.register_node(name, {
 		description = def.description or txt,
+		short_description = def.short_description,
+		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 2},
+		inventory_image = def.inventory_image,
+		inventory_overlay = def.inventory_overlay,
+		wield_image = def.wield_image,
+		wield_overlay = def.wield_overlay,
+		palette = def.palette,
+		color = def.color,
+		wield_scale = def.wield_scale,
+		stack_max = def.stack_max,
+		range = def.range,
+		light_source = def.light_source,
+		node_placement_prediction = def.node_placement_prediction,
+		node_dig_prediction = def.node_dig_prediction,
+		sound = def.sound,
+		on_place = def.on_place,
+		on_secondary_use = def.on_secondary_use,
+		on_drop = def.on_drop,
+		on_use = def.on_use,
+		after_use = def.after_use,
 		drawtype = def.drawtype,
 		visual = def.visual,
-		mesh = def.mesh,
 		tiles = tiles,
-		groups = def.groups or {choppy = 2, oddly_breakable_by_hand = 2},
-		drop = def.drop,
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha,
 		paramtype = "light",
 		paramtype2 = "facedir",
-		selection_box = def.selection_box,
-		legacy_facedir_simple = true,
+		place_param2 = nil, 
 		is_ground_content = false,
+		node_box = def.node_box,
+		connects_to = def.connects_to,
+		connect_sides = def.connect_sides,
+		mesh = def.mesh,
+		selection_box = def.selection_box,
+		collision_box = def.collision_box,
+		legacy_facedir_simple = true,
 		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
-		can_dig = def.can_dig or callbacks_p.can_dig,
-		on_blast = def.on_blast or callbacks_p.on_blast,
+		drop = def.drop,
 		on_construct = def.on_construct or callbacks_p.on_construct,
+		on_destruct = def.on_destruct,
+		after_destruct = def.after_destruct,
+		preserve_metadata = def.preserve_metadata,
 		after_place_node = callbacks_p.after_place_node,
+		after_dig_node = def.after_dig_node,
+		can_dig = def.can_dig or callbacks_p.can_dig,
+		on_punch = def.on_punch,
 		on_rightclick = def.on_rightclick or callbacks_p.on_rightclick,
+		on_dig = def.on_dig,
+		on_timer = def.on_timer,
 		allow_metadata_inventory_move = def.allow_metadata_inventory_move
 			or callbacks_p.allow_metadata_inventory_move,
 		allow_metadata_inventory_put = def.allow_metadata_inventory_put 
@@ -369,15 +402,14 @@ local function register_container(name, def)
 			or containers.on_metadata_inventory_put,
 		on_metadata_inventory_take = def.on_metadata_inventory_take 
 			or containers.on_metadata_inventory_take,
-		on_key_use = def.on_key_use or callbacks_p.on_key_use,
-		on_skeleton_key_use = def.on_skeleton_key_use 
+		on_blast = def.on_blast or callbacks_p.on_blast,
+		_on_key_use = def.on_key_use or callbacks_p.on_key_use,
+		_on_skeleton_key_use = def.on_skeleton_key_use 
 			or callbacks_p.on_skeleton_key_use,
-		on_punch = def.on_punch,
-		on_timer = def.on_timer,
 		_inventory_width = def.inventory_width or 8,
 		_inventory_height = def.inventory_height or 4,
 		_allowed_item_group = def.allowed_item_group,
-		_sound = def.sound or txt .. "_open",
+		_sound = def.soundC or txt .. "_open",
 		_formspec_def = def.formspec_def,
 		_update = def.update,
 		_node_opened = def.node_opened,
@@ -420,10 +452,12 @@ local function register_container_opened(name, def)
 
 	local tiles
 	if def.tiles then
-		tiles = table.copy(def.tiles)
+		tiles = def.tiles
+	elseif def.ctiles then
+		tiles = table.copy(def.ctiles)
 		tiles[3] = tiles[4] 
 		tiles[5] = tiles[6]
-		tiles[6] = def.inside
+		tiles[6] = def.inside or txt .. "_inside.png"
 	else
 		tiles = {txt .. "_top.png", txt .. "_bottom.png", txt .. "_side.png", 
 			txt .. "_side.png", txt .. "_front.png", txt .. "_inside.png"
@@ -432,26 +466,39 @@ local function register_container_opened(name, def)
 
 	minetest.register_node(name .. "_opened", {
 		description = def.description or txt,
-		drawtype = def.drawtype or "mesh",
-		visual = def.visual or "mesh",
-		mesh = def.mesh or "containers_chest_open.obj",
-		tiles = tiles,
+		short_description = def.short_description,
 		groups = groups,
-		drop = name,
+		drawtype = def.drawtype or "mesh",
+		visual_scale = def.visual_scale,
+		tiles = tiles,
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
 		paramtype = "light",
 		paramtype2 = "facedir",
+		is_ground_content = false,
+		node_box = def.node_box,
+		connects_to = def.connects_to,
+		connect_sides = def.connect_sides,
+		mesh = def.mesh or "containers_chest_open.obj",
 		selection_box = def.selection_box or {
 			type = "fixed",
 			fixed = { -1/2, -1/2, -1/2, 1/2, 3/16, 1/2 },
 		},
+		collision_box = def.collision_box,
 		legacy_facedir_simple = true,
-		is_ground_content = false,
 		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
-		can_dig = open.can_dig,
-		on_blast = open.on_blast,
+		drop = name,
 		on_construct = def.on_construct or callbacks_p.on_construct,
+		on_destruct = def.on_destruct,
+		after_destruct = def.after_destruct,
+		preserve_metadata = def.preserve_metadata,
 		after_place_node = callbacks_p.after_place_node,
+		after_dig_node = def.after_dig_node,
+		can_dig = open.can_dig,
+		on_punch = def.on_punch,
 		on_rightclick = def.on_rightclick or callbacks_p.on_rightclick,
+		on_dig = def.on_dig,
+		on_timer = def.on_timer,
 		allow_metadata_inventory_move = def.allow_metadata_inventory_move
 			or callbacks_p.allow_metadata_inventory_move,
 		allow_metadata_inventory_put = def.allow_metadata_inventory_put 
@@ -464,10 +511,11 @@ local function register_container_opened(name, def)
 			or containers.on_metadata_inventory_put,
 		on_metadata_inventory_take = def.on_metadata_inventory_take 
 			or containers.on_metadata_inventory_take,
-		on_key_use = def.on_key_use or callbacks_p.on_key_use,
-		on_skeleton_key_use = def.on_skeleton_key_use 
+		on_blast = open.on_blast,
+		_on_key_use = def.on_key_use or callbacks_p.on_key_use,
+		_on_skeleton_key_use = def.on_skeleton_key_use 
 			or callbacks_p.on_skeleton_key_use,
-		_sound = def.sound or txt .. "_open",
+		_sound = def.soundC or txt .. "_open",
 		_node_closed = name,
 	})
 end
@@ -479,7 +527,9 @@ function containers.register_container(name, def)
 	register_container(name, def.closed)
 
 	if def.opened then
-		def.opened.tiles = def.opened.tiles or def.closed.tiles
+		if not def.opened.tiles then
+			def.opened.ctiles = def.closed.tiles
+		end
 		def.opened.protected = def.opened.protected or def.closed.protected
 		register_container_opened(name, def.opened)
 	end

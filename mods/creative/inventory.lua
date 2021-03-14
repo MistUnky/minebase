@@ -276,11 +276,10 @@ creative.register_tab("creative:craftitems", {
 	items = registered_craftitems
 })
 
-local old_homepage_name = sfinv.get_homepage_name
-function sfinv.get_homepage_name(player)
+function creative.get_homepage_name(player)
 	if creative.is_enabled(player:get_player_name()) then
 		return "creative:all"
 	else
-		return old_homepage_name(player)
+		return sfinv.homepage
 	end
 end

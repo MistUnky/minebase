@@ -33,7 +33,7 @@ minetest.register_tool("base_permissions:key", {
 			return itemstack
 		end
 
-		local on_key_use = ndef.on_key_use
+		local on_key_use = ndef._on_key_use
 		if on_key_use then
 			on_key_use(pos, placer)
 		end
@@ -58,7 +58,7 @@ minetest.register_craftitem("base_permissions:skeleton_key", {
 		end
 
 		local node_reg = minetest.registered_nodes[node.name]
-		local on_skeleton_key_use = node_reg and node_reg.on_skeleton_key_use
+		local on_skeleton_key_use = node_reg and node_reg._on_skeleton_key_use
 		if not on_skeleton_key_use then
 			return itemstack
 		end

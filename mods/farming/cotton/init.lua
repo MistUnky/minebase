@@ -79,7 +79,7 @@ for i = 1, 3 do
 	minetest.override_item("base_grasses:jungle_grass_" .. i, {drop = {
 		max_items = 1,
 		items = {
-			{items = {"cotton:seed_cotton"}, rarity = 8},
+			{items = {"cotton:cotton_seed"}, rarity = 8},
 			{items = {"base_grasses:jungle_grass_1"}},
 		}
 	}})

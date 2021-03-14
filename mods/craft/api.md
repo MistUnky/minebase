@@ -5,6 +5,9 @@ This mod provides registry functions for recurring combinations of craft
 recipes.  
 
 #### register_craft14
+Registers two crafts. One that splits an item into four parts and a second that 
+merges those four items into one.
+
 | input	|	| output 	||
 |:-----:|:-----:|:-------------:|:-----:|
 | one	| &harr;| four 		| four	|
@@ -16,6 +19,9 @@ four    : Name
 ```
 
 #### register_craft19
+Registers two crafts. One that splits an item into nine parts and a second that 
+merges those nine items into one.
+
 | input	|	| output|||
 |:-----:|:-----:|:-----:|:-----:|:-----:|
 | one	| &harr;| nine 	| nine	| nine	|
@@ -28,6 +34,9 @@ nine    : Name
 ```
 
 #### register_craft44
+Registers two crafts. Both transform four items into the other item type. The 
+shape is important.
+
 | input	|	|	| output 	||
 |:-----:|:-----:|:-----:|:-------------:|:-----:|
 | four1	| four1	| &harr;| four2 	| four2	|
@@ -39,6 +48,8 @@ four2   : Name
 ```
 
 #### register_craft99
+Registers two crafts. Both transform nine items into the other item type. 
+
 | input	|	|	|	| output|||
 |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 | nine1	| nine1	| nine1	| &harr;| nine2	| nine2	| nine2	|
@@ -61,6 +72,9 @@ result          : Name
 ```
 
 #### horizontal_half
+Registers a craft that creates the result from three parts. The shape is 
+important.
+
 | input	|	|	|	| output|
 |:-----:|:-----:|:-----:|:-----:|:-----:|
 | part	| part	| part	| &rarr;| result
@@ -71,6 +85,9 @@ result  : Name
 ```
 
 #### side_by_side
+Registers a craft that creates the result from two different items or from two 
+items of the same type. The shape is important.
+
 | input	|	|	| output|
 |:-----:|:-----:|:-----:|:-----:|
 | one	| two	| &rarr;| result
@@ -84,6 +101,9 @@ result  : Name
 If result is omitted, one is used twice and two becomes the result.
 
 #### stacked
+Registers a craft that creates the result from two different items or from two 
+items of the same type. The shape is important.
+
 | input	|	| output|
 |:-----:|:-----:|:-----:|
 | two	| &rarr;| result

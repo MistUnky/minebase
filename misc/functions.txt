@@ -186,9 +186,10 @@ craft/init.lua
 creative/init.lua
   minetest
     .handle_node_drops,			m
+    .is_enabled,			dc
   creative
     .old_is_creative_enabled		-
-    .is_enabled,			dc
+    .old_handle_node_drops,		m
     .is_enabled_for,			dc
   local
     update_sfinv,			m
@@ -202,6 +203,7 @@ creative/inventory.lua
     .description,			dc
     .update_creative_inventory,		m
     .register_tab,			m
+    .get_homepage_name,			dc
   detached
     .allow_move,			dc
     .allow_put,				ic
@@ -211,8 +213,6 @@ creative/inventory.lua
     .is_in_nav,			-
     .get,				m
     .on_player_receive_fields,		m
-  sfinv
-    .get_homepage_name,			dc
   local
     init_creative_cache,		m
   detached_inventory "creative_trash"

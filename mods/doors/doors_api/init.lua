@@ -40,7 +40,7 @@ end
 
 function doors_get.door_state(self)
 	local state = minetest.get_meta(self.pos):get_int("state")
-	return state %2 == 1
+	return state % 2 == 1
 end
 
 function doors_get.trapdoor_open(self, player)
@@ -359,7 +359,7 @@ function doors.on_blast(pos)
 	minetest.remove_node(pos)
 	-- hidden node doesn't get blasted away.
 	minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
-	return {name}
+	return {minetest.get_node(pos).name}
 end
 
 function doors.on_destruct(pos)
@@ -414,10 +414,10 @@ local function register_door(name, def)
 		after_dig_node = def.after_dig_node or doors.after_dig_node,
 		_on_rotate = def.on_rotate or doors.on_rotate,
 		on_destruct = def.on_destruct or doors.on_destruct,
-		can_dig = def.can_dig_door,
-		on_key_use = def.on_key_use,
+		can_dig = def.can_dig,
+		_on_key_use = def.on_key_use,
 		on_blast = def.on_blast,
-		on_skeleton_key_use = def.on_skeleton_key_use,
+		_on_skeleton_key_use = def.on_skeleton_key_use,
 		_sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		_door = def.door or {
 			name = def.name,
@@ -533,10 +533,10 @@ local function register_trapdoor(name, def)
 		on_rightclick = def.on_rightclick or doors.trapdoor_on_rightclick,
 		after_place_node = def.after_place_node,
 		on_destruct = def.on_destruct or doors.on_destruct,
-		can_dig = def.can_dig_door,
-		on_key_use = def.on_key_use,
+		can_dig = def.can_dig,
+		_on_key_use = def.on_key_use,
 		on_blast = def.on_blast,
-		on_skeleton_key_use = def.on_skeleton_key_use,
+		_on_skeleton_key_use = def.on_skeleton_key_use,
 		_sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		_sound_close = def.sound_close or "doors_api_wood_open", 
 		_sound_open = def.sound_open or "doors_api_wood_close"

@@ -1,6 +1,6 @@
-
 Containers 
 ------
+
 #### close
 Closes an open container.
 ```lua
@@ -16,6 +16,8 @@ def             : Table
 return          : Formspec
 
 containers.create_formspec("main", {
+	-- essential 
+
 	-- optional
 	width = 8,
 	height = 9,
@@ -40,42 +42,244 @@ pos     : Position
 return  : Boolean
 ```
 
-#### on_blast
-```lua
-```
-#### on_construct
-```lua
-```
-#### on_key_use
-```lua
-```
 #### on_metadata_inventory_move
+Updates the container after an ItemStack was moved within it.
 ```lua
+function containers.on_metadata_inventory_move(pos, _, _, _, _, _, player)
+pos     : Position
+_       : Mixed
+player  : Player
 ```
+
 #### on_metadata_inventory_put
+Updates the container after an ItemStack was put into it.
 ```lua
+function containers.on_metadata_inventory_put(pos, _, _, _, player)
+pos     : Position
+_       : Mixed
+player  : Player
 ```
+
 #### on_metadata_inventory_take
+Updates the container after an ItemStack was taken from it.
 ```lua
+function containers.on_metadata_inventory_take(pos, _, _, _, player)
+pos     : Position
+_       : Mixed
+player  : Player
 ```
-#### on_rightclick
-```lua
-```
-#### on_rightclick
-```lua
-```
-#### on_skeleton_key_use
-```lua
-```
-#### protected
-```lua
-```
+
 #### register_container
+Registers a container.
 ```lua
+function containers.register_container(name, def)
+name    : Name
+def     : Table
+
+containers.register_container("mod:node", {
+	-- registeres two nodes: "mod:node" and "mod:node_opened"
+	-- essential
+	closed = {
+		-- essential
+
+		-- optional
+		description = "mod_node",
+		short_description = "",
+		groups = {choppy = 2, oddly_breakable_by_hand = 2},
+		inventory_image = nil,
+		inventory_overlay = nil,
+		wield_image = nil,
+		wield_overlay = nil,
+		palette = nil,
+		color = nil,
+		wield_scale = {x = 1, y = 1, z = 1},
+		stack_max = 100,
+		range = 4.0,
+		light_source = 0,
+		node_placement_prediction = nil,
+		node_dig_prediction = "air",
+		sound = nil,
+		on_place = minetest.item_place,
+		on_secondary_use = nil,
+		on_drop = minetest.item_drop,
+		on_use = nil,
+		after_use = nil,
+		drawtype = "normal", 
+		visual_scale = 1.0,
+		tiles = {"mod_node_top.png", "mod_node_bottom.png",
+			"mod_node_side.png^[transformFX", "mod_node_side.png", 
+			"mod_node_back.png", "mod_node_front.png",
+		},
+		overlay_tiles = nil,
+		special_tiles = nil,
+		use_texture_alpha = "opaque",
+		node_box = nil,
+		connects_to = nil,
+		connect_sides = nil,
+		mesh = "normal", 
+		selection_box = nil,
+		collision_box = nil,
+		legacy_facedir_simple = true,
+		sounds = sounds.get_defaults("tree_sounds:wood"),
+		drop = nil,
+		on_construct = callbacks_p.on_construct,
+		on_destruct = nil,
+		after_destruct = nil,
+		preserve_metadata = nil,
+		after_place_node = callbacks_p.after_place_node,
+		after_dig_node = nil,
+		can_dig = callbacks_p.can_dig,
+		on_punch = nil,
+		on_rightclick = callbacks_p.on_rightclick,
+		on_dig = nil,
+		on_timer = nil,
+		allow_metadata_inventory_move = callbacks_p.allow_metadata_inventory_move,
+		allow_metadata_inventory_put = callbacks_p.allow_metadata_inventory_put,
+		allow_metadata_inventory_take = callbacks_p.allow_metadata_inventory_take,
+		on_metadata_inventory_move = containers.on_metadata_inventory_move,
+		on_metadata_inventory_put = containers.on_metadata_inventory_put,
+		on_metadata_inventory_take = containers.on_metadata_inventory_take,
+		on_blast = callbacks_p.on_blast,
+		on_key_use = callbacks_p.on_key_use,
+		on_skeleton_key_use = callbacks_p.on_skeleton_key_use,
+		inventory_width = 8,
+		inventory_height = 4,
+		allowed_item_group = nil,
+		soundC = "mod_node_open",
+		formspec_def = nil,
+		update = nil,
+		opening_side = "+y",
+		protected = false,
+		recipe = nil,
+		burntime = nil,
+
+		-- fixed
+		liquids_pointable = false,
+		tool_capabilities = nil,
+		post_effect_color = nil,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		place_param2 = nil, 
+		is_ground_content = false,
+		sunlight_propagates = false,
+		walkable = true, 
+		pointable = true, 
+		diggable = true,
+		climbable = false, 
+		buildable_to = false, 
+		floodable = false,
+		liquidtype = "none",
+		leveled = 0,
+		legacy_wallmounted = false,
+		waving = 0,
+		on_receive_fields = nil,
+		node_opened = "mod:node_opened",
+		node_closed = "mod:node",
+	},
+
+	-- optional
+	opened = {
+		-- essential
+
+		-- optional
+		description = "mod_node",
+		short_description = "",
+		groups = {not_in_creative_inventory = 1},
+		drawtype = "mesh",
+		visual_scale = 1,
+		tiles = {
+			"mod_node_top.png", "mod_node_bottom.png", 
+			"mod_node_side.png", "mod_node_side.png", 
+			"mod_node_front.png", "mod_node_inside.png"
+		}
+		overlay_tiles = nil,
+		special_tiles = nil,
+		node_box = nil,
+		connects_to = nil,
+		connect_sides = nil,
+		mesh = "containers_chest_open.obj",
+		selection_box = {
+			type = "fixed",
+			fixed = { -1/2, -1/2, -1/2, 1/2, 3/16, 1/2 },
+		},
+		collision_box = nil,
+		sounds = sounds.get_defaults("tree_sounds:wood"),
+		drop = "mod:node",
+		on_construct = callbacks_p.on_construct,
+		on_destruct = nil,
+		after_destruct = nil,
+		preserve_metadata = nil,
+		after_place_node = callbacks_p.after_place_node,
+		after_dig_node = nil,
+		can_dig = open.can_dig,
+		on_punch = nil,
+		on_rightclick = callbacks_p.on_rightclick,
+		on_dig = nil,
+		on_timer = nil,
+		allow_metadata_inventory_move = callbacks_p.allow_metadata_inventory_move,
+		allow_metadata_inventory_put = callbacks_p.allow_metadata_inventory_put,
+		allow_metadata_inventory_take = callbacks_p.allow_metadata_inventory_take,
+		on_metadata_inventory_move = containers.on_metadata_inventory_move,
+		on_metadata_inventory_put = containers.on_metadata_inventory_put,
+		on_metadata_inventory_take = containers.on_metadata_inventory_take,
+		on_key_use = callbacks_p.on_key_use,
+		on_skeleton_key_use = callbacks_p.on_skeleton_key_use,
+		soundC = "mod_node_open",
+		protected = def.closed.protected
+
+		-- fixed 
+		inventory_image = nil,
+		inventory_overlay = nil,
+		wield_image = nil,
+		wield_overlay = nil,
+		palette = nil,
+		color = nil,
+		wield_scale = {x = 1, y = 1, z = 1},
+		stack_max = 100,
+		range = 4.0,
+		liquids_pointable = false,
+		light_source = 0,
+		tool_capabilities = nil,
+		node_placement_prediction = nil,
+		node_dig_prediction = "air",
+		sound = nil,
+		on_place = minetest.item_place,
+		on_secondary_use = nil,
+		on_drop = minetest.item_drop,
+		on_use = nil,
+		after_use = nil,
+		use_texture_alpha = "opaque",
+		post_effect_color = nil,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		place_param2 = nil, 
+		is_ground_content = false,
+		sunlight_propagates = false,
+		walkable = true, 
+		pointable = true, 
+		diggable = true,
+		climbable = false, 
+		buildable_to = false, 
+		floodable = false,
+		liquidtype = "none",
+		leveled = 0,
+		legacy_facedir_simple = true,
+		legacy_wallmounted = false,
+		waving = 0,
+		on_receive_fields = nil,
+		on_blast = open.on_blast,
+		node_closed = "mod:node",
+	}
+})
 ```
-#### unprotected
-```lua
-```
+If tiles are provided for the closed node, the third texture is transformed with 
+"^[transformFX".  
+If def.protected is true, callbacks_p is containers.protected, otherwise it is 
+containers.unprotected.  
+If custom groups are provided for the open container, it is still added to 
+not_in_creative_inventory.  
+If no tiles are provided for the open node, the textures of the closed node are
+used.
 
 containers.protected
 --------------------
@@ -144,12 +348,39 @@ function containers.protected.on_blast()
 ```
 
 #### protected.on_construct
-Sets the owner of a placed protected container and sets up the inventory.
+Sets the owner of a placed protected container, as well as the inventory and 
+other attributes.
 ```lua
 function containers.protected.on_construct(pos)
 pos     : Position
 ```
 
+#### protected.on_key_use
+Opens a protected container, if the key fits into the lock.
+```lua
+function containers.protected.on_key_use(pos, player)
+pos     : Position
+player  : Player
+```
+
+#### protected.on_rightclick
+Opens a protected container, if the player is allowed to do it.
+```lua
+function containers.protected.on_rightclick(pos, node, clicker, itemstack)
+pos             : Position
+node            : Node
+clicker         : Player
+itemstack       : ItemStack
+```
+
+#### protected.on_skeleton_key_use
+```lua
+function containers.protected.on_skeleton_key_use(pos, player, newsecret)
+pos             : Position
+player          : Player
+newsecret       :
+return          :
+```
 containers.unprotected
 ----------------------
 
@@ -173,3 +404,28 @@ pos     : Position
 player  : Player 
 return  : Boolean
 ```
+
+#### unprotected.on_blast
+Drops all items and the container.
+```lua
+function containers.unprotected.on_blast(pos)
+pos     : Position
+return  : DropsT
+```
+
+#### unprotected.on_construct
+Sets up the inventory of a placed unprotected container and other attributes.
+```lua
+function containers.unprotected.on_construct(pos)
+pos     : Position
+```
+
+#### unprotected.on_rightclick
+Opens an unprotected container.
+```lua
+function containers.unprotected.on_rightclick(pos, node, clicker, itemstack)
+pos             : Position
+node            : Node
+clicker         : Player
+itemstack       : ItemStack
+`
