@@ -6,7 +6,7 @@ permissions = {}
 
 function permissions.generate_secret()
 	local secret = {}
-  for i = 1, 20 do 
+	for i = 1, 20 do 
 		table.insert(secret, string.char(rand.az(32, 126)))
 	end
 	return table.concat(secret, "")
