@@ -248,7 +248,7 @@ function sfcraftguide.recipe_fs(fs, data)
 			item = sfcraftguide.groups_to_item(groups)
 			elem_name = esc(item .. "." .. table.concat(groups, "+"))
 		end
-		sfcraftguide.item_button_fs(fs, base_x + x, base_y + y, item, element_name, 
+		sfcraftguide.item_button_fs(fs, base_x + x, base_y + y, item, elem_name, 
 			groups)
 	end
 
