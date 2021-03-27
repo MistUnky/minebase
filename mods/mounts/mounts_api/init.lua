@@ -131,13 +131,13 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 				velo.y = velo.y + (jump_height * 3) + 1
 				acce_y = acce_y + (acce_y * 3) + 1
 			end
-			if can_go_down and can_go_up and can_fly and can_fly == true then
+			if can_go_up and can_fly == true then
 				velo.y = velo.y + 1
 				acce_y = acce_y + 1
 			end
 		end
 		if ctrl.sneak then
-			if can_go_down and can_go_up and can_fly and can_fly == true then
+			if can_go_down and can_fly == true then
 				velo.y = velo.y - 1
 				acce_y = acce_y - 1
 			end
@@ -170,6 +170,24 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 		return
 	end
 
+	-- Stop! (upwards and downwards; applies only if `can_fly` is enabled)
+	if can_fly == true then
+		local s2 = get_sign(velo.y)
+		local s3 = get_sign(acce_y)
+		velo.y = velo.y - 0.02 * s2
+		acce_y = acce_y - 0.02 * s3
+		if s2 ~= get_sign(velo.y) then
+			entity.object:set_velocity({x=0, y=0, z=0})
+			velo.y = 0
+			return
+		end
+		if s3 ~= get_sign(acce_y) then
+			entity.object:set_velocity({x=0, y=0, z=0})
+			acce_y = 0 -- luacheck: ignore
+			return
+		end
+	end
+
 	-- enforce speed limit forward and reverse
 	local max_spd = entity._max_speed_reverse
 	if get_sign(entity._v) >= 0 then
@@ -177,6 +195,23 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 	end
 	if math.abs(entity._v) > max_spd then
 		entity._v = entity._v - get_sign(entity._v)
+	end
+
+	-- Enforce speed limit when going upwards or downwards (applies only if 
+	-- `can_fly` is enabled)
+	if can_fly == true then
+		local max_spd_flying = entity._max_speed_downward
+		if get_sign(velo.y) >= 0 or get_sign(acce_y) >= 0 then
+			max_spd_flying = entity._max_speed_upward
+		end
+
+		if math.abs(velo.y) > max_spd_flying then
+			velo.y = velo.y - get_sign(velo.y)
+		end
+		
+		if math.abs(acce_y) > max_spd_flying then
+			acce_y = acce_y - get_sign(acce_y)
+		end
 	end
 
 	-- Set position, velocity and acceleration
@@ -190,6 +225,8 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 	if ni == "air" then
 		if can_fly == true then
 			new_acce.y = 0
+			-- When going down, this will prevent from exceeding the maximum speed.
+			acce_y = acce_y - get_sign(acce_y) 
 		end
 	elseif ni == "liquid" then
 		if entity._terrain_type == 2 or entity._terrain_type == 3 then
@@ -352,6 +389,8 @@ function mounts.register_entity(name, def)
 		_enable_crash = def.enable_crash or true,
 		_max_speed_forward = def.max_speed_forward,
 		_max_speed_reverse = def.max_speed_reverse,
+		_max_speed_upward = def.max_speed_upward,
+		_max_speed_downward = def.max_speed_downward,
 		_accel = def.accel,
 		_braking = def.braking,
 		_turn_speed = def.turn_speed,
