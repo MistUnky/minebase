@@ -143,6 +143,7 @@ function carts.rail_sound(entity, dtime)
 entity  : LuaEntity
 dtime   : Seconds
 ```
+
 #### register_cart
 Registers a cart entity. It also registers a craftitem, if it is provided.
 ```lua
@@ -184,10 +185,6 @@ carts.register_craftitem("mod:item", {
 	range = 4.0,
 	sound = nil,
 	on_place = carts.craftitem_on_place,
-	on_secondary_use = nil,
-	on_drop = minetest.item_drop,
-	on_use = nil,
-	after_use = nil,
 
 	-- fixed
 	liquids_pointable = false,
@@ -244,14 +241,10 @@ carts.register_entity("mod:entity", {
 
 	-- optional callbacks and custom attributes
 	on_activate = carts.on_activate,
-	on_deactivate = nil,
 	on_step = carts.on_step, 
 	on_punch = carts.on_punch,
-	on_death = nil,
 	on_rightclick = seats.on_rightclick,
-	on_attach_child = nil,
 	on_detach_child = seats.on_detach_child,
-	on_detach = nil,
 	get_staticdata = carts.get_staticdata,
 	attach_at = {{x = 0, y = 0, z = 0}},
 	eye_offset = {{x = 0, y = 0, z = 0}},
@@ -299,11 +292,6 @@ carts.register_rail("mod:node", {
 	node_placement_prediction = nil,
 	node_dig_prediction = "air",
 	sound = nil,
-	on_place = minetest.item_place,
-	on_secondary_use = nil,
-	on_drop = minetest.item_drop,
-	on_use = nil,
-	after_use = nil,
 	tiles = {
 		"mod_node_straight.png", "mod_node_curved.png",
 		"mod_node_t_junction.png", "mod_node_crossing.png"
@@ -325,18 +313,7 @@ carts.register_rail("mod:node", {
 	waving = 0,
 	sounds = sounds.get_defaults("ore_sounds:metal"),
 	drop = "",
-	on_construct = nil,
-	on_destruct = nil,
-	after_destruct = nil,
 	preserve_metadata = nil,
-	after_place_node = nil,
-	after_dig_node = nil,
-	can_dig = nil,
-	on_punch = minetest.node_punch,
-	on_rightclick = nil,
-	on_dig = minetest.node_dig,
-	on_timer = nil,
-	on_blast = nil,
 	recipe = nil,
 
 	-- fixed 

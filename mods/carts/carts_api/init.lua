@@ -587,11 +587,6 @@ function carts.register_rail(name, def)
 		node_placement_prediction = def.node_placement_prediction,
 		node_dig_prediction = def.node_dig_prediction,
 		sound = def.sound,
-		on_place = def.on_place,
-		on_secondary_use = def.on_secondary_use,
-		on_drop = def.on_drop,
-		on_use = def.on_use,
-		after_use = def.after_use,
 		drawtype = "raillike",
 		tiles = def.tiles or {
 			txt .. "_straight.png", txt .. "_curved.png",
@@ -616,18 +611,7 @@ function carts.register_rail(name, def)
 		waving = def.waving,
 		sounds = def.sounds or sounds.get_defaults("ore_sounds:metal"),
 		drop = def.drop,
-		on_construct = def.on_construct,
-		on_destruct = def.on_destruct,
-		after_destruct = def.after_destruct,
 		preserve_metadata = def.preserve_metadata,
-		after_place_node = def.after_place_node,
-		after_dig_node = def.after_dig_node,
-		can_dig = def.can_dig,
-		on_punch = def.on_punch,
-		on_rightclick = def.on_rightclick,
-		on_dig = def.on_dig,
-		on_timer = def.on_timer,
-		on_blast = def.on_blast,
 	})
 
 	if def.recipe then
@@ -667,14 +651,10 @@ function carts.register_entity(name, def)
 			show_on_minimap = def.show_on_minimap,
 		},
 		on_activate = def.on_activate or carts.on_activate,
-		on_deactivate = def.on_deactivate,
 		on_step = def.on_step or carts.on_step, 
 		on_punch = def.on_punch or carts.on_punch,
-		on_death = def.on_death,
 		on_rightclick = def.on_rightclick or seats.on_rightclick,
-		on_attach_child = def.on_attach_child,
 		on_detach_child = def.on_detach_child or seats.on_detach_child,
-		on_detach = def.on_detach,
 		get_staticdata = def.get_staticdata or carts.get_staticdata,
 		_attach_at = def.attach_at or {{x = 0, y = 0, z = 0}},
 		_eye_offset = def.eye_offset or {{x = 0, y = 0, z = 0}},
@@ -710,10 +690,6 @@ function carts.register_craftitem(name, def)
 		range = def.range,
 		sound = def.sound,
 		on_place = def.on_place or carts.craftitem_on_place,
-		on_secondary_use = def.on_secondary_use,
-		on_drop = def.on_drop,
-		on_use = def.on_use,
-		after_use = def.after_use,
 	})
 
 	if def.recipe then

@@ -18,7 +18,7 @@ stairs.register_all("tree_stairs:apple_wood", {
 	steps_half_description = S("Wooden Steps Half"),
 	steps_slab_description = S("Wooden Steps Slab"),
 	sounds = sounds.get_defaults("tree_sounds:wood"),
-	worldaligntex = false
+	worldaligntex = true
 })
 
 stairs.register_all("tree_stairs:jungle_wood", {
@@ -36,7 +36,7 @@ stairs.register_all("tree_stairs:jungle_wood", {
 	steps_half_description = S("Jungle Wood Steps Half"),
 	steps_slab_description = S("Jungle Wood Steps Slab"),
 	sounds = sounds.get_defaults("tree_sounds:wood"),
-	worldaligntex = false
+	worldaligntex = true
 })
 
 stairs.register_all("tree_stairs:pine_wood", {
@@ -54,7 +54,7 @@ stairs.register_all("tree_stairs:pine_wood", {
 	steps_half_description = S("Pine Wood Steps Half"),
 	steps_slab_description = S("Pine Wood Steps Slab"),
 	sounds = sounds.get_defaults("tree_sounds:wood"),
-	worldaligntex = false
+	worldaligntex = true
 })
 
 stairs.register_all("tree_stairs:acacia_wood", {
@@ -72,7 +72,7 @@ stairs.register_all("tree_stairs:acacia_wood", {
 	steps_half_description = S("Acacia Wood Steps Half"),
 	steps_slab_description = S("Acacia Wood Steps Slab"),
 	sounds = sounds.get_defaults("tree_sounds:wood"),
-	worldaligntex = false
+	worldaligntex = true
 })
 
 stairs.register_all("tree_stairs:aspen_wood", {
@@ -90,5 +90,5 @@ stairs.register_all("tree_stairs:aspen_wood", {
 	steps_half_description = S("Aspen Wood Steps Half"),
 	steps_slab_description = S("Aspen Wood Steps Slab"),
 	sounds = sounds.get_defaults("tree_sounds:wood"),
-	worldaligntex = false
+	worldaligntex = true
 })

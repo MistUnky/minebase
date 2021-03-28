@@ -69,11 +69,7 @@ books.register_book("mod:item", {
 	range = 4.0,
 	node_placement_prediction = nil,
 	sound = nil,
-	on_place = nil,
-	on_secondary_use = nil,
-	on_drop = nil,
 	on_use = books.on_use,
-	after_use = nil,
 	not_in_creative_inventory = nil
 
 	-- fixed

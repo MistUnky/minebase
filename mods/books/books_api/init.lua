@@ -170,11 +170,7 @@ function books.register_book(name, def)
 		range = def.range,
 		node_placement_prediction = def.node_placement_prediction,
 		sound = def.sound,
-		on_place = def.on_place,
-		on_secondary_use = def.on_secondary_use,
-		on_drop = def.on_drop,
 		on_use = def.on_use or books.on_use,
-		after_use = def.after_use,
 	})
 
 	if def.recipe then

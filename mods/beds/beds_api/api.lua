@@ -153,10 +153,6 @@ function beds.register_bed(name, def)
 		node_dig_prediction = def.node_dig_prediction,
 		sound = def.sound,
 		on_place = def.on_place or beds.on_place,
-		on_secondary_use = def.on_secondary_use,
-		on_drop = def.on_drop,
-		on_use = def.on_use,
-		after_use = def.after_use,
 		drawtype = "nodebox",
 		tiles = def.tiles and def.tiles.bottom or {
 			txt .. "_top1.png",
@@ -184,17 +180,9 @@ function beds.register_bed(name, def)
 		collision_box = def.collision_box,
 		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		drop = def.drop,
-		on_construct = def.on_construct,
 		on_destruct = def.on_destruct or beds.destruct_bed,
-		after_destruct = def.after_destruct,
-		after_place_node = def.after_place_node,
-		after_dig_node = def.after_dig_node,
 		can_dig = def.can_dig or can_dig,
-		on_punch = def.on_punch,
 		on_rightclick = def.on_rightclick or on_rightclick,
-		on_dig = def.on_dig,
-		on_timer = def.on_timer,
-		on_blast = def.on_blast,
 		_on_rotate = def.on_rotate or beds.on_rotate,
 		_base_name = name
 	})

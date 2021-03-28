@@ -295,10 +295,6 @@ beds.register_bed("mod:node", {
 		eat = nil
 	},
 	on_place = beds.on_place,
-	on_secondary_use = nil,
-	on_drop = minetest.item_drop,
-	on_use = nil,
-	after_use = nil,
 	-- Textures of node; +Y, -Y, +X, -X, +Z, -Z
 	tiles = {
 		bottom = {
@@ -334,18 +330,10 @@ beds.register_bed("mod:node", {
 	collision_box = Box,
 	sounds = sounds.get_defaults("tree_sounds:wood"),
 	drop = nil,
-	on_construct = nil,
 	on_destruct = beds.destruct_bed,
-	after_destruct = nil,
 	preserve_metadata = nil,
-	after_place_node = nil,
-	after_dig_node = nil,
 	can_dig = can_dig, -- local
-	on_punch = minetest.node_punch,
 	on_rightclick = on_rightclick, -- local
-	on_dig = minetest.node_dig,
-	on_timer = nil,
-	on_blast = nil,
 	on_rotate = beds.on_rotate,
 	recipe = nil,
 
@@ -677,11 +665,7 @@ books.register_book("mod:item", {
 	range = 4.0,
 	node_placement_prediction = nil,
 	sound = nil,
-	on_place = nil,
-	on_secondary_use = nil,
-	on_drop = nil,
 	on_use = books.on_use,
-	after_use = nil,
 	not_in_creative_inventory = nil
 
 	-- fixed
@@ -767,10 +751,6 @@ buckets.register_liquid("mod:item", {
 	node_placement_prediction = nil,
 	sound = nil,
 	on_place = buckets.on_place,
-	on_secondary_use = nil,
-	on_drop = minetest.item_drop,
-	on_use = nil,
-	after_use = nil,
 	empty = "buckets_api:bucket_empty",
 	
 	-- fixed
@@ -924,6 +904,7 @@ function carts.rail_sound(entity, dtime)
 entity  : LuaEntity
 dtime   : Seconds
 ```
+
 #### register_cart
 Registers a cart entity. It also registers a craftitem, if it is provided.
 ```lua
@@ -965,10 +946,6 @@ carts.register_craftitem("mod:item", {
 	range = 4.0,
 	sound = nil,
 	on_place = carts.craftitem_on_place,
-	on_secondary_use = nil,
-	on_drop = minetest.item_drop,
-	on_use = nil,
-	after_use = nil,
 
 	-- fixed
 	liquids_pointable = false,
@@ -1025,14 +1002,10 @@ carts.register_entity("mod:entity", {
 
 	-- optional callbacks and custom attributes
 	on_activate = carts.on_activate,
-	on_deactivate = nil,
 	on_step = carts.on_step, 
 	on_punch = carts.on_punch,
-	on_death = nil,
 	on_rightclick = seats.on_rightclick,
-	on_attach_child = nil,
 	on_detach_child = seats.on_detach_child,
-	on_detach = nil,
 	get_staticdata = carts.get_staticdata,
 	attach_at = {{x = 0, y = 0, z = 0}},
 	eye_offset = {{x = 0, y = 0, z = 0}},
@@ -1080,11 +1053,6 @@ carts.register_rail("mod:node", {
 	node_placement_prediction = nil,
 	node_dig_prediction = "air",
 	sound = nil,
-	on_place = minetest.item_place,
-	on_secondary_use = nil,
-	on_drop = minetest.item_drop,
-	on_use = nil,
-	after_use = nil,
 	tiles = {
 		"mod_node_straight.png", "mod_node_curved.png",
 		"mod_node_t_junction.png", "mod_node_crossing.png"
@@ -1106,18 +1074,7 @@ carts.register_rail("mod:node", {
 	waving = 0,
 	sounds = sounds.get_defaults("ore_sounds:metal"),
 	drop = "",
-	on_construct = nil,
-	on_destruct = nil,
-	after_destruct = nil,
 	preserve_metadata = nil,
-	after_place_node = nil,
-	after_dig_node = nil,
-	can_dig = nil,
-	on_punch = minetest.node_punch,
-	on_rightclick = nil,
-	on_dig = minetest.node_dig,
-	on_timer = nil,
-	on_blast = nil,
 	recipe = nil,
 
 	-- fixed 
@@ -1247,11 +1204,6 @@ containers.register_container("mod:node", {
 		node_placement_prediction = nil,
 		node_dig_prediction = "air",
 		sound = nil,
-		on_place = minetest.item_place,
-		on_secondary_use = nil,
-		on_drop = minetest.item_drop,
-		on_use = nil,
-		after_use = nil,
 		drawtype = "normal", 
 		visual_scale = 1.0,
 		tiles = {"mod_node_top.png", "mod_node_bottom.png",
@@ -1271,16 +1223,10 @@ containers.register_container("mod:node", {
 		sounds = sounds.get_defaults("tree_sounds:wood"),
 		drop = nil,
 		on_construct = callbacks_p.on_construct,
-		on_destruct = nil,
-		after_destruct = nil,
 		preserve_metadata = nil,
 		after_place_node = callbacks_p.after_place_node,
-		after_dig_node = nil,
 		can_dig = callbacks_p.can_dig,
-		on_punch = nil,
 		on_rightclick = callbacks_p.on_rightclick,
-		on_dig = nil,
-		on_timer = nil,
 		allow_metadata_inventory_move = callbacks_p.allow_metadata_inventory_move,
 		allow_metadata_inventory_put = callbacks_p.allow_metadata_inventory_put,
 		allow_metadata_inventory_take = callbacks_p.allow_metadata_inventory_take,
@@ -1354,16 +1300,10 @@ containers.register_container("mod:node", {
 		sounds = sounds.get_defaults("tree_sounds:wood"),
 		drop = "mod:node",
 		on_construct = callbacks_p.on_construct,
-		on_destruct = nil,
-		after_destruct = nil,
 		preserve_metadata = nil,
 		after_place_node = callbacks_p.after_place_node,
-		after_dig_node = nil,
 		can_dig = open.can_dig,
-		on_punch = nil,
 		on_rightclick = callbacks_p.on_rightclick,
-		on_dig = nil,
-		on_timer = nil,
 		allow_metadata_inventory_move = callbacks_p.allow_metadata_inventory_move,
 		allow_metadata_inventory_put = callbacks_p.allow_metadata_inventory_put,
 		allow_metadata_inventory_take = callbacks_p.allow_metadata_inventory_take,
@@ -1576,7 +1516,7 @@ pos             : Position
 node            : Node
 clicker         : Player
 itemstack       : ItemStack
-`
+```
 
 Craft API 
 ---------

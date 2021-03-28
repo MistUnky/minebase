@@ -128,10 +128,6 @@ beds.register_bed("mod:node", {
 		eat = nil
 	},
 	on_place = beds.on_place,
-	on_secondary_use = nil,
-	on_drop = minetest.item_drop,
-	on_use = nil,
-	after_use = nil,
 	-- Textures of node; +Y, -Y, +X, -X, +Z, -Z
 	tiles = {
 		bottom = {
@@ -167,18 +163,10 @@ beds.register_bed("mod:node", {
 	collision_box = Box,
 	sounds = sounds.get_defaults("tree_sounds:wood"),
 	drop = nil,
-	on_construct = nil,
 	on_destruct = beds.destruct_bed,
-	after_destruct = nil,
 	preserve_metadata = nil,
-	after_place_node = nil,
-	after_dig_node = nil,
 	can_dig = can_dig, -- local
-	on_punch = minetest.node_punch,
 	on_rightclick = on_rightclick, -- local
-	on_dig = minetest.node_dig,
-	on_timer = nil,
-	on_blast = nil,
 	on_rotate = beds.on_rotate,
 	recipe = nil,
 
