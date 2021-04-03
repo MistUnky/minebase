@@ -53,6 +53,12 @@ A table with keys used in the definition of a craftitem for cart entities.
 CreativeInv  
 A table representing the creative inventory of a player.
 
+DoorDef
+A table with keys used in the definition of a door.
+
+DoorItemDef
+A table with keys used in the definition of a craftitem for doors.
+
 Drops  
 A table with Itemstacks.
 
@@ -151,6 +157,9 @@ A string containing the name of a texture.
 [ToolCapabilities](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L1817)  
 A table representing the attributes of a tool for example digging groups, the 
 punch interval and damage.
+
+TrapdoorDef
+A table with keys used in the definition of a trapdoor.
 
 [Vector](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L3129)  
 A table with numeric values assigned to the keys x, y and z like Position. A 

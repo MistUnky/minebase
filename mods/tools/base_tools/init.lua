@@ -252,7 +252,7 @@ tools.register_set("base_tools:mese", {
 })
 
 tools.register_set("base_tools:diamond", {
-	material = "base_ores:diamond",
+	material = "base_ores:diamond_crystal",
 	pick = {
 		description = S("Diamond Pickaxe"),
 		tool_capabilities = {
@@ -295,7 +295,7 @@ tools.register_set("base_tools:diamond", {
 				snappy={times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
 			},
 			damage_groups = {fleshy=8},
-		},
+		}
 	}
 })
 

@@ -21,7 +21,7 @@ minetest.register_lbm({
 		meta:set_string("formspec","")
 		local inv = minetest.get_meta(pos):get_inventory()
 		local node_def = minetest.registered_nodes[node.name]
-		inv:set_size(node_def.formspec_def and node_def.formspec_def.list1 or 
+		inv:set_size(node_def._formspec_def and node_def._formspec_def.list1 or 
 			"main", 32)
 	end
 })

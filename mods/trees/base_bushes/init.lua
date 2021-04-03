@@ -162,7 +162,7 @@ trees.register_bush("base_bushes:blueberry", {
 				minetest.get_node_timer(pos):start(200)
 			else
 				minetest.set_node(pos, {name 
-					= "base_bushes:blueberry_bush_leaves_with_berries"})
+					= "base_bushes:blueberry_bush_with_berries"})
 			end
 		end
 	},
@@ -197,7 +197,8 @@ trees.register_bush("base_bushes:blueberry", {
 	}
 })
 
-trees.register_leaves("base_bushes:blueberry_bush_with_berries", { description = S("Blueberry Bush Leaves with Berries"),
+trees.register_leaves("base_bushes:blueberry_bush_with_berries", { 
+	description = S("Blueberry Bush Leaves with Berries"),
 	tiles = {"base_bushes_blueberry_bush_leaves.png" 
 		.. "^base_bushes_blueberry_bush_overlay.png"},
 	special_tiles = {"base_bushes_blueberry_bush_leaves.png" 

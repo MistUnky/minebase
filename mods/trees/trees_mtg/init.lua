@@ -9,6 +9,7 @@ minetest.register_alias("Stick", "base_trees:stick")
 minetest.register_alias("wood", "base_trees:apple_wood")
 minetest.register_alias("sapling", "base_trees:apple_sapling")
 minetest.register_alias("apple", "base_trees:apple")
+minetest.register_alias("default:apple_mark", "base_trees:apple_mark")
 minetest.register_alias("default:pinetree", "base_trees:pine_tree")
 minetest.register_alias("default:pinewood", "base_trees:pine_wood")
 
@@ -51,6 +52,7 @@ minetest.register_alias("default:blueberry_bush_stem","base_bushes:blueberry_bus
 minetest.register_alias("default:blueberry_bush_sapling","base_bushes:blueberry_bush_sapling")
 minetest.register_alias("default:blueberry_bush_leaves","base_bushes:blueberry_bush_leaves")
 minetest.register_alias("default:blueberry_bush_leaves_with_berries","base_bushes:blueberry_bush_with_berries_leaves")
+minetest.register_alias("default:blueberries","base_bushes:blueberries")
 
 minetest.register_alias("default:pine_bush_stem","base_bushes:pine_bush_stem")
 minetest.register_alias("default:pine_bush_sapling","base_bushes:pine_bush_sapling")

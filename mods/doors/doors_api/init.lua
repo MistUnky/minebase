@@ -3,9 +3,6 @@
 -- our API object
 doors = {}
 
-doors.registered_doors = {}
-doors.registered_trapdoors = {}
-
 -- Load support for Minebase translation.
 local S = minetest.get_translator("doors_api")
 
@@ -19,76 +16,50 @@ local function replace_old_owner_information(pos)
 	end
 end
 
-doors_get = {}
-function doors_get.door_open(self, player)
-	if self:state() then
+doors_get = {door = {}, trapdoor = {}}
+function doors_get.door.open(pos, player)
+	if doors_get.door.state(pos) then
 		return false
 	end
-	return doors.door_toggle(self.pos, nil, player)
+	return doors.door_toggle(pos, nil, player)
 end
 
-function doors_get.door_close(self, player)
-	if not self:state() then
+function doors_get.door.close(pos, player)
+	if not doors_get.door.state(pos) then
 		return false
 	end
-	return doors.door_toggle(self.pos, nil, player)
+	return doors.door_toggle(pos, nil, player)
 end
 
-function doors_get.door_toggle(self, player)
-	return doors.door_toggle(self.pos, nil, player)
+function doors_get.door.toggle(pos, player)
+	return doors.door_toggle(pos, nil, player)
 end
 
-function doors_get.door_state(self)
-	local state = minetest.get_meta(self.pos):get_int("state")
+function doors_get.door.state(pos)
+	local state = minetest.get_meta(pos):get_int("state")
 	return state % 2 == 1
 end
 
-function doors_get.trapdoor_open(self, player)
-	if self:state() then
+function doors_get.trapdoor.open(pos, player)
+	if doors_get.trapdoor.state(pos) then
 		return false
 	end
-	return doors.trapdoor_toggle(self.pos, nil, player)
+	return doors.trapdoor_toggle(pos, nil, player)
 end
 
-function doors_get.trapdoor_close(self, player)
-	if not self:state() then
+function doors_get.trapdoor.close(pos, player)
+	if not doors_get.trapdoor.state(pos) then
 		return false
 	end
-	return doors.trapdoor_toggle(self.pos, nil, player)
+	return doors.trapdoor_toggle(pos, nil, player)
 end
 
-function doors_get.trapdoor_toggle(self, player)
-	return doors.trapdoor_toggle(self.pos, nil, player)
+function doors_get.trapdoor.toggle(pos, player)
+	return doors.trapdoor_toggle(pos, nil, player)
 end
 
-function doors_get.trapdoor_state(self)
-	return minetest.get_node(self.pos).name:sub(-5) == "_open"
-end
-
--- returns an object to a door object or nil
-function doors.get(pos)
-	local node_name = minetest.get_node(pos).name
-	if doors.registered_doors[node_name] then
-		-- A normal upright door
-		return {
-			pos = pos,
-			open = doors_get.door_open,
-			close = doors_get.door_close,
-			toggle = doors_get.door_toggle,
-			state = doors_get.door_state 
-		}
-	elseif doors.registered_trapdoors[node_name] then
-		-- A trapdoor
-		return {
-			pos = pos,
-			open = doors_get.trapdoor_open,
-			close = doors_get.trapdoor_close,
-			toggle = doors_get.trapdoor_toggle,
-			state = doors_get.trapdoor_state
-		}
-	else
-		return nil
-	end
+function doors_get.trapdoor.state(pos)
+	return minetest.get_node(pos).name:sub(-5) == "_open"
 end
 
 -- this hidden node is placed on top of the bottom, and prevents
@@ -149,7 +120,7 @@ function doors.door_toggle(pos, node, clicker)
 	local meta = minetest.get_meta(pos)
 	node = node or minetest.get_node(pos)
 	local def = minetest.registered_nodes[node.name]
-	local name = def._door.name
+	local name = def._name
 
 	local state = meta:get_string("state")
 	if state == "" then
@@ -186,10 +157,10 @@ function doors.door_toggle(pos, node, clicker)
 	end
 
 	if state % 2 == 0 then
-		minetest.sound_play(def._door.sounds[1],
+		minetest.sound_play(def._sound_close,
 			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 	else
-		minetest.sound_play(def._door.sounds[2],
+		minetest.sound_play(def._sound_open,
 			{pos = pos, gain = 0.3, max_hear_distance = 10}, true)
 	end
 
@@ -304,7 +275,7 @@ function doors.on_place(itemstack, placer, pointed_thing)
 		itemstack:take_item()
 	end
 
-	minetest.sound_play(def._sounds.place, {pos = pos}, true)
+	minetest.sound_play(def.sounds.place, {pos = pos}, true)
 
 	on_place_node(pos, minetest.get_node(pos), placer, node, itemstack, 
 		pointed_thing)
@@ -330,7 +301,10 @@ function doors.protected_on_blast()
 end
 
 function doors.on_key_use(pos, player)
-	return doors.get(pos):toggle(player)
+	local typ3 = minetest.registered_nodes[minetest.get_node(pos).name]._type
+	if typ3 then
+		return doors_get[typ3].toggle(pos, player)
+	end
 end
 
 function doors.on_skeleton_key_use(pos, player, newsecret)
@@ -367,12 +341,24 @@ function doors.on_destruct(pos)
 end
 
 function doors.register_craftitem(name, def)
+	local txt = name:gsub(":", "_")
 	minetest.register_craftitem(name, {
-		description = def.description,
-		inventory_image = def.inventory_image,
+		description = def.description or txt,
+		short_description = def.short_description,
 		groups = table.copy(def.groups),
+		inventory_image = def.inventory_image or txt .. "_item.png",
+		inventory_overlay = def.inventory_overlay,
+		wield_image = def.wield_image,
+		wield_overlay = def.wield_overlay,
+		palette = def.palette,
+		color = def.color,
+		wield_scale = def.wield_scale,
+		stack_max = def.stack_max,
+		light_source = def.light_source,
+		node_placement_prediction = def.node_placement_prediction,
+		node_dig_prediction = def.node_dig_prediction,
 		on_place = doors.on_place,
-		_sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
+		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		_name = name,
 		_protected = def.protected
 	})
@@ -385,21 +371,36 @@ function doors.register_craftitem(name, def)
 	end
 end
 
+local function qq(one, two)
+	if one == false then
+		return one
+	else
+		return one or two
+	end
+end
+
 local function register_door(name, def)
-	doors.registered_doors[name] = true
+	local txt = name:gsub(":", "_"):sub(1, -3)
+	local sunlight_propagates
 	minetest.register_node(name, {
-		description = def.description,
-		tiles = def.tiles,
-		drawtype = "mesh",
-		mesh = def.mesh,
+		description = def.description or txt,
+		short_description = def.short_description,
 		groups = def.groups,
+		palette = def.palette,
+		color = def.color,
+		light_source = def.light_source,
+		drawtype = "mesh",
+		tiles = def.tiles or {{name = txt .. ".png", backface_culling = true }},
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha or "clip",
 		paramtype = "light",
 		paramtype2 = "facedir",
-		sunlight_propagates = true,
-		use_texture_alpha = "clip",
-		walkable = true,
 		is_ground_content = false,
+		sunlight_propagates = qq(def.sunlight_propagates, def.sunlight_propagates),
+		walkable = true,
 		buildable_to = false,
+		mesh = def.mesh,
 		selection_box = def.selection_box or {
 			type = "fixed", 
 			fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}
@@ -408,24 +409,20 @@ local function register_door(name, def)
 			type = "fixed", 
 			fixed = {-1/2,-1/2,-1/2,1/2,3/2,-6/16}
 		},
+		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		drop = def.drop,
-		node_dig_prediction = def.node_dig_prediction,
-		on_rightclick = def.on_rightclick or doors.on_rightclick,
-		after_dig_node = def.after_dig_node or doors.after_dig_node,
-		_on_rotate = def.on_rotate or doors.on_rotate,
 		on_destruct = def.on_destruct or doors.on_destruct,
+		after_dig_node = def.after_dig_node or doors.after_dig_node,
 		can_dig = def.can_dig,
-		_on_key_use = def.on_key_use,
+		on_rightclick = def.on_rightclick or doors.on_rightclick,
 		on_blast = def.on_blast,
+		_on_rotate = def.on_rotate or doors.on_rotate,
+		_on_key_use = def.on_key_use,
 		_on_skeleton_key_use = def.on_skeleton_key_use,
-		_sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
-		_door = def.door or {
-			name = def.name,
-			sounds = { 
-				def.sound_close or "doors_api_wood_open", 
-				def.sound_open or "doors_api_wood_close"
-			},
-		},
+		_name = def.name,
+		_sound_close = def.sound_close or "doors_api_wood_open", 
+		_sound_open = def.sound_open or "doors_api_wood_close",
+		_type = "door"
 	})
 end
 
@@ -511,35 +508,51 @@ function doors.trapdoor_on_blast(pos)
 end
 
 local function register_trapdoor(name, def)
-	doors.registered_trapdoors[name] = true
+	local txt = name:gsub(":", "_")
 	minetest.register_node(name, {
-		description = def.description,
-		tiles = def.tiles,
-		inventory_image = def.inventory_image,
-		wield_image = def.wield_image,
-		drawtype = "nodebox",
+		description = def.description or txt,
+		short_description = def.short_description,
 		groups = def.groups,
+		inventory_image = def.inventory_image or txt .. ".png",
+		inventory_overlay = def.inventory_overlay,
+		wield_image = def.wield_image or txt .. ".png",
+		wield_overlay = def.wield_overlay,
+		palette = def.palette,
+		color = def.color,
+		wield_scale = def.wield_scale,
+		stack_max = def.stack_max,
+		light_source = def.light_source,
+		drawtype = def.drawtype or "nodebox",
+		visual_scale = def.visual_scale,
+		tiles = def.tiles,
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha or "clip",
 		paramtype = "light",
 		paramtype2 = "facedir",
-		sunlight_propagates = true,
-		use_texture_alpha = "clip",
-		walkable = true,
+		place_param2 = def.place_param2, 
 		is_ground_content = false,
+		sunlight_propagates = qq(def.sunlight_propagates, true),
+		walkable = true,
 		buildable_to = false,
-		selection_box = def.selection_box,
 		node_box = def.node_box,
+		connects_to = def.connects_to,
+		connect_sides = def.connect_sides,
+		mesh = def.mesh,
+		selection_box = def.selection_box,
+		collision_box = def.collision_box,
+		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		drop = def.drop,
-		node_dig_prediction = def.node_dig_prediction,
-		on_rightclick = def.on_rightclick or doors.trapdoor_on_rightclick,
-		after_place_node = def.after_place_node,
 		on_destruct = def.on_destruct or doors.on_destruct,
+		after_place_node = def.after_place_node,
 		can_dig = def.can_dig,
-		_on_key_use = def.on_key_use,
+		on_rightclick = def.on_rightclick or doors.trapdoor_on_rightclick,
 		on_blast = def.on_blast,
+		_on_key_use = def.on_key_use,
 		_on_skeleton_key_use = def.on_skeleton_key_use,
-		_sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		_sound_close = def.sound_close or "doors_api_wood_open", 
-		_sound_open = def.sound_open or "doors_api_wood_close"
+		_sound_open = def.sound_open or "doors_api_wood_close",
+		_type = "trapdoor"
 	})
 end
 
@@ -557,6 +570,11 @@ function doors.register_trapdoor(name, def)
 	else
 		def.on_blast = doors.trapdoor_on_blast
 	end
+	if not def.tiles then
+		local txt = name:gsub(":", "_")
+		def.tile_front = def.tile_front or txt .. ".png"
+		def.tile_side = def.tile_side or txt .. "_side.png"
+	end
 
 	local def_opened = table.copy(def)
 	local def_closed = table.copy(def)
@@ -569,14 +587,16 @@ function doors.register_trapdoor(name, def)
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
 	}
-	def_closed.tiles = {
-		def.tile_front,
-		def.tile_front .. '^[transformFY',
-		def.tile_side,
-		def.tile_side,
-		def.tile_side,
-		def.tile_side
-	}
+	if not def.tiles then
+		def_closed.tiles = {
+			def.tile_front,
+			def.tile_front .. '^[transformFY',
+			def.tile_side,
+			def.tile_side,
+			def.tile_side,
+			def.tile_side
+		}
+	end
 
 	def_opened.node_box = {
 		type = "fixed",
@@ -586,17 +606,23 @@ function doors.register_trapdoor(name, def)
 		type = "fixed",
 		fixed = {-0.5, -0.5, 6/16, 0.5, 0.5, 0.5}
 	}
-	def_opened.tiles = {
-		def.tile_side,
-		def.tile_side .. '^[transform2',
-		def.tile_side .. '^[transform3',
-		def.tile_side .. '^[transform1',
-		def.tile_front .. '^[transform46',
-		def.tile_front .. '^[transform6'
-	}
+	if not def.tiles then
+		def_opened.tiles = {
+			def.tile_side,
+			def.tile_side .. '^[transform2',
+			def.tile_side .. '^[transform3',
+			def.tile_side .. '^[transform1',
+			def.tile_front .. '^[transform46',
+			def.tile_front .. '^[transform6'
+		}
+	end
 
 	def_opened.drop = name_closed
-	def_opened.groups.not_in_creative_inventory = 1
+	if def_opened.groups then
+		def_opened.groups.not_in_creative_inventory = 1
+	else
+		def.opened.groups = {not_in_creative_inventory = 1}
+	end
 
 	register_trapdoor(name_opened, def_opened)
 	register_trapdoor(name_closed, def_closed)

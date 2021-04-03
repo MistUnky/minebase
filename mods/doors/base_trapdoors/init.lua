@@ -5,19 +5,11 @@ local S = minetest.get_translator("base_trapdoors")
 
 doors.register_trapdoor("base_trapdoors:wood", {
 	description = S("Wooden Trapdoor"),
-	inventory_image = "base_trapdoors_wood.png",
-	wield_image = "base_trapdoors_wood.png",
-	tile_front = "base_trapdoors_wood.png",
-	tile_side = "base_trapdoors_wood_side.png",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, door = 1},
 })
 
 doors.register_trapdoor("base_trapdoors:steel", {
 	description = S("Steel Trapdoor"),
-	inventory_image = "base_trapdoors_steel.png",
-	wield_image = "base_trapdoors_steel.png",
-	tile_front = "base_trapdoors_steel.png",
-	tile_side = "base_trapdoors_steel_side.png",
 	protected = true,
 	sounds = sounds.get_defaults("ore_sounds:metal"),
 	sound_open = "doors_api_steel_open",
