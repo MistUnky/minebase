@@ -11,6 +11,7 @@ function earth.register_stone(name, def)
 	minetest.register_node(name, {
 		description = def.description or txt,
 		tiles = def.tiles or {txt .. ".png"},
+		drop = def.drop,
 		groups = def.groups or {cracky = 3},
 		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
 	})

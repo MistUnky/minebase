@@ -543,7 +543,7 @@ local function register_trapdoor(name, def)
 		collision_box = def.collision_box,
 		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
 		drop = def.drop,
-		on_destruct = def.on_destruct or doors.on_destruct,
+		on_destruct = def.on_destruct,
 		after_place_node = def.after_place_node,
 		can_dig = def.can_dig,
 		on_rightclick = def.on_rightclick or doors.trapdoor_on_rightclick,

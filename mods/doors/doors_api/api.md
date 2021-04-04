@@ -15,7 +15,7 @@ Opens or closes the door. It depends on the current status.
 function doors.door_toggle(pos, node, clicker)
 pos     : Position
 node    : Node
-clicker	: Player
+clicker : Player
 return  : Boolean
 ```
 
@@ -267,19 +267,43 @@ doors.on_skeleton_key_use
 ```
 
 #### trapdoor_after_place_node
+Currently only sets the owner of a placed trapdoor.
 ```lua
+function doors.trapdoor_after_place_node(pos, placer, itemstack)
+pos             : Position
+placer          : Player
+itemstack       : ItemStack
+return          : Boolean
 ```
-#### trapdoor_on_blast
-```lua
-```
-#### trapdoor_on_rightclick
-```lua
-```
-#### trapdoor_toggle
-```lua
-```
-#### trapdoor_toggle
 
+#### trapdoor_on_blast
+Removes the trapdoor.
+```lua
+function doors.trapdoor_on_blast(pos)
+pos     : Position
+return  : Table (with a Name)
+```
+
+#### trapdoor_on_rightclick
+Toggles the trapdoor.
+```lua
+function doors.trapdoor_on_rightclick(pos, node, clicker, itemstack)
+pos             : Position
+node            : Node
+clicker         : Player
+itemstack       : ItemStack
+return          : ItemStack
+```
+
+#### trapdoor_toggle
+Opens or closes the trapdoor. The action depends on its current state.
+```lua
+function doors.trapdoor_toggle(pos, node, clicker)
+pos             : Position
+node            : Node
+clicker         : Player
+return          : Boolean
+```
 doors_get 
 ---------
 #### door.close

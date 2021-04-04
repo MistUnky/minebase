@@ -594,7 +594,7 @@ function carts.register_rail(name, def)
 		},
 		overlay_tiles = def.overlay_tiles,
 		special_tiles = def.special_tiles,
-		use_texture_alpha = def.use_texture_alpha or "opaque",
+		use_texture_alpha = def.use_texture_alpha or "clip",
 		post_effect_color = def.post_effect_color,
 		paramtype = "light",
 		paramtype2 = def.paramtype,
