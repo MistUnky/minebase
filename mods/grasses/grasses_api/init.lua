@@ -27,8 +27,9 @@ function grasses.register_grass(name, def)
 		walkable = false,
 		buildable_to = true,
 		drop = def.drop or name .. (def.i and "_1" or ""),
-		groups = def.groups or {snappy = 3, flora = 1, attached_node = 1, 
-			flammable = 1, not_in_creative_inventory = def.not_in_creative_inventory},
+		groups = def.groups or {snappy = 3, flora = 1, grass = 1, attached_node = 1, 
+			flammable = 1, not_in_creative_inventory = def.not_in_creative_inventory,
+			[def.grass_type] = 1},
 		sounds = sounds.get_defaults("tree_sounds:leaves"),
 		selection_box = def.selection_box or {
 			type = "fixed",
@@ -80,6 +81,7 @@ function grasses.register_grass_set(name, def)
 	else
 		def.other.not_in_creative_inventory = 1
 	end
+	def.other.grass_type = def.first.grass_type
 	for fi = 2, def.max do
 		def.other.i = fi
 		grasses.register_grass(name, def.other)
