@@ -10,7 +10,8 @@ node    : Node
 ```
 
 #### door_toggle
-Opens or closes the door. It depends on the current status.
+Opens or closes the door. It depends on the current status. Returns true on 
+success, false otherwise.
 ```lua
 function doors.door_toggle(pos, node, clicker)
 pos     : Position
@@ -237,11 +238,10 @@ doors.register_trapdoor("mod:node", {
 	can_dig = nil,
 	on_rightclick = doors.trapdoor_on_rightclick,
 	on_blast = nil,
-	_on_key_use = nil,
-	_on_skeleton_key_use = nil,
-	_sound_close = "doors_api_wood_open", 
-	_sound_open = "doors_api_wood_close",
-	_type = "trapdoor"
+	on_key_use = nil,
+	on_skeleton_key_use = nil,
+	sound_close = "doors_api_wood_open", 
+	sound_open = "doors_api_wood_close",
 	tile_front = "mod_node.png",
 	tile_side = "mod_node_side.png",
 
@@ -251,6 +251,7 @@ doors.register_trapdoor("mod:node", {
 	is_ground_content = false,
 	walkable = true,
 	buildable_to = false,
+	type = "trapdoor"
 })
 ```
 This function generates textures based on tile_side and tile_front, if no tiles
@@ -296,7 +297,8 @@ return          : ItemStack
 ```
 
 #### trapdoor_toggle
-Opens or closes the trapdoor. The action depends on its current state.
+Opens or closes the trapdoor. The action depends on its current state. Returns 
+true on success, false otherwise.
 ```lua
 function doors.trapdoor_toggle(pos, node, clicker)
 pos             : Position
@@ -304,29 +306,81 @@ node            : Node
 clicker         : Player
 return          : Boolean
 ```
+
 doors_get 
 ---------
+
 #### door.close
+Closes the door on position pos and returns true on success, false otherwise.
 ```lua
+function doors_get.door.close(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### door.open
+Opens the door on position pos and returns true on success, false otherwise.
 ```lua
+function doors_get.door.open(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### door.state
+Returns the current state of the door on position pos. True represents an open
+door, false a closed one.
 ```lua
+function doors_get.door.state(pos)
+pos     : Position
+return  : Boolean
 ```
+
 #### door.toggle
+Opens or closes the door. It depends on the current status. Returns true on 
+success, false otherwise.
 ```lua
+function doors_get.door.toggle(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### trapdoor.close
+Closes the trapdoor on position pos and returns true on success, false 
+otherwise.
 ```lua
+function doors_get.trapdoor.close(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### trapdoor.open
+Opens the trapdoor on position pos and returns true on success, false otherwise.
 ```lua
+function doors_get.trapdoor.open(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### trapdoor.state
+Returns the current state of the trapdoor on position pos. True represents an 
+open trapdoor, false a closed one.
 ```lua
+function doors_get.trapdoor.state(pos)
+pos     : Position
+return  : Boolean
 ```
+
 #### trapdoor.toggle
+Opens or closes the trapdoor. It depends on the current status. Returns true on 
+success, false otherwise.
 ```lua
+function doors_get.trapdoor.toggle(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```

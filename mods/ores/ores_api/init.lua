@@ -1,8 +1,8 @@
 -- ores_api/init.lua
 
 ores = {}
-local scarcity_modifier = 100 / tonumber(minetest.settings
-	:get("ore_percentage")) or 1
+local scarcity_modifier = 100 / (tonumber(minetest.settings
+	:get("ore_percentage")) or 100)
 
 minetest.clear_registered_ores()
 

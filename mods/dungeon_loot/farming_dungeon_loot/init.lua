@@ -12,4 +12,4 @@ if minetest.global_exists("dungeon_loot") then
 			types = {"normal"}})
 end
 
-dungeon_loot.register(loot)
+dungeon_loot.register_loot(loot)

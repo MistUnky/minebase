@@ -96,6 +96,10 @@ Listname
 A string associated with a list of ItemStacks in an inventory.
 "mod:item"
 
+LootDef
+A table with the keys name, part, x, y and z. x, y and z are optional tables 
+with min and max values for chests the items are going to be found in.
+
 [LuaEntity](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L6205)  
 A table with methods used to control entities.
 

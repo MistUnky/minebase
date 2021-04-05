@@ -1,6 +1,6 @@
 -- earth_dungeon_loot/init.lua
 
-dungeon_loot.register({
+dungeon_loot.register_loot({
 	{name = "base_earth:flint", part = 40, count = {1, 3}},
 	{name = "base_earth:sand", part = 80, count = {4, 32}, y = {-64, 32768}, 
 		types = {"normal"}},

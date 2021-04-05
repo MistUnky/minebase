@@ -104,6 +104,10 @@ Listname
 A string associated with a list of ItemStacks in an inventory.
 "mod:item"
 
+LootDef
+A table with the keys name, part, x, y and z. x, y and z are optional tables 
+with min and max values for chests the items are going to be found in.
+
 [LuaEntity](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L6205)  
 A table with methods used to control entities.
 
@@ -1782,7 +1786,8 @@ node    : Node
 ```
 
 #### door_toggle
-Opens or closes the door. It depends on the current status.
+Opens or closes the door. It depends on the current status. Returns true on 
+success, false otherwise.
 ```lua
 function doors.door_toggle(pos, node, clicker)
 pos     : Position
@@ -2009,11 +2014,10 @@ doors.register_trapdoor("mod:node", {
 	can_dig = nil,
 	on_rightclick = doors.trapdoor_on_rightclick,
 	on_blast = nil,
-	_on_key_use = nil,
-	_on_skeleton_key_use = nil,
-	_sound_close = "doors_api_wood_open", 
-	_sound_open = "doors_api_wood_close",
-	_type = "trapdoor"
+	on_key_use = nil,
+	on_skeleton_key_use = nil,
+	sound_close = "doors_api_wood_open", 
+	sound_open = "doors_api_wood_close",
 	tile_front = "mod_node.png",
 	tile_side = "mod_node_side.png",
 
@@ -2023,6 +2027,7 @@ doors.register_trapdoor("mod:node", {
 	is_ground_content = false,
 	walkable = true,
 	buildable_to = false,
+	type = "trapdoor"
 })
 ```
 This function generates textures based on tile_side and tile_front, if no tiles
@@ -2068,7 +2073,8 @@ return          : ItemStack
 ```
 
 #### trapdoor_toggle
-Opens or closes the trapdoor. The action depends on its current state.
+Opens or closes the trapdoor. The action depends on its current state. Returns 
+true on success, false otherwise.
 ```lua
 function doors.trapdoor_toggle(pos, node, clicker)
 pos             : Position
@@ -2076,31 +2082,83 @@ node            : Node
 clicker         : Player
 return          : Boolean
 ```
+
 doors_get 
 ---------
+
 #### door.close
+Closes the door on position pos and returns true on success, false otherwise.
 ```lua
+function doors_get.door.close(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### door.open
+Opens the door on position pos and returns true on success, false otherwise.
 ```lua
+function doors_get.door.open(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### door.state
+Returns the current state of the door on position pos. True represents an open
+door, false a closed one.
 ```lua
+function doors_get.door.state(pos)
+pos     : Position
+return  : Boolean
 ```
+
 #### door.toggle
+Opens or closes the door. It depends on the current status. Returns true on 
+success, false otherwise.
 ```lua
+function doors_get.door.toggle(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### trapdoor.close
+Closes the trapdoor on position pos and returns true on success, false 
+otherwise.
 ```lua
+function doors_get.trapdoor.close(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### trapdoor.open
+Opens the trapdoor on position pos and returns true on success, false otherwise.
 ```lua
+function doors_get.trapdoor.open(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
+
 #### trapdoor.state
+Returns the current state of the trapdoor on position pos. True represents an 
+open trapdoor, false a closed one.
 ```lua
+function doors_get.trapdoor.state(pos)
+pos     : Position
+return  : Boolean
 ```
+
 #### trapdoor.toggle
+Opens or closes the trapdoor. It depends on the current status. Returns true on 
+success, false otherwise.
 ```lua
+function doors_get.trapdoor.toggle(pos, player)
+pos     : Position
+player  : Player
+return  : Boolean
 ```
 
 Dungeon Loot 
@@ -2112,14 +2170,39 @@ Dungeon Loot
 ```lua
 ```
 #### get_loot
+Returns the loot available in a specified position and dungeontype.
 ```lua
+function dungeon_loot.get_loot(pos, dungeontype)
+pos             : Position
+dungeontype     : DungeonTypeList
+return          : LootDefList, LootDefParts
 ```
+DungeonTypeList is a table of dungeon types the loot is going to be found in. 
+"normal", "desert", "sandstone" and "ice" are currently supported.  
+LootDefList is a list of LootDefs.  
+LootDefParts is a corresponding list of their part values.
+
 #### populate_chest
 ```lua
 ```
-#### register
+#### register_loot
+Registers a single item or a sequence of items as dungeon loot.
 ```lua
+function dungeon_loot.register_loot(loot)
+loot    : Mixed ⊆ {LootDef, {LootDef}}
+
+LootDef {
+	name = Name, part = Integer, count = {Integer, Integer}, 
+	x = {Integer, Integer}, y = {Integer, Integer}, 
+	z = {Integer, Integer},
+	types = DungeonTypeList
+}
 ```
+part is the amount of times the item is put into a chest in ratio to the sum of 
+all part values for items that can be placed inside a chest on a given position.  
+count represents the minimum and maximum amount of items found inside a chest.  
+x, y and z are optional tables with min and max values for chests the items are 
+going to be found in.  
 
 Earth 
 ------

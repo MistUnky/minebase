@@ -13,5 +13,5 @@ if minetest.get_modpath("cactus") then
 		types = {"sandstone", "desert"}})
 end
 
-dungeon_loot.register(loot)
+dungeon_loot.register_loot(loot)
 

@@ -14,5 +14,5 @@ if minetest.get_modpath("buckets_water") then
 		y = {0, 32768}, types = {"normal"}})
 end
 
-dungeon_loot.register(loot)
+dungeon_loot.register_loot(loot)
 

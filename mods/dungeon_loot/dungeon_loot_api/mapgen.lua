@@ -40,24 +40,24 @@ function dungeon_loot.find_walls(cpos)
 
 	local biome = minetest.get_biome_data(cpos)
 	biome = biome and minetest.get_biome_name(biome.biome) or ""
-	local type = "normal"
+	local typ3 = "normal"
 	if biome:find("desert") == 1 then
-		type = "desert"
+		typ3 = "desert"
 	elseif biome:find("sandstone_desert") == 1 then
-		type = "sandstone"
+		typ3 = "sandstone"
 	elseif biome:find("icesheet") == 1 then
-		type = "ice"
+		typ3 = "ice"
 	end
 
 	return {
 		walls = ret,
 		size = {x=mindist.x*2, z=mindist.z*2},
-		type = type,
+		typ3 = typ3,
 	}
 end
 
 function dungeon_loot.populate_chest(pos, dungeontype)
-	local item_list, parts = dungeon_loot.get_loot(pos.y, dungeontype)
+	local item_list, parts = dungeon_loot.get_loot(pos, dungeontype)
 	item_list = rand.pick(parts, item_list, rand.dy(math.min(#item_list, 
 		dungeon_loot.STACKS_PER_CHEST_MAX)))
 
@@ -130,7 +130,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 			-- make it face inwards to the room
 			local facedir = minetest.dir_to_facedir(vector.multiply(wall.facing, -1))
 			minetest.add_node(chestpos, {name = "chests:common", param2 = facedir})
-			dungeon_loot.populate_chest(chestpos, room.type)
+			dungeon_loot.populate_chest(chestpos, room.typ3)
 		end
 	end
 end)
