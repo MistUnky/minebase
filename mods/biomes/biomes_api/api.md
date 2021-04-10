@@ -132,7 +132,7 @@ def     : Table
 biomes.register_stratum("mod:ore", {
 	-- essential
 	ore = "mod:ore",
-	biomes = Name OR {Name, Name, ...},
+	biomes = Name OR NameList,
 
 	-- optional
 	ore_param2 = 0,
@@ -163,7 +163,7 @@ biomes.register_stratum("mod:ore", {
 	ore_type = "stratum"
 })
 ```
-
+NameList is a list of one ore more Names.
 
 #### register_under
 Registers an underground biome.

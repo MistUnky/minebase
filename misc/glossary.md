@@ -8,12 +8,6 @@ Keep in mind that some information might be outdated because the
 OR  
 Is used to connect alternatives.
 
-...  
-Is used to express possible repetition or the continuation of a pattern.
-
-[ ]  
-The enclosed Element or character sequence is optional.
-
 ?  
 Used to express an unknown value.
 
@@ -137,6 +131,15 @@ A table representing the pointed node, object or nothing.
 A table with numeric values assigned to the keys x, y and z. Keep in mind that the y axis is pointing upwards.  
 {x = 0, y = 0, z = 0}, {x = 10, y = -5, z = 0}
 
+Room  
+A table containing a list of walls, a size as Square and a type.  
+{  
+	walls = Table,  
+	size = Square,  
+	typ3 = "normal" OR "desert" OR "sandstone" OR "ice"  
+}  
+walls is a list of zero, one or more WallDefs.
+
 Seconds  
 A float representing a duration in seconds.
 
@@ -145,6 +148,11 @@ A string with a random sequence of printable ASCII characters.
 
 [Serialized](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L5684)  
 A string representing a value or object.
+
+Square    
+A table with positiv integers or zero assigned to the keys x and z.  
+{x = 8, z = 0}, {x = 4, z = 20}
+
 
 [String](http://www.lua.org/pil/2.4.html)  
 A type representing character sequences with ASCII or UTF-8 characters. They are
@@ -169,3 +177,7 @@ A table with keys used in the definition of a trapdoor.
 A table with numeric values assigned to the keys x, y and z like Position. A 
 vector doesn't represent a position, it represents a relative direction.
 {x = 0, y = 0, z = 0}, {x = -4, y = 0, z = 20}
+
+WallDef  
+A table representing a wall using a position and a vector.  
+{pos = {x = 1, y = 4, z = -4}, facing = {x = -1, y = 0, z = 4}}

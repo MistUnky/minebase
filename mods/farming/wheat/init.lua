@@ -9,7 +9,7 @@ farming.register_plant("wheat:wheat", {
 	paramtype2 = "meshoptions",
 	steps = 8,
 	minlight = 13,
-	fertility = {"base_biomes:grassland"},
+	fertility = {"grassland"},
 	groups = {food_wheat = 1, flammable = 4},
 	place_param2 = 3,
 })

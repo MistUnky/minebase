@@ -93,7 +93,7 @@ items of the same type. The shape is important.
 | one	| two	| &rarr;| result
 
 ```lua
-craft.side_by_side(one, two[, result])
+craft.side_by_side(one, two, result)
 one     : Name
 two     : Name
 result  : Name
@@ -110,7 +110,7 @@ items of the same type. The shape is important.
 | one	|	| 
 
 ```lua
-craft.stacked(one, two[, result])
+craft.stacked(one, two, result)
 one     : Name
 two     : Name
 result  : Name

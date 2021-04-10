@@ -8,7 +8,7 @@ farming.register_plant("cotton:cotton", {
 	harvest_description = S("Cotton"),
 	steps = 8,
 	minlight = 13,
-	fertility = {"base_biomes:grassland", "base_biomes:desert"},
+	fertility = {"grassland", "desert"},
 	groups = {flammable = 4},
 })
 

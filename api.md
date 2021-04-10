@@ -16,12 +16,6 @@ Keep in mind that some information might be outdated because the
 OR  
 Is used to connect alternatives.
 
-...  
-Is used to express possible repetition or the continuation of a pattern.
-
-[ ]  
-The enclosed Element or character sequence is optional.
-
 ?  
 Used to express an unknown value.
 
@@ -145,6 +139,15 @@ A table representing the pointed node, object or nothing.
 A table with numeric values assigned to the keys x, y and z. Keep in mind that the y axis is pointing upwards.  
 {x = 0, y = 0, z = 0}, {x = 10, y = -5, z = 0}
 
+Room  
+A table containing a list of walls, a size as Square and a type.  
+{  
+	walls = Table,  
+	size = Square,  
+	typ3 = "normal" OR "desert" OR "sandstone" OR "ice"  
+}  
+walls is a list of zero, one or more WallDefs.
+
 Seconds  
 A float representing a duration in seconds.
 
@@ -153,6 +156,11 @@ A string with a random sequence of printable ASCII characters.
 
 [Serialized](https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L5684)  
 A string representing a value or object.
+
+Square    
+A table with positiv integers or zero assigned to the keys x and z.  
+{x = 8, z = 0}, {x = 4, z = 20}
+
 
 [String](http://www.lua.org/pil/2.4.html)  
 A type representing character sequences with ASCII or UTF-8 characters. They are
@@ -178,6 +186,10 @@ A table with numeric values assigned to the keys x, y and z like Position. A
 vector doesn't represent a position, it represents a relative direction.
 {x = 0, y = 0, z = 0}, {x = -4, y = 0, z = 20}
 
+WallDef  
+A table representing a wall using a position and a vector.  
+{pos = {x = 1, y = 4, z = -4}, facing = {x = -1, y = 0, z = 4}}
+
 Beds API
 --------
 
@@ -193,10 +205,11 @@ return  : Boolean
 #### check_in_beds
 Returns true, if all players are in bed and false otherwise.
 ```lua
-function beds.check_in_beds([players])
-players : {Player, Player, ...}
+function beds.check_in_beds(players)
+players : Table
 return  : Boolean
 ```
+Players is a list of one, zero or more Players.  
 If players is omitted, the function checks all connected players.
 
 #### destruct_bed
@@ -232,13 +245,14 @@ function beds.kick_players()
 #### lay_down
 Puts the player into the bed or pushes him out.
 ```lua
-function beds.lay_down(player, pos, bed_pos[, state][, skip])
+function beds.lay_down(player, pos, bed_pos, state, skip)
 player  : Player
 pos     : Position
 bed_pos : Position
 state   : Boolean
 skip    : Boolean
 ```
+state and skip are optional.  
 If state is false (not nil), the player is pushed out of the bed. Otherwise the
 player is put into bed.  
 If skip is true, the function doesn't change settings that are irrelevant once
@@ -535,7 +549,7 @@ def     : Table
 biomes.register_stratum("mod:ore", {
 	-- essential
 	ore = "mod:ore",
-	biomes = Name OR {Name, Name, ...},
+	biomes = Name OR NameList,
 
 	-- optional
 	ore_param2 = 0,
@@ -566,7 +580,7 @@ biomes.register_stratum("mod:ore", {
 	ore_type = "stratum"
 })
 ```
-
+NameList is a list of one ore more Names.
 
 #### register_under
 Registers an underground biome.
@@ -846,12 +860,12 @@ return  : Serialized
 #### is_rail
 Returns true if, the node in position pos is a rail node and false otherwise.
 ```lua
-function carts.is_rail(pos[, railtype])
+function carts.is_rail(pos, railtype)
 pos             : Position
 railtype        : GroupName
 return          : Boolean
 ```
-If railtype is provided, it also checks the type of the rail.
+If the optional railtype is provided, it also checks the type of the rail.
 
 #### on_activate
 Is called by the engine to initialise a new instance with new or saved values.
@@ -1239,7 +1253,9 @@ containers.register_container("mod:node", {
 		preserve_metadata = nil,
 		after_place_node = callbacks_p.after_place_node,
 		can_dig = callbacks_p.can_dig,
+		on_punch = nil,
 		on_rightclick = callbacks_p.on_rightclick,
+		on_timer = nil,
 		allow_metadata_inventory_move = callbacks_p.allow_metadata_inventory_move,
 		allow_metadata_inventory_put = callbacks_p.allow_metadata_inventory_put,
 		allow_metadata_inventory_take = callbacks_p.allow_metadata_inventory_take,
@@ -1316,7 +1332,9 @@ containers.register_container("mod:node", {
 		preserve_metadata = nil,
 		after_place_node = callbacks_p.after_place_node,
 		can_dig = open.can_dig,
+		on_punch = nil,
 		on_rightclick = callbacks_p.on_rightclick,
+		on_timer = nil,
 		allow_metadata_inventory_move = callbacks_p.allow_metadata_inventory_move,
 		allow_metadata_inventory_put = callbacks_p.allow_metadata_inventory_put,
 		allow_metadata_inventory_take = callbacks_p.allow_metadata_inventory_take,
@@ -1626,7 +1644,7 @@ items of the same type. The shape is important.
 | one	| two	| &rarr;| result
 
 ```lua
-craft.side_by_side(one, two[, result])
+craft.side_by_side(one, two, result)
 one     : Name
 two     : Name
 result  : Name
@@ -1643,7 +1661,7 @@ items of the same type. The shape is important.
 | one	|	| 
 
 ```lua
-craft.stacked(one, two[, result])
+craft.stacked(one, two, result)
 one     : Name
 two     : Name
 result  : Name
@@ -2161,14 +2179,40 @@ player  : Player
 return  : Boolean
 ```
 
+
 Dungeon Loot 
 ------
 #### filter_rooms
+Returns rooms suited for dungeon loot, based on the provided positions.
 ```lua
+function dungeon_loot.filter_rooms(poslist)
+poslist : PosList
+return  : Rooms
 ```
+PosList is a list of zero, one or more Positions.  
+Rooms is a list of zero, one or more Rooms.
+
 #### find_walls
+Searches for walls from a given position to identify rooms.
 ```lua
+function dungeon_loot.find_walls(cpos)
+cpos    : Position
+return  : Room
+
+Room {
+	walls = Table,
+	size = Square,
+	typ3 = "normal" OR "desert" OR "sandstone" OR "ice"
+}
+walls is a list of zero, one or more WallDefs.
+
+WallDef {
+	pos = Position,
+	facing = Vector
+}
+
 ```
+
 #### get_loot
 Returns the loot available in a specified position and dungeontype.
 ```lua
@@ -2369,9 +2413,6 @@ Formspecs
 ```lua
 ```
 #### create_prepend
-```lua
-```
-#### create_rect_button_style
 ```lua
 ```
 #### get_hotbar_bg

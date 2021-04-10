@@ -1,11 +1,37 @@
+
 Dungeon Loot 
 ------
 #### filter_rooms
+Returns rooms suited for dungeon loot, based on the provided positions.
 ```lua
+function dungeon_loot.filter_rooms(poslist)
+poslist : PosList
+return  : Rooms
 ```
+PosList is a list of zero, one or more Positions.  
+Rooms is a list of zero, one or more Rooms.
+
 #### find_walls
+Searches for walls from a given position to identify rooms.
 ```lua
+function dungeon_loot.find_walls(cpos)
+cpos    : Position
+return  : Room
+
+Room {
+	walls = Table,
+	size = Square,
+	typ3 = "normal" OR "desert" OR "sandstone" OR "ice"
+}
+walls is a list of zero, one or more WallDefs.
+
+WallDef {
+	pos = Position,
+	facing = Vector
+}
+
 ```
+
 #### get_loot
 Returns the loot available in a specified position and dungeontype.
 ```lua

@@ -13,10 +13,11 @@ return  : Boolean
 #### check_in_beds
 Returns true, if all players are in bed and false otherwise.
 ```lua
-function beds.check_in_beds([players])
-players : {Player, Player, ...}
+function beds.check_in_beds(players)
+players : Table
 return  : Boolean
 ```
+Players is a list of one, zero or more Players.  
 If players is omitted, the function checks all connected players.
 
 #### destruct_bed
@@ -52,13 +53,14 @@ function beds.kick_players()
 #### lay_down
 Puts the player into the bed or pushes him out.
 ```lua
-function beds.lay_down(player, pos, bed_pos[, state][, skip])
+function beds.lay_down(player, pos, bed_pos, state, skip)
 player  : Player
 pos     : Position
 bed_pos : Position
 state   : Boolean
 skip    : Boolean
 ```
+state and skip are optional.  
 If state is false (not nil), the player is pushed out of the bed. Otherwise the
 player is put into bed.  
 If skip is true, the function doesn't change settings that are irrelevant once

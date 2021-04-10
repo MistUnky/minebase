@@ -156,14 +156,13 @@ function tab.get(player, context, items)
 		table.concat({"label[6.2,4.15;", minetest.colorize("#FFFF00", 
 			tostring(pagenum)),
 				" / ", tostring(pagemax), "]",
-				formspecs.create_rect_button_style(),
 			[[
-				list[detached:creative_trash;main;4.35,4.1;1,1;]
+				list[detached:creative_trash;main;4.02,4.1;1,1;]
 				listring[]
-				image_button[2.63,4.05;0.95,0.95;formspecs_search_icon.png;creative_search;]
-				image_button[3.45,4.05;0.95,0.95;formspecs_clear_icon.png;creative_clear;]
-				image_button[5.3,4.05;0.95,0.95;formspecs_prev_icon.png;creative_prev;]
-				image_button[7.1,4.05;0.95,0.95;formspecs_next_icon.png;creative_next;]
+				image_button[2.63,4.05;0.8,0.8;formspecs_search_icon.png;creative_search;]
+				image_button[3.25,4.05;0.8,0.8;formspecs_clear_icon.png;creative_clear;]
+				image_button[5,4.05;0.8,0.8;formspecs_prev_icon.png;creative_prev;]
+				image_button[7.25,4.05;0.8,0.8;formspecs_next_icon.png;creative_next;]
 			]],
 			"tooltip[creative_search;", esc(S("Search")), "]",
 			"tooltip[creative_clear;", esc(S("Reset")), "]",

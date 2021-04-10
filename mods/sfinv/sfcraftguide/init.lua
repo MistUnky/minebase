@@ -223,8 +223,8 @@ function sfcraftguide.recipe_fs(fs, data)
 
 	if #data.recipes > 1 then
 		table.insert(fs,
-			"image_button[5.5,1.6;0.95,0.95;formspecs_prev_icon.png;recipe_prev;]"..
-			"image_button[6.4,1.6;0.95,0.95;formspecs_next_icon.png;recipe_next;]"..
+			"image_button[5.5,1.6;0.8,0.8;formspecs_prev_icon.png;recipe_prev;]"..
+			"image_button[6.2,1.6;0.8,0.8;formspecs_next_icon.png;recipe_next;]"..
 			"tooltip[recipe_prev;"..esc(S("Previous recipe")).."]"..
 			"tooltip[recipe_next;"..esc(S("Next recipe")).."]")
 	end
@@ -274,11 +274,10 @@ function sfcraftguide.get_formspec(player)
 		"field[0.3,4.2;2.8,1.2;filter;;", esc(data.filter), "]",
 		"label[6.2,4.15;", minetest.colorize("yellow", data.pagenum), " / ",
 			data.pagemax, "]", 
-		formspecs.create_rect_button_style(),
-		"image_button[2.63,4.05;0.95,0.95;formspecs_search_icon.png;search;]",
-		"image_button[3.45,4.05;0.95,0.95;formspecs_clear_icon.png;clear;]",
-		"image_button[5.3,4.05;0.95,0.95;formspecs_prev_icon.png;prev;]",
-		"image_button[7.1,4.05;0.95,0.95;formspecs_next_icon.png;next;]",
+		"image_button[2.63,4.05;0.8,0.8;formspecs_search_icon.png;search;]",
+		"image_button[3.25,4.05;0.8,0.8;formspecs_clear_icon.png;clear;]",
+		"image_button[5,4.05;0.8,0.8;formspecs_prev_icon.png;prev;]",
+		"image_button[7.25,4.05;0.8,0.8;formspecs_next_icon.png;next;]",
 		"tooltip[search;", esc(S("Search")), "]",
 		"tooltip[clear;", esc(S("Reset")), "]",
 		"tooltip[prev;", esc(S("Previous page")), "]",

@@ -378,7 +378,9 @@ local function register_container(name, def)
 		preserve_metadata = def.preserve_metadata,
 		after_place_node = callbacks_p.after_place_node,
 		can_dig = def.can_dig or callbacks_p.can_dig,
+		on_punch = def.on_punch,
 		on_rightclick = def.on_rightclick or callbacks_p.on_rightclick,
+		on_timer = def.on_timer,
 		allow_metadata_inventory_move = def.allow_metadata_inventory_move
 			or callbacks_p.allow_metadata_inventory_move,
 		allow_metadata_inventory_put = def.allow_metadata_inventory_put 
@@ -481,7 +483,9 @@ local function register_container_opened(name, def)
 		preserve_metadata = def.preserve_metadata,
 		after_place_node = callbacks_p.after_place_node,
 		can_dig = open.can_dig,
+		on_punch = def.on_punch,
 		on_rightclick = def.on_rightclick or callbacks_p.on_rightclick,
+		on_timer = def.on_timer,
 		allow_metadata_inventory_move = def.allow_metadata_inventory_move
 			or callbacks_p.allow_metadata_inventory_move,
 		allow_metadata_inventory_put = def.allow_metadata_inventory_put 

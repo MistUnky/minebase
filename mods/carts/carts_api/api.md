@@ -72,12 +72,12 @@ return  : Serialized
 #### is_rail
 Returns true if, the node in position pos is a rail node and false otherwise.
 ```lua
-function carts.is_rail(pos[, railtype])
+function carts.is_rail(pos, railtype)
 pos             : Position
 railtype        : GroupName
 return          : Boolean
 ```
-If railtype is provided, it also checks the type of the rail.
+If the optional railtype is provided, it also checks the type of the rail.
 
 #### on_activate
 Is called by the engine to initialise a new instance with new or saved values.

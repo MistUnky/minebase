@@ -75,7 +75,6 @@ function farming.hoe_on_use(itemstack, user, pointed_thing)
 	if not minetest.is_creative_enabled(player_name) then
 		-- wear tool
 		local wdef = itemstack:get_definition()
-		print(wdef._max_uses)
 		itemstack:add_wear(65535/(wdef._max_uses - 1))
 		-- tool break sound
 		if itemstack:get_count() == 0 and wdef.sound and wdef.sound.breaks then

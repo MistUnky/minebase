@@ -24,8 +24,7 @@ containers.register_container("trash:trash", {
 		sound = "ore_sounds_metal_footstep",
 		inventory_height = 3,
 		formspec_def = {
-			overlay = formspecs.create_rect_button_style() 
-				.. "image_button[3.5,3.4;1,1;trash_discard.png;trash_discard;]\z
+			overlay = "image_button[3.5,3.4;1,1;trash_discard.png;trash_discard;]\z
 				tooltip[trash_discard;", minetest.formspec_escape(S("Discard")), "]"
 		}
 	},

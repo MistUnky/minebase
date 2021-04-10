@@ -44,7 +44,6 @@ function books.create_formspec(player_name, data)
 			button_exit[2.5,7.5;3,1;save;", esc(S("Save")), "]"})
 	else
 		return table.concat({"size[8,8]",
-			formspecs.create_rect_button_style(),
 			"label[0.5,0.5;", esc(S("by @1", owner)), "]\z
 			tablecolumns[color;text]\z
 			tableoptions[background=#00000000;highlight=#00000000;border=false]\z
