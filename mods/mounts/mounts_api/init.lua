@@ -386,7 +386,7 @@ function mounts.register_entity(name, def)
 		_pos_offset = def.pos_offset or {{x = 0, y = 0, z = 0}},
 		_detach_offset = def.detach_offset or {{x = 0, y = 0, z = 0}},
 		_max_passengers = def.max_passengers or 1,
-		_enable_crash = def.enable_crash or true,
+		_enable_crash = boolean.qq(def.enable_crash, true),
 		_max_speed_forward = def.max_speed_forward,
 		_max_speed_reverse = def.max_speed_reverse,
 		_max_speed_upward = def.max_speed_upward,

@@ -44,7 +44,7 @@ local function register_furnace(name, def)
 
 		infotext = def.infotext or txt .. (def.sub or ""),
 		sunlight_propagates = def.sunlight_propagates,
-		walkable = def.walkable or true,
+		walkable = boolean.qq(def.walkable, true),
 		damage_per_second = def.damage_per_second,
 		collision_box = def.collision_box,
 		selection_box = def.selection_box,

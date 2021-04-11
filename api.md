@@ -368,14 +368,11 @@ beds.register_bed("mod:node", {
 	drop = "mod:node_bottom",
 	stack_max = 1,
 	light_source = 0,
-	tool_capabilities = nil,
 	drawtype = "nodebox",
 	visual_scale = 1,
 	use_texture_alpha = "clip",
-	post_effect_color = nil,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	place_param2 = nil,
 	is_ground_content = false,
 	sunlight_propagates = false,
 	walkable = true,
@@ -389,7 +386,6 @@ beds.register_bed("mod:node", {
 	legacy_facedir_simple = false,
 	legacy_wallmounted = false,
 	waving = 0,
-	on_receive_fields = nil,
 })
 ```
 
@@ -694,10 +690,6 @@ books.register_book("mod:item", {
 	sound = nil,
 	on_use = books.on_use,
 	not_in_creative_inventory = nil
-
-	-- fixed
-	liquids_pointable = false,
-	tool_capabilities = nil
 })
 ```
 #### register_book_set
@@ -731,6 +723,17 @@ page_max        : Integer
 return          : Integer
 ```
 If to_right is true, the next page is returned, otherwise the previous page.
+
+Boolean
+-------
+#### qq
+Returns one, if it is not nil. Otherwise it returns two.
+```lua
+function boolean.qq(one, two)
+one     : Mixed
+two     : Mixed
+return  : Mixed
+```
 
 Buckets 
 ------
@@ -782,7 +785,6 @@ buckets.register_liquid("mod:item", {
 	
 	-- fixed
 	liquids_pointable = true,
-	tool_capabilities = nil
 })
 ```
 
@@ -973,12 +975,6 @@ carts.register_craftitem("mod:item", {
 	range = 4.0,
 	sound = nil,
 	on_place = carts.craftitem_on_place,
-
-	-- fixed
-	liquids_pointable = false,
-	light_source = 0,
-	tool_capabilities = nil,
-	node_placement_prediction = nil,
 })
 ```
 
@@ -1013,17 +1009,12 @@ carts.register_entity("mod:entity", {
 	collide_with_objects = false,
 	pointable = true,
 	visual = "mesh",
-	spritediv = nil,
-	initial_sprite_basepos = nil,
 	is_visible = true,
 	makes_footstep_sound = false,
 	automatic_rotate = 0,
 	stepheight = 0,
 	automatic_face_movement_dir = 0.0,
 	automatic_face_movement_max_rotation_per_sec = -1,
-	nametag = "",
-	nametag_color = nil,
-	nametag_bgcolor = false,
 
 	-- essential callbacks and custom attributes
 
@@ -1105,7 +1096,6 @@ carts.register_rail("mod:node", {
 	recipe = nil,
 
 	-- fixed 
-	tool_capabilities = nil
 	drawtype = "raillike",
 	visual_scale = 1.0,
 	is_ground_content = false,
@@ -1115,9 +1105,6 @@ carts.register_rail("mod:node", {
 	floodable = false,
 	liquidtype = "none",
 	leveled = 0,
-	node_box = nil,
-	collision_box = nil,
-	on_receive_fields = nil,
 })
 ```
 
@@ -1278,11 +1265,8 @@ containers.register_container("mod:node", {
 
 		-- fixed
 		liquids_pointable = false,
-		tool_capabilities = nil,
-		post_effect_color = nil,
 		paramtype = "light",
 		paramtype2 = "facedir",
-		place_param2 = nil, 
 		is_ground_content = false,
 		sunlight_propagates = false,
 		walkable = true, 
@@ -1291,11 +1275,9 @@ containers.register_container("mod:node", {
 		climbable = false, 
 		buildable_to = false, 
 		floodable = false,
-		liquidtype = "none",
 		leveled = 0,
 		legacy_wallmounted = false,
 		waving = 0,
-		on_receive_fields = nil,
 		node_opened = "mod:node_opened",
 		node_closed = "mod:node",
 	},
@@ -1347,31 +1329,15 @@ containers.register_container("mod:node", {
 		protected = def.closed.protected
 
 		-- fixed 
-		inventory_image = nil,
-		inventory_overlay = nil,
-		wield_image = nil,
-		wield_overlay = nil,
-		palette = nil,
-		color = nil,
 		wield_scale = {x = 1, y = 1, z = 1},
-		stack_max = 100,
-		range = 4.0,
 		liquids_pointable = false,
 		light_source = 0,
-		tool_capabilities = nil,
-		node_placement_prediction = nil,
 		node_dig_prediction = "air",
-		sound = nil,
 		on_place = minetest.item_place,
-		on_secondary_use = nil,
 		on_drop = minetest.item_drop,
-		on_use = nil,
-		after_use = nil,
 		use_texture_alpha = "opaque",
-		post_effect_color = nil,
 		paramtype = "light",
 		paramtype2 = "facedir",
-		place_param2 = nil, 
 		is_ground_content = false,
 		sunlight_propagates = false,
 		walkable = true, 
@@ -1385,7 +1351,6 @@ containers.register_container("mod:node", {
 		legacy_facedir_simple = true,
 		legacy_wallmounted = false,
 		waving = 0,
-		on_receive_fields = nil,
 		on_blast = open.on_blast,
 		node_closed = "mod:node",
 	}
@@ -1916,10 +1881,7 @@ doors.register_craftitem("mod:item", {
 	recipe = nil,
 
 	-- fixed
-	range = 4.0,
 	liquids_pointable = false,
-	tool_capabilities = nil,
-	sound = nil,
 })
 ```
 
@@ -2179,7 +2141,6 @@ player  : Player
 return  : Boolean
 ```
 
-
 Dungeon Loot 
 ------
 #### filter_rooms
@@ -2204,7 +2165,6 @@ Room {
 	size = Square,
 	typ3 = "normal" OR "desert" OR "sandstone" OR "ice"
 }
-walls is a list of zero, one or more WallDefs.
 
 WallDef {
 	pos = Position,
@@ -2212,6 +2172,7 @@ WallDef {
 }
 
 ```
+walls is a list of zero, one or more WallDefs.
 
 #### get_loot
 Returns the loot available in a specified position and dungeontype.
@@ -2227,8 +2188,13 @@ LootDefList is a list of LootDefs.
 LootDefParts is a corresponding list of their part values.
 
 #### populate_chest
+Adds items to the chest on position pos.
 ```lua
+function dungeon_loot.populate_chest(pos, dungeontype)
+pos             : Position
+dungeontype     : DungeonTypeList
 ```
+
 #### register_loot
 Registers a single item or a sequence of items as dungeon loot.
 ```lua
@@ -2252,12 +2218,56 @@ Earth
 ------
 #### define_defaults
 ```lua
+function earth.define_default(def)
+def     : EarthDefaults
+
+EarthDefaults {
+	stone = Name
+}
+
 ```
+
 #### register_block
 ```lua
 ```
 #### register_brick
+Registers a brick node.
 ```lua
+function earth.register_brick(name, def)
+name    : Name
+def     : BrickDef
+
+earth.register_brick("mod:node", {
+	-- essential
+
+	-- optional
+	description = "mod_node"
+	short_description = "",
+	groups = {cracky = 2},
+	palette = nil,
+	color = nil,
+	stack_max = 100,
+	range = 4,
+	light_source = 0,
+	node_placement_prediction = nil,
+	node_dig_prediction = "air",
+	sound = nil,
+	tiles = {"mod_node_brick.png"},
+	overlay_tiles = nil,
+	special_tiles = nil,
+	use_texture_alpha = false,
+	post_effect_color = nil,
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	is_ground_content = true,
+	walkable = true, 
+	diggable = true,
+	leveled = nil,
+	leveled_max = nil,
+	sounds = sounds.get_defaults("earth_sounds:stone")
+	drop = nil,
+})
+
 ```
 #### register_cobble
 ```lua
@@ -2280,8 +2290,43 @@ Earth
 #### register_sand_nodes
 ```lua
 ```
+
 #### register_stone
+Registers a stone node.
 ```lua
+function earth.register_stone(name, def)
+name    : Name
+def     : StoneDef
+
+earth.register_stone("mod:node", {
+	-- essential
+
+	-- optional
+	description = "mod_node",
+	short_description = "",
+	groups = {cracky = 3},
+	palette = nil,
+	color = nil,
+	stack_max = 100,
+	range = 4,
+	light_source = 0,
+	node_placement_prediction = nil,
+	node_dig_prediction = "air",
+	sound = nil,
+	tiles = {"mod_node.png"},
+	overlay_tiles = nil,
+	special_tiles = nil,
+	use_texture_alpha = "opaque",
+	post_effect_color = nil,
+	is_ground_content = true,
+	walkable = true, 
+	diggable = true,
+	leveled = nil,
+	leveled_max = nil,
+	sounds = sounds.get_defaults("earth_sounds:stone")
+	drop = nil,
+})
+
 ```
 #### register_stone_nodes
 ```lua

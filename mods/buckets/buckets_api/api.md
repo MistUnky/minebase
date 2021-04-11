@@ -48,6 +48,5 @@ buckets.register_liquid("mod:item", {
 	
 	-- fixed
 	liquids_pointable = true,
-	tool_capabilities = nil
 })
 ```

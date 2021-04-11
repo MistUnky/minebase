@@ -10,10 +10,28 @@ function earth.register_stone(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name, {
 		description = def.description or txt,
-		tiles = def.tiles or {txt .. ".png"},
-		drop = def.drop,
+		short_description = def.short_description,
 		groups = def.groups or {cracky = 3},
-		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
+		palette = def.palette,
+		color = def.color,
+		stack_max = def.stack_max,
+		range = def.range,
+		light_source = def.light_source,
+		node_placement_prediction = def.node_placement_prediction,
+		node_dig_prediction = def.node_dig_prediction,
+		sound = def.sound,
+		tiles = def.tiles or {txt .. ".png"},
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha,
+		post_effect_color = def.post_effect_color,
+		is_ground_content = def.is_ground_content,
+		walkable = def.walkable, 
+		diggable = def.diggable, 
+		leveled = def.leveled,
+		leveled_max = def.leveled_max,
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone"),
+		drop = def.drop,
 	})
 end
 
@@ -21,12 +39,30 @@ function earth.register_brick(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name .. "_brick", {
 		description = def.description or txt,
+		short_description = def.short_description,
+		groups = def.groups or {cracky = 2},
+		palette = def.palette,
+		color = def.color,
+		stack_max = def.stack_max,
+		range = def.range,
+		light_source = def.light_source,
+		node_placement_prediction = def.node_placement_prediction,
+		node_dig_prediction = def.node_dig_prediction,
+		sound = def.sound,
+		tiles = def.tiles or {txt .. "_brick.png"},
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha,
+		post_effect_color = def.post_effect_color,
 		paramtype2 = def.paramtype2 or "facedir",
 		place_param2 = def.place_param2 or 0,
-		tiles = def.tiles or {txt .. "_brick.png"},
-		is_ground_content = def.is_ground_content or false,
-		groups = def.groups or {cracky = 2},
-		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
+		is_ground_content = def.is_ground_content,
+		walkable = def.walkable, 
+		diggable = def.diggable,
+		leveled = def.leveled,
+		leveled_max = def.leveled_max,
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone"),
+		drop = def.drop,
 	})
 end
 
@@ -87,6 +123,7 @@ function earth.register_sand(name, def)
 		description = def.description or txt,
 		tiles = def.tiles or {txt .. ".png"},
 		groups = def.groups or {crumbly = 3, falling_node = 1, sand = 1},
+		is_ground_content = def.is_ground_content or false,
 		sounds = def.sounds or sounds.get_defaults("earth_sounds:sand")
 	})
 end
@@ -155,6 +192,7 @@ function earth.register_node_with(name, def)
 				tileable_vertical = false}
 		},
 		groups = def.groups or {crumbly = 3, soil = 1, spreading_dirt_type = 1},
+		is_ground_content = def.is_ground_content or false,
 		drop = def.drop or name,
 		sounds = def.sounds or sounds.get_defaults("earth_sounds:dirt", {
 			footstep = {name = "earth_grass_footstep", gain = def.gain or 0.4},

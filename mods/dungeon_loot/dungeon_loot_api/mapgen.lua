@@ -57,6 +57,9 @@ function dungeon_loot.find_walls(cpos)
 end
 
 function dungeon_loot.populate_chest(pos, dungeontype)
+	local inv = minetest.get_meta(pos):get_inventory()
+	if not inv then return end
+
 	local item_list, parts = dungeon_loot.get_loot(pos, dungeontype)
 	item_list = rand.pick(parts, item_list, rand.dy(math.min(#item_list, 
 		dungeon_loot.STACKS_PER_CHEST_MAX)))
@@ -79,7 +82,6 @@ function dungeon_loot.populate_chest(pos, dungeontype)
 		end
 	end
 
-	local inv = minetest.get_meta(pos):get_inventory()
 	for _, item in ipairs(items) do
 		inv:add_item("main", item)
 	end

@@ -1,4 +1,3 @@
-
 Dungeon Loot 
 ------
 #### filter_rooms
@@ -23,7 +22,6 @@ Room {
 	size = Square,
 	typ3 = "normal" OR "desert" OR "sandstone" OR "ice"
 }
-walls is a list of zero, one or more WallDefs.
 
 WallDef {
 	pos = Position,
@@ -31,6 +29,7 @@ WallDef {
 }
 
 ```
+walls is a list of zero, one or more WallDefs.
 
 #### get_loot
 Returns the loot available in a specified position and dungeontype.
@@ -46,8 +45,13 @@ LootDefList is a list of LootDefs.
 LootDefParts is a corresponding list of their part values.
 
 #### populate_chest
+Adds items to the chest on position pos.
 ```lua
+function dungeon_loot.populate_chest(pos, dungeontype)
+pos             : Position
+dungeontype     : DungeonTypeList
 ```
+
 #### register_loot
 Registers a single item or a sequence of items as dungeon loot.
 ```lua

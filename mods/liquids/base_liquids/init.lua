@@ -55,7 +55,7 @@ liquids.register_liquid("base_liquids:lava", {
 		liquid_renewable = false,
 		damage_per_second = 4 * 2,
 		post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-		groups = {lava = 3, liquid = 2, igniter = 1},
+		groups = {lava = 3, liquid = 2, igniter = 1, falling_node = 1, float = 1},
 	},
 	flowing = {
 		description = S("Flowing Lava"),
@@ -84,6 +84,7 @@ minetest.register_node("base_liquids:snow", {
 	buildable_to = true,
 	floodable = true,
 	drawtype = "nodebox",
+	is_ground_content = false,
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -145,7 +146,7 @@ minetest.register_node("base_liquids:snow_block", {
 	tiles = {"base_liquids_snow.png"},
 	groups = {crumbly = 3, cools_lava = 1, snowy = 1},
 	sounds = sounds.get_defaults("liquid_sounds:snow"),
-
+	is_ground_content = false,
 	on_construct = function(pos)
 		pos.y = pos.y - 1
 		if minetest.get_node(pos).name == "base_earth:dirt_with_grass" then
@@ -161,6 +162,7 @@ minetest.register_node("base_liquids:cave_ice", {
 	paramtype = "light",
 	groups = {cracky = 3, cools_lava = 1, slippery = 3,
 		not_in_creative_inventory = 1},
+	is_ground_content = false,
 	drop = "base_liquids:ice",
 	sounds = sounds.get_defaults("liquid_sounds:ice"),
 })
@@ -180,6 +182,7 @@ minetest.register_node("base_liquids:dirt_with_snow", {
 	tiles = {"base_liquids_snow.png", "base_earth_dirt.png",
 	{name = "base_earth_dirt.png^base_liquids_snow_side.png",
 		tileable_vertical = false}},
+	is_ground_content = false,
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1, snowy = 1},
 	sounds = sounds.get_defaults("earth_sounds:dirt", {
 		footstep = {name = "liquids_api_snow_footstep", gain = 0.2},

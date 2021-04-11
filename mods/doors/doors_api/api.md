@@ -122,10 +122,7 @@ doors.register_craftitem("mod:item", {
 	recipe = nil,
 
 	-- fixed
-	range = 4.0,
 	liquids_pointable = false,
-	tool_capabilities = nil,
-	sound = nil,
 })
 ```
 

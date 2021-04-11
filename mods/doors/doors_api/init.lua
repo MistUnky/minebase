@@ -354,6 +354,7 @@ function doors.register_craftitem(name, def)
 		color = def.color,
 		wield_scale = def.wield_scale,
 		stack_max = def.stack_max,
+		range = def.range,
 		light_source = def.light_source,
 		node_placement_prediction = def.node_placement_prediction,
 		node_dig_prediction = def.node_dig_prediction,
@@ -368,14 +369,6 @@ function doors.register_craftitem(name, def)
 			output = name,
 			recipe = def.recipe,
 		})
-	end
-end
-
-local function qq(one, two)
-	if one == false then
-		return one
-	else
-		return one or two
 	end
 end
 
@@ -397,7 +390,7 @@ local function register_door(name, def)
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
-		sunlight_propagates = qq(def.sunlight_propagates, def.sunlight_propagates),
+		sunlight_propagates = boolean.qq(def.sunlight_propagates, true),
 		walkable = true,
 		buildable_to = false,
 		mesh = def.mesh,
@@ -532,7 +525,7 @@ local function register_trapdoor(name, def)
 		paramtype2 = "facedir",
 		place_param2 = def.place_param2, 
 		is_ground_content = false,
-		sunlight_propagates = qq(def.sunlight_propagates, true),
+		sunlight_propagates = boolean.qq(def.sunlight_propagates, true),
 		walkable = true,
 		buildable_to = false,
 		node_box = def.node_box,

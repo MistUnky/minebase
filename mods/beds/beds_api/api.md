@@ -176,14 +176,11 @@ beds.register_bed("mod:node", {
 	drop = "mod:node_bottom",
 	stack_max = 1,
 	light_source = 0,
-	tool_capabilities = nil,
 	drawtype = "nodebox",
 	visual_scale = 1,
 	use_texture_alpha = "clip",
-	post_effect_color = nil,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	place_param2 = nil,
 	is_ground_content = false,
 	sunlight_propagates = false,
 	walkable = true,
@@ -197,7 +194,6 @@ beds.register_bed("mod:node", {
 	legacy_facedir_simple = false,
 	legacy_wallmounted = false,
 	waving = 0,
-	on_receive_fields = nil,
 })
 ```
 

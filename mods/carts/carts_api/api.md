@@ -185,12 +185,6 @@ carts.register_craftitem("mod:item", {
 	range = 4.0,
 	sound = nil,
 	on_place = carts.craftitem_on_place,
-
-	-- fixed
-	liquids_pointable = false,
-	light_source = 0,
-	tool_capabilities = nil,
-	node_placement_prediction = nil,
 })
 ```
 
@@ -225,17 +219,12 @@ carts.register_entity("mod:entity", {
 	collide_with_objects = false,
 	pointable = true,
 	visual = "mesh",
-	spritediv = nil,
-	initial_sprite_basepos = nil,
 	is_visible = true,
 	makes_footstep_sound = false,
 	automatic_rotate = 0,
 	stepheight = 0,
 	automatic_face_movement_dir = 0.0,
 	automatic_face_movement_max_rotation_per_sec = -1,
-	nametag = "",
-	nametag_color = nil,
-	nametag_bgcolor = false,
 
 	-- essential callbacks and custom attributes
 
@@ -317,7 +306,6 @@ carts.register_rail("mod:node", {
 	recipe = nil,
 
 	-- fixed 
-	tool_capabilities = nil
 	drawtype = "raillike",
 	visual_scale = 1.0,
 	is_ground_content = false,
@@ -327,9 +315,6 @@ carts.register_rail("mod:node", {
 	floodable = false,
 	liquidtype = "none",
 	leveled = 0,
-	node_box = nil,
-	collision_box = nil,
-	on_receive_fields = nil,
 })
 ```
 

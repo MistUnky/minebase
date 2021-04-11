@@ -50,14 +50,16 @@ function liquids.register_liquid_node(name, def)
 		drowning = def.drowning or 1,
 		light_source = def.light_source,
 		liquidtype = def.liquidtype,
+		liquid_range = def.liquid_range or 8,
 		liquid_alternative_flowing = name .. "_flowing",
 		liquid_alternative_source = name .. "_source",
-		liquid_renewable = def.liquid_renewable or true,
+		liquid_renewable = boolean.qq(def.liquid_renewable, true),
 		liquid_viscosity = def.liquid_viscosity or 1,
 		damage_per_second = def.damage_per_second,
 		post_effect_color = def.post_effekt_color or {a = 103, r = 30, g = 68, 
 			b = 90},
-		groups = def.groups or {water = 3, liquid = 3, cools_lava = 1},
+		groups = def.groups or {water = 3, liquid = 3, cools_lava = 1, 
+			falling_node = 1, float = 1},
 		sounds = def.sounds or sounds.get_defaults("liquid_sounds:water"),
 	})
 end

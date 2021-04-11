@@ -71,10 +71,6 @@ books.register_book("mod:item", {
 	sound = nil,
 	on_use = books.on_use,
 	not_in_creative_inventory = nil
-
-	-- fixed
-	liquids_pointable = false,
-	tool_capabilities = nil
 })
 ```
 #### register_book_set

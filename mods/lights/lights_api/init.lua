@@ -128,7 +128,7 @@ function lights.register_light(name, def)
 		paramtype2 = def.paramtype2,
 		sunlight_propagates = true,
 		is_ground_content = false,
-		walkable = def.walkable or true,
+		walkable = boolean.qq(def.walkable, true),
 		light_source = lights.LIGHT_MAX,
 		drop = def.drop,
 		groups = def.groups or {dig_immediate = 3},
