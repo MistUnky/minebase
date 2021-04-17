@@ -1,7 +1,5 @@
 mounts = {}
 
-local crash_threshold = 6.5		-- ignored if enable_crash is disabled
-
 ------------------------------------------------------------------------------
 
 local function node_is(pos)
@@ -59,15 +57,15 @@ local function after_crash(entity)
 	entity.object:remove()
 end
 
-function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim, 
-	jump_height, can_fly, can_go_down, can_go_up, enable_crash)
+function mounts.drive(entity, dtime, moveresult, is_mob, moving_anim, 
+	stand_anim, jump_height, can_fly, can_go_down, can_go_up, crash_threshold)
 	-- Sanity checks
 	local ent_def = minetest.registered_entities[entity._name]
 
 	can_fly = can_fly or ent_def._can_fly
 	can_go_down = can_go_down or ent_def._can_go_down
 	can_go_up = can_go_up or ent_def._can_go_up
-	enable_crash = enable_crash or ent_def._enable_crash
+	crash_threshold = crash_threshold or ent_def._crash_threshold
 
 	for seat, passenger in pairs(entity._passengers) do
 		if not passenger:get_attach() then
@@ -264,8 +262,10 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 	entity.object:set_acceleration(new_acce)
 
 	-- CRASH!
-	if enable_crash then
+	--[==[
+	if moveresult.collides then
 		local intensity = entity._v2 - v
+		print(dump(moveresult))
 		if intensity >= crash_threshold then
 			if is_mob then
 				entity.object:set_hp(entity.object:get_hp() - intensity)
@@ -288,8 +288,13 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 					the table.
 				]]
 
-				local i = rand.az(1, #entity._drop_on_destroy)
-				local j = rand.az(2, #entity._drop_on_destroy)
+				local i, j
+				if #entity._drop_on_destroy > 1 then
+					i = rand.az(1, #entity._drop_on_destroy or 1)
+					j = rand.az(2, #entity._drop_on_destroy or 2)
+				else
+					i, j = 1, 1
+				end
 
 				minetest.add_item(pos, entity._drop_on_destroy[i])
 				if i ~= j then
@@ -302,6 +307,7 @@ function mounts.drive(entity, dtime, is_mob, moving_anim, stand_anim,
 			end
 		end
 	end
+	--]==]
 
 	entity._v2 = v
 end
@@ -310,29 +316,47 @@ function mounts.on_rightclick(entity, clicker)
 	return seats.on_rightclick(entity, clicker, mounts.attach)
 end
 
+local function fromStatic(str)
+	local out = minetest.deserialize(str)
+	if type(out) == "table" then
+		for key, stat in pairs(out) do
+			if type(stat) == "string" and stat:find("^return") then
+				out[key] = fromStatic(stat)
+			else
+				out[key] = stat
+			end
+		end
+	end
+	return out
+end
+
+local function toStatic(tab)
+	local out = {}
+	for key, stat in pairs(tab) do
+		local typ3 = type(stat)
+		if typ3 == 'table' then
+			out[key] = minetest.serialize(toStatic(stat))
+		elseif typ3 ~= 'function' and typ3 ~= 'nil' and typ3 ~= 'userdata' then
+			out[key] = tab[key]
+		end
+	end
+	return out
+end
+
 function mounts.on_activate(entity, staticdata, dtime_s)
 	entity.object:set_armor_groups({immortal = 1})
-	local data = minetest.deserialize(staticdata)
+	local data = fromStatic(staticdata)
 	if data then
 		for key, stat in pairs(data) do
-			if key == "owner" then print(stat) end
 			entity[key] = stat
 		end
 	end
 	seats.on_activate(entity)
-	print("owner: ", entity._owner)
 	entity._v2 = entity._v
 end
 
 function mounts.get_staticdata(entity)
-	local data = {}
-	for key, stat in pairs(entity) do
-		local typ3 = type(stat)
-		if typ3 ~= 'function' and typ3 ~= 'nil' and typ3 ~= 'userdata' then
-			data[key] = entity[key]
-		end
-	end
-	return core.serialize(data)
+	return minetest.serialize(toStatic(entity))
 end
 
 local function after_punch(entity)
@@ -351,12 +375,19 @@ function mounts.on_punch(entity, puncher)
 		seats.detach_all(entity)
 		-- delay remove to ensure player is detached
 		minetest.after(0.1, after_punch, entity)
-		puncher:get_inventory():add_item("main", entity._name)
+		if not minetest.is_creative_enabled(punchername) then
+			puncher:get_inventory():add_item("main", entity._name)
+		else
+			local inv = puncher:get_inventory()
+			if not inv:contains_item("main", entity._name) then
+				inv:add_item("main", entity._name)
+			end
+		end
 	end
 end
 
-function mounts.on_step(entity, dtime)
-	mounts.drive(entity, dtime, false, nil, nil, 0)
+function mounts.on_step(entity, dtime, moveresult)
+	mounts.drive(entity, dtime, moveresult, false, nil, nil, 0)
 end
 
 function mounts.register_entity(name, def)
@@ -386,7 +417,7 @@ function mounts.register_entity(name, def)
 		_pos_offset = def.pos_offset or {{x = 0, y = 0, z = 0}},
 		_detach_offset = def.detach_offset or {{x = 0, y = 0, z = 0}},
 		_max_passengers = def.max_passengers or 1,
-		_enable_crash = boolean.qq(def.enable_crash, true),
+		_crash_threshold = def.crash_threshold or 2,
 		_max_speed_forward = def.max_speed_forward,
 		_max_speed_reverse = def.max_speed_reverse,
 		_max_speed_upward = def.max_speed_upward,
@@ -434,8 +465,11 @@ function mounts.on_place(itemstack, placer, pointed_thing)
 	else
 		ent:set_yaw(placer:get_look_horizontal() - math.pi / 2)
 	end
-	ent:get_luaentity()._owner = placer:get_player_name()
-	itemstack:take_item()
+	local name = placer:get_player_name()
+	ent:get_luaentity()._owner = name
+	if not minetest.is_creative_enabled(name) then
+		itemstack:take_item()
+	end
 	return itemstack
 end
 
