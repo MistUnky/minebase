@@ -186,7 +186,8 @@ minetest.register_node("base_liquids:dirt_with_snow", {
 	groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1, snowy = 1},
 	sounds = sounds.get_defaults("earth_sounds:dirt", {
 		footstep = {name = "liquids_api_snow_footstep", gain = 0.2},
-	})
+	}),
+	drop = "base_earth:dirt"
 })
 
 earth.register_stone_nodes("base_liquids:obsidian", {

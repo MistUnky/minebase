@@ -13,7 +13,7 @@ mounts.register_mount("boats:boat", {
 		stepheight = 0,
 		visual = "mesh",
 		terrain_type = 2,
-		max_speed_forward = 3,
+		max_speed_forward = 4,
 		max_speed_reverse = 3,
 		accel = 3,
 		braking = 3,

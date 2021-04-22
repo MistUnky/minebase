@@ -38,21 +38,21 @@ function books.create_formspec(player_name, data)
 
 	local esc = minetest.formspec_escape
 	if owner == player_name then
-		return table.concat({"size[8,8]\z
-			field[0.5,1;7.5,0;title;",  esc(S("Title:")), ";", esc(title), "]\z
-			textarea[0.5,1.5;7.5,7;text;", esc(S("Contents:")), ";", esc(text), "]\z
-			button_exit[2.5,7.5;3,1;save;", esc(S("Save")), "]"})
+		return table.concat({"size[8,8]",
+			"field[0.5,1;7.5,0;title;",  esc(S("Title:")), ";", esc(title), "]",
+			"textarea[0.5,1.5;7.5,7;text;", esc(S("Contents:")), ";", esc(text), "]",
+			"button_exit[2.5,7.5;3,1;save;", esc(S("Save")), "]"})
 	else
 		return table.concat({"size[8,8]",
-			"label[0.5,0.5;", esc(S("by @1", owner)), "]\z
-			tablecolumns[color;text]\z
-			tableoptions[background=#00000000;highlight=#00000000;border=false]\z
-			table[0.4,0;7,0.5;title;#FFFF00,", esc(title), "]\z
-			textarea[0.5,1.5;7.5,7;;",
-				minetest.formspec_escape(string ~= "" and string or text), ";]\z
-			image_button[2.3,7.6;0.9,0.9;formspecs_prev_icon.png;book_prev;]\z
-			label[3.2,7.7;", esc(S("Page @1 of @2", page, page_max)), "]\z
-			image_button[4.9,7.6;0.9,0.9;formspecs_next_icon.png;book_next;]"})
+			"label[0.5,0.5;", esc(S("by @1", owner)), "]",
+			"tablecolumns[color;text]",
+			"tableoptions[background=#00000000;highlight=#00000000;border=false]",
+			"table[0.4,0;7,0.5;title;#FFFF00,", esc(title), "]",
+			"textarea[0.5,1.5;7.5,7;;",
+				minetest.formspec_escape(string ~= "" and string or text), ";]",
+			"image_button[2.3,7.6;0.9,0.9;formspecs_prev_icon.png;book_prev;]",
+			"label[3.2,7.7;", esc(S("Page @1 of @2", page, page_max)), "]",
+			"image_button[4.9,7.6;0.9,0.9;formspecs_next_icon.png;book_next;]"})
 	end
 end
 

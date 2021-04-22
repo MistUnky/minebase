@@ -10,8 +10,8 @@ formspecs = {listcolors = {
 }
 
 function formspecs.create_listcolors(lc)
-	return "bgcolor[#080808BB;true]\z
-		listcolors[" .. lc.slot_bg_normal .. ";" .. lc.slot_bg_hover .. ";" 
+	return "bgcolor[#080808BB;true]" 
+		.. "listcolors[" .. lc.slot_bg_normal .. ";" .. lc.slot_bg_hover .. ";" 
 		.. lc.slot_border .. ";" .. lc.tooltip_bgcolor .. ";" 
 		.. lc.tooltip_fontcolor .. "]"
 end
@@ -47,12 +47,12 @@ function formspecs.get_hotbar_bg(x,y)
 	return out
 end
 
-formspecs.gui_survival_form = "size[8,8.5]\z
-	list[current_player;main;0,4.25;8,1;]\z
-	list[current_player;main;0,5.5;8,3;8]\z
-	list[current_player;craft;1.75,0.5;3,3;]\z
-	list[current_player;craftpreview;5.75,1.5;1,1;]\z
-	image[4.75,1.5;1,1;formspecs_arrow_bg.png^[transformR270]\z
-	listring[current_player;main]\z
-	listring[current_player;craft]"
+formspecs.gui_survival_form = "size[8,8.5]" 
+	.. "list[current_player;main;0,4.25;8,1;]" 
+	.. "list[current_player;main;0,5.5;8,3;8]" 
+	.. "list[current_player;craft;1.75,0.5;3,3;]" 
+	.. "list[current_player;craftpreview;5.75,1.5;1,1;]" 
+	.. "image[4.75,1.5;1,1;formspecs_arrow_bg.png^[transformR270]"
+	.. "listring[current_player;main]"
+	.. "listring[current_player;craft]"
 	.. formspecs.get_hotbar_bg(0,4.25)

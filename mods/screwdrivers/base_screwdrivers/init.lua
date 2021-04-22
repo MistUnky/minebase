@@ -4,8 +4,8 @@
 local S = minetest.get_translator("base_screwdrivers")
 
 screwdrivers.register_screwdriver("base_screwdrivers:screwdriver", {
-	description = S("Screwdriver") .. "\n" .. S("left-click rotates face, right\z
-		-click rotates axis"),
+	description = S("Screwdriver") .. "\n" .. S("left-click rotates face, right"
+		.. "-click rotates axis"),
 	on_use = function(itemstack, user, pointed_thing)
 		screwdrivers.handler(itemstack, user, pointed_thing, 
 			screwdrivers.ROTATE_FACE, 200)
@@ -23,9 +23,9 @@ screwdrivers.register_screwdriver("base_screwdrivers:screwdriver", {
 })
 
 screwdrivers.register_screwdriver("base_screwdrivers:exzet", {
-	description = S("Exzet") .. "\n" .. S("left-click push from left, \z
-		right-click push from right") .. ",\n" .. S("aux + left-click pull to \z
-		left, aux + right-click pull to right"),
+	description = S("Exzet") .. "\n" .. S("left-click push from left, "
+		.. "right-click push from right") .. ",\n" .. S("aux + left-click pull to "
+		.. "left, aux + right-click pull to right"),
 	on_use = function(itemstack, user, pointed_thing)
 		screwdrivers.exzet(itemstack, user, pointed_thing, 1)
 		return itemstack

@@ -101,39 +101,39 @@ function furnaces.register_furnace(name, def)
 end
 
 function furnaces.get_active_formspec(fuel_percent, item_percent)
-	return table.concat({"size[8,8.5]\z
-		list[context;src;2.75,0.5;1,1;]\z
-		list[context;fuel;2.75,2.5;1,1;]\z
-		image[2.75,1.5;1,1;furnaces_api_fire_bg.png^[lowpart:",
-		(fuel_percent), ":furnaces_api_fire_fg.png]\z
-		image[3.75,1.5;1,1;formspecs_arrow_bg.png^[lowpart:",
-		(item_percent), ":formspecs_arrow_fg.png^[transformR270]\z
-		list[context;dst;4.75,0.96;2,2;]\z
-		list[current_player;main;0,4.25;8,1;]\z
-		list[current_player;main;0,5.5;8,3;8]\z
-		listring[context;dst]\z
-		listring[current_player;main]\z
-		listring[context;src]\z
-		listring[current_player;main]\z
-		listring[context;fuel]\z
-		listring[current_player;main]",
+	return table.concat({"size[8,8.5]",
+		"list[context;src;2.75,0.5;1,1;]",
+		"list[context;fuel;2.75,2.5;1,1;]",
+		"image[2.75,1.5;1,1;furnaces_api_fire_bg.png^[lowpart:",
+		(fuel_percent), ":furnaces_api_fire_fg.png]",
+		"image[3.75,1.5;1,1;formspecs_arrow_bg.png^[lowpart:",
+		(item_percent), ":formspecs_arrow_fg.png^[transformR270]",
+		"list[context;dst;4.75,0.96;2,2;]",
+		"list[current_player;main;0,4.25;8,1;]",
+		"list[current_player;main;0,5.5;8,3;8]",
+		"listring[context;dst]",
+		"listring[current_player;main]",
+		"listring[context;src]",
+		"listring[current_player;main]",
+		"listring[context;fuel]",
+		"listring[current_player;main]",
 		formspecs.get_hotbar_bg(0, 4.25)})
 end
 
-furnaces.inactive_formspec = "size[8,8.5]\z
-	list[context;src;2.75,0.5;1,1;]\z
-	list[context;fuel;2.75,2.5;1,1;]\z
-	image[2.75,1.5;1,1;furnaces_api_fire_bg.png]\z
-	image[3.75,1.5;1,1;formspecs_arrow_bg.png^[transformR270]\z
-	list[context;dst;4.75,0.96;2,2;]\z
-	list[current_player;main;0,4.25;8,1;]\z
-	list[current_player;main;0,5.5;8,3;8]\z
-	listring[context;dst]\z
-	listring[current_player;main]\z
-	listring[context;src]\z
-	listring[current_player;main]\z
-	listring[context;fuel]\z
-	listring[current_player;main]"
+furnaces.inactive_formspec = "size[8,8.5]"
+	.. "list[context;src;2.75,0.5;1,1;]"
+	.. "list[context;fuel;2.75,2.5;1,1;]"
+	.. "image[2.75,1.5;1,1;furnaces_api_fire_bg.png]"
+	.. "image[3.75,1.5;1,1;formspecs_arrow_bg.png^[transformR270]"
+	.. "list[context;dst;4.75,0.96;2,2;]"
+	.. "list[current_player;main;0,4.25;8,1;]"
+	.. "list[current_player;main;0,5.5;8,3;8]"
+	.. "listring[context;dst]"
+	.. "listring[current_player;main]"
+	.. "listring[context;src]"
+	.. "listring[current_player;main]"
+	.. "listring[context;fuel]"
+	.. "listring[current_player;main]"
 	.. formspecs.get_hotbar_bg(0, 4.25)
 
 function furnaces.can_dig(pos, player)

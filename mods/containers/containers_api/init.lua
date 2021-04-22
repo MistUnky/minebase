@@ -51,12 +51,12 @@ function containers.create_formspec(inventory1, def)
 		})
 	else
 		return table.concat({
-			"size[8,9]\z
-			list[", inventory1, ";main;0,0.3;8,4;]\z
-			list[current_player;main;0,4.85;8,1;]\z
-			list[current_player;main;0,6.08;8,3;8]\z
-			listring[", inventory1, ";main]\z
-			listring[current_player;main]",
+			"size[8,9]",
+			"list[", inventory1, ";main;0,0.3;8,4;]",
+			"list[current_player;main;0,4.85;8,1;]",
+			"list[current_player;main;0,6.08;8,3;8]",
+			"listring[", inventory1, ";main]",
+			"listring[current_player;main]",
 			formspecs.get_hotbar_bg(0, 4.85)
 		})
 	end
