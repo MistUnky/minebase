@@ -40,7 +40,7 @@ lights.register_torch("torches:common", {
 })
 
 minetest.register_craft({
-	output = "torches:common_floor 4",
+	output = "torches:common 4",
 	recipe = {
 		{"base_ores:coal_lump"},
 		{"group:stick"},

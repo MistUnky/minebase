@@ -138,20 +138,16 @@ minetest.register_node("cactus:large_seedling", {
 	walkable = false,
 	selection_box = {
 		type = "fixed",
-		fixed = {
-			-5 / 16, -0.5, -5 / 16,
-			5 / 16, 0.5, 5 / 16
-		}
+		fixed = {-5 / 16, -0.5, -5 / 16, 5 / 16, -0.3, 5 / 16}
 	},
 	groups = {choppy = 3, dig_immediate = 3, attached_node = 1},
 	sounds = sounds.get_defaults("tree_sounds:wood"),
+	_minp = {x = -2, y = -1, z = -2},
+	_maxp = {x = 2, y = 5, z = 2},
+	_max_interval = 4,
 
 	on_place = function(itemstack, placer, pointed_thing)
-		itemstack = trees.sapling_on_place(itemstack, placer, pointed_thing,
-			"cactus:large_seedling",
-			{x = -2, y = -1, z = -2},
-			{x = 2, y = 5, z = 2},
-			4)
+		itemstack = trees.sapling_on_place(itemstack, placer, pointed_thing)
 
 		return itemstack
 	end,

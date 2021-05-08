@@ -6,12 +6,9 @@ local S = minetest.get_translator("base_grasses")
 grasses.register_grass_set("base_grasses:grass", {
 	first = {
 		description = S("Grass"),
-		height = -5,
 		grass_type = "normal_grass"
 	},
-	other = {
-		height = -3,
-	},
+	other = {},
 	max = 5
 })
 
@@ -19,23 +16,18 @@ grasses.register_grass_set("base_grasses:dry_grass", {
 	first = {
 		description = S("Dry Grass"),
 		grass_type = "dry_grass",
-		height = -3
 	},
-	other = {
-		height = -1
-	},
+	other = {},
 	max = 5
 })
 
 grasses.register_grass_set("base_grasses:fern", {
 	first = {
 		description = S("Fern"),
-		height = -0.25,
 		grass_type = "fern"
 	},
 	other = {
 		visual_scale = 2,
-		height = -0.25,
 	},
 	max = 3
 })
@@ -43,7 +35,6 @@ grasses.register_grass_set("base_grasses:fern", {
 grasses.register_grass_set("base_grasses:marram_grass", {
 	first = {
 		description = S("Marram Grass"),
-		height = -0.25,
 		grass_type = "marram_grass"
 	},
 	other = {},
@@ -75,7 +66,6 @@ grasses.register_grass_set("base_grasses:jungle_grass", {
 	first = {
 		description = S("Jungle Grass"),
 		visual_scale = 1.69,
-		height = 0.5,
 		burntime = 3,
 		grass_type = "jungle_grass"
 	},

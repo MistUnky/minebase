@@ -80,7 +80,7 @@ function hydrophytes.register_phyte(name, def)
 			type = "fixed",
 			fixed = {
 					{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-					{-4/16, 0.5, -4/16, 4/16, 1.5, 4/16},
+					{-4/16, 0.5, -4/16, 4/16, 0.7, 4/16},
 			},
 		},
 		node_dig_prediction = def.node_dig_prediction or def.root,

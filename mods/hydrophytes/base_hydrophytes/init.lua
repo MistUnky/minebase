@@ -55,7 +55,7 @@ hydrophytes.register_phyte_set("base_hydrophytes:kelp", {
 			type = "fixed",
 			fixed = {
 					{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-					{-2/16, 0.5, -2/16, 2/16, 3.5, 2/16},
+					{-2/16, 0.5, -2/16, 2/16, 0.7, 2/16},
 			},
 		},
 		sounds = sounds.get_defaults("earth_sounds:sand", {

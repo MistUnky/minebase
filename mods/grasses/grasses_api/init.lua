@@ -33,7 +33,7 @@ function grasses.register_grass(name, def)
 		sounds = sounds.get_defaults("tree_sounds:leaves"),
 		selection_box = def.selection_box or {
 			type = "fixed",
-			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, def.height or -5, 6 / 16},
+			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, def.height or -0.3, 6 / 16},
 		},
 		on_place = def.on_place,
 		_base_name = def.base_name,

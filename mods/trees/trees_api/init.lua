@@ -290,7 +290,7 @@ local function sapling_on_timer(pos)
 		minetest.get_node_timer(pos):start(300)
 	else
 		return minetest.registered_nodes[minetest.get_node(pos).name]
-			.grow_sapling(pos)
+			._grow_sapling(pos)
 	end
 end
 
@@ -309,7 +309,7 @@ function trees.register_sapling(name, def)
 		on_timer = sapling_on_timer,
 		selection_box = def.selection_box or {
 			type = "fixed",
-			fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
+			fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, -0.3, 4 / 16}
 		},
 		groups = def.groups or {snappy = 2, dig_immediate = 3, 
 			flammable = 2,attached_node = 1, sapling = 1},
@@ -318,7 +318,8 @@ function trees.register_sapling(name, def)
 		on_place = trees.sapling_on_place,
 		_minp = def.minp or {x = -2, y = 1, z = -2},
 		_maxp = def.maxp or {x = 2, y = 14, z = 2},
-		_max_interval = def.max_interval or 4
+		_max_interval = def.max_interval or 4,
+		_grow_sapling = def.grow_sapling
 	})
 
 	minetest.register_craft({

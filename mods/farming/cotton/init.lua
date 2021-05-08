@@ -100,11 +100,11 @@ minetest.register_node("cotton:wild", {
 	walkable = false,
 	buildable_to = true,
 	groups = {snappy = 3, attached_node = 1, flammable = 4},
-	drop = "cotton:seed_cotton",
+	drop = "cotton:cotton_seed",
 	sounds = sounds.get_defaults("tree_sounds:leaves"),
 	selection_box = {
 		type = "fixed",
-		fixed = {-6 / 16, -8 / 16, -6 / 16, 6 / 16, 5 / 16, 6 / 16},
+		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -0.3, 6 / 16},
 	},
 })
 

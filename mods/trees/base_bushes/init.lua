@@ -18,7 +18,7 @@ trees.register_bush("base_bushes:apple", {
 		burntime = 3,
 		selection_box = {
 			type = "fixed",
-			fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
+			fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, -0.3, 4 / 16}
 		},
 		minp = {x = -1, y = 0, z = -1},
 		maxp = {x = 1, y = 1, z = 1},
@@ -63,7 +63,7 @@ trees.register_bush("base_bushes:acacia", {
 		burntime = 4,
 		selection_box = {
 			type = "fixed",
-			fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, 2 / 16, 3 / 16}
+			fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -0.3, 3 / 16}
 		},
 		minp =	{x = -1, y = 0, z = -1},
 		maxp = {x = 1, y = 1, z = 1},
@@ -162,7 +162,7 @@ trees.register_bush("base_bushes:blueberry", {
 				minetest.get_node_timer(pos):start(200)
 			else
 				minetest.set_node(pos, {name 
-					= "base_bushes:blueberry_bush_with_berries"})
+					= "base_bushes:blueberry_bush_with_berries_leaves"})
 			end
 		end
 	},
@@ -170,7 +170,7 @@ trees.register_bush("base_bushes:blueberry", {
 		description = S("Blueberry Bush Sapling"),
 		selection_box = {
 			type = "fixed",
-			fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 2 / 16, 4 / 16}
+			fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, -0.3, 4 / 16}
 		},
 		minp = {x = -1, y = 0, z = -1},
 		maxp = {x = 1, y = 1, z = 1},
@@ -234,7 +234,7 @@ trees.register_bush("base_bushes:dry", {
 		sounds = sounds.get_defaults("tree_sounds:leaves"),
 		selection_box = {
 			type = "fixed",
-			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, 4 / 16, 6 / 16},
+			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -0.3, 6 / 16},
 		},
 		burntime = 2
 	},

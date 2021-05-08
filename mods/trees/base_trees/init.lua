@@ -28,7 +28,7 @@ trees.register_tree("base_trees:apple", {
 		minp = {x = -3, y = 1, z = -3},
 		maxp = {x = 3, y = 6, z = 3},
 		grow_sapling = function(pos)
-			local path = base_trees_path .. "/schematics/apple_tree_from_sapling.mts"
+			local path = base_trees_path .. "/schematics/base_trees_apple_from_sapling.mts"
 			minetest.place_schematic({x = pos.x - 3, y = pos.y - 1, z = pos.z - 3},
 				path, "random", nil, false)
 		end
@@ -84,7 +84,7 @@ trees.register_tree("base_trees:acacia", {
 		maxp = {x = 4, y = 7, z = 4},
 		burntime = 6,
 		grow_sapling = function(pos)
-			local path = base_trees_path .. "/schematics/acacia_tree_from_sapling.mts"
+			local path = base_trees_path .. "/schematics/base_trees_acacia_from_sapling.mts"
 			minetest.place_schematic({x = pos.x - 4, y = pos.y - 1, z = pos.z - 4},
 				path, "random", nil, false)
 		end
@@ -135,14 +135,14 @@ trees.register_tree("base_trees:aspen", {
 		description = S("Aspen Tree Sapling"),
 		selection_box = {
 			type = "fixed",
-			fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, 0.5, 3 / 16}
+			fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -0.3, 3 / 16}
 		},
 		groups = {snappy = 2, dig_immediate = 3, flammable = 3, attached_node = 1, 
 			sapling = 1},
 		maxp = {x = 2, y = 12, z = 2},
 		burntime = 4,
 		grow_sapling = function(pos)
-			local path = base_trees_path .. "/schematics/aspen_tree_from_sapling.mts"
+			local path = base_trees_path .. "/schematics/base_trees_aspen_from_sapling.mts"
 			minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 				path, "0", nil, false)
 		end
@@ -197,7 +197,7 @@ trees.register_tree("base_trees:jungle", {
 		maxp = {x = 2, y = 15, z = 2},
 		burntime = 6,
 		grow_sapling = function(pos)
-			local path = base_trees_path .. "/schematics/jungle_tree_from_sapling.mts"
+			local path = base_trees_path .. "/schematics/base_trees_jungle_from_sapling.mts"
 			minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 				path, "random", nil, false)
 		end
@@ -242,20 +242,20 @@ trees.register_tree("base_trees:pine", {
 			if minetest.find_node_near(pos, 1, {"group:snowy"}) then
 				if rand.dy(2) == 2 then
 					path = base_trees_path ..
-						"/schematics/snowy_pine_tree_from_sapling.mts"
+						"/schematics/base_trees_snowy_pine_from_sapling.mts"
 				else
 					path = base_trees_path ..
-						"/schematics/snowy_small_pine_tree_from_sapling.mts"
+						"/schematics/base_trees_snowy_small_pine_from_sapling.mts"
 				end
 				minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 					path, "random", nil, false)
 			else
 				if rand.dy(2) == 2 then
 					path = base_trees_path ..
-						"/schematics/pine_tree_from_sapling.mts"
+						"/schematics/base_trees_pine_from_sapling.mts"
 				else
 					path = base_trees_path ..
-						"/schematics/small_pine_tree_from_sapling.mts"
+						"/schematics/base_trees_small_pine_from_sapling.mts"
 				end
 				minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
 					path, "0", nil, false)
