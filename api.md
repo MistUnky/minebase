@@ -2228,8 +2228,41 @@ EarthDefaults {
 ```
 
 #### register_block
+Registers a block node.
 ```lua
+function earth.register_block(name, def)
+name    : Name
+def     : BlockDef
+
+earth.register_block("mod:node", {
+	-- essential
+
+	-- optional
+	description = "mod_node",
+	short_description = "",
+	groups = {cracky = 2},
+	palette = nil,
+	color = nil,
+	stack_max = 100,
+	range = 4,
+	light_source = 0,
+	node_placement_prediction = nil,
+	node_dig_prediction = "air",
+	sound = nil,
+	tiles = {"mod_node_block.png"},
+	overlay_tiles = nil,
+	special_tiles = nil,
+	use_texture_alpha = false,
+	post_effect_color = nil,
+	is_ground_content = false,
+	diggable = true,
+	leveled = nil,
+	leveled_max = nil,
+	sounds = sounds.get_defaults("earth_sounds:stone"),
+	drop = nil,
+})
 ```
+
 #### register_brick
 Registers a brick node.
 ```lua
@@ -2260,7 +2293,6 @@ earth.register_brick("mod:node", {
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	is_ground_content = true,
-	walkable = true, 
 	diggable = true,
 	leveled = nil,
 	leveled_max = nil,
@@ -2270,8 +2302,38 @@ earth.register_brick("mod:node", {
 
 ```
 #### register_cobble
+Registers a cobble node.
 ```lua
+function earth.register_cobble(name, def)
+name    : Name
+def     : CobbleDef
+
+earth.register_cobble("mod:node", {
+	description = "mod_node",
+	short_description = "",
+	groups = {cracky = 3},
+	palette = nil,
+	color = nil,
+	stack_max = 100,
+	range = 4,
+	light_source = 0,
+	node_placement_prediction = nil,
+	node_dig_prediction = "air",
+	sound = nil,
+	tiles = {"mode_node_cobble.png"},
+	overlay_tiles = nil,
+	special_tiles = nil,
+	use_texture_alpha = false,
+	post_effect_color = nil,
+	is_ground_content = false,
+	diggable = true,
+	leveled = 0,
+	leveled_max = 127,
+	sounds = sounds.get_defaults("earth_sounds:stone"),
+	drop = nil,
+})
 ```
+
 #### register_deco
 ```lua
 ```
@@ -2319,7 +2381,6 @@ earth.register_stone("mod:node", {
 	use_texture_alpha = "opaque",
 	post_effect_color = nil,
 	is_ground_content = true,
-	walkable = true, 
 	diggable = true,
 	leveled = nil,
 	leveled_max = nil,

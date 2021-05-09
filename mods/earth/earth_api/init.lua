@@ -26,7 +26,6 @@ function earth.register_stone(name, def)
 		use_texture_alpha = def.use_texture_alpha,
 		post_effect_color = def.post_effect_color,
 		is_ground_content = def.is_ground_content,
-		walkable = def.walkable, 
 		diggable = def.diggable, 
 		leveled = def.leveled,
 		leveled_max = def.leveled_max,
@@ -57,7 +56,6 @@ function earth.register_brick(name, def)
 		paramtype2 = def.paramtype2 or "facedir",
 		place_param2 = def.place_param2 or 0,
 		is_ground_content = def.is_ground_content,
-		walkable = def.walkable, 
 		diggable = def.diggable,
 		leveled = def.leveled,
 		leveled_max = def.leveled_max,
@@ -70,10 +68,27 @@ function earth.register_block(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name .. "_block", {
 		description = def.description or txt,
-		tiles = def.tiles or {txt .. "_block.png"},
-		is_ground_content = def.is_ground_content or false,
+		short_description = def.short_description,
 		groups = def.groups or {cracky = 2},
-		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
+		palette = def.palette,
+		color = def.color,
+		stack_max = def.stack_max,
+		range = def.range,
+		light_source = def.light_source,
+		node_placement_prediction = def.node_placement_prediction,
+		node_dig_prediction = def.node_dig_prediction,
+		sound = def.sound,
+		tiles = def.tiles or {txt .. "_block.png"},
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha,
+		post_effect_color = def.post_effect_color,
+		is_ground_content = def.is_ground_content or false,
+		diggable = def.diggable,
+		leveled = def.leveled,
+		leveled_max = def.leveled_max,
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone"),
+		drop = def.drop,
 	})
 end
 
@@ -81,10 +96,27 @@ function earth.register_cobble(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name .. "_cobble", {
 		description = def.description or txt,
-		tiles = def.tiles or {txt .. "_cobble.png"},
-		is_ground_content = def.is_ground_content or false,
+		short_description = def.short_description,
 		groups = def.groups or {cracky = 3},
-		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone")
+		palette = def.palette,
+		color = def.color,
+		stack_max = def.stack_max,
+		range = def.range,
+		light_source = def.light_source,
+		node_placement_prediction = def.node_placement_prediction,
+		node_dig_prediction = def.node_dig_prediction,
+		sound = def.sound,
+		tiles = def.tiles or {txt .. "_cobble.png"},
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha,
+		post_effect_color = def.post_effect_color,
+		is_ground_content = def.is_ground_content or false,
+		diggable = def.diggable,
+		leveled = def.leveled,
+		leveled_max = def.leveled_max,
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone"),
+		drop = def.drop,
 	})
 end
 

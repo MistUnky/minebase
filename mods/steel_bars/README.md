@@ -7,10 +7,6 @@ from one and you need three steel ingots to craft one steel bar.
 
 Authors of source code
 ----------------------
-Originally by xyz (MIT)  
-BlockMen (MIT)  
-sofar (MIT)  
-Various Minetest developers and contributors (MIT)  
 LibraSubtilis (MIT)
 
 Authors of media (textures)
