@@ -37,7 +37,7 @@ end
 function earth.register_brick(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name .. "_brick", {
-		description = def.description or txt,
+		description = def.description or txt .. "_brick",
 		short_description = def.short_description,
 		groups = def.groups or {cracky = 2},
 		palette = def.palette,
@@ -67,7 +67,7 @@ end
 function earth.register_block(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name .. "_block", {
-		description = def.description or txt,
+		description = def.description or txt .. "_block",
 		short_description = def.short_description,
 		groups = def.groups or {cracky = 2},
 		palette = def.palette,
@@ -95,7 +95,7 @@ end
 function earth.register_cobble(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name .. "_cobble", {
-		description = def.description or txt,
+		description = def.description or txt .. "_cobble",
 		short_description = def.short_description,
 		groups = def.groups or {cracky = 3},
 		palette = def.palette,
@@ -153,22 +153,42 @@ function earth.register_sand(name, def)
 	local txt = name:gsub(":", "_")
 	minetest.register_node(name, {
 		description = def.description or txt,
-		tiles = def.tiles or {txt .. ".png"},
+		short_description = def.short_description,
 		groups = def.groups or {crumbly = 3, falling_node = 1, sand = 1},
+		palette = def.palette,
+		color = def.color,
+		stack_max = def.stack_max,
+		range = def.range,
+		light_source = def.light_source,
+		node_placement_prediction = def.node_placement_prediction,
+		node_dig_prediction = def.node_dig_prediction,
+		sound = def.sound,
+		tiles = def.tiles or {txt .. ".png"},
+		overlay_tiles = def.overlay_tiles,
+		special_tiles = def.special_tiles,
+		use_texture_alpha = def.use_texture_alpha,
+		post_effect_color = def.post_effect_color,
 		is_ground_content = def.is_ground_content or false,
+		diggable = def.diggable,
+		leveled = def.leveled,
+		leveled_max = def.leveled_max,
 		sounds = def.sounds or sounds.get_defaults("earth_sounds:sand")
+		drop = def.drop,
 	})
 end
 
 function earth.register_ore(name, def)
 	minetest.register_ore({
-		ore_type = def.type or "blob",
+		ore_type = "blob",
 		ore = name,
+		ore_param2 = def.ore_param2,
 		wherein = def.wherein or {earth.stone},
 		clust_scarcity = def.clust_scarcity or 16 * 16 * 16,
+		clust_num_ores = def.clust_num_ores or 8,
 		clust_size = def.clust_size or 5,
 		y_max = def.y_max or 31000,
 		y_min = def.y_min or -31000,
+		flags = def.flags,
 		noise_threshold = def.noise_threshold or 0.0,
 		noise_params = def.noise_params or {
 			offset = 0.5,
@@ -237,6 +257,7 @@ function earth.register_deco(name, def)
 		deco_type = def.deco_type or "simple",
 		place_on = def.place_on,
 		sidelen = def.sidelen or 4,
+		fill_ratio = def.fill_ratio,
 		noise_params = def.noise_params or {
 			offset = -1.25,
 			scale = 0.25,
@@ -246,11 +267,20 @@ function earth.register_deco(name, def)
 			persist = 1.0
 		},
 		biomes = def.biomes,
-		y_max = def.y_max or 31000,
 		y_min = def.y_min or 1,
-		decoration = def.decoration,
-		place_offset_y = def.place_offset_y or -1,
+		y_max = def.y_max or 31000,	
+		spawn_by = def.spawn_by,
+		num_spawn_by = def.num_spawn_by,
 		flags = def.flags or "force_placement"
+		place_offset_y = def.place_offset_y or -1,
+		decoration = def.decoration,
+		height = def.height,
+		height_max = def.height_max,
+		param2 = def.param2,
+		param2_max = def.param2_max,
+		schematic = def.schematic,
+		replacements = def.replacements,
+		rotation = def.rotation,
 	})
 end
 
