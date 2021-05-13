@@ -172,7 +172,7 @@ function earth.register_sand(name, def)
 		diggable = def.diggable,
 		leveled = def.leveled,
 		leveled_max = def.leveled_max,
-		sounds = def.sounds or sounds.get_defaults("earth_sounds:sand")
+		sounds = def.sounds or sounds.get_defaults("earth_sounds:sand"),
 		drop = def.drop,
 	})
 end
@@ -271,7 +271,7 @@ function earth.register_deco(name, def)
 		y_max = def.y_max or 31000,	
 		spawn_by = def.spawn_by,
 		num_spawn_by = def.num_spawn_by,
-		flags = def.flags or "force_placement"
+		flags = def.flags or "force_placement",
 		place_offset_y = def.place_offset_y or -1,
 		decoration = def.decoration,
 		height = def.height,
