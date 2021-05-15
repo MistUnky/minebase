@@ -38,6 +38,8 @@ earth.register_block("mod:node", {
 	special_tiles = nil,
 	use_texture_alpha = false,
 	post_effect_color = nil,
+	paramtype2 = nil,
+	place_param2 = nil,
 	is_ground_content = false,
 	diggable = true,
 	leveled = nil,
@@ -112,6 +114,8 @@ earth.register_cobble("mod:node", {
 	special_tiles = nil,
 	use_texture_alpha = false,
 	post_effect_color = nil,
+	paramtype2 = nil,
+	place_param2 = nil,
 	is_ground_content = false,
 	diggable = true,
 	leveled = 0,
@@ -169,6 +173,7 @@ earth.register_deco("mod:deco", {
 #### register_nodes_with
 ```lua
 ```
+
 #### register_ore
 Registers a blob ore.
 ```lua
@@ -230,6 +235,8 @@ function earth.register_sand("mod:node", {
 	special_tiles = nil,
 	use_texture_alpha = "opague",
 	post_effect_color = nil,
+	paramtype2 = nil,
+	place_param2 = nil,
 	is_ground_content = false,
 	diggable = true,
 	leveled = 0,
@@ -386,6 +393,8 @@ earth.register_stone("mod:node", {
 	special_tiles = nil,
 	use_texture_alpha = "opaque",
 	post_effect_color = nil,
+	paramtype2 = nil,
+	place_param2 = nil,
 	is_ground_content = true,
 	diggable = true,
 	leveled = nil,

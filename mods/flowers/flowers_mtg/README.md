@@ -4,5 +4,7 @@ See [license.txt](./license.txt) for license information.
 
 Authors of source code
 ----------------------
-LibraSubtilis (LGPLv2.1+)
+Originally by Ironzorg (MIT) and VanessaE (MIT)  
+Various Minetest developers and contributors (MIT)
+LibraSubtilis (MIT)  
 

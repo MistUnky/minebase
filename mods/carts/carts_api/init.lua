@@ -599,6 +599,7 @@ function carts.register_rail(name, def)
 		post_effect_color = def.post_effect_color,
 		paramtype = "light",
 		paramtype2 = def.paramtype,
+		place_param2 = def.place_param2,
 		is_ground_content = false,
 		sunlight_propagates = true,
 		walkable = def.walkable or false,

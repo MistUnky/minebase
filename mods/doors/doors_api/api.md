@@ -148,6 +148,8 @@ doors.register_door("mod:node", {
 	overlay_tiles = nil,
 	special_tiles = nil,
 	use_texture_alpha = "clip",
+	paramtype2 = "facedir",
+	place_param2 = nil,
 	sunlight_propagates = true,
 	selection_box = {
 		type = "fixed", 
@@ -177,7 +179,6 @@ doors.register_door("mod:node", {
 
 	-- fixed
 	paramtype = "light",
-	paramtype2 = "facedir",
 	is_ground_content = false,
 	walkable = true,
 	buildable_to = false,
@@ -220,6 +221,7 @@ doors.register_trapdoor("mod:node", {
 	overlay_tiles = nil,
 	special_tiles = nil,
 	use_texture_alpha = "clip",
+	paramtype2 = "facedir",
 	place_param2 = nil, 
 	sunlight_propagates = true,
 	node_box = trapdoorNodebox,
@@ -244,7 +246,6 @@ doors.register_trapdoor("mod:node", {
 
 	-- fixed
 	paramtype = "light",
-	paramtype2 = "facedir",
 	is_ground_content = false,
 	walkable = true,
 	buildable_to = false,

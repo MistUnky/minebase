@@ -349,6 +349,8 @@ beds.register_bed("mod:node", {
 		bottom = nil,
 		top = nil
 	},
+	paramtype2 = "facedir",
+	place_param2 = nil,
 	node_box = {
 		bottom = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
 		top = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
@@ -372,7 +374,6 @@ beds.register_bed("mod:node", {
 	visual_scale = 1,
 	use_texture_alpha = "clip",
 	paramtype = "light",
-	paramtype2 = "facedir",
 	is_ground_content = false,
 	sunlight_propagates = false,
 	walkable = true,
@@ -1081,6 +1082,7 @@ carts.register_rail("mod:node", {
 	post_effect_color = nil,
 	paramtype = "light",
 	paramtype2 = "none",
+	place_param2 = nil,
 	walkable = false,
 	pointable = true, 
 	diggable = true,
@@ -1227,6 +1229,8 @@ containers.register_container("mod:node", {
 		overlay_tiles = nil,
 		special_tiles = nil,
 		use_texture_alpha = "opaque",
+		paramtype2 = "facedir",
+		place_param2 = nil,
 		node_box = nil,
 		connects_to = nil,
 		connect_sides = nil,
@@ -1266,7 +1270,6 @@ containers.register_container("mod:node", {
 		-- fixed
 		liquids_pointable = false,
 		paramtype = "light",
-		paramtype2 = "facedir",
 		is_ground_content = false,
 		sunlight_propagates = false,
 		walkable = true, 
@@ -1299,6 +1302,8 @@ containers.register_container("mod:node", {
 		}
 		overlay_tiles = nil,
 		special_tiles = nil,
+		paramtype2 = "facedir",
+		place_param2 = nil,
 		node_box = nil,
 		connects_to = nil,
 		connect_sides = nil,
@@ -1337,7 +1342,6 @@ containers.register_container("mod:node", {
 		on_drop = minetest.item_drop,
 		use_texture_alpha = "opaque",
 		paramtype = "light",
-		paramtype2 = "facedir",
 		is_ground_content = false,
 		sunlight_propagates = false,
 		walkable = true, 
@@ -1907,6 +1911,8 @@ doors.register_door("mod:node", {
 	overlay_tiles = nil,
 	special_tiles = nil,
 	use_texture_alpha = "clip",
+	paramtype2 = "facedir",
+	place_param2 = nil,
 	sunlight_propagates = true,
 	selection_box = {
 		type = "fixed", 
@@ -1936,7 +1942,6 @@ doors.register_door("mod:node", {
 
 	-- fixed
 	paramtype = "light",
-	paramtype2 = "facedir",
 	is_ground_content = false,
 	walkable = true,
 	buildable_to = false,
@@ -1979,6 +1984,7 @@ doors.register_trapdoor("mod:node", {
 	overlay_tiles = nil,
 	special_tiles = nil,
 	use_texture_alpha = "clip",
+	paramtype2 = "facedir",
 	place_param2 = nil, 
 	sunlight_propagates = true,
 	node_box = trapdoorNodebox,
@@ -2003,7 +2009,6 @@ doors.register_trapdoor("mod:node", {
 
 	-- fixed
 	paramtype = "light",
-	paramtype2 = "facedir",
 	is_ground_content = false,
 	walkable = true,
 	buildable_to = false,
@@ -2254,6 +2259,8 @@ earth.register_block("mod:node", {
 	special_tiles = nil,
 	use_texture_alpha = false,
 	post_effect_color = nil,
+	paramtype2 = nil,
+	place_param2 = nil,
 	is_ground_content = false,
 	diggable = true,
 	leveled = nil,
@@ -2328,6 +2335,8 @@ earth.register_cobble("mod:node", {
 	special_tiles = nil,
 	use_texture_alpha = false,
 	post_effect_color = nil,
+	paramtype2 = nil,
+	place_param2 = nil,
 	is_ground_content = false,
 	diggable = true,
 	leveled = 0,
@@ -2385,6 +2394,7 @@ earth.register_deco("mod:deco", {
 #### register_nodes_with
 ```lua
 ```
+
 #### register_ore
 Registers a blob ore.
 ```lua
@@ -2446,6 +2456,8 @@ function earth.register_sand("mod:node", {
 	special_tiles = nil,
 	use_texture_alpha = "opague",
 	post_effect_color = nil,
+	paramtype2 = nil,
+	place_param2 = nil,
 	is_ground_content = false,
 	diggable = true,
 	leveled = 0,
@@ -2602,6 +2614,8 @@ earth.register_stone("mod:node", {
 	special_tiles = nil,
 	use_texture_alpha = "opaque",
 	post_effect_color = nil,
+	paramtype2 = nil,
+	place_param2 = nil,
 	is_ground_content = true,
 	diggable = true,
 	leveled = nil,

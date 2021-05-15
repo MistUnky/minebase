@@ -108,6 +108,8 @@ containers.register_container("mod:node", {
 		overlay_tiles = nil,
 		special_tiles = nil,
 		use_texture_alpha = "opaque",
+		paramtype2 = "facedir",
+		place_param2 = nil,
 		node_box = nil,
 		connects_to = nil,
 		connect_sides = nil,
@@ -147,7 +149,6 @@ containers.register_container("mod:node", {
 		-- fixed
 		liquids_pointable = false,
 		paramtype = "light",
-		paramtype2 = "facedir",
 		is_ground_content = false,
 		sunlight_propagates = false,
 		walkable = true, 
@@ -180,6 +181,8 @@ containers.register_container("mod:node", {
 		}
 		overlay_tiles = nil,
 		special_tiles = nil,
+		paramtype2 = "facedir",
+		place_param2 = nil,
 		node_box = nil,
 		connects_to = nil,
 		connect_sides = nil,
@@ -218,7 +221,6 @@ containers.register_container("mod:node", {
 		on_drop = minetest.item_drop,
 		use_texture_alpha = "opaque",
 		paramtype = "light",
-		paramtype2 = "facedir",
 		is_ground_content = false,
 		sunlight_propagates = false,
 		walkable = true, 

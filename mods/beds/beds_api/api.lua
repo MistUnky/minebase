@@ -166,7 +166,8 @@ function beds.register_bed(name, def)
 		special_tiles = def.special_tiles and def.special_tiles.bottom or nil,
 		use_texture_alpha = "clip",
 		paramtype = "light",
-		paramtype2 = "facedir",
+		paramtype2 = def.paramtype2 or "facedir",
+		place_param2 = def.place_param2,
 		is_ground_content = false,
 		node_box = {
 			type = "fixed",
@@ -207,7 +208,8 @@ function beds.register_bed(name, def)
 		special_tiles = def.special_tiles and def.special_tiles.top or nil,
 		use_texture_alpha = "clip",
 		paramtype = "light",
-		paramtype2 = "facedir",
+		paramtype2 = def.paramtype2 or "facedir",
+		place_param2 = def.place_param2,
 		is_ground_content = false,
 		pointable = false,
 		node_box = {

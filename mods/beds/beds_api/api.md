@@ -157,6 +157,8 @@ beds.register_bed("mod:node", {
 		bottom = nil,
 		top = nil
 	},
+	paramtype2 = "facedir",
+	place_param2 = nil,
 	node_box = {
 		bottom = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
 		top = {-0.5, -0.5, -0.5, 0.5, 0.0625, 0.5},
@@ -180,7 +182,6 @@ beds.register_bed("mod:node", {
 	visual_scale = 1,
 	use_texture_alpha = "clip",
 	paramtype = "light",
-	paramtype2 = "facedir",
 	is_ground_content = false,
 	sunlight_propagates = false,
 	walkable = true,

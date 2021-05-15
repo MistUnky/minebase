@@ -15,6 +15,12 @@ and want to contribute to this project, use the appropriate tools on Gitlab.
 
 The API is mostly stable. I am currently creating descriptions for the APIs.
 
+API Documentation
+-----------------
+I started to write documentations for the APIs of the modules, but stopped doing 
+so because nearly nobody showed interest in the game. If people start playing 
+it, I am going to work on it again.
+
 Installation
 ------------
 

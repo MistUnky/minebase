@@ -291,6 +291,7 @@ carts.register_rail("mod:node", {
 	post_effect_color = nil,
 	paramtype = "light",
 	paramtype2 = "none",
+	place_param2 = nil,
 	walkable = false,
 	pointable = true, 
 	diggable = true,

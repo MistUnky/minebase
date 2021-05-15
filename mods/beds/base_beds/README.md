@@ -8,6 +8,7 @@ Authors of source code
 ----------------------
 Originally by BlockMen (MIT)  
 Various Minetest developers and contributors (MIT)
+LibraSubtilis (MIT)
 
 Authors of media (textures)
 ---------------------------

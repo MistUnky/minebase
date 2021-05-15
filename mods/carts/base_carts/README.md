@@ -4,6 +4,7 @@ See [license.txt](./license.txt) for license information.
 
 Base Cart, based almost entirely on the mod `boost_cart`[1], which itself is 
 based on (and fully compatible with) the carts mod[2].
+Modified by LibraSubtilis
 
 Cart textures are based on original work from PixelBOX by Gambit (permissive 
 license).
