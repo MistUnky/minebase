@@ -36,6 +36,7 @@ function magnifiers.register_magnifier(name, def)
 	minetest.register_craftitem(name, {
 		description = (def.description  or name) .. "\n" 
 			.. S("Use with 'Zoom' key"),
+		groups = def.groups or {tool = 1},
 		inventory_image = def.inventory_image or txt .. ".png",
 		wield_image = def.wield_image or txt .. ".png",
 		stack_max = 1,
