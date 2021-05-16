@@ -7,6 +7,7 @@ Base Inventory. A crafting page.
 Authors of source code
 ----------------------
 rubenwardy (MIT)
+LibraSubtilis (MIT)
 
 Authors of media (textures)
 ---------------------------

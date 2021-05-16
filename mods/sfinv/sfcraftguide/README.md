@@ -6,6 +6,12 @@ again to show usages.
 
 Based on [craftguide](https://github.com/minetest-mods/craftguide).
 
+Authors of source code
+----------------------
+Jean-Patrick Guerrero and contributors (MIT)
+pauloue (MIT)
+LibraSubtilis (MIT)
+
 Authors of media (textures)
 ---------------------------
 ```txt

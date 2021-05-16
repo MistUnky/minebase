@@ -27,9 +27,14 @@ function rand.seq(a, z)
 	for i = a, z do
 		table.insert(seq, i)
 	end
-	return function()
-		return #seq > 0 and table.remove(seq, rand.pr:next(1, #seq)) or nil
+	local tmp
+	for i = 1, #seq do
+		j = rand.dy(#seq)
+		tmp = seq[i]
+		seq[i] = seq[j]
+		seq[j] = tmp
 	end
+	return seq
 end
 
 function rand.pick(parts, vals, count)

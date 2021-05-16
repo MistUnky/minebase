@@ -2,4 +2,7 @@ Minebase mod: Weather
 =====================
 See [license.txt](./license.txt) for license information.
 
-Source code by paramat (MIT).
+Authors of source code
+----------------------
+paramat (MIT)
+LibraSubtilis (MIT)

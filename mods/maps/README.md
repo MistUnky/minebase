@@ -37,6 +37,7 @@ Crafting
 Authors of source code
 ----------------------
 paramat (MIT)
+LibraSubtilis (MIT)
 
 Authors of media (textures)
 ---------------------------

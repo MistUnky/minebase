@@ -8,6 +8,7 @@ Originally by xyz (MIT)
 BlockMen (MIT)  
 sofar (MIT)  
 Various Minetest developers and contributors (MIT)
+LibraSubtilis (MIT)
 
 Authors of media (textures)
 ---------------------------
