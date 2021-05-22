@@ -13,7 +13,7 @@ not going to be added.
 Regarding mods quality is more important than quantity. In case you like to mod 
 and want to contribute to this project, use the appropriate tools on Gitlab.
 
-Version 0.1.0.0 is the stable release.
+Version 0.1.0.0 is the first release.
 
 API Documentation
 -----------------

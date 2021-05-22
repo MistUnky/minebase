@@ -1,10 +1,11 @@
 Minebase is a game for the Minetest Engine. It is a fork of Minetest Game and thus shares many features with it, but much of the code was refactored to address the discontent with it. This implies that many mods made for Minetest Game won't work in this game. You have to check the dependencies of the mods to be sure. If a mod depends on default or another mod that has been removed or changed significantly, you will get error messages.
 Similar to Minetest Game, this game is a base for modding. I am going to add mods with new features, but mods like "More Trees" or "Minetest Game Plus" are not going to be added. Regarding mods quality is more important than quantity. In case you like to mod and want to contribute to this project, use the appropriate tools on Gitlab.
 
-Version 0.1 is the last stable release. 
+Version 0.1 is the first release. 
 
 Links:
-[url=https://gitlab.com/LibraSubtilis/minebase/-/archive/master/minebase-master.zip]unstable[/url]
+[url=https://gitlab.com/LibraSubtilis/minebase/-/tags/v0.1.0.0]Version 0.1[/url]
+[url=https://gitlab.com/LibraSubtilis/minebase/-/archive/master/minebase-master.zip]master[/url]
 [url=https://gitlab.com/LibraSubtilis/minebase]Source[/url]
 
 [b]Installation[/b]
