@@ -13,7 +13,7 @@ not going to be added.
 Regarding mods quality is more important than quantity. In case you like to mod 
 and want to contribute to this project, use the appropriate tools on Gitlab.
 
-The API is mostly stable. I am currently creating descriptions for the APIs.
+Version 0.1.0.0 is the stable release.
 
 API Documentation
 -----------------

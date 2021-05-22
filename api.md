@@ -1119,6 +1119,31 @@ return  : Vector ⊆ {(1, 1, 0), (1, -1, 0), (-1, 1, 0), (-1, -1, 0), (0, 1, 1),
         (0, 1, -1), (0, -1, 1), (0, -1, -1)}
 ```
 
+Killme 
+------
+#### command "killme"
+```lua
+```
+
+Sethome 
+------
+#### command "home"
+```lua
+```
+#### command "sethome"
+```lua
+```
+#### get
+```lua
+```
+#### go
+```lua
+```
+#### set
+```lua
+```
+
+
 Containers 
 ------
 
@@ -2981,12 +3006,6 @@ Initial Stuff
 ```
 
 
-Killme 
-------
-#### command "killme"
-```lua
-```
-
 Ladders 
 ------
 #### register_ladder
@@ -3267,25 +3286,6 @@ Seats API
 #### on_rightclick
 ```lua
 ```
-
-Sethome 
-------
-#### command "home"
-```lua
-```
-#### command "sethome"
-```lua
-```
-#### get
-```lua
-```
-#### go
-```lua
-```
-#### set
-```lua
-```
-
 
 Inv Utils API 
 -------------
