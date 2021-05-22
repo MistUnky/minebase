@@ -4,7 +4,6 @@ Similar to Minetest Game, this game is a base for modding. I am going to add mod
 Version 0.1 is the first release. 
 
 Links:
-[url=https://gitlab.com/LibraSubtilis/minebase/-/tags/v0.1.0.0]Version 0.1[/url]
 [url=https://gitlab.com/LibraSubtilis/minebase/-/archive/master/minebase-master.zip]master[/url]
 [url=https://gitlab.com/LibraSubtilis/minebase]Source[/url]
 
