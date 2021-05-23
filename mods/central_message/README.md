@@ -4,7 +4,6 @@
 * Author: Wuzzy
 * License of everything: MIT License
 * Shortname: `central_message`
-* Version: 0.3.0 (using Semantic Versioning 2.0.0, see [SemVer](http://semver.org/))
 
 ## Longer description
 This Minetest mod allows other mods to display a short message at the center of the screen.

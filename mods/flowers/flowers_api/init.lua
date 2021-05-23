@@ -207,7 +207,7 @@ function flowers.on_place_waterlily(itemstack, placer, pointed_thing)
 				itemstack:take_item()
 			end
 		else
-			minetest.chat_send_player(player_name, "Node is protected")
+			cmsg.push_message_player(player, "Node is protected")
 			minetest.record_protection_violation(pos, player_name)
 		end
 	end

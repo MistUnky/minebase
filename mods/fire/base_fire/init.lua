@@ -49,7 +49,7 @@ function fire.on_use_lighter(itemstack, user, pointed_thing)
 			return
 		end
 		if minetest.is_protected(pointed_thing.under, player_name) then
-			minetest.chat_send_player(player_name, "This area is protected")
+			cmsg.push_message_player(user, "This area is protected")
 			return
 		end
 		if nodedef.on_ignite then

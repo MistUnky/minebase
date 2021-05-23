@@ -16,3 +16,4 @@ sfinv.register_page("base_inv:crafting", {
 	end,
 	homepage = true
 })
+

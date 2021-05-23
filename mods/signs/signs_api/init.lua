@@ -20,7 +20,7 @@ function signs.on_receive_fields(pos, formname, fields, sender)
 		return
 	end
 	if string.len(text) > 512 then
-		minetest.chat_send_player(player_name, S("Text too long"))
+		cmsg.push_message_player(sender, S("Text too long"))
 		return
 	end
 	local meta = minetest.get_meta(pos)

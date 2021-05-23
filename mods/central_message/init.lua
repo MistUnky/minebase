@@ -7,7 +7,7 @@ cmsg.settings = {}
 cmsg.next_msgids = {}
 
 cmsg.settings.max_messages = 7
-local setting = minetest.setting_get("central_message_max")
+local setting = minetest.settings:get("central_message_max")
 if type(tonumber(setting)) == "number" then
 	if tonumber(setting) == 0 then
 		-- Infinite messages
@@ -18,7 +18,7 @@ if type(tonumber(setting)) == "number" then
 end
 
 cmsg.settings.color = 0xFFFFFF
-setting = minetest.setting_get("central_message_color")
+setting = minetest.settings:get("central_message_color")
 if setting then
 	local r, g, b = string.match(setting, "%((%d+),(%d+),(%d+)%)")
 	r = tonumber(r)
@@ -33,7 +33,7 @@ if setting then
 end
 
 cmsg.settings.display_time = 5
-local setting = minetest.setting_get("central_message_time")
+local setting = minetest.settings:get("central_message_time")
 if type(tonumber(setting)) == "number" then
 	if tonumber(setting) >= 1 then
 		cmsg.settings.display_time = tonumber(setting)
@@ -89,8 +89,8 @@ cmsg.push_message_player = function(player, text)
 				hud_elem_type = "text",
 				text = text,
 				number = cmsg.settings.color,
-				position = {x=0.5, y=0.5},
-				offset = {x=-0,y=-256},
+				position = {x=0.5, y=0.1},
+				offset = {x=-0,y=0},
 				direction = 3,
 				alignment = {x=0,y=1},
 				scale = {x=800,y=20*cmsg.settings.max_messages},

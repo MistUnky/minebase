@@ -91,14 +91,15 @@ function beds.lay_down(player, pos, bed_pos, state, skip)
 		-- Check if bed is occupied
 		for _, other_pos in pairs(beds.bed_position) do
 			if vector.distance(bed_pos, other_pos) < 0.1 then
-				minetest.chat_send_player(name, S("This bed is already occupied!"))
+				cmsg.push_message_player(player, S("This bed is already occupied!"))
 				return false
 			end
 		end
 
 		-- Check if player is moving
 		if vector.length(player:get_velocity()) > 0.001 then
-			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+			cmsg.push_message_player(player, S("You have to stop moving before" 
+				.. " going to bed!"))
 			return false
 		end
 
@@ -185,7 +186,7 @@ function beds.on_rightclick(pos, player)
 		if beds.player[name] then
 			beds.lay_down(player, nil, nil, false)
 		end
-		minetest.chat_send_player(name, S("You can only sleep at night."))
+		cmsg.push_message_player(player, S("You can only sleep at night."))
 		return
 	end
 

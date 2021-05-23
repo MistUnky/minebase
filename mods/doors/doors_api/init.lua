@@ -316,7 +316,7 @@ function doors.on_skeleton_key_use(pos, player, newsecret)
 	-- verify placer is owner of lockable door
 	if owner ~= pname then
 		minetest.record_protection_violation(pos, pname)
-		minetest.chat_send_player(pname, S("Owned by @1", pname))
+		cmsg.push_message_player(player, S("Owned by @1", pname))
 		return nil
 	end
 

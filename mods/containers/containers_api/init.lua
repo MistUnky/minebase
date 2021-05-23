@@ -286,9 +286,9 @@ function containers.protected.on_skeleton_key_use(pos, player, newsecret)
 	-- verify placer is owner of lockable container
 	if owner ~= pn then
 		minetest.record_protection_violation(pos, pn)
-		minetest.chat_send_player(pn, minetest.registered_nodes
-			[minetest.get_node(pos).name].description .. " ".. S("(owned by @1)", 
-			meta:get_string("owner")))
+		cmsg.push_message_player(player, minetest.registered_nodes
+			[minetest.get_node(pos).name].description .. " " .. S("(owned by @1)", 
+				meta:get_string("owner")))
 		return nil
 	end
 
