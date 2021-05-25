@@ -736,6 +736,16 @@ two     : Mixed
 return  : Mixed
 ```
 
+Borders API
+-----------
+#### register_layer
+Registers a three block thick layer of indestructable bedrock.
+```lua
+function borders.register_layer(name, def)
+name    : Name
+def	: BottomBorder
+```
+
 Buckets 
 ------
 #### on_place
@@ -3659,13 +3669,13 @@ sfinv
 ```lua
 ```
 
-API documentation for [sfinv_buttons]
+sfInv Buttons
 ------
 
 Use this very simple API to add your own buttons to the new tab. There is only
 one function: sfinv_buttons.register_button.
 
-#### sfinv_buttons.register_button
+#### register_button
 ```lua
 sfinv_buttons.register_button(name, def)
 name    : Name 

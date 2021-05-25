@@ -33,6 +33,7 @@ function earth.register_stone(name, def)
 		leveled_max = def.leveled_max,
 		sounds = def.sounds or sounds.get_defaults("earth_sounds:stone"),
 		drop = def.drop,
+		on_blast = def.on_blast
 	})
 end
 

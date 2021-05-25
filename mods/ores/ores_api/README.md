@@ -1,6 +1,9 @@
 Minebase mod: Ores API
-==========================
+======================
 See [license.txt](./license.txt) for license information.
+
+The dependency to Borders API is necessary to prevent ores generating in the 
+layers reserved for bedrock.
 
 Authors of source code
 ----------------------

@@ -1,10 +1,10 @@
-API documentation for [sfinv_buttons]
+sfInv Buttons
 ------
 
 Use this very simple API to add your own buttons to the new tab. There is only
 one function: sfinv_buttons.register_button.
 
-#### sfinv_buttons.register_button
+#### register_button
 ```lua
 sfinv_buttons.register_button(name, def)
 name    : Name 
