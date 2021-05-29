@@ -14,7 +14,8 @@ earth.register_stone("bottom:bedrock", {
 	on_blast = function() end
 })
 
-borders.register_layer("bottom:bedrock", {
+borders.register_layer({
+	ore = "bottom:bedrock",
 	wherein = {"group:stone", "air", "group:sand", "base_earth:dirt", 
 		"base_earth:gravel"},
 	y = -30912
