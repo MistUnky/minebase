@@ -1,7 +1,9 @@
 -- worlds_end/init.lua
 
+local S = minetest.get_translator("worlds_end")
+
 minetest.register_node("worlds_end:air", {
-	description = "Air",
+	description = S("Dense Air"),
 	groups = {not_in_creative_inventory = 1},
 	node_dig_prediction = "worlds_end:air",
 	drawtype = "airlike",
@@ -25,6 +27,18 @@ borders.register_wall({
 
 borders.register_wall({
 	axis = "x",
+	value = -30912,
+	node = "worlds_end:air"
+})
+
+borders.register_wall({
+	axis = "z",
+	value = 30927,
+	node = "worlds_end:air"
+})
+
+borders.register_wall({
+	axis = "z",
 	value = -30912,
 	node = "worlds_end:air"
 })

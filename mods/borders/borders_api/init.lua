@@ -25,7 +25,7 @@ end
 
 minetest.register_on_generated(function(min, max, blockseed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
-	local data=vm:get_data()
+	local data = vm:get_data()
 	local va = VoxelArea:new({MinEdge = emin, MaxEdge = emax})
 	local pmin = vector.new(emin)
 	local pmax = vector.new(emax)
@@ -43,6 +43,22 @@ minetest.register_on_generated(function(min, max, blockseed)
 			end
 		end
 	end
+	pmin = vector.new(emin)
+	pmax = vector.new(emax)
+	for z, name in pairs(borders.z) do
+		cId = minetest.get_content_id(name)
+		if z >= emin.z and z <= emax.z then
+			if vm:get_node_at({x = emin.x + 40, y = emin.y + 40, z = z}).name ~= name 
+				then
+				pmin.z = z
+				pmax.z = z
+				for index in va:iterp(pmin, pmax) do
+					data[index] = cId
+				end
+			end
+		end
+	end
 	vm:set_data(data)
-	vm:write_to_map()
+	vm:calc_lighting()
+	vm:write_to_map(true)
 end)
