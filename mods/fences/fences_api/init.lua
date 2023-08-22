@@ -224,7 +224,7 @@ local function register_gate(name, def)
 		connect_sides = def.connect_sides or {"left", "right"},
 		groups = groups,
 		sounds = def.sounds or sounds.get_defaults("tree_sounds:wood"),
-		sound = sound,
+		sound = {sound},
 		swap = swap,
 		mesh = def.mesh or mesh,
 		collision_box = def.collision_box or collision_box,

@@ -354,7 +354,7 @@ local function register_container(name, def)
 		light_source = def.light_source,
 		node_placement_prediction = def.node_placement_prediction,
 		node_dig_prediction = def.node_dig_prediction,
-		sound = def.sound,
+		sound = {def.sound},
 		drawtype = def.drawtype,
 		visual = def.visual,
 		tiles = tiles,
